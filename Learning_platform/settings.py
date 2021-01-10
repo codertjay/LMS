@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'courses',
     'memberships',
 
+    'import_export',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -126,8 +127,8 @@ LOGOUT_REDIRECT_URL = '/'
 SIGNUP_REDIRECT_URL = '/profile/profileUpdate/'
 
 if DEBUG:
-    STRIPE_PUBLISHABLE_KEY ='pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ'
-    STRIPE_SECRET_KEY ='sk_test_51I7JYzAS6n0shLOq6XZJdgF0ihJh4ZanPMqWMELlomYfJ3vZXQwq4kWj4fsXhsOsWE1DQm0AgIV2pD7yZcKEyKG9005LDdWKEU'
+    STRIPE_PUBLISHABLE_KEY = 'pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ'
+    STRIPE_SECRET_KEY = 'sk_test_51I7JYzAS6n0shLOq6XZJdgF0ihJh4ZanPMqWMELlomYfJ3vZXQwq4kWj4fsXhsOsWE1DQm0AgIV2pD7yZcKEyKG9005LDdWKEU'
 
 else:
     # live keys

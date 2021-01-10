@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
 import stripe
-
+from datetime import datetime
 # Create your models here.
 MembershipType = (
     ('Free', 'Free'),
@@ -13,6 +13,7 @@ MembershipType = (
 User = settings.AUTH_USER_MODEL
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 class Membership(models.Model):
     slug = models.SlugField()
@@ -36,11 +37,19 @@ class UserMembership(models.Model):
 class Subscription(models.Model):
     user_membership = models.ForeignKey(UserMembership, on_delete=models.CASCADE)
     stripe_subscription_id = models.CharField(max_length=40)
-    active = models.BooleanField()
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user_membership.user.username
 
+    @property
+    def get_created_date(self):
+        subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
+        return datetime.fromtimestamp(subscription.created)
+    @property
+    def get_next_billing_date(self):
+        subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
+        return datetime.fromtimestamp(subscription.current_period_end)
 
 def post_save_user_membership_create(sender, instance, created, *args, **kwargs):
     if created:

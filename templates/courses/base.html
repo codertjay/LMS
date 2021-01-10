@@ -7,34 +7,49 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'courses/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% block styles %}
+
+    {% endblock %}
 </head>
 <body>
-<div class="container">
-    <ul class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="/">Profile</a></li>
 
-        {% block post_detail_link %}
-        {% endblock %}
+<nav class="navbar navbar-expand-lg navbar-light navbar-dark bg-primary">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'courses:list' %}">LMS</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if not request.user.is_authenticated %}
 
-        {% if not request.user.is_authenticated %}
-            <li class="pull-right">
-                <a href="/register">Register</a>
-            </li>
-            <li class="pull-right">
-                <a href="/register">Register</a>
-            </li>
-            <li class="pull-right">
-                <a href="/register">Register</a>
-            </li>
-            <li class="pull-right">
-                <a href="/memberships">Memberships</a>
-            </li>
-
-        {% endif %}
-    </ul>
-</div>
+                    <li class="nav-item">
+                        <a class="nav-link" href='{% url "account_signup" %}'>Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='{% url "account_login" %}'>Login</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href='{% url "memberships:membership_select" %}'>Memberships</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='{% url "account_logout" %}'>Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='{% url "memberships:profile" %}'>Profile</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex pull-right" action="{% url 'courses:list' %}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
 
 {% if messages %}
     {% for message in messages %}
@@ -48,11 +63,17 @@
 {% endif %}
 
 {% block content %}
+    <div class="container">
+
+
+    </div>
 
 {% endblock content %}
-<script src="{% static 'courses/js/bootstrap.min.js' %}"
-        integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d"
-        crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
+
+{% block script %}
+
+{% endblock script %}
 </body>
 </html>
