@@ -3,18 +3,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from blog.views import BlogCreateView
-from courses.views import HomePageView
-
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home'),
-    path('create_post/', BlogCreateView.as_view(), name='create_post'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('memberships/', include('memberships.urls')),
     path('courses/', include('courses.urls')),
     path('blog/', include('blog.urls')),
-    path('blog/', include('home_page.urls')),
+    path('', include('home_page.urls')),
     path('', include('users.urls')),
 ]
 

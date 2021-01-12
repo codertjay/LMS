@@ -1,5 +1,7 @@
 {% extends 'HomePage/home_base.html' %}
-
+{% block title %}
+    Blog Detail || NinjaAssassinFx
+{% endblock title %}
 {% block content %}
     <section class="content-main">
         <div class="container">
@@ -22,8 +24,21 @@
                                     class="fab fa-twitter"></i></span><span>twitter</span> </a></li>
                             <li><a href="#" class="tp"><span class="icon-share "><i
                                     class="fab fa-telegram-plane"></i></span><span>Telegram</span> </a></li>
+
+                            {% if request.user == post.user %}
+                                <li><a href="{% url 'blog:update_post' post.slug %}" class="tp"
+                                       style="background-color: rgba(16,73,134,0.74) !important;"><span
+                                        class="icon-share "><i
+                                        class="fab fa-check-square-o"></i></span><span>Update</span> </a></li>
+
+                                <li><a href="{% url 'blog:delete_post' post.slug %}" class="tp"
+                                       style="background-color: rgba(250,24,0,0.74) !important;"><span
+                                        class="icon-share "><i
+                                        class="fab fa-trash"></i></span><span>Delete</span> </a></li>
+                            {% endif %}
                         </ul>
-                        <div class="blog-img"><img src="{{ post.imageURL }}" style="max-height: 604px !important;" alt="" class="img-fluid w-100"></div>
+                        <div class="blog-img"><img src="{{ post.imageURL }}" style="max-height: 604px !important;"
+                                                   alt="" class="img-fluid w-100"></div>
                         <div class="blog-detail">
                             {{ post.get_markdown }}
                             <span class="divider"></span></div>
@@ -33,6 +48,40 @@
                 {% comment %} blog section start{% endcomment %}
                 {% include 'HomePage/blog_suggestion.html' %}
                 {% comment %} end blog section {% endcomment %}
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <form action="{% url 'blog:comment_create' post.slug %}" method="POST">
+                        {% csrf_token %}
+                        <textarea name="content" class="form-control" id="id_content" maxlength="500"
+                                  placeholder="Please comment  here"
+                                  cols="15" rows="5"></textarea>
+                        <br>
+                        <button class="btn btn-primary  float-right">Comment <i class="fa fa-comment-plus"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="row " style="margin-bottom: 20vh;margin-top: 20vh;">
+
+                {% for item in post.comment_set.all %}
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="card-image"><img src="{{ item.user.profile.profilePicsImageURL }}"
+                                                                 style="max-height: 110px;max-width: 110px;border-radius: 80%"
+                                                                 alt=""></div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="lead p-5" style="padding-right: 50%">{{ item.content }}</div>
+                                </div>
+                            </div>
+                            <div class="pl-3 pb-4 pt-4">
+                                <h5 class="">by <span>{{ item.user.username }}</span>{{ item.timestamp|timesince }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </section>

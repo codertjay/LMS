@@ -72,31 +72,24 @@ def create_comment(request, slug=None):
         instance = Post.objects.get(slug=slug)
     except ObjectDoesNotExist:
         instance = None
-    form = CommentForm(request.POST or None)
-    print('The form data :', form)
-    if form.is_valid():
-        print(form.cleaned_data)
-        form_data = form.save(commit=False)
-        form_data.user = request.user
-        form_data.content_type = instance.get_content_type
-        form_data.object_id = instance.id
-        form_data.parent = None
-        try:
-            parent_id = int(request.POST.get('parent_id'))
-        except:
-            parent_id = None
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        print('The form data :', form)
+        if form.is_valid():
+            print(form.cleaned_data)
+            form_data = form.save(commit=False)
+            form_data.user = request.user
+            form_data.post = instance
+            form.save()
+            messages.success(request, 'form has being submitted')
+            return HttpResponseRedirect(instance.get_absolute_url())
+        else:
+            print('there was an error ', f'{form.errors}')
+            messages.error(request, f'{form.errors}')
+            return redirect('blog:blog_detail', instance.slug)
 
-        if parent_id:
-            parent_qs = Comment.objects.filter(id=parent_id)
-            if parent_qs.exists() and parent_qs.count() == 1:
-                parent_obj = parent_qs.first()
-                print('parent_obj :', parent_obj)
-                form_data.parent = parent_obj
-        form.save()
-        messages.success(request, 'form has being submitted')
-        return HttpResponseRedirect(instance.get_absolute_url())
     else:
-        messages.error(request, f'{form.errors}')
+        messages.error(request, f'You have to make a post request')
     return redirect('blog:blog_detail', instance.slug)
 
 

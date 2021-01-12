@@ -20,3 +20,4 @@ class PricingView(View):
 
     def get(self, *args, **kwargs):
         return render(self.request, 'HomePage/pricing.html')
+
