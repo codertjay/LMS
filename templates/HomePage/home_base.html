@@ -9,7 +9,7 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="{% static 'HomePage/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'HomePage/css/media.css' %}">
-    <title>HOME || NinjaAssassin</title>
+    <title>{% block title %} {% endblock title %}</title>
 </head>
 
 <body>
@@ -296,8 +296,10 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="{% static 'HomePage/js/jquery-3.3.1.slim.min.js' %}"></script>
+<script src="{% static 'HomePage/js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'HomePage/js/popper.min.js' %}"></script>
 <script src="{% static 'HomePage/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'HomePage/js/jquery.smartWizard.min.js' %}"></script>
 <script src="{% static 'HomePage/js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'HomePage/js/wow.min.js' %}"></script>
 <script src="{% static 'HomePage/js/script.js' %}"></script>
@@ -320,6 +322,9 @@
         })
     });
 </script>
+{% block script %}
+{% endblock script %}
+
 </body>
 
 </html>

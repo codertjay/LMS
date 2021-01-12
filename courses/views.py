@@ -24,10 +24,6 @@ def get_course_membership_type(course_allowed_mem_types):
     return membership_type
 
 
-class HomePageView(View):
-
-    def get(self, *args, **kwargs):
-        return render(self.request, 'HomePage/index.html')
 
 
 class CourseListView(LoginRequiredMixin, ListView):

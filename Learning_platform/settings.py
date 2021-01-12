@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'courses',
     'memberships',
     'blog',
+    'home_page',
 
     'markdown_deux',
 

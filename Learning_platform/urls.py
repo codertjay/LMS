@@ -14,6 +14,7 @@ urlpatterns = [
     path('memberships/', include('memberships.urls')),
     path('courses/', include('courses.urls')),
     path('blog/', include('blog.urls')),
+    path('blog/', include('home_page.urls')),
     path('', include('users.urls')),
 ]
 
