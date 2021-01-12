@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.rtl.css' %}"
+          rel="stylesheet">
+
     {% block styles %}
 
     {% endblock %}
@@ -42,6 +46,7 @@
                         <a class="nav-link" href='{% url "memberships:profile" %}'>Profile</a>
                     </li>
                 {% endif %}
+                <i class="fa fa-car"></i>
             </ul>
             <form class="d-flex pull-right" action="{% url 'courses:list' %}">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

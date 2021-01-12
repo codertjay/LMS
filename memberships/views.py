@@ -48,6 +48,8 @@ def get_selected_membership(request):
     return None
 
 
+
+
 class MemberShipSelectView(ListView):
     model = Membership
 

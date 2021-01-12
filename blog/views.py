@@ -8,8 +8,8 @@ from django.http import HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DeleteView, View, DetailView
 
-from comments.forms import CommentForm
-from comments.models import Comment
+from .forms import CommentForm
+from .models import Comment
 from .forms import PostCreateForm
 from .models import Post
 from .utils import get_read_time
@@ -18,12 +18,10 @@ from .utils import get_read_time
 # Create your views here.
 
 
-
-
 class BloglistView(ListView):
     model = Post
     queryset = Post.objects.published()
-    template_name = 'blog/blog_list.html'
+    template_name = 'HomePage/blog.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -42,7 +40,7 @@ class BloglistView(ListView):
 
 class BlogUserListView(ListView):
     model = Post
-    template_name = 'blog/blog_list.html'
+    template_name = 'HomePage/blog.html'
     context_object_name = 'object_list'
 
     def get_queryset(self):
@@ -51,7 +49,7 @@ class BlogUserListView(ListView):
 
 
 class BlogDetailView(DetailView):
-    template_name = 'blog/blog_detail.html'
+    template_name = 'HomePage/detail-blog.html'
     model = Post
     context_object_name = 'post'
 
@@ -60,10 +58,9 @@ class BlogDetailView(DetailView):
         instance = context['object']
         """ note this instance.get_content_type is from our models where we 
         linked the comment models and the blog models with content_type and object_id """
-        context['comment'] = instance.get_content_type
 
-        print('read time :',get_read_time(instance.description))
-        print('read time :',get_read_time(instance.get_markdown()))
+        print('read time :', get_read_time(instance.description))
+        print('read time :', get_read_time(instance.get_markdown()))
 
         context['form'] = CommentForm()
         return context
@@ -93,7 +90,7 @@ def create_comment(request, slug=None):
             parent_qs = Comment.objects.filter(id=parent_id)
             if parent_qs.exists() and parent_qs.count() == 1:
                 parent_obj = parent_qs.first()
-                print('parent_obj :',parent_obj)
+                print('parent_obj :', parent_obj)
                 form_data.parent = parent_obj
         form.save()
         messages.success(request, 'form has being submitted')
@@ -141,37 +138,10 @@ def update_post_view(request, slug=None):
     else:
         messages.warning(request, 'The form isn\'t valid')
 
-    return render(request, 'blog/blog_update.html', {'form': form})
+    return render(request, 'HomePage/Update-blog.html', {'form': form})
 
 
 class DeletePostView(DeleteView):
     model = Post
-    template_name = 'blog/post_delete.html'
+    template_name = 'HomePage/delete-blog.html'
     success_url = '/'
-
-
-def post_action_get_view(request, slug, *args, **kwargs):
-    #
-    #  Rest Api View
-    # Consume by Javascript or swift or ios/Android
-    #
-    data = {
-        'slug': slug,
-    }
-    try:
-        status = 200
-        obj = Post.objects.get(slug=slug)
-        data['like'] = obj.like
-        data['unlike'] = obj.unlike
-
-    except:
-        data['message'] = 'Not found '
-        status = 404
-        raise Http404
-
-    return JsonResponse(data, status=status)
-
-#
-# def post_action_post_view(request, slug, *args, **kwargs):
-#     data = data(request.po)
-#     return JsonResponse('')

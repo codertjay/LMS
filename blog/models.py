@@ -7,8 +7,8 @@ from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django.contrib.contenttypes.models import ContentType
 from markdown_deux import markdown
-from comments.models import Comment
-from.utils import get_read_time
+
+from .utils import get_read_time
 
 blogCategory = (
     ('ED', 'Education'),
@@ -66,7 +66,6 @@ class Post(models.Model):
     def get_api_url(self):
         return reverse('blog_api:detail', kwargs={'slug': self.slug})
 
-
     @property
     def imageURL(self):
         try:
@@ -82,36 +81,29 @@ class Post(models.Model):
 
     @property
     def comments(self):
-        """ to get the comments on the comment models
-        i have created a models manager"""
-        instance = self
-        qs = Comment.objects.filter_by_instance(instance)
-        return qs
-
-    @property
-    def get_content_type(self):
-        """
-        this is the content type which is used in the form
-        :return: the content type of the post :ie , blog | post
-        which is the content type of this post
-        """
-        instance = self
-        content_type = ContentType.objects.get_for_model(instance.__class__)
-        return content_type
+        comment = self.comment_set.all()
+        return comment
 
 
-def create_slug(instance,new_slug=None):
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+
+def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
     if new_slug is not None:
         slug = new_slug
     qs = Post.objects.filter(slug=slug).order_by('-id')
     if qs.exists():
-        new_slug = f'{slug,qs.first().id}'
-        return create_slug(instance,new_slug=new_slug)
+        new_slug = f'{slug, qs.first().id}'
+        return create_slug(instance, new_slug=new_slug)
     return slug
 
 
-def pre_save_post_receiver(sender,instance,*args,**kwargs):
+def pre_save_post_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
     if instance.description:
@@ -120,4 +112,4 @@ def pre_save_post_receiver(sender,instance,*args,**kwargs):
         instance.read_time = read_time
 
 
-pre_save.connect(pre_save_post_receiver,sender=Post)
+pre_save.connect(pre_save_post_receiver, sender=Post)
