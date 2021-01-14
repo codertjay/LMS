@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # 'upload_validator',
     'django_quill',
     'import_export',
+    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -137,6 +138,9 @@ login_url = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SIGNUP_REDIRECT_URL = '/profile/profileUpdate/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 if DEBUG:
     STRIPE_PUBLISHABLE_KEY = 'pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ'

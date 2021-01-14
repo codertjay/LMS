@@ -97,7 +97,7 @@ class BlogCreateView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         form = PostCreateForm()
-        return render(self.request, 'blog/blog_create.html', {'forms': form})
+        return render(self.request, 'HomePage/create-blog.html', {'form': form})
 
     def post(self, *args, **kwargs):
         form = PostCreateForm(self.request.POST, self.request.FILES or None)
@@ -137,4 +137,4 @@ def update_post_view(request, slug=None):
 class DeletePostView(DeleteView):
     model = Post
     template_name = 'HomePage/delete-blog.html'
-    success_url = '/'
+    success_url = 'blog/'

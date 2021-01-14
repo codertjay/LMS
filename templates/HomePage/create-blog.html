@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'HomePage/home_base.html' %}
+{% load crispy_forms_filters %}
+{% block title %} blog create page{% endblock title %}
+
+
+{% block head_extra %}
+    {{ form.media }}
+{% endblock head_extra %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row mt-5  text-dark font-weight-bolder justify-content-center "
+             style="padding-top:20vh !important;">
+            <div class=" col-8 col-md-6  mx-auto ">
+                <form class=" form-control p-5   text-dark font-weight-bolder ml-5" method="POST"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1 class="text-center font-weight-bolder">Create Post </h1>
+                    {{ form|crispy }}
+                    <button class="btn btn-block btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block script %}
+
+{% endblock %}
+
