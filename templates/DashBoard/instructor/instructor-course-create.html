@@ -7,6 +7,7 @@
 
 
 {% block styles %}
+    {{ form.media }}
 
 {% endblock styles %}
 
@@ -30,9 +31,9 @@
         </div>
         <div class="row">
 
-            <div class="col-md-7" >
+            <div class="col-md-7">
                 <div class="card" style="background-color: rgba(226,230,239,0.78); box-shadow: rgba(3,3,3,0.81);">
-                    <form action="." {% url 'courses:create_course' %} method="post" enctype="multipart/form-data" >
+                    <form action="." {% url 'courses:create_course' %} method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">
                             {{ form|crispy }}
@@ -72,7 +73,8 @@
                                                     <small class="text-muted">{{ item.timestamp }}</small>
                                                 </div>
                                                 <div class="media-right">
-                                                    <a href="{% url 'courses:update_course' item.slug %}" class="text-info"><i
+                                                    <a href="{% url 'courses:update_course' item.slug %}"
+                                                       class="text-info"><i
                                                             class="fa fa-edit">Edit</i></a>
                                                 </div>
 

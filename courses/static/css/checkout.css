@@ -44,7 +44,7 @@ button:hover {
   background-color: #43458b;
 }
 
-form {
+form_class {
   padding: 30px;
   height: 120px;
 }

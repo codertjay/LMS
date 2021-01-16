@@ -1,24 +1,31 @@
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView
 import stripe
 
+from courses.models import RecentCourses
 from memberships.models import Membership, UserMembership, Subscription
 
 
+@login_required
 def profile_view(request):
     user_membership = get_user_membership(request)
     user_subscription = get_user_subscription(request)
     context = {
         'user_membership': user_membership,
-        'user_subscription': user_subscription
+        'user_subscription': user_subscription,
+        'membership_type': user_membership.membership.membership_type,
+        'membership_price': user_membership.membership.price,
     }
     print('user_membership', user_membership.membership.membership_type)
+    print('user_membership', user_membership.membership.membership_type)
     print('user_subscription', user_subscription)
-    return render(request, 'memberships/profile.html', context)
+    return render(request, 'DashBoard/payment/student-account-billing-subscription.html', context)
 
 
 def get_user_membership(request):
@@ -48,10 +55,9 @@ def get_selected_membership(request):
     return None
 
 
-
-
-class MemberShipSelectView(ListView):
+class MemberShipSelectView(LoginRequiredMixin, ListView):
     model = Membership
+    template_name = 'DashBoard/payment/student-account-upgrade.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -84,6 +90,7 @@ class MemberShipSelectView(ListView):
         return HttpResponseRedirect(reverse('memberships:payment'))
 
 
+@login_required
 def payment_view(request):
     user_membership = get_user_membership(request)
     selected_membership = get_selected_membership(request)
@@ -142,9 +149,10 @@ def payment_view(request):
         'publish_key': publish_key,
         'selected_membership': selected_membership
     }
-    return render(request, 'memberships/membership_payment.html', context)
+    return render(request, 'DashBoard/payment/student-pay.html', context)
 
 
+@login_required
 def update_transactions(request, subscription_id):
     user_membership = get_user_membership(request)
     selected_membership = get_selected_membership(request)
@@ -164,6 +172,7 @@ def update_transactions(request, subscription_id):
     return redirect('courses:list')
 
 
+@login_required
 def cancel_subscription(request):
     user_sub = get_user_subscription(request)
     if user_sub.active == False:
@@ -178,6 +187,36 @@ def cancel_subscription(request):
     user_membership = get_user_membership(request)
     user_membership.membership = free_membership
     user_membership.save()
-    #Todo: send email to the user
+    # Todo: send email to the user
     messages.info(request, 'Successfully cancelled membership. We have sent an email ')
     return redirect('memberships:membership_select')
+
+
+@login_required
+def student_membership_invoice(request):
+    user_membership = get_user_membership(request)
+    user_subscription = get_user_subscription(request)
+
+    recent_course_qs = RecentCourses.objects.filter(user=request.user)
+    user_membership = get_user_membership(request)
+    user_subscription = get_user_subscription(request)
+
+    if recent_course_qs:
+        recent_course = recent_course_qs.first()
+    else:
+        recent_course = None
+    context = {
+        'user_membership': user_membership,
+        'user_subscription': user_subscription,
+        'membership_type': user_membership.membership.membership_type,
+        'membership_price': user_membership.membership.price,
+        'next_billing_date': user_subscription.get_next_billing_date,
+        'created_at': user_subscription.get_created_date,
+        'recent_course': recent_course,
+    }
+    print('user_membership', user_membership.membership.membership_type)
+    print('user_membership', user_membership.membership.membership_type)
+    print('user_subscription', user_subscription)
+    # print('next_billing_date', user_subscription.get_next_billing_date)
+    # print('created_at', user_subscription.get_created_date)
+    return render(request, 'DashBoard/payment/student-invoice.html', context)

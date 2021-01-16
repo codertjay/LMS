@@ -45,13 +45,21 @@ class Subscription(models.Model):
 
     @property
     def get_created_date(self):
-        subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
-        return datetime.fromtimestamp(subscription.created)
+        try:
+            subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
+            date = datetime.fromtimestamp(subscription.created)
+        except:
+            date = ''
+        return date
 
     @property
     def get_next_billing_date(self):
-        subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
-        return datetime.fromtimestamp(subscription.current_period_end)
+        try:
+            subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
+            date = datetime.fromtimestamp(subscription.current_period_end)
+        except:
+            date = ''
+        return date
 
 
 def post_save_user_membership_create(sender, instance, created, *args, **kwargs):
