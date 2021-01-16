@@ -20566,8 +20566,8 @@ html {
 }
 
 [dir=ltr] .page {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem
+    /*padding-top: 0rem;*/
+    /*padding-bottom: 1.5rem*/
 }
 
 [dir=ltr] .page__header--shadow {

@@ -24,21 +24,25 @@
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/material-icons.rtl.css' %}"
           rel="stylesheet">
 
+
     <!-- Font Awesome Icons -->
 
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.rtl.css' %}"
           rel="stylesheet">
+    <link type="text/css" href="{% static 'HomePage/css/all.css' %}"
+          rel="stylesheet">
 
+    <!-- App CSS -->
     <!-- App CSS -->
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/app.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/app.rtl.css' %}" rel="stylesheet">
-
+    {% block styles %}
+    {% endblock styles %}
 
 </head>
 
 <body class=" layout-fluid">
-dashboard_base
 
 <div class="preloader">
     <div class="sk-double-bounce">
@@ -64,10 +68,10 @@ dashboard_base
                     </button>
 
                     <!-- Brand -->
-                    <a href="{% url 'users:student_dashboard' %}" class="navbar-brand">
+                    <a href="student-dashboard.html" class="navbar-brand">
                         <img src="{% static 'dashboard/dashboard_base/assets/images/logo/white.svg' %}" class="mr-2"
-                             alt=""/>
-                        <span class="d-none d-xs-md-block">AssasinFx  </span>
+                             alt="AssasinFx"/>
+                        <span class="d-none d-xs-md-block">AssasinFx</span>
                     </a>
 
                     <!-- Search -->
@@ -77,15 +81,17 @@ dashboard_base
                     </form>
                     <!-- // END Search -->
 
+                    <!-- // END Search -->
+
                     <div class="flex"></div>
 
                     <!-- Menu -->
                     <ul class="nav navbar-nav flex-nowrap d-none d-lg-flex">
-                        <li class="nav-item">
-                            <a class="nav-link" href="student-forum.html">Forum</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'forum:forum_list' %}">Forum</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="student-help-center.html">Get Help</a>
+                            <a class="nav-link" href="{% url 'forum:forum_create' %}">Get Help</a>
                         </li>
                     </ul>
 
@@ -94,7 +100,7 @@ dashboard_base
 
                         <li class="nav-item d-none d-md-flex">
                             <a href="student-cart.html" class="nav-link">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-shopping-cart fa-2x"></i>
                             </a>
                         </li>
 
@@ -103,7 +109,7 @@ dashboard_base
                         <li class="nav-item dropdown dropdown-notifications dropdown-menu-sm-full">
                             <button class="nav-link btn-flush dropdown-toggle" type="button" data-toggle="dropdown"
                                     data-dropdown-disable-document-scroll data-caret="false">
-                                <i class="fa fa-info">{% comment %}notifications{% endcomment %}</i>
+                                <i class="material-icons">notifications</i>
                                 <span class="badge badge-notifications badge-danger">2</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -121,8 +127,7 @@ dashboard_base
                                                 </span>
                                             <span class="d-flex">
                                                     <span class="avatar avatar-xs mr-2">
-                                                        <img src="{% static 'dashboard/dashboard_base/assets/images/people/110/woman-5.jpg' %}"
-                                                             alt="people"
+                                                        <img src="assets/images/people/110/woman-5.jpg" alt="people"
                                                              class="avatar-img rounded-circle">
                                                     </span>
                                                     <span class="flex d-flex flex-column">
@@ -142,8 +147,7 @@ dashboard_base
                                                 </span>
                                             <span class="d-flex">
                                                     <span class="avatar avatar-xs mr-2">
-                                                        <img src="{% static 'dashboard/dashboard_base/assets/images/people/110/woman-5.jpg' %}"
-                                                             alt="people"
+                                                        <img src="assets/images/people/110/woman-5.jpg" alt="people"
                                                              class="avatar-img rounded-circle">
                                                     </span>
                                                     <span class="flex d-flex flex-column">
@@ -220,18 +224,25 @@ dashboard_base
                         <!-- // END Notifications dropdown -->
                         <!-- User dropdown -->
                         <li class="nav-item dropdown ml-1 ml-md-3">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"><img
-                                    src="{% static 'dashboard/dashboard_base/assets/images/people/50/guy-6.jpg' %}"
-                                    alt="Avatar" class="rounded-circle"
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                               href="#" role="button"><img
+                                    src="{{ request.user.profile.profilePicsImageURL }}" alt="Avatar"
+                                    class="rounded-circle"
                                     width="40"></a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="student-account-edit.html">
-                                    <i class="material-icons">edit</i> Edit Account
+                                <a class="dropdown-item" href="{% url 'users:profile_edit' %}">
+                                    <i class="fa fa-edit"></i> Edit Account
                                 </a>
-
+                                <a class="dropdown-item" href="{% url 'users:profile' request.user.username %}">
+                                    <i class="fa fa-person-sign"></i> View Profile
+                                </a>
+                                <a class="dropdown-item" href="{% url 'account_logout' %}">
+                                    <i class="fa fa-lock"></i> Logout
+                                </a>
                             </div>
                         </li>
                         <!-- // END User dropdown -->
+
 
                     </ul>
                     <!-- // END Menu -->
@@ -242,10 +253,11 @@ dashboard_base
         </div>
     </div>
 
+
     <!-- // END Header -->
 
     <!-- Header Layout Content -->
-    <div class="mdk-header-layout__content">
+    <div class="mdk-header-layout__content" style="background-color: #f8f4f4">
 
         <div data-push data-responsive-width="992px" class="mdk-drawer-layout js-mdk-drawer-layout">
             <div class="mdk-drawer-layout__content page ">
@@ -263,16 +275,32 @@ dashboard_base
                             <ul class="sidebar-menu sm-active-button-bg">
                                 <li class="sidebar-menu-item  active ">
                                     <a class="sidebar-menu-button" href="{% url 'users:student_dashboard' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-person-sign"></i>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons"></i>
                                         Student
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item ">
                                     <a class="sidebar-menu-button" href="{% url 'users:instructor_dashboard' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left   fa fa-car"></i>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-chalkboard-teacher"></i>
                                         Instructor
                                     </a>
-                                </li>
+                                    {% if request.user.profile.user_type == 'Instructor' %}
+                                        </li>
+                                        <li class="sidebar-menu-item ">
+                                            <a class="sidebar-menu-button"
+                                               href="{% url 'courses:create_course' %}">
+                                                <i class="sidebar-menu-icon sidebar-menu-icon--left   "></i>
+                                                Create Course
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item ">
+                                            <a class="sidebar-menu-button"
+                                               href="{% url 'courses:create_lesson' %}">
+                                                <i class="sidebar-menu-icon sidebar-menu-icon--left   "></i>
+                                                Add Lesson
+                                            </a>
+                                        </li>
+                                    {% endif %}
                             </ul>
                             <!-- Account menu -->
                             <div class="sidebar-heading">Account</div>
@@ -280,9 +308,10 @@ dashboard_base
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button sidebar-js-collapse" data-toggle="collapse"
                                        href="#account_menu">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-user-circle">{% comment %}person_outline{% endcomment %}</i>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-user"></i>
                                         Account
-                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                        <span class="ml-auto fa fa-arrows-h sidebar-menu-toggle-icon "><span><i
+                                                class="fa fa-arrows-h"></i></span> </span>
                                     </a>
                                     <ul class="sidebar-submenu sm-indent collapse" id="account_menu">
                                         {% if request.user.is_authenticated %}
@@ -310,7 +339,7 @@ dashboard_base
 
 
                                         <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="student-account-edit.html">
+                                            <a class="sidebar-menu-button" href="{% url 'users:profile_edit' %}">
                                                 <span class="sidebar-menu-text">Edit Account</span>
                                             </a>
                                         </li>
@@ -350,20 +379,18 @@ dashboard_base
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" data-toggle="collapse" href="#messages_menu">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-comment-o">{% comment %}comment{% endcomment %}</i>
-                                        Messages
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-comment-o"></i>
+                                        Forum
                                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                     </a>
                                     <ul class="sidebar-submenu sm-indent collapse" id="messages_menu">
+                                        <a class="sidebar-menu-button" href="{% url 'forum:forum_create' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fa fa-hands-helping"></i>
+                                            Ask Question
+                                        </a>
                                         <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="student-messages.html">
-                                                <span class="sidebar-menu-text">Conversation</span>
-                                                <span class="sidebar-menu-badge badge badge-primary badge-notifications ml-auto">2</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="student-messages-2.html">
-                                                <span class="sidebar-menu-text">Conversation - 2</span>
+                                            <a class="sidebar-menu-button" href="{% url 'forum:forum_list' %}">
+                                                <span class="sidebar-menu-text">Answer questions</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -373,13 +400,13 @@ dashboard_base
                             <ul class="sidebar-menu sm-active-button-bg">
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% url 'courses:list' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-search">{% comment %}search{% endcomment %}</i>
-                                        Browse Courses
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-search"></i>
+                                        search
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% url 'courses:student_course_list' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa  fa-file-import">{% comment %}import_contacts{% endcomment %}</i>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa  fa-file-import"></i>
                                         My Course
                                     </a>
                                 </li>
@@ -391,50 +418,24 @@ dashboard_base
                                     </a>
                                     <ul class="sidebar-submenu sm-indent collapse" id="forum_menu">
                                         <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="student-forum.html">
+                                            <a class="sidebar-menu-button" href="{% url 'forum:forum_list' %}">
                                                 <span class="sidebar-menu-text">Forum</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="student-forum-thread.html">
-                                                <span class="sidebar-menu-text">Discussion</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="student-forum-ask.html">
+                                            <a class="sidebar-menu-button" href="{% url 'forum:forum_create' %}">
                                                 <span class="sidebar-menu-text">Ask Question</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="student-profile.html">
-                                                <span class="sidebar-menu-text">Student Profile - Courses</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="student-profile-posts.html">
-                                                <span class="sidebar-menu-text">Student Profile - Posts</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="instructor-profile.html">
-                                                <span class="sidebar-menu-text">Instructor Profile</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="student-help-center.html">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left  fa fa-hands-helping"></i>
-                                        Get Help
-                                    </a>
-                                </li>
                                 {% if request.user.is_authenticated %}
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="{% url 'account_logout' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-lock-open"></i>
-                                        Logout
-                                    </a>
-                                </li>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="{% url 'account_logout' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-lock-open"></i>
+                                            Logout
+                                        </a>
+                                    </li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -443,7 +444,6 @@ dashboard_base
             </div>
 
         </div>
-
 
 
     </div>
@@ -460,12 +460,15 @@ dashboard_base
 <!-- Perfect Scrollbar -->
 <script src="{% static 'dashboard/dashboard_base/assets/vendor/perfect-scrollbar.min.js' %}"></script>
 
+
 <!-- MDK -->
 <script src="{% static 'dashboard/dashboard_base/assets/vendor/dom-factory.js' %}"></script>
 <script src="{% static 'dashboard/dashboard_base/assets/vendor/material-design-kit.js' %}"></script>
 
+
 <!-- App JS -->
 <script src="{% static 'dashboard/dashboard_base/assets/js/app.js' %}"></script>
+
 
 <!-- Highlight.js -->
 <script src="{% static 'dashboard/dashboard_base/assets/js/hljs.js' %}"></script>

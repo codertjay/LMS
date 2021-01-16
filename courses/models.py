@@ -1,7 +1,11 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.urls import reverse
+from django.utils.text import slugify
+
 from memberships.models import Membership
 from moviepy.editor import VideoFileClip
 
@@ -16,7 +20,7 @@ CourseTag = (
 
 class Course(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, default=1, null=True)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     title = models.CharField(max_length=120)
     description = models.TextField()
     allowed_memberships = models.ManyToManyField(Membership)
@@ -41,6 +45,7 @@ class Course(models.Model):
     @property
     def lessons(self):
         return self.lesson_set.all().order_by('position')
+
     @property
     def first_lesson(self):
         return self.lesson_set.first()
@@ -50,6 +55,25 @@ class Course(models.Model):
         return self.coursemessages_set.all()
 
 
+def create_slug(instance, new_slug=None):
+    slug = slugify(instance.title)
+    if new_slug is not None:
+        slug = new_slug
+    qs = Course.objects.filter(slug=slug).order_by('-id')
+    if qs.exists():
+        new_slug = f'{slug, qs.first().id}'
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+
+def pre_save_course_receiver(sender, instance, *args, **kwargs):
+    print('trying to create the slug', )
+    if not instance.slug:
+        instance.slug = create_slug(instance)
+
+
+pre_save.connect(pre_save_course_receiver, sender=Course)
+
 
 class Lesson(models.Model):
     slug = models.SlugField()
@@ -57,9 +81,8 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     position = models.IntegerField()
     video = models.FileField(upload_to='video')
-    thumbnail = models.ImageField()
-    duration = models.CharField(max_length=10,default='0:0')
-
+    thumbnail = models.ImageField(upload_to='lesson_thumbnail', default='lesson_thumbnail/thumbnail.jpg')
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -80,6 +103,19 @@ class Lesson(models.Model):
             video = None
         return video
 
+    @property
+    def duration(self):
+        try:
+            # Todo: change this to url when you try to push the project
+            clip = VideoFileClip(self.video.path)
+            print(clip.duration)
+            duration = clip.duration
+            minutes = timedelta.min()
+        except:
+            duration = None
+        print('the duration of the video ', duration)
+        return duration
+
     def get_absolute_url(self):
         return reverse('courses:lesson_detail',
                        kwargs={
@@ -87,8 +123,24 @@ class Lesson(models.Model):
                            'lesson_slug': self.slug
                        })
 
-    # clip = VideoFileClip("my_video.mp4")
-    # print(clip.duration)
+
+def create_lesson_slug(instance, new_slug=None):
+    slug = slugify(instance.title)
+    if new_slug is not None:
+        slug = new_slug
+    qs = Lesson.objects.filter(slug=slug).order_by('-id')
+    if qs.exists():
+        new_slug = f'{slug, qs.first().id}'
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+
+def pre_save_post_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_lesson_slug(instance)
+
+
+pre_save.connect(pre_save_post_receiver, sender=Lesson)
 
 
 class CourseMessages(models.Model):

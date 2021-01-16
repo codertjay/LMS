@@ -3,7 +3,7 @@ from .models import Post
 from .models import Comment
 from django_quill.forms import QuillFormField
 
-from upload_validator import FileTypeValidator
+from upload_validator  import FileTypeValidator
 
 
 class PostCreateForm(forms.ModelForm):

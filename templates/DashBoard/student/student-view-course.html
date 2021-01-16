@@ -19,8 +19,8 @@
                 <div class="card">
                     <div class="embed-responsive embed-responsive-16by9">
                         {% if lesson %}
-                            <video controls loop
-                                                                       controlsList="nodownload"
+                            <video controls="" loop="loop"
+                                   controlsList="nodownload"
                                    src="{{ lesson.videoURL }}"
                                    poster="{{ lesson.thumbnailURL }}"
                                    width="500" height="500">
@@ -34,6 +34,7 @@
                             </video>
                         {% endif %}
                     </div>
+
                     <div class="card-body">
                         {{ course.description }}
                     </div>
@@ -59,7 +60,7 @@
                 </ul>
             </div>
             <div class="col-md-4">
-                <div class="card">
+               {% comment %} <div class="card">
                     <div class="card-body text-center">
                         <p>
                             <a href="student-cart.html" class="btn btn-success btn-block flex-column">
@@ -75,7 +76,7 @@
                             <strong>&dollar;25 USD</strong>
                         </a>
                     </div>
-                </div>
+                </div>{% endcomment %}
                 <div class="card">
                     <div class="card-header">
                         <div class="media align-items-center">
@@ -153,5 +154,17 @@
 {% endblock content %}
 
 {% block script %}
-
+    <script>
+        var video = document.getElementsByTagName ('video')[0];
+        var previousTime = 0;
+        video.addEventListener ('timeUpdate' , function (event) {
+            previousTime = video.currentTime
+            console.log('the previous time',previousTime)
+        })
+        video.addEventListener ('seeking' , function (event) {
+            if (video.currentTime > previousTime) {
+                video.currentTime = previousTime;
+            }
+        })
+    </script>
 {% endblock script %}

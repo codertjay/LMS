@@ -1,0 +1,41 @@
+{% extends 'DashBoard/dashboard_base.html' %}
+
+
+{% block styles %}
+
+{% endblock %}
+
+{% block title %}
+    Delete {{ course.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid" >
+
+        <div class="row" style="margin-top: 20vh !important;" >
+            <div class="col-md-8 mx-auto">
+                <div class="card  ">
+                    <div class="card-title">
+                        <h3><span class="text-capitalize">  Are you sure you want to delete ?</span>
+                            <strong> {{ course.title }}</strong></h3>
+                    </div>
+                    <div class="card-content">
+                        <small class="text-capitalize font-weight-bold">If you delete this course all lessons would be
+                            deleted</small>
+                        <br> <br>
+                        <form action="." method="post">
+                            {% csrf_token %}
+                            <a href="{% url 'courses:lesson_delete' lesson.slug %}" class="btn btn-info">Go back <i
+                                    class="fa fa-backward"></i></a>
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

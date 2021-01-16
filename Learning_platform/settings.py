@@ -32,10 +32,10 @@ INSTALLED_APPS = [
     'memberships',
     'blog',
     'home_page',
+    'forum',
 
     'markdown_deux',
-
-    # 'upload_validator',
+    'upload_validator',
     'django_quill',
     'import_export',
     'crispy_forms',

@@ -10,6 +10,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'users:student_dashboard' %}">Home</a></li>
             <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item active">Profile</li>
         </ol>
         <h1 class="h2">Dashboard</h1>
 
@@ -112,8 +113,8 @@
                                 <p class="card-subtitle">Latest forum topics &amp; replies</p>
                             </div>
                             <div class="media-right">
-                                <a class="btn btn-sm btn-primary" href="student-forum.html"> <i
-                                        class="material-icons">keyboard_arrow_right</i></a>
+                                <a class="btn btn-sm btn-primary" href="{% url 'forum:forum_list' %}"> <i
+                                        class="fa fa-arrow-square-right fa-2x"></i></a>
                             </div>
                         </div>
                     </div>
@@ -129,10 +130,10 @@
                                         <div class="media-left">
                                             <div class="forum-icon-wrapper">
                                                 <a href="student-forum-thread.html" class="forum-thread-icon">
-                                                    <i class="material-icons">description</i>
+                                                    <i class="fa fa-info-circle">description</i>
                                                 </a>
                                                 <a href="student-profile.html" class="forum-thread-user">
-                                                    <img src="{{ message.user.profilePicImageURL }}"
+                                                    <img src="{{ message.user.profile.profilePicImageURL }}"
                                                          alt="profile" width="20"
                                                          class="rounded-circle">
                                                 </a>

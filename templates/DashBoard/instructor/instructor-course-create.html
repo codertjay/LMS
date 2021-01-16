@@ -30,9 +30,9 @@
         </div>
         <div class="row">
 
-            <div class="col-md-7">
-                <div class="card">
-                    <form action="." {% url 'courses:create_course' %} method="post" enctype="multipart/form-data">
+            <div class="col-md-7" >
+                <div class="card" style="background-color: rgba(226,230,239,0.78); box-shadow: rgba(3,3,3,0.81);">
+                    <form action="." {% url 'courses:create_course' %} method="post" enctype="multipart/form-data" >
                         {% csrf_token %}
                         <div class="card-body">
                             {{ form|crispy }}
@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5 ">
+            <div class="col-md-5 " style="height: 400px; overflow-y: scroll;">
                 <div class="card">
                     <div class="card-body">
                         <p><a href="instructor-lesson-add.html" class="btn btn-primary">Update and Delete Course<i
@@ -72,13 +72,8 @@
                                                     <small class="text-muted">{{ item.timestamp }}</small>
                                                 </div>
                                                 <div class="media-right">
-                                                    <button class="btn btn-link text-secondary  btn-sm text-info"
-                                                            data-placement="left"
-                                                            data-original-title="Edit"
-                                                            data-toggle="modal"
-                                                            data-target="#{{ item.id }}{{ item.title|slugify }}">
-                                                        <i class="  fa fa-edit">Edit</i>
-                                                    </button>
+                                                    <a href="{% url 'courses:update_course' item.slug %}" class="text-info"><i
+                                                            class="fa fa-edit">Edit</i></a>
                                                 </div>
 
                                             </div>

@@ -1,0 +1,63 @@
+{% extends 'DashBoard/dashboard_base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block styles %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid page__container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="instructor-dashboard.html">Home</a></li>
+            <li class="breadcrumb-item active">Courses</li>
+        </ol>
+        <h1 class="h2">Update {{ lesson.title }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="." method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                {% for item in course %}
+                    <div class="card">
+                        <div class="card-title">
+                            {{ item.title }}
+                        </div>
+                        <div class="card-image">
+                            <img src="{{ item.imageURL }}" alt="" width="100">
+                        </div>
+                        {% for lesson_item in item.lessons %}
+                            <div class="card">
+                                <div class="d-flex">
+                                    <a href="{% url '' %}">
+                                        <button><i class="fa fa-edit"></i></button>
+                                    </a>
+                                    <div class="card-title">
+                                        {{ lesson_item.title }}
+                                    </div>
+                                    <button><i class="fa fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock %}
+
+

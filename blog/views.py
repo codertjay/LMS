@@ -4,12 +4,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from django.http import HttpResponseRedirect, JsonResponse, Http404
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DeleteView, View, DetailView
 
 from .forms import CommentForm
-from .models import Comment
 from .forms import PostCreateForm
 from .models import Post
 from .utils import get_read_time
@@ -134,7 +133,7 @@ def update_post_view(request, slug=None):
     return render(request, 'HomePage/Update-blog.html', {'form': form})
 
 
-class DeletePostView(DeleteView):
+class DeletePostView(LoginRequiredMixin,DeleteView):
     model = Post
     template_name = 'HomePage/delete-blog.html'
     success_url = 'blog/'

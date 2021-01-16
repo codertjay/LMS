@@ -35,6 +35,9 @@ class Profile(models.Model):
     linkedin_url = models.URLField(blank=True, null=True)
     applied_courses = models.ManyToManyField(Course,
                                              related_name='applied_courses', blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    about = models.TextField()
+    status = models.CharField(max_length=200)
 
     def __str__(self):
         return f"{self.first_name} - {self.last_name} -({self.user.username})"

@@ -7,6 +7,7 @@
 
 
 {% block styles %}
+    {{ form.media }}
 
 {% endblock styles %}
 
@@ -21,7 +22,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'courses:create_course' %}">Courses</a></li>
-            <li class="breadcrumb-item active">Create course</li>
+            <li class="breadcrumb-item active">Update {{ item.title }}</li>
         </ol>
         <div class="media align-items-center mb-headings">
             <div class="media-body">
@@ -32,19 +33,20 @@
 
             <div class="col-md-7">
                 <div class="card">
-                    <form action="." {% url 'courses:create_course' %} method="post" enctype="multipart/form-data">
+                    <form action="." {% url 'courses:update_course' item.slug %} method="post"
+                          enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">
                             {{ form|crispy }}
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div class="col-md-5 ">
+            <div class="col-md-5 " style="height: 400px;;">
                 <div class="card">
                     <div class="card-body">
                         <p><a href="instructor-lesson-add.html" class="btn btn-primary">Update and Delete Course<i
@@ -72,13 +74,9 @@
                                                     <small class="text-muted">{{ item.timestamp }}</small>
                                                 </div>
                                                 <div class="media-right">
-                                                    <button class="btn btn-link text-secondary  btn-sm text-info"
-                                                            data-placement="left"
-                                                            data-original-title="Edit"
-                                                            data-toggle="modal"
-                                                            data-target="#{{ item.id }}{{ item.title|slugify }}">
-                                                        <i class="  fa fa-edit">Edit</i>
-                                                    </button>
+                                                    <a href="{% url 'courses:update_course' item.slug %}"
+                                                       class="text-info"><i
+                                                            class="fa fa-edit">Edit</i></a>
                                                 </div>
 
                                             </div>
@@ -93,64 +91,6 @@
 
         </div>
 
-
-        <div class="row">
-            <div class="col-md-4">
-                {% for item in course %}
-                    <!-- Classic Modal -->
-                    <div class="modal fade" id="{{ item.id }}{{ item.title|slugify }}" tabindex="-1" role="dialog"
-                         aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">{{ item.title }}</h4>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                            aria-hidden="true">
-                                        <i class="fa fa-close"></i>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>
-                                    <form action="{% url 'courses:update_course' item.slug %}" method="post"
-                                          enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <div class="row">
-                                            <input type="hidden" name="id" value="{{ item.id }}">
-                                            <div class="col-12">
-                                                <label for="id_title">Title</label>
-                                                <input type="text" name="title"
-                                                       class="form-control" id="id_title"
-                                                       maxlength="50"
-                                                       value="{{ item.title }}">
-                                            </div>
-
-                                            <div class="col-12">
-                                                <div id="div_id_description" class="form-group bmd-form-group">
-                                                    <label for="id_description" class="bmd-label-static">
-                                                        Description
-                                                    </label>
-                                                    <div class="">
-                                                <textarea name="description" cols="100" rows="4"
-                                                          class="form-control    textarea form-control"
-                                                          placeholder="just a little description with maximum characters of 200"
-                                                          maxlength="200"
-                                                          id="id_description">{{ item.description }}</textarea>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary ">Update</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-
-
     </div>
 
 
@@ -164,44 +104,3 @@
 
 
 {% endblock %}
-<div class="row">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-            data-whatever="@mdo">Open modal for @mdo
-    </button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-            data-whatever="@fat">Open modal for @fat
-    </button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-            data-whatever="@getbootstrap">Open modal for @getbootstrap
-    </button>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
