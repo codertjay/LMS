@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import StudentDashBoardView, InstructorDashBoardView, UserProfileUpdate, public_profile_view
+from .views import StudentDashBoardView, InstructorDashBoardView, UserProfileUpdate, public_profile_view, \
+    contactAdminView
 
 app_name = 'users'
 urlpatterns = [
@@ -7,4 +8,5 @@ urlpatterns = [
     path('instructor_dashboard/', InstructorDashBoardView.as_view(), name='instructor_dashboard'),
     path('#/<str:username>/', public_profile_view, name='profile'),
     path('profile_update/', UserProfileUpdate.as_view(), name='profile_edit'),
+    path('contact/', contactAdminView, name='contact'),
 ]

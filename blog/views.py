@@ -96,7 +96,7 @@ class BlogCreateView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         form = PostCreateForm()
-        return render(self.request, 'HomePage/create-blog.html', {'form': form})
+        return render(self.request, 'DashBoard/blog/blog-create.html', {'form': form})
 
     def post(self, *args, **kwargs):
         form = PostCreateForm(self.request.POST, self.request.FILES or None)
@@ -111,7 +111,7 @@ class BlogCreateView(LoginRequiredMixin, View):
 
         elif not form.is_valid():
             messages.error(self.request, 'invalid form data')
-        return redirect('blog_create')
+        return redirect('blog:blog_create')
 
 
 @login_required
@@ -130,10 +130,10 @@ def update_post_view(request, slug=None):
     else:
         messages.warning(request, 'The form isn\'t valid')
 
-    return render(request, 'HomePage/Update-blog.html', {'form': form})
+    return render(request, 'DashBoard/blog/blog-update.html', {'form': form,'slug':slug})
 
 
-class DeletePostView(LoginRequiredMixin,DeleteView):
+class DeletePostView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'HomePage/delete-blog.html'
     success_url = 'blog/'

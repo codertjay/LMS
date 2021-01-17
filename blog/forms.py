@@ -3,7 +3,7 @@ from .models import Post
 from .models import Comment
 from django_quill.forms import QuillFormField
 
-from upload_validator  import FileTypeValidator
+from upload_validator import FileTypeValidator
 
 
 class PostCreateForm(forms.ModelForm):
@@ -20,12 +20,7 @@ class PostCreateForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title'
-            , 'slug'
-            , 'category'
-            , 'description'
-            , 'image'
-            , 'published_date']
+        fields = ['title', 'category', 'image', 'published_date', 'description']
 
 
 class CommentForm(forms.ModelForm):

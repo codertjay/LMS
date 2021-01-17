@@ -8,7 +8,7 @@
 
     <div class="container-fluid page__container">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="instructor-dashboard.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
             <li class="breadcrumb-item active">Dashboard</li>
         </ol>
         <h1 class="h2">Dashboard</h1>
@@ -311,31 +311,5 @@
 {% endblock content %}
 
 {% block script %}
-
-    <!-- App Settings (safe to remove) -->
-    <script src="{% static 'dashboard/dashboard_base/assets/js/app-settings.js' %}"></script>
-
-
-    <!-- Global Settings -->
-    <script src="{% static 'dashboard/dashboard_base/assets/js/settings.js' %}"></script>
-
-    <!-- Moment.js -->
-    <script src="{% static 'dashboard/dashboard_base/assets/vendor/moment.min.js' %}"></script>
-    <script src="{% static 'dashboard/dashboard_base/assets/vendor/moment-range.min.js' %}"></script>
-
-
-    <!-- Chart.js -->
-    <script src="{% static 'dashboard/dashboard_base/assets/vendor/Chart.min.js' %}"></script>
-
-    <!-- UI Charts Page JS -->
-    <script src="{% static 'dashboard/dashboard_base/assets/js/chartjs-rounded-bar.js' %}"></script>
-    <script src="{% static 'dashboard/dashboard_base/assets/js/chartjs.js' %}"></script>
-
-    <!-- Chart.js Samples -->
-    <script src="{% static 'dashboard/instructor/dashboard/js/page.instructor-earnings.js' %}"></script>
-
-    <!-- List.js -->
-    <script src="{% static 'dashboard/instructor/dashboard/js/list.min.js' %}"></script>
-    <script src="{% static 'dashboard/instructor/dashboard/js/list.js' %}"></script>
 
 {% endblock script %}

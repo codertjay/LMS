@@ -1,17 +1,23 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.messages.context_processors import messages
+from django.core.mail import send_mail
+from django.contrib import messages
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
+from django.template.loader import get_template
 from django.views import View
 
 from courses.models import RecentCourses, Course
 from forum.models import ForumQuestion
 from memberships.views import get_user_subscription, get_user_membership
-from users.forms import ProfileUpdateForm
-from users.models import Profile
+from users.forms import ProfileUpdateForm, ContactAdminForm
+from users.models import Profile, Contact
+
+EMAIL_HOST_USER = settings.EMAIL_HOST_USER
 
 
 class StudentDashBoardView(LoginRequiredMixin, View):
@@ -43,10 +49,12 @@ class StudentDashBoardView(LoginRequiredMixin, View):
 class InstructorDashBoardView(LoginRequiredMixin, View):
 
     def get(self, request):
-        context = {
-            'active': True
-        }
-        return render(request, 'DashBoard/instructor/instructor-dashboard.html', context)
+        if request.user.profile.user_type == 'Instructor':
+            context = {
+                'active': True
+            }
+            return render(request, 'DashBoard/instructor/instructor-dashboard.html', context)
+        return redirect('users:profile', request.user.username)
 
     def post(self, request):
         return redirect('dashboard:instructor_dashboard')
@@ -96,10 +104,44 @@ class UserProfileUpdate(LoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         p_form = ProfileUpdateForm(self.request.POST,
-                             self.request.FILES,
-                             instance=self.request.user.profile)
+                                   self.request.FILES,
+                                   instance=self.request.user.profile)
         if p_form.is_valid():
             p_form.save()
             print('the form was valid')
             messages.success(self.request, f'Your account has been updated')
             return redirect('')
+
+
+def contactAdminView(request):
+    form = ContactAdminForm(request.POST)
+    contact = Contact(
+        contact_name=form['contact_name'].value(),
+        contact_email=form['contact_email'].value(),
+        contact_subject=form['contact_subject'].value(),
+        contact_message=form['contact_message'].value()
+    )
+    if form.is_valid():
+        contact.save()
+        template = get_template('main/contact_admin.txt')
+        context = {
+            'contact_name': contact.contact_name,
+            'contact_email': contact.contact_email,
+            'contact_subject': contact.contact_subject,
+            'contact_message': contact.contact_message
+        }
+        print('the for is valid')
+        content = template.render(context)
+        if context:
+            send_mail(
+                contact.contact_subject,
+                content,
+                contact.contact_email,
+                [EMAIL_HOST_USER],
+                fail_silently=True,
+            )
+            print('sent the message', content)
+            messages.success(request, 'Your message has being sent we would be in touch with you later ')
+            return redirect('single_url:contact')
+    print('there was an error sending your message')
+    return redirect('single_url:contact')

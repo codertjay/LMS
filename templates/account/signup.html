@@ -15,7 +15,7 @@
                 .{% endblocktrans %}
             </h5>
         </div>
-        <div class="card-content">
+        <div class="card-content " style="padding:20px">
 
             <form class="" id="signup_form" method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
@@ -23,7 +23,7 @@
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                 {% endif %}
-                <button type="submit" class="btn btn-primary text-capitalize font-weight-bolder">{% trans "Sign Up" %} &raquo;</button>
+                <button type="submit" class="btn btn-info text-capitalize font-weight-bolder">{% trans "Sign Up" %} </button>
             </form>
         </div>
     </div>

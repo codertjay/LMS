@@ -35,8 +35,13 @@
         <div class="d-flex justify-content-center mb-5 navbar-light">
             <a href="#" class="navbar-brand m-0">LearnPlus</a>
         </div>
-        {% block content %}
-        {% endblock content %}
+        <div class="card">
+            <div class="card-content" style="padding:20px">
+                {% block content %}
+                {% endblock content %}
+            </div>
+
+        </div>
     </div>
 </div>
 

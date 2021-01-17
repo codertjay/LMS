@@ -1,14 +1,49 @@
 {% extends 'DashBoard/dashboard_base.html' %}
+{% load crispy_forms_filters %}
 
 {% block title %}
 
 {% endblock %}
 
 {% block styles %}
-
+ {{ form.media }}
 {% endblock %}
 
 {% block content %}
+
+    <div class="container-fluid ">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'courses:list' %}">Courses</a></li>
+            <li class="breadcrumb-item active">Create Article</li>
+        </ol>
+        <div class="media align-items-center mb-headings text-center">
+            <div class="media-body  text-center">
+                <h1 class="h2  ">Create Article</h1>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-10 mx-auto">
+                <div class="card" style="background-color: rgba(226,230,239,0.78); box-shadow: rgba(3,3,3,0.81);">
+                    <form action=" {% url 'blog:blog_create' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {{ form|crispy }}
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
 
 {% endblock %}
 

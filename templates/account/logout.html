@@ -12,7 +12,7 @@
 
             <p>{% trans 'Are you sure you want to sign out?' %}</p>
         </div>
-        <div class="card-content">
+        <div class="card-content  text-center">
             <form method="post" action="{% url 'account_logout' %}">
                 {% csrf_token %}
                 {% if redirect_field_value %}
@@ -20,8 +20,11 @@
                 {% endif %}
                 <button type="submit" class="btn btn-danger btn-round ">{% trans 'Sign Out' %}</button>
             </form>
-            <a href="{% url 'courses:list' %}" class="btn btn-outline-primary"><i class="fa fa-backward fa-2x"></i></a>
-            <a href="{% url 'home:home' %}" class="btn btn-outline-primary  ml-5"><i class="fa fa-home fa-2x"></i></a>
+            <div class="p-5" style="padding:20px">
+                <a href="{% url 'courses:list' %}" class="btn btn-outline-primary"><i class="fa fa-backward "></i></a>
+                <a href="{% url 'home:home' %}" class="btn btn-outline-primary  ml-5"><i
+                        class="fa fa-home "></i></a>
+            </div>
         </div>
     </div>
 {% endblock %}
