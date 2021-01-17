@@ -14,7 +14,7 @@ class CourseCreateEditForm(forms.ModelForm):
     image = forms.ImageField(required=True, validators=[FileTypeValidator(
         allowed_types=['image/*']
     )])
-    description = QuillFormField()
+    # description = QuillFormField()
 
     class Meta:
         model = Course

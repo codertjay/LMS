@@ -1,22 +1,84 @@
 {% extends 'DashBoard/dashboard_base.html' %}
 {% load crispy_forms_filters %}
 {% load static %}
-
 {% block styles %}
+    <style>
+
+
+        /* Accordion styles */
+        .tabs_ {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+        }
+
+        .tab_ {
+            width: 100%;
+            color: white;
+            overflow: hidden;
+            background-color: #2c3e50;
+        }
+
+        .tab-label_ {
+            display: flex;
+            justify-content: space-between;
+            padding: 1em;
+            background: #2c3e50;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            /* Icon */
+        }
+
+        .tab-label_:hover {
+            background: #1a252f;
+        }
+
+        .tab-label_::after {
+            width: 1em;
+            height: 1em;
+            text-align: center;
+            transition: all 0.35s;
+        }
+
+        .tab-content_ {
+            max-height: 0;
+            padding: 0 1em;
+            color: #2c3e50;
+            background: white;
+            transition: all 0.35s;
+        }
+
+
+        input:checked + .tab-label_ {
+            background: #1a252f;
+        }
+
+        input:checked + .tab-label_::after {
+            transform: rotate(90deg);
+        }
+
+        input:checked ~ .tab-content_ {
+            max-height: 100vh;
+            padding: 1em;
+        }
+
+
+    </style>
 
 {% endblock %}
 
 
 {% block content %}
-    <div class="container-fluid ">
+    <div class="container-fluid  ">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="instructor-dashboard.html">Home</a></li>
             <li class="breadcrumb-item active">Courses</li>
         </ol>
-        <h1 class="h2 text-info text-center">Add Lesson </h1>
+        <h1 class="h2 text-info text-center">Create Lesson </h1>
         <div class="row">
             <div class="col-md-6">
-                <div class="card">
+                <div class="card" style="background-color: rgb(44,62,80); box-shadow: rgba(3,3,3,0.81);color: white">
                     <div class="card-body">
                         <form action="." method="post" enctype="multipart/form-data">
                             {% csrf_token %}
@@ -26,35 +88,47 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" style="height: 100vh;overflow-x: scroll">
-                {% for item in course %}
-                    <div class="card">
-                        <div class="d-flex">
-                            <div class="card-image">
-                                <img src="{{ item.imageURL }}" alt="" width="100">
-                            </div>
-                            <div class="card-title text-center pull-right float-right">
-                                <span class="text-center text-capitalize text-info"> {{ item.title }}</span>
-                            </div>
+
+            <div class="col-md-6 text-center text-capitalize">
+                <h2 class="text-primary">Update and delete lesson's </h2>
+
+                <div class="tabs_" >
+                    {% for item in course %}
+                        <div class="tab_ ">
+                            <input type="checkbox" id="{{ item.slug }}"
+                                   style="position: absolute; opacity: 0;z-index: -1;">
+                            <label class="tab-label_" for="{{ item.slug }}">{{ item.title }}</label>
+                            {% if item.lessons %}
+                                {% for lesson_item in item.lessons %}
+                                    <div class="tab-content_" style="background-color: rgb(44,62,80);">
+                                        <div class="card "
+                                             style="background-color: rgb(44,62,80);padding:0px;padding-right: 20px;padding-left: 20px;">
+                                            <div class="d-flex justify-content-between ">
+                                                <a href="{% url 'courses:lesson_update'  lesson_item.slug %}">
+                                                    <button><i class="fa fa-edit text-info"></i></button>
+                                                </a>
+                                                <div class="card-title">
+                                                    <a href="{{ lesson_item.get_absolute_url }}"><h3
+                                                            class="text-capitalize text-primary"> {{ lesson_item.title }}</h3>
+                                                    </a>
+                                                </div>
+                                                <a href="{% url 'courses:lesson_delete'  lesson_item.slug %}">
+                                                    <button><i class="fa fa-trash-alt text-danger"></i></button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="tab-content_">
+                                    you dont have a lesson
+                                </div>
+                            {% endif %}
 
                         </div>
-                        {% for lesson_item in item.lessons %}
-                            <div class="card" style="margin-bottom: 20px;">
-                                <div class="d-flex justify-content-between ">
-                                    <a href="{% url 'courses:lesson_update'  lesson_item.slug %}">
-                                        <button><i class="fa fa-edit text-info"></i></button>
-                                    </a>
-                                    <div class="card-title">
-                                        <h3 class="text-capitalize text-primary"> {{ lesson_item.title }}</h3>
-                                    </div>
-                                    <a href="{% url 'courses:lesson_delete'  lesson_item.slug %}">
-                                        <button><i class="fa fa-trash-alt text-danger"></i></button>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     </div>
@@ -64,5 +138,4 @@
 {% block script %}
 
 {% endblock %}
-
 

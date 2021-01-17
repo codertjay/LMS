@@ -32,25 +32,25 @@
         <div class="row">
 
             <div class="col-md-7">
-                <div class="card">
+                <div class="card card_color">
                     <form action="." {% url 'courses:update_course' item.slug %} method="post"
                           enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">
                             {{ form|crispy }}
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer card_color">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div class="col-md-5 " style="height: 400px; overflow-y: scroll;">
-                <div class="card">
+            <div class="col-md-5 ">
+                <p><a href="instructor-lesson-add.html" class="btn btn-primary">Update and Delete Course<i
+                        class="material-icons"></i></a></p>
+                <div class="card card_color" style="height: 500px; overflow-y: scroll;">
                     <div class="card-body">
-                        <p><a href="instructor-lesson-add.html" class="btn btn-primary">Update and Delete Course<i
-                                class="material-icons"></i></a></p>
                         <div class="nestable" id="nestable-handles-primary">
                             <ul class="nestable-list">
 
@@ -61,7 +61,7 @@
                                             <div class="media align-items-center">
                                                 <div class="media-left">
                                                     <a href="{% url 'courses:delete_course' item.slug %}"><i
-                                                            class="text-danger fa fa-trash-alt">Delete</i></a>
+                                                            class="text-danger fa fa-trash-alt"></i></a>
                                                 </div>
                                                 <div class="media-left">
                                                     <img src="{{ item.imageURL }}" alt="" width="100"
@@ -69,14 +69,14 @@
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="card-title h6 mb-0">
-                                                        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                                        <a href="{{ item.get_absolute_url }}"  style="color: white">{{ item.title }}</a>
                                                     </h5>
-                                                    <small class="text-muted">{{ item.timestamp }}</small>
+                                                    <small class="text-light">{{ item.timestamp }}</small>
                                                 </div>
                                                 <div class="media-right">
                                                     <a href="{% url 'courses:update_course' item.slug %}"
                                                        class="text-info"><i
-                                                            class="fa fa-edit">Edit</i></a>
+                                                            class="fa fa-edit"></i></a>
                                                 </div>
 
                                             </div>
@@ -104,3 +104,86 @@
 
 
 {% endblock %}
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Accordion Item #1
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+             data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
+                coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore
+                sustainable VHS.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Accordion Item #2
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+             data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
+                coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore
+                sustainable VHS.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                Accordion Item #3
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+             data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
+                coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore
+                sustainable VHS.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab"
+           aria-controls="v-pills-home" aria-selected="true">Home</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab"
+           aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" href="#v-pills-messages" role="tab"
+           aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings" role="tab"
+           aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+    </div>
+    <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            ...
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...
+        </div>
+    </div>
+</div>

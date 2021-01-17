@@ -5,13 +5,13 @@ from .models import ForumAnswer, ForumQuestion
 
 
 class ForumQuestionForm(forms.ModelForm):
-    # content = forms.CharField(label='', widget=forms.Textarea(attrs={
-    #     'class': 'form-control   ',
-    #     'placeholder': "Describe you question in full",
-    #     'cols': '40',
-    #     'rows': '4'
-    # }))
-    content = QuillFormField()
+    content = forms.CharField(label='', widget=forms.Textarea(attrs={
+        'class': 'form-control   ',
+        'placeholder': "Describe you question in full",
+        'cols': '40',
+        'rows': '4'
+    }))
+    # content = QuillFormField()
 
     class Meta:
         model = ForumQuestion

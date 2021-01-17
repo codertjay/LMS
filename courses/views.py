@@ -217,7 +217,7 @@ def lesson_update_view(request, slug=None):
     else:
         messages.warning(request, 'The form isn\'t valid')
     context = {'form': form, 'item': instance, 'course': course}
-    return render(request, 'DashBoard/instructor/instructor-lesson-add.html', context)
+    return render(request, 'DashBoard/instructor/instructor-lesson-edit.html', context)
 
 
 class LessonDeleteView(LoginRequiredMixin, DeleteView):

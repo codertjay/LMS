@@ -17,6 +17,8 @@
     <!-- Perfect Scrollbar -->
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/vendor/perfect-scrollbar.css' %}"
           rel="stylesheet">
+    <link type="text/css" href="{% static 'css/bootstrap.min.css' %}"
+          rel="stylesheet">
 
 
     <!-- Material Design Icons -->
@@ -36,8 +38,16 @@
     <!-- App CSS -->
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/app.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/app.rtl.css' %}" rel="stylesheet">
-    {% block styles %}
-    {% endblock styles %}
+    <style>
+        .card_color {
+            background-color: rgb(44, 62, 80) !important;
+            box-shadow: rgba(3, 3, 3, 0.81);
+            color: white !important;
+        }
+    </style>
+{% block styles %}
+
+{% endblock %}
 
 </head>
 
@@ -272,7 +282,7 @@
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" data-toggle="collapse" href="#messages_menu">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-comment-o"></i>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-comment"></i>
                                         Forum
                                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                     </a>
@@ -303,25 +313,6 @@
                                         My Course
                                     </a>
                                 </li>
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#forum_menu">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-comments-dollar"></i>
-                                        Community
-                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                    </a>
-                                    <ul class="sidebar-submenu sm-indent collapse" id="forum_menu">
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="{% url 'forum:forum_list' %}">
-                                                <span class="sidebar-menu-text">Forum</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="{% url 'forum:forum_create' %}">
-                                                <span class="sidebar-menu-text">Ask Question</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 {% if request.user.is_authenticated %}
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button" href="{% url 'account_logout' %}">
@@ -348,7 +339,8 @@
 
 <!-- Bootstrap -->
 <script src="{% static 'dashboard/dashboard_base/assets/vendor/popper.min.js' %}"></script>
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/bootstrap.min.js' %}"></script>
+{#<script src="{% static 'dashboard/dashboard_base/assets/vendor/bootstrap.min.js' %}"></script>#}
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
 <!-- Perfect Scrollbar -->
 <script src="{% static 'dashboard/dashboard_base/assets/vendor/perfect-scrollbar.min.js' %}"></script>
