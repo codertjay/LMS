@@ -51,8 +51,6 @@ class HomePageView(View):
             post = Post.objects.all()[2]
         elif Post.objects.count() >= 2:
             post = Post.objects.all()[2]
-        elif Post.objects.count() >= 1:
-            post = Post.objects.all()[1]
         else:
             post = None
         context = {
