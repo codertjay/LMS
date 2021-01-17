@@ -45,9 +45,9 @@
             color: white !important;
         }
     </style>
-{% block styles %}
+    {% block styles %}
 
-{% endblock %}
+    {% endblock %}
 
 </head>
 
@@ -196,7 +196,7 @@
 
                                                 <a class="sidebar-menu-button"
                                                    href="{% url 'blog:blog_create' %}">
-                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-chalkboard-teacher"></i>
+                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-newspaper"></i>
                                                     Create Article
                                                 </a>
 
@@ -207,14 +207,14 @@
                                     <li class="sidebar-menu-item ">
                                         <a class="sidebar-menu-button"
                                            href="{% url 'courses:create_course' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left   "></i>
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-video-slash  "></i>
                                             Create Course
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item ">
                                         <a class="sidebar-menu-button"
                                            href="{% url 'courses:create_lesson' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left   "></i>
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-folder-plus   "></i>
                                             Add Lesson
                                         </a>
                                     </li>
@@ -286,14 +286,15 @@
                                         Forum
                                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                     </a>
-                                    <ul class="sidebar-submenu sm-indent collapse" id="messages_menu">
+                                    <ul class="sidebar-submenu sm-indent collapse" id="messages_menu">origin/master
                                         <a class="sidebar-menu-button" href="{% url 'forum:forum_create' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fa fa-hands-helping"></i>
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left far fa-question-circle"></i>
                                             Ask Question
                                         </a>
                                         <li class="sidebar-menu-item">
                                             <a class="sidebar-menu-button" href="{% url 'forum:forum_list' %}">
-                                                <span class="sidebar-menu-text">Answer questions</span>
+                                                <span class="sidebar-menu-text "> <i
+                                                        class="sidebar-menu-icon sidebar-menu-icon--left   fa fa-hands-helping"></i>   Answer questions</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -309,7 +310,7 @@
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% url 'courses:student_course_list' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa  fa-file-import"></i>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-chalkboard"></i>
                                         My Course
                                     </a>
                                 </li>

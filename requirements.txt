@@ -12,6 +12,7 @@ django-crispy==1.8.1
 django-import-export==2.5.0
 django-markdown-deux==1.0.5
 django-quill-editor==0.1.16
+django-upload-validator==1.1.5
 et-xmlfile==1.0.1
 idna==2.10
 imageio==2.9.0
@@ -30,6 +31,7 @@ Pillow==8.1.0
 proglog==0.1.9
 pycparser==2.20
 PyJWT==2.0.0
+python-magic-bin==0.4.14
 python3-openid==3.2.0
 pytz==2020.5
 PyYAML==5.3.1
