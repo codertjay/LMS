@@ -35,48 +35,56 @@
                         {% endif %}
                     </div>
 
-                    <div class="card-body">
-                        {{ course.description }}
-                    </div>
-                </div>
 
-                <!-- Lessons -->
-                <ul class="card list-group list-group-fit">
-                    {% for item in course.lessons %}
-                        <li class="list-group-item {% if item == lesson %} active {% endif %} ">
-                            <div class="media">
-                                <div class="media-left">
-                                    <div class="text-muted">{{ forloop.counter }}.</div>
-                                </div>
-                                <div class="media-body">
-                                    <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
-                                </div>
-                                <div class="media-right">
-                                    <small class="text-muted-light">{{ item.duration }}</small>
+                    <ul class="nav nav-pills">
+                        <li class="active"><h3 class=" text-decoration-underline" style="padding-left: 20px">
+                            <a data-toggle="pill" href="#home">About</a></h3>
+                        </li>
+                        <li><h3 class=" text-decoration-underline" style="padding-left: 40px"><a
+                                data-toggle="pill" href="#menu2">
+                            Lessons
+                        </a></h3>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <h3 class=" text-decoration-underline text-center">About</h3>
+                            <div class="card-body">
+                                {{ course.description }}
+                            </div>
+                        </div>
+                        <div id="menu2" class="tab-pane fade">
+                            <h3 class="text-center text-decoration-underline">Lessons</h3>
+                            <div class="card">
+                                <div class="card-content">
+                                    <ul class="card list-group list-group-fit">
+                                        {% for item in course.lessons %}
+                                            <li class="list-group-item {% if item == lesson %} active {% endif %} ">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <div class="text-muted">{{ forloop.counter }}.</div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                                    </div>
+                                                    <div class="media-right">
+                                                        <small class="text-muted-light">{{ item.duration }}</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
                             </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="col-md-4">
-               {% comment %} <div class="card">
-                    <div class="card-body text-center">
-                        <p>
-                            <a href="student-cart.html" class="btn btn-success btn-block flex-column">
-                                Get All Courses
-                                <strong>&dollar;9 / month</strong>
-                            </a>
-                        </p>
-                        <div class="page-separator">
-                            <div class="page-separator__text">or</div>
                         </div>
-                        <a href="student-cart.html" class="btn btn-white btn-block flex-column">
-                            Purchase Course
-                            <strong>&dollar;25 USD</strong>
-                        </a>
                     </div>
-                </div>{% endcomment %}
+
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
                         <div class="media align-items-center">
@@ -87,7 +95,7 @@
                             </div>
                             <div class="media-body">
                                 <h5 class="card-title"><a
-                                        href="student-profile.html">{{ course.user.profile.first_name }}
+                                        href="{% url 'users:profile' course.user.username %}">{{ course.user.profile.first_name }}
                                     - {{ course.user.profile.last_name }}</a></h5>
                                 <p class="card-subtitle">{{ course.user.profile.user_type }}</p>
                             </div>
@@ -159,7 +167,7 @@
         var previousTime = 0;
         video.addEventListener ('timeUpdate' , function (event) {
             previousTime = video.currentTime
-            console.log('the previous time',previousTime)
+            console.log ('the previous time' , previousTime)
         })
         video.addEventListener ('seeking' , function (event) {
             if (video.currentTime > previousTime) {
@@ -168,3 +176,38 @@
         })
     </script>
 {% endblock script %}
+
+<ul class="nav nav-pills">
+    <li class="active"><a data-toggle="pill" href="#home">About</a></li>
+    <li><a data-toggle="pill" href="#menu2">Lessons</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+        <h3>HOME</h3>
+        <div class="card-body">
+            {{ course.description }}
+        </div>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+        <h3>Lessons</h3>
+
+        <ul class="card list-group list-group-fit">
+            {% for item in course.lessons %}
+                <li class="list-group-item {% if item == lesson %} active {% endif %} ">
+                    <div class="media">
+                        <div class="media-left">
+                            <div class="text-muted">{{ forloop.counter }}.</div>
+                        </div>
+                        <div class="media-body">
+                            <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                        </div>
+                        <div class="media-right">
+                            <small class="text-muted-light">{{ item.duration }}</small>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

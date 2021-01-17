@@ -25,7 +25,7 @@
         <div class="row">
 
             <div class="col-md-10 mx-auto">
-                <div class="card" style="background-color: rgba(226,230,239,0.78); box-shadow: rgba(3,3,3,0.81);">
+                <div class="card card_color" >
                     <form action=" {% url 'blog:blog_create' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">

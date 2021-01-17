@@ -29,6 +29,7 @@ def get_course_membership_type(course_allowed_mem_types):
 class CourseListView(LoginRequiredMixin, ListView):
     model = Course
     template_name = 'DashBoard/student/student-browse-courses.html'
+    # template_name = 'courses/course_list.html'
     paginate_by = 2
 
     def get_queryset(self):
@@ -133,7 +134,7 @@ class CourseCreateView(LoginRequiredMixin, View):
                 print('there was an error', a)
 
             instance.save()
-            messages.success(self.request, 'blog post have being created')
+            messages.success(self.request, 'course have being created')
             return HttpResponseRedirect(instance.get_absolute_url())
 
         elif not form.is_valid():
@@ -194,7 +195,7 @@ class LessonCreateView(LoginRequiredMixin, View):
             instance = form.save(commit=False)
             instance.user = self.request.user
             instance.save()
-            messages.success(self.request, 'blog post have being created')
+            messages.success(self.request, 'Course has being deleted')
             return HttpResponseRedirect(instance.get_absolute_url())
 
         else:

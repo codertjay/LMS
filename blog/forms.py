@@ -7,14 +7,14 @@ from upload_validator import FileTypeValidator
 
 
 class PostCreateForm(forms.ModelForm):
-    description = QuillFormField()
+    # description = QuillFormField()
     published_date = forms.DateField(widget=forms.SelectDateWidget)
 
     image = forms.ImageField(required=True, validators=[FileTypeValidator(
         allowed_types=['image/*']
     )],
                              widget=forms.FileInput(attrs={
-                                 'class': '  waves-effect   bg-primary   ',
+                                 'class': '    ',
 
                              }))
 

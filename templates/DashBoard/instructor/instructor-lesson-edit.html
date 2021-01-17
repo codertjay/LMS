@@ -92,7 +92,7 @@
             <div class="col-md-6 text-center text-capitalize">
                 <h2 class="text-primary">Update and delete lesson's </h2>
 
-                <div class="tabs_">
+                <div class="tabs_"  style="height: 500px; overflow-y: scroll;">
                     {% for item in course %}
                         <div class="tab_ ">
                             <input type="checkbox" id="{{ item.slug }}"
@@ -101,19 +101,18 @@
                             {% if item.lessons %}
                                 {% for lesson_item in item.lessons %}
                                     <div class="tab-content_" style="background-color: rgb(44,62,80);">
-                                        <div class="card "
-                                             style="background-color: rgb(44,62,80);padding:0px;padding-right: 20px;padding-left: 20px;">
+                                        <div class="card card_color">
                                             <div class="d-flex justify-content-between ">
-                                                <a href="{% url 'courses:lesson_update'  lesson_item.slug %}">
-                                                    <button><i class="fa fa-edit text-info"></i></button>
+                                                <a href="{% url 'courses:lesson_update'  lesson_item.slug %}" class="btn btn-info">
+                                                   <i class="fa fa-edit "></i>
                                                 </a>
                                                 <div class="card-title">
                                                     <a href="{{ lesson_item.get_absolute_url }}"><h3
                                                             class="text-capitalize text-primary"> {{ lesson_item.title }}</h3>
                                                     </a>
                                                 </div>
-                                                <a href="{% url 'courses:lesson_delete'  lesson_item.slug %}">
-                                                    <button><i class="fa fa-trash-alt text-danger"></i></button>
+                                                <a href="{% url 'courses:lesson_delete'  lesson_item.slug %}" class="btn btn-danger">
+                                                    <i class="fa fa-trash-alt " ></i>
                                                 </a>
                                             </div>
                                         </div>
