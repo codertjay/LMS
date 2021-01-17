@@ -19,26 +19,42 @@
                 <div class="card">
                     <div class="embed-responsive embed-responsive-16by9">
                         {% if lesson %}
-                            <video controls="" loop="loop"
-                                   controlsList="nodownload"
+                            <video controls
                                    src="{{ lesson.videoURL }}"
                                    poster="{{ lesson.thumbnailURL }}"
                                    width="500" height="500">
+
                                 Sorry your browser does not support embedded videos
                             </video>
+                            <video width="500" height="500" controls>
+                                <source src="{{ lesson.videoURL }}" type="video/mp4">
+                                <source src="mov_bbb.ogg" type="video/ogg">
+                                Your browser does not support HTML5 video.
+                            </video>
+
                         {% else %}
                             <video controls
                                    poster="{{ course.imageURL }}"
-                                   width="500" height="500">
-                                Sorry your browser does not support embedded videos
+                                   width="500" height="500" data-toggle="popover" title="Popover Header"
+                                   data-content="Some content inside the popover">
+                                Sorry your dont have access to video please upgrade memberships
                             </video>
                         {% endif %}
+
+                        <div class="card">
+                            <div class="card-content">
+                                <h3> please upgrade membership to view this course </h3>
+                                <p class="text-center">
+                                    click <a href="{% url 'memberships:membership_select' %}">here</a> to upgrade
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
 
                     <ul class="nav nav-pills">
                         <li class="active"><h3 class=" text-decoration-underline" style="padding-left: 20px">
-                            <a data-toggle="pill" href="#home">About</a></h3>
+                            <a data-toggle="pill" class="active" href="#home">About</a></h3>
                         </li>
                         <li><h3 class=" text-decoration-underline" style="padding-left: 40px"><a
                                 data-toggle="pill" href="#menu2">
@@ -66,7 +82,8 @@
                                                         <div class="text-muted">{{ forloop.counter }}.</div>
                                                     </div>
                                                     <div class="media-body">
-                                                        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                                        <a href="{{ item.get_absolute_url }}"
+                                                           class="{% if item == lesson %} text-white {% endif %}">{{ item.title }}</a>
                                                     </div>
                                                     <div class="media-right">
                                                         <small class="text-muted-light">{{ item.duration }}</small>
@@ -174,6 +191,9 @@
                 video.currentTime = previousTime;
             }
         })
+        $ (document).ready (function () {
+            $ ('[data-toggle="popover"]').popover ();
+        });
     </script>
 {% endblock script %}
 

@@ -50,8 +50,25 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
 
     def get(self, request):
         if request.user.profile.user_type == 'Instructor':
+            course_qs = Course.objects.filter(user=request.user)
+            try:
+                most_viewed_qs = Course.objects.all().order_by('-view_count')[10]
+                if most_viewed_qs:
+                    most_viewed = most_viewed_qs
+                else:
+                    most_viewed = None
+            except Exception as a:
+                most_viewed = None
+                print('the error', a)
+            if course_qs:
+                course = course_qs
+            else:
+                course = None
             context = {
-                'active': True
+                'active': True,
+                'course': course,
+                'most_viewed': most_viewed
+
             }
             return render(request, 'DashBoard/instructor/instructor-dashboard.html', context)
         return redirect('users:profile', request.user.username)

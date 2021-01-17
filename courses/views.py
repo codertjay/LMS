@@ -68,8 +68,24 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         course = context['object']
+        course.view_count += 1
+        course.save()
         lesson = course.first_lesson
-        context['lesson'] = lesson
+        user_membership = get_object_or_404(UserMembership, user=self.request.user)
+        user_membership_type = user_membership.membership.membership_type
+        course_allowed_mem_types = course.allowed_memberships.all()
+
+        membership_type = get_course_membership_type(course_allowed_mem_types)
+        if course_allowed_mem_types.filter(membership_type=user_membership_type).exists():
+            context['lesson'] = lesson
+        elif user_membership_type == 'Enterprise':
+            context['lesson'] = lesson
+        elif membership_type == user_membership_type:
+            context['lesson'] = lesson
+        elif course_allowed_mem_types == 'Free':
+            context['lesson'] = lesson
+        else:
+            context['lesson'] = None
         user_profile_qs = Profile.objects.filter(user=self.request.user)
         if user_profile_qs:
             user_profile = user_profile_qs.first()
@@ -85,11 +101,15 @@ class LessonDetailView(LoginRequiredMixin, View):
     def get(self, request, course_slug, lesson_slug, *args, **kwargs):
         course = get_object_or_404(Course, slug=course_slug)
         lesson = get_object_or_404(Lesson, slug=lesson_slug)
+        course.view_count += 1
+        course.save()
 
         user_membership = get_object_or_404(UserMembership, user=request.user)
         user_membership_type = user_membership.membership.membership_type
         course_allowed_mem_types = course.allowed_memberships.all()
+
         membership_type = get_course_membership_type(course_allowed_mem_types)
+
         if course_allowed_mem_types.filter(membership_type=user_membership_type).exists():
             context = {'lesson': lesson, 'course': course, }
         elif user_membership_type == 'Enterprise':

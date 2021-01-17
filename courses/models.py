@@ -27,6 +27,9 @@ class Course(models.Model):
     image = models.ImageField()
     rating = models.IntegerField(default=5)
     tag = models.CharField(choices=CourseTag, max_length=15, default='Intermediate')
+    view_count = models.IntegerField(default=0)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
 
     @property
     def imageURL(self):
@@ -110,7 +113,6 @@ class Lesson(models.Model):
             clip = VideoFileClip(self.video.path)
             print(clip.duration)
             duration = clip.duration
-            minutes = timedelta.min()
         except:
             duration = None
         print('the duration of the video ', duration)

@@ -22,9 +22,11 @@
             <form action="{% url 'courses:list' %}" method="get">
                 <div class="d-flex flex-wrap2 align-items-center mb-headings">
                     <div class="flex search-form ml-3 search-form--light">
-                        <input type="text" name="search" id="id_search" class="form-control" placeholder="Search courses"
+                        <input type="text" name="search" id="id_search" class="form-control"
+                               placeholder="Search courses"
                                id="searchSample02">
-                        <button class="btn" type="button" role="button"><i class="fa fa-search fa-2x text-info"></i></button>
+                        <button class="btn" type="button" role="button"><i class="fa fa-search fa-2x text-info"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -68,7 +70,7 @@
                              badge-success
                             {% endif %} ">{{ member }}</span>
                         {% endfor %}
-                        <a class="pull-right"
+                        <a class="text-center"
                            href="{{ course.get_absolute_url }}">
                                 <span class=" badge badge-warning "
                                       style="font-size: larger">
@@ -78,6 +80,8 @@
                                         Apply
                                     {% endif %}
                                     </span>
+                            <span class="pull-right float-right text-info "> <i
+                                    class="fa fa-eye "></i>{{ course.view_count }} </span>
                         </a>
 
                     </div>
