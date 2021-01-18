@@ -479,7 +479,8 @@
                                 <p><span>${{ Professional_price }}</span>/mo</p>
                                 <!--<span>(10% Discount for yearly)</span>--></div>
                         </div>
-                        <a href="{% url 'memberships:membership_select' %} " class="btn btn-primary w-100 ">Buy Now</a></div>
+                        <a href="{% url 'memberships:membership_select' %} " class="btn btn-primary w-100 ">Buy Now</a>
+                    </div>
                 </div>
                 <div class="col-lg-6 ">
                     <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
@@ -505,7 +506,8 @@
                                 <p><span>${{ Enterprise_price }}</span>/mo</p>
                                 <!--<span>(10% Discount for yearly)</span>--></div>
                         </div>
-                        <a href="{% url 'memberships:membership_select' %} " class="btn btn-primary w-100 ">Buy Now</a></div>
+                        <a href="{% url 'memberships:membership_select' %} " class="btn btn-primary w-100 ">Buy Now</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -558,22 +560,23 @@
     <div class="gtco-testimonials" style="margin: 50px 0;">
         <h2>Testimonials</h2>
         <div class="owl-carousel owl-carousel1 owl-theme">
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=50&w=300"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>Ronne Galle <br/>
-                            <span> Student </span></h5>
-                        <p class="card-text">“After spending weeks looking for the best trading academy to join i
-                            came
-                            across <b>AssasinFx</b> via instagram then i gave it a shot all i can say is since then
-                            i've
-                            been financially buyoyant.” </p>
+            {% for item in testimonial %}
+                <div>
+                    <div class="card text-center"><img class="card-img-top"
+                                                       src="{{ item.imageURL }}"
+                                                       alt="{{ item.name }}">
+                        <div class="card-body">
+                            <h5>{{ item.name }} <br/>
+                                <span> {{ item.title }} </span></h5>
+                            <p class="card-text">“{{ item.content }}” </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div>
+
+            {% endfor %}
+
+
+            {% comment %}  <div>
                 <div class="card text-center"><img class="card-img-top"
                                                    src="https://images.unsplash.com/photo-1588361035994-295e21daa761?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=301&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=50&w=301"
                                                    alt="">
@@ -588,6 +591,7 @@
                     </div>
                 </div>
             </div>
+
             <div>
                 <div class="card text-center"><img class="card-img-top"
                                                    src="https://images.unsplash.com/photo-1575377222312-dd1a63a51638?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=302&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=50&w=302"
@@ -600,6 +604,7 @@
                     </div>
                 </div>
             </div>
+
             <div>
                 <div class="card text-center"><img class="card-img-top"
                                                    src="https://images.unsplash.com/photo-1549836938-d278c5d46d20?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=303&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=50&w=303"
@@ -612,7 +617,7 @@
                             improved on my trading skills” </p>
                     </div>
                 </div>
-            </div>
+            </div>{% endcomment %}
         </div>
     </div>
     <!--testimonial-->

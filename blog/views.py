@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DeleteView, View, DetailView
+from django.views.generic import ListView, DeleteView, View, DetailView, CreateView
 
 from .forms import CommentForm
 from .forms import PostCreateForm

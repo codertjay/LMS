@@ -2,13 +2,14 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.views.generic.base import View
+from django.views.generic import CreateView, UpdateView
+from django.views.generic.base import View,
 
 from blog.models import Post
 from courses.models import Course
-from home_page.forms import SubscribeForm
+from home_page.forms import SubscribeForm, TestimonialForm
+from home_page.models import Testimonial
 from memberships.models import Membership
-
 
 def freeMembership():
     free_qs = Membership.objects.filter(membership_type='Free')
@@ -67,6 +68,7 @@ class HomePageView(View):
             'Enterprise_course': Enterprise_course.count(),
             'Enterprise_price': enterpriseMembership().price,
             'Enterprise_discount_price': enterpriseMembership().discount,
+            'testimonial': Testimonial.objects.all(),
         }
         return render(self.request, 'HomePage/index.html', context)
 
@@ -90,3 +92,18 @@ def subscribe_view(request):
         messages.success(request, 'You have successfully subscribed')
         return redirect('home:subscribe_page')
     return redirect('home:home')
+
+
+class TestimonailCreateView(CreateView):
+    model = Testimonial
+    form_class = TestimonialForm
+    template_name = 'DashBoard/instructor/instructor-testimonial-create.html'
+
+
+
+class TestimonailCreateView(UpdateView):
+    model = Testimonial
+    form_class = TestimonialForm
+    template_name = 'DashBoard/instructor/instructor-testimonial-update.html'
+
+

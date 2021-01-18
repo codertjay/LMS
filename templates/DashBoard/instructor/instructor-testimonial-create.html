@@ -1,0 +1,165 @@
+{% extends 'DashBoard/dashboard_base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block title %}Instructor - Edit course
+{% endblock title %}
+
+
+{% block styles %}
+    {{ form.media }}
+
+{% endblock styles %}
+
+
+
+
+
+{% block content %}
+
+
+    <div class="container-fluid ">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'courses:create_course' %}">Courses</a></li>
+            <li class="breadcrumb-item active">Create course</li>
+        </ol>
+        <div class="media align-items-center mb-headings">
+            <div class="media-body">
+                <h1 class="h2 ">Create Course</h1>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-7">
+                <div class="card card_color"
+                ">
+                <form action="." {% url 'courses:create_course' %} method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        {{ form|crispy }}
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-5 ">
+            <p><a href="instructor-lesson-add.html" class="btn btn-primary">Update and Delete Course<i
+                    class="material-icons"></i></a></p>
+            <div class="card card_color" style="height: 500px; overflow-y: scroll;">
+                <div class="card-body">
+
+                    <div class="nestable" id="nestable-handles-primary">
+                        <ul class="nestable-list">
+
+                            {% for item in course %}
+                                <li class="nestable-item nestable-item-handle list-group" data-id="{{ item.id }}">
+
+                                    <div class="nestable-content">
+                                        <div class="media align-items-center">
+                                            <div class="media-left">
+                                                <a href="{% url 'courses:delete_course' item.slug %}"><i
+                                                        class="text-danger fa fa-trash-alt"></i></a>
+                                            </div>
+                                            <div class="media-left">
+                                                <img src="{{ item.imageURL }}" alt="" width="100"
+                                                     class="rounded">
+                                            </div>
+                                            <div class="media-body">
+                                                <h5 class="card-title h6 mb-0">
+                                                    <a href="{{ item.get_absolute_url }}" class="text-white">{{ item.title }}</a>
+                                                </h5>
+                                                <small class="text-muted">{{ item.timestamp }}</small>
+                                            </div>
+                                            <div class="media-right">
+                                                <a href="{% url 'courses:update_course' item.slug %}"
+                                                   class="text-info"><i
+                                                        class="fa fa-edit"></i></a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            {% for item in course %}
+                <!-- Classic Modal -->
+                <div class="modal fade" id="{{ item.id }}{{ item.title|slugify }}" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ item.title }}</h4>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">
+                                    <i class="fa fa-close"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                <form action="{% url 'courses:update_course' item.slug %}" method="post"
+                                      enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <input type="hidden" name="id" value="{{ item.id }}">
+                                        <div class="col-12">
+                                            <label for="id_title">Title</label>
+                                            <input type="text" name="title"
+                                                   class="form-control" id="id_title"
+                                                   maxlength="50"
+                                                   value="{{ item.title }}">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div id="div_id_description" class="form-group bmd-form-group">
+                                                <label for="id_description" class="bmd-label-static">
+                                                    Description
+                                                </label>
+                                                <div class="">
+                                                <textarea name="description" cols="100" rows="4"
+                                                          class="form-control    textarea form-control"
+                                                          placeholder="just a little description with maximum characters of 200"
+                                                          maxlength="200"
+                                                          id="id_description">{{ item.description }}</textarea>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary ">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    </div>
+
+
+{% endblock content %}
+
+
+
+
+
+{% block script %}
+
+
+{% endblock %}
