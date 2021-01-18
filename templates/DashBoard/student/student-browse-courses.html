@@ -15,10 +15,10 @@
         </ol>
         <div class="media align-items-center mb-headings">
             <div class="media-body">
-                <h1 class="h2">Browse Course</h1>
+                <h3 class="font-italic">Browse Course</h3>
             </div>
         </div>
-        <div class="card card-body border-left-3 border-left-primary navbar-shadow mb-4">
+        <div class="card card-body border-left-3 border-left-primary navbar-shadow mb-4 card_shadow">
             <form action="{% url 'courses:list' %}" method="get">
                 <div class="d-flex flex-wrap2 align-items-center mb-headings">
                     <div class="flex search-form ml-3 search-form--light">
@@ -36,7 +36,7 @@
         <div class="card-columns">
 
             {% for course in object_list %}
-                <div class="card">
+                <div class="card card_shadow">
                     <div class="card-header text-center">
                         <h4 class="card-title mb-0 text-capitalize"><a
                                 href="{{ course.get_absolute_url }}">{{ course.title }}</a></h4>

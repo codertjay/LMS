@@ -30,14 +30,10 @@
                 <!-- Search -->
                 <div class="flex search-form form-control-rounded search-form--light mb-2"
                      style="min-width: 300px;">
-                    <form class="search-form d-none d-md-flex" action="{% url 'forum:forum_list' %}" method="get">
-                        <input type="text" class="form-control" name="search" placeholder="Search" width="100">
-                        <button class="btn" type="button"><i class="fa fa-search font-size-24pt"></i></button>
+                    <form class="search-form  d-md-flex" action="{% url 'forum:forum_list' %}" method="get">
+                        <input type="text" class="form-control" name="search" placeholder="Search" style="width: 500px">
+                        <button class="btn" type="submit"><i class="fa fa-search font-size-24pt"></i></button>
                     </form>
-                </div>
-                <div class="mb-4 d-flex align-items-center">
-                    <small class="text-black-70 text-uppercase mr-3">Displaying 10 out of 5,234
-                        discussions</small>
                 </div>
 
                 <div class="card">
@@ -45,7 +41,7 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <h4 class="card-title">General</h4>
-                                <p class="card-subtitle">All non-course topics.</p>
+                                <p class="card-subtitle">All forum questions </p>
                             </div>
                             <div class="media-right">
                                 <a href="{% url 'forum:forum_create' %}" class="btn btn-white btn-sm"><i

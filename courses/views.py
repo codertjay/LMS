@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from django.views.generic import ListView, DetailView, DeleteView
 from django.views.generic.base import View
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from courses.forms import CourseCreateEditForm, LessonCreateEditForm
 from courses.models import Course, Lesson
 from memberships.models import UserMembership, Membership
@@ -30,7 +30,7 @@ class CourseListView(LoginRequiredMixin, ListView):
     model = Course
     template_name = 'DashBoard/student/student-browse-courses.html'
     # template_name = 'courses/course_list.html'
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get('search')
@@ -51,6 +51,15 @@ class StudentCourseListView(View):
 
     def get(self, request):
         course = self.request.user.profile.applied_courses.all()
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(course, 10)
+        try:
+            course = paginator.page(page)
+        except PageNotAnInteger:
+            course = paginator.page(1)
+        except EmptyPage:
+            course = paginator.page(paginator.num_pages)
         context = {
             'StudentCourse': course
         }
@@ -58,7 +67,6 @@ class StudentCourseListView(View):
 
     def post(self, request):
         return redirect('courses:student_course_list')
-
 
 class CourseDetailView(LoginRequiredMixin, DetailView):
     model = Course

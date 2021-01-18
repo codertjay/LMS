@@ -30,7 +30,6 @@ class Course(models.Model):
     view_count = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
 
-
     @property
     def imageURL(self):
         try:
@@ -48,6 +47,14 @@ class Course(models.Model):
     @property
     def lessons(self):
         return self.lesson_set.all().order_by('position')
+
+    @property
+    def course_duration(self):
+        duration = 0
+        for item in self.lessons:
+            if item.duration:
+                duration += item.duration
+        return duration
 
     @property
     def first_lesson(self):

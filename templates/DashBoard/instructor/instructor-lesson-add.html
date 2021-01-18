@@ -75,10 +75,10 @@
             <li class="breadcrumb-item"><a href="instructor-dashboard.html">Home</a></li>
             <li class="breadcrumb-item active">Courses</li>
         </ol>
-        <h1 class="h2 text-info text-center">Create Lesson </h1>
+        <h1 class="h2 text-info text-decoration-underline">Create Lesson </h1>
         <div class="row">
             <div class="col-md-6">
-                <div class="card" style="background-color: rgb(44,62,80); box-shadow: rgba(3,3,3,0.81);color: white">
+                <div class="card card_color">
                     <div class="card-body">
                         <form action="." method="post" enctype="multipart/form-data">
                             {% csrf_token %}
@@ -90,9 +90,9 @@
             </div>
 
             <div class="col-md-6 text-center text-capitalize">
-                <h2 class="text-primary">Update and delete lesson's </h2>
+                <h2 class="text-primary text-decoration-underline">Update and delete lesson's </h2>
 
-                <div class="tabs_" style="height: 500px; overflow-y: scroll;">
+                <div class="tabs_ card_color" style="height: 500px; overflow-y: scroll;">
                     {% for item in course %}
                         <div class="tab_ ">
                             <input type="checkbox" id="{{ item.slug }}"

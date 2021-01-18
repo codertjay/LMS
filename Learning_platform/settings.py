@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-
     'users',
     'courses',
     'memberships',
@@ -137,10 +136,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 login_url = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-SIGNUP_REDIRECT_URL = '/profile/profileUpdate/'
+SIGNUP_REDIRECT_URL = '/courses/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 
 if DEBUG:
     STRIPE_PUBLISHABLE_KEY = 'pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ'
@@ -158,7 +156,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-
 
 QUILL_CONFIGS = {
     'default': {
@@ -181,14 +178,11 @@ QUILL_CONFIGS = {
     }
 }
 
-
-
 # for sending email
 
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_HOST_USER='begintjay@gmail.com'
-EMAIL_HOST_PASSWORD='thankgod12'
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_USE_SSL=False
-
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'begintjay@gmail.com'
+EMAIL_HOST_PASSWORD = 'thankgod12'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

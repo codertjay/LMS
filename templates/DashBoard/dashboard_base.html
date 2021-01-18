@@ -41,9 +41,15 @@
     <style>
         .card_color {
             background-color: rgb(44, 62, 80) !important;
-            box-shadow: rgba(3, 3, 3, 0.81);
             color: white !important;
+            box-shadow: 10px 10px 5px #888888 !important;
         }
+
+        .card {
+            box-shadow: 10px 10px 5px #dedbdb !important;
+
+        }
+
     </style>
     {% block styles %}
 
@@ -51,7 +57,7 @@
 
 </head>
 
-<body class=" layout-fluid">
+<body class=" layout-fluid" style="font-family: Times New Roman, Times, serif;">
 
 <div class="preloader">
     <div class="sk-double-bounce">
@@ -284,9 +290,10 @@
                                     <a class="sidebar-menu-button" data-toggle="collapse" href="#messages_menu">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-comment"></i>
                                         Forum
-                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                        <span class="ml-auto fa fa-arrows-h sidebar-menu-toggle-icon "><span><i
+                                                class="fa fa-arrows-h"></i></span> </span>
                                     </a>
-                                    <ul class="sidebar-submenu sm-indent collapse" id="messages_menu">origin/master
+                                    <ul class="sidebar-submenu sm-indent collapse" id="messages_menu">
                                         <a class="sidebar-menu-button" href="{% url 'forum:forum_create' %}">
                                             <i class="sidebar-menu-icon sidebar-menu-icon--left far fa-question-circle"></i>
                                             Ask Question

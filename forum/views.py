@@ -20,10 +20,9 @@ class ForumListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('search')
-        course = ForumQuestion.objects.all()
+        forum = ForumQuestion.objects.all()
         if query:
-            object_list = course.filter(
-                Q(user__icontains=query) |
+            object_list = forum.filter(
                 Q(title__icontains=query) |
                 Q(content__icontains=query)
             ).distinct()
@@ -47,7 +46,7 @@ class ForumQuestionCreateView(LoginRequiredMixin, View):
             instance = form.save(commit=False)
             instance.user = self.request.user
             instance.save()
-            messages.success(self.request, 'blog post have being created')
+            messages.success(self.request, 'Question has being created ')
             return HttpResponseRedirect(instance.get_absolute_url())
 
         elif not form.is_valid():
@@ -90,7 +89,7 @@ def forum_answer_create_view(request, pk=None):
             form_data.user = request.user
             form_data.forum_question = instance
             form.save()
-            messages.success(request, 'form has being submitted')
+            messages.success(request, 'You have successfully answer the question ')
             return HttpResponseRedirect(instance.get_absolute_url())
         else:
             print('there was an error ', f'{form.errors}')
@@ -98,5 +97,5 @@ def forum_answer_create_view(request, pk=None):
             return redirect('forum:forum_detail', instance.id)
 
     else:
-        messages.error(request, f'You have to make a post request')
+        messages.error(request, f'There was an error ')
     return redirect('forum:forum_detail', instance.id)

@@ -19,8 +19,8 @@
         </ol>
 
         <div class="row">
-            <div class="col-md-8"  style="overflow:auto;">
-                <div class="card" style="padding-right:  20px;padding-left:  50px;padding-top:  50px;">
+            <div class="col-md-8" style="overflow:auto;">
+                <div class="card card_shadow" style="padding-right:  20px;padding-left:  50px;padding-top:  50px;">
                     <div class="d-flex justify-content-between">
                         <div class="card-title">
                             <h4 class="text-capitalize text-info">{{ forum_question.title }}</h4>
@@ -75,20 +75,19 @@
                         {% endfor %}
 
                     </div>
+                    <div class="col-12" style="margin-top: 20vh;margin-bottom: 10vh;">
 
-
-                    <div class="col-12" style="margin-top: 10vh;">
-
-                        <div class="card">
-                            <div class="card-content"
-                                 style="padding-left:  10px;padding-top:  10px;padding-right:  10px;">
-                                <form action="{% url 'forum:forum_answer_create' forum_question.pk %}" method="post"
-                                      class="form-inline">
+                        <div class="">
+                            <form action="{% url 'forum:forum_answer_create' forum_question.pk %}" method="post"
+                                  class="">
+                                <div class="card-content">
                                     {% csrf_token %}
-                                        {{ form|crispy }}
-                                        <button class="btn btn-primary">Answer</button>
-                                </form>
-                            </div>
+                                    {{ form|crispy }}
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary">Answer</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -97,36 +96,38 @@
 
 
             <div class="col-md-4">
-
                 <h3 class="text-capitalize">Recent Questions </h3>
                 <p class="lead text-secondary"> please help others if you are able to answer any of the question</p>
-                {% for item in forumquestion_list %}
-                    <li class="list-group-item forum-thread">
-                        <div class="media align-items-center">
-                            <div class="media-left">
-                                <div class="forum-icon-wrapper">
-                                    <a href="{{ item.get_absolute_url }}" class="forum-thread-icon">
-                                        <i class="fa fa-info-circle fa-2x"></i>
-                                    </a>
-                                    <a href="{% url 'users:profile' item.user.username %}" class="forum-thread-user">
-                                        <img src="  {{ item.user.profile.profilePicsImageURL }}" alt="" width="20"
-                                             class="rounded-circle">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="media-body">
-                                <div class="d-flex align-items-center">
-                                    <a href="{{ item.get_absolute_url }}" class="text-body"><strong>
-                                        {{ item.user.profile.first_name }} {{ item.user.profile.last_name }}
-                                    </strong></a>
-                                    <small class="ml-auto text-muted">{{ item.timestamp|timesince }}</small>
-                                </div>
-                                <a class="text-black-70" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
+                <div class="" style="height: 500px;overflow:auto">
 
+                    {% for item in forumquestion_list %}
+                        <li class="list-group-item forum-thread">
+                            <div class="media align-items-center">
+                                <div class="media-left">
+                                    <div class="forum-icon-wrapper">
+                                        <a href="{{ item.get_absolute_url }}" class="forum-thread-icon">
+                                            <i class="fa fa-info-circle fa-2x"></i>
+                                        </a>
+                                        <a href="{% url 'users:profile' item.user.username %}"
+                                           class="forum-thread-user">
+                                            <img src="  {{ item.user.profile.profilePicsImageURL }}" alt="" width="20"
+                                                 class="rounded-circle">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ item.get_absolute_url }}" class="text-body"><strong>
+                                            {{ item.user.profile.first_name }} {{ item.user.profile.last_name }}
+                                        </strong></a>
+                                        <small class="ml-auto text-muted">{{ item.timestamp|timesince }}</small>
+                                    </div>
+                                    <a class="text-black-70" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

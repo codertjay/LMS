@@ -12,39 +12,26 @@
         </ol>
         <div class="media mb-headings align-items-center">
             <div class="media-body">
-                <h1 class="h2">My Courses</h1>
-            </div>
-            <div class="media-right">
-                <div class="btn-group btn-group-sm">
-                    <a href="#" class="btn btn-white active"><i class="material-icons">list</i></a>
-                    <a href="#" class="btn btn-white"><i class="material-icons">dashboard</i></a>
-                </div>
+                <h1 class="h2 text-decoration-underline">My Courses</h1>
             </div>
         </div>
         <div class="card-columns">
             {% for course in  StudentCourse %}
-                <div class="card">
+                <div class="card card_shadow">
                     <div class="card-header">
                         <div class="media">
                             <div class="media-left">
-                                <a href="student-student-take-course.html">
+                                <a href="{{ course.get_absolute_url }}">
                                     <img src="{{ course.imageURL }}"
                                          alt="Card image cap" width="100" class="rounded">
                                 </a>
                             </div>
                             <div class="media-body">
                                 <h4 class="card-title m-0"><a
-                                        href="{{ course.get_absolute_url }}">{{ course.title }} </a>
+                                        href="{{ course.get_absolute_url }}" class="text-capitalize">{{ course.title }} </a>
                                 </h4>
-                                <small class="text-muted">Lessons: {{ course.lessons.first.id }}
-                                    of {{ course.lessons.last.id }}</small>
                             </div>
                         </div>
-                    </div>
-                    <div class="progress rounded-0">
-                        <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 40%"
-                             aria-valuenow="{{ course.lessons.first.id }}" aria-valuemin="0"
-                             aria-valuemax="{{ course.lessons.last.id }}"></div>
                     </div>
                     <div class="card-footer bg-white">
                         <a href="{{ course.get_absolute_url }}" class="btn btn-primary btn-sm">Continue <i
@@ -57,30 +44,53 @@
 
         </div>
 
+
         <!-- Pagination -->
         <ul class="pagination justify-content-center pagination-sm">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true" class="material-icons">chevron_left</span>
-                    <span>Prev</span>
-                </a>
-            </li>
-            <li class="page-item active">
-                <a class="page-link" href="#" aria-label="1">
-                    <span>1</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="1">
-                    <span>2</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span>Next</span>
-                    <span aria-hidden="true" class="material-icons">chevron_right</span>
-                </a>
-            </li>
+            <div class="d-flex justify-content-center">
+                <nav aria-label="...">
+                    {% if is_paginated %}
+
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item pr-2 fa-2x ">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"
+                                       aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled  pr-2  fa-2x">
+                                    <span class="page-link"><i class="fa fa-chevron-left"></i></span>
+                                </li>
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+
+                                {% if page_obj.number == i %}
+                                    <li class="page-item active " aria-current="page">
+                                        <span class="page-link">{{ i }} </span>
+                                    </li>
+                                {% else %}
+                                    <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item pl-2  fa-2x">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                                            class="fa fa-chevron-right"></i></a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled pl-2  fa-2x">
+                                    <span class="page-link"><i class="fa fa-chevron-right"></i></span>
+                                </li>
+
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </nav>
+
+            </div>
+
         </ul>
     </div>
 {% endblock content %}

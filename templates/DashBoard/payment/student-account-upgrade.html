@@ -55,16 +55,12 @@
                                                 <button type="submit"
                                                         class="btn btn-success">Get started
                                                 </button>
-                                            {% else %}
-                                                <a href="{% url 'memberships:profile' %}"
-                                                   class="btn btn-outline-secondary text-dark">Current
-                                                    plan</a>
                                             {% endif %}
                                             <input type="hidden" name="membership_type"
                                                    value="{{ object.membership_type }}">
                                         </form>
                                     {% endif %}
-                                    {% if object.membership_type == 'Free' %}
+                                    {% if object.membership_type == current_membership %}
                                         <a href="{% url 'memberships:profile' %}"
                                            class="btn btn-outline-secondary text-dark">Current
                                             plan</a>

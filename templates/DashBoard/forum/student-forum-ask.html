@@ -13,7 +13,7 @@
             <div class="col-lg container-fluid page__container">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'home:home' %}l">Home</a></li>
-                    <li class="breadcrumb-item"><a href="student-forum.html">Forum</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'forum:forum_list' %}">Forum</a></li>
                     <li class="breadcrumb-item active">Ask Question</li>
                 </ol>
                 <h1 class="h2">Ask Question</h1>
@@ -21,50 +21,50 @@
 
                 <form action="." method="post">
                     {% csrf_token %}
-                    <div class="card">
+                    <div class="card card_color my_shadow" {% comment %}style="box-shadow: 10px 10px 5px #888888;"{% endcomment %}>
                         <div class="card-body">
                             {{ form|crispy }}
                         </div>
-                        <div class="card-footer">
-                            <button class="btn btn-primary">Submit</button>
-                        </div>
+                        <button class="btn btn-primary">Submit</button>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <h5 class="text-uppercase mb-0">Most recent questions</h5>
                         </div>
-                        <ul class="list-group list-group-fit">
-                            {% for item in forum %}
-                                <li class="list-group-item forum-thread">
-                                    <div class="media align-items-center">
-                                        <div class="media-left">
-                                            <div class="forum-icon-wrapper">
-                                                <a href="{{ item.get_absolute_url }}" class="forum-thread-icon">
-                                                    <i class="fa fa-info-circle fa-2x"></i>
-                                                </a>
-                                                <a href="#" class="forum-thread-user">
-                                                    <img src="{{ item.user.profile.profilePicsImageURL }}" alt=""
-                                                         width="20"
-                                                         class="rounded-circle">
-                                                </a>
+                        <div class="" style="height:300px ;overflow-y: scroll">
+                            <ul class="list-group list-group-fit">
+                                {% for item in forum %}
+                                    <li class="list-group-item forum-thread">
+                                        <div class="media align-items-center">
+                                            <div class="media-left">
+                                                <div class="forum-icon-wrapper">
+                                                    <a href="{{ item.get_absolute_url }}" class="forum-thread-icon">
+                                                        <i class="fa fa-info-circle fa-2x"></i>
+                                                    </a>
+                                                    <a href="#" class="forum-thread-user">
+                                                        <img src="{{ item.user.profile.profilePicsImageURL }}" alt=""
+                                                             width="20"
+                                                             class="rounded-circle">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="d-flex align-items-center">
+                                                    <a href="{% url 'users:profile' item.user.username %}"
+                                                       class="text-body"><strong>{{ item.user.profile.first_name }}
+                                                        {{ item.user.profile.last_name }}</strong></a>
+                                                    <small class="ml-auto text-muted">{{ item.timestamp }}</small>
+                                                </div>
+                                                <a class="text-black-70"
+                                                   href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                                             </div>
                                         </div>
-                                        <div class="media-body">
-                                            <div class="d-flex align-items-center">
-                                                <a href="{% url 'users:profile' item.user.username %}"
-                                                   class="text-body"><strong>{{ item.user.profile.first_name }}
-                                                    {{ item.user.profile.last_name }}</strong></a>
-                                                <small class="ml-auto text-muted">{{ item.timestamp }}</small>
-                                            </div>
-                                            <a class="text-black-70"
-                                               href="{{ item.get_absolute_url }}">{{ item.title }}</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            {% endfor %}
+                                    </li>
+                                {% endfor %}
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
 
                 </form>

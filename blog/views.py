@@ -129,7 +129,6 @@ def update_post_view(request, slug=None):
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
         messages.warning(request, 'The form isn\'t valid')
-
     return render(request, 'DashBoard/blog/blog-update.html', {'form': form,'slug':slug})
 
 

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -86,5 +87,6 @@ def subscribe_view(request):
     form = SubscribeForm(request.POST)
     if form.is_valid():
         form.save()
+        messages.success(request, 'You have successfully subscribed')
         return redirect('home:subscribe_page')
     return redirect('home:home')
