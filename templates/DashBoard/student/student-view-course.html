@@ -13,20 +13,25 @@
             <li class="breadcrumb-item"><a href="{% url 'courses:list' %}">Courses</a></li>
             <li class="breadcrumb-item active">{{ course.title }}</li>
         </ol>
-        <h1 class="h2 text-capitalize">{{ course.title }}</h1>
+        <h1 class="h2 text-capitalize">{{ course.title }}  {% if lesson %} <br>
+            <small>{{ lesson.title }}</small>{% endif %}</h1>
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="embed-responsive embed-responsive-16by9">
                         {% if lesson %}
-                            <video controls
-                                   src="{{ lesson.videoURL }}"
-                                   poster="{{ lesson.thumbnailURL }}"
-                                   width="500" height="500">
+{#                            <video controls class="video"#}
+{#                                   src="{{ lesson.videoURL }}"#}
+{#                                   poster="{{ lesson.thumbnailURL }}"#}
+{#                                   width="500" height="500">#}
+{##}
+{#                            </video>#}
 
-                                Sorry your browser does not support embedded videos
+                            <video width="320" height="240" controls>
+                                <source src="{{ lesson.videoURL }}" type="video/mp4">
+                                <source src="{{ lesson.videoURL }}" type="video/ogg">
+                                Your browser does not support the video tag.
                             </video>
-
                         {% else %}
                             <video controls
                                    poster="{{ course.imageURL }}"
@@ -34,9 +39,11 @@
                                    data-content="Some content inside the popover">
                                 Sorry your dont have access to video please upgrade memberships
                             </video>
+
                             <div class="card">
                                 <div class="card-content">
-                                    <h3 class="text-center text-capitalize"> please upgrade membership to view this course </h3>
+                                    <h3 class="text-center text-capitalize"> please upgrade membership to view this
+                                        course </h3>
                                     <p class="text-center  text-capitalize">
                                         click <a href="{% url 'memberships:membership_select' %}">here</a> to upgrade
                                     </p>
@@ -119,10 +126,14 @@
                     </div>
                     <div class="card-body text-muted">
                         <p>{{ course.user.profile.about|truncatewords:20 }}</p>
-                        <a href="{{ course.user.profile.twitter_url }}" class="btn btn-light" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="{{ course.user.profile.instagram_url }}" class="btn btn-light" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="{{ course.user.profile.github_url }}" class="btn btn-light" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="{{ course.user.profile.linkedin_url }}" class="btn btn-light" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="{{ course.user.profile.twitter_url }}" class="btn btn-light" target="_blank"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="{{ course.user.profile.instagram_url }}" class="btn btn-light" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="{{ course.user.profile.github_url }}" class="btn btn-light" target="_blank"><i
+                                class="fab fa-github"></i></a>
+                        <a href="{{ course.user.profile.linkedin_url }}" class="btn btn-light" target="_blank"><i
+                                class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
                 <div class="card">
@@ -179,6 +190,7 @@
 {% block script %}
     <script>
         var video = document.getElementsByTagName ('video')[0];
+        {#var video = document.getElementsByClassName ('video');#}
         var previousTime = 0;
         video.addEventListener ('timeUpdate' , function (event) {
             previousTime = video.currentTime

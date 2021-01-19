@@ -18,6 +18,19 @@ CourseTag = (
 )
 
 
+def convert(n):
+    return str(timedelta(seconds=n))
+
+
+def video_clip_duration(video_path):
+    print('this is the video path', video_path)
+    clip = VideoFileClip(video_path)
+    print('this is the video clip', clip)
+    duration = convert(clip.duration)
+    print('this is the video duration', duration)
+    return duration
+
+
 class Course(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, default=1, null=True)
     slug = models.SlugField(unique=True)
@@ -52,8 +65,10 @@ class Course(models.Model):
     def course_duration(self):
         duration = 0
         for item in self.lessons:
-            if item.duration:
-                duration += item.duration
+            if item.video:
+                duration = video_clip_duration(item.video.path)
+                print('this is the duration of the video', duration)
+        print('this is the course duration of the video', duration)
         return duration
 
     @property
@@ -64,17 +79,6 @@ class Course(models.Model):
     def course_messages(self):
         return self.coursemessages_set.all()
 
-
-import datetime
-
-
-def convert(n):
-    return str(datetime.timedelta(seconds=n))
-
-
-# Driver program
-n = 12345
-print(convert(n))
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
@@ -128,9 +132,7 @@ class Lesson(models.Model):
     def duration(self):
         try:
             # Todo: change this to url when you try to push the project
-            clip = VideoFileClip(self.video.path)
-            print(clip.duration)
-            duration = clip.duration
+            duration = video_clip_duration(self.video.path)
         except:
             duration = None
         print('the duration of the video ', duration)

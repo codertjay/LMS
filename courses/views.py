@@ -68,6 +68,7 @@ class StudentCourseListView(View):
     def post(self, request):
         return redirect('courses:student_course_list')
 
+
 class CourseDetailView(LoginRequiredMixin, DetailView):
     model = Course
     # template_name = 'courses/course_detail.html'
@@ -88,12 +89,17 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
             context['lesson'] = lesson
         elif user_membership_type == 'Enterprise':
             context['lesson'] = lesson
+        elif user_membership_type == 'Enterprise' and membership_type == 'Professional':
+            context['lesson'] = lesson
         elif membership_type == user_membership_type:
             context['lesson'] = lesson
         elif course_allowed_mem_types == 'Free':
             context['lesson'] = lesson
         else:
             context['lesson'] = None
+        print('this is the lesson ', context['lesson'])
+        print('this is the user_membership_type ', user_membership_type)
+        print('this is the ciurse membership_type ', membership_type)
         user_profile_qs = Profile.objects.filter(user=self.request.user)
         if user_profile_qs:
             user_profile = user_profile_qs.first()
@@ -121,6 +127,8 @@ class LessonDetailView(LoginRequiredMixin, View):
         if course_allowed_mem_types.filter(membership_type=user_membership_type).exists():
             context = {'lesson': lesson, 'course': course, }
         elif user_membership_type == 'Enterprise':
+            context = {'lesson': lesson, 'course': course, }
+        elif user_membership_type == 'Enterprise' and membership_type == 'Professional':
             context = {'lesson': lesson, 'course': course, }
         elif membership_type == user_membership_type:
             context = {'lesson': lesson, 'course': course, }
