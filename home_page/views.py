@@ -49,16 +49,12 @@ class HomePageView(View):
         print('the free', Free_course)
         print('the Professional_course', Professional_course)
         print('the Enterpreneur_course', Enterprise_course)
-        if Post.objects.count() >= 4:
-            post = Post.objects.all()[4]
-        elif Post.objects.count() >= 3:
-            post = Post.objects.all()[2]
-        elif Post.objects.count() >= 2:
-            post = Post.objects.all()[2]
-        else:
-            post = None
+        # if Post.objects.count() > 4:
+        #     post = Post.objects.all()[4]
+        # else:
+        #     post = Post.objects.all()
         context = {
-            'post': post,
+            'post': Post.objects.all(),
             'Free_course': Free_course.count(),
             'Free_price': freeMembership().price,
             'Free_discount_price': freeMembership().discount,

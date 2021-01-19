@@ -7,6 +7,7 @@
 
 {% block styles %}
  {{ form.media }}
+
 {% endblock %}
 
 {% block content %}
@@ -29,7 +30,7 @@
                     <form action=" {% url 'blog:blog_create' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">
-                            {{ form|crispy }}
+                            {{ form|crispy}}
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>

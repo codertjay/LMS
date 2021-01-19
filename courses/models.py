@@ -65,6 +65,17 @@ class Course(models.Model):
         return self.coursemessages_set.all()
 
 
+import datetime
+
+
+def convert(n):
+    return str(datetime.timedelta(seconds=n))
+
+
+# Driver program
+n = 12345
+print(convert(n))
+
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
     if new_slug is not None:

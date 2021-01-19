@@ -630,21 +630,19 @@
             </div>
             <div class="blog-content wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s">
                 <div class="owl-carousel owl-theme blog-slider">
-                    {% if post %}
-                        {% for item in post %}
-                            <div class="item">
-                                <div class="card-slide"><img src="{{ item.imageURL }}" alt="">
-                                    <div class="date-blog">
-                                        <h5>{{ item.timestamp }}</h5>
-                                    </div>
-                                    <div class="blog-des">
-                                        <h3 class="text-capitalize">{{ item.title }}</h3>
-                                        <p>{{ item.description|truncatewords:20 }}.</p>
-                                    </div>
+                    {% for item in post %}
+                        <div class="item">
+                            <div class="card-slide"><img src="{{ item.imageURL }}" alt="">
+                                <div class="date-blog">
+                                    <h5>{{ item.timestamp }}</h5>
+                                </div>
+                                <div class="blog-des">
+                                    <h3 class="text-capitalize">{{ item.title }}</h3>
+                                    <p>{{ item.description|truncatewords:20 }}.</p>
                                 </div>
                             </div>
-                        {% endfor %}
-                    {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

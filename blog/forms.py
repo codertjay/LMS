@@ -7,16 +7,13 @@ from upload_validator import FileTypeValidator
 
 
 class PostCreateForm(forms.ModelForm):
-    # description = QuillFormField()
+    description = QuillFormField(widget=forms.FileInput(attrs={
+        'class': ' text-light  ', }))
     published_date = forms.DateField(widget=forms.SelectDateWidget)
 
     image = forms.ImageField(required=True, validators=[FileTypeValidator(
         allowed_types=['image/*']
-    )],
-                             widget=forms.FileInput(attrs={
-                                 'class': '    ',
-
-                             }))
+    )])
 
     class Meta:
         model = Post
