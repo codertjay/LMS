@@ -1,7 +1,7 @@
 from django.db import models
 
-
 # Create your models here.
+from django.urls import reverse
 
 
 class Subscribe(models.Model):
@@ -21,3 +21,6 @@ class Testimonial(models.Model):
         except:
             image = None
         return image
+
+    def get_absolute_url(self):
+        return reverse('home:testimonial_create')

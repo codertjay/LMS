@@ -205,25 +205,33 @@
                                                     <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-newspaper"></i>
                                                     Create Article
                                                 </a>
+                                            </li>
+                                            <li class="sidebar-menu-item ">
 
+                                                <a class="sidebar-menu-button"
+                                                   href="{% url 'home:testimonial_create' %}">
+                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-hands-heart"></i>
+                                                    Add Testimonial
+                                                </a>
+                                            </li>
+
+                                            <li class="sidebar-menu-item ">
+                                                <a class="sidebar-menu-button"
+                                                   href="{% url 'courses:create_course' %}">
+                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-video-slash  "></i>
+                                                    Create Course
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-menu-item ">
+                                                <a class="sidebar-menu-button"
+                                                   href="{% url 'courses:create_lesson' %}">
+                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-folder-plus   "></i>
+                                                    Add Lesson
+                                                </a>
                                             </li>
                                         {% endif %}
                                     {% endif %}
 
-                                    <li class="sidebar-menu-item ">
-                                        <a class="sidebar-menu-button"
-                                           href="{% url 'courses:create_course' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-video-slash  "></i>
-                                            Create Course
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item ">
-                                        <a class="sidebar-menu-button"
-                                           href="{% url 'courses:create_lesson' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-folder-plus   "></i>
-                                            Add Lesson
-                                        </a>
-                                    </li>
                                 {% endif %}
                             </ul>
                             <!-- Account menu -->

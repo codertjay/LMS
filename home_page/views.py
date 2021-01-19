@@ -2,14 +2,16 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.views.generic import CreateView, UpdateView
-from django.views.generic.base import View,
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic.base import View
 
 from blog.models import Post
 from courses.models import Course
 from home_page.forms import SubscribeForm, TestimonialForm
 from home_page.models import Testimonial
 from memberships.models import Membership
+
 
 def freeMembership():
     free_qs = Membership.objects.filter(membership_type='Free')
@@ -94,16 +96,37 @@ def subscribe_view(request):
     return redirect('home:home')
 
 
-class TestimonailCreateView(CreateView):
+class TestimonialCreateView(CreateView):
     model = Testimonial
     form_class = TestimonialForm
     template_name = 'DashBoard/instructor/instructor-testimonial-create.html'
+    success_url = reverse_lazy('home:testimonial_create')
+
+    def get_context_data(self, **kwargs):
+        context = super(TestimonialCreateView, self).get_context_data(**kwargs)
+        context['testimonials'] = Testimonial.objects.all()
+        return context
 
 
-
-class TestimonailCreateView(UpdateView):
+class TestimonialUpdateView(UpdateView):
     model = Testimonial
     form_class = TestimonialForm
-    template_name = 'DashBoard/instructor/instructor-testimonial-update.html'
+    template_name = 'DashBoard/instructor/instructor-testimonial-create.html'
+    success_url = reverse_lazy('home:testimonial_create')
+
+    def get_context_data(self, **kwargs):
+        context = super(TestimonialUpdateView, self).get_context_data(**kwargs)
+        context['testimonials'] = Testimonial.objects.all()
+        return context
 
 
+class TestimonialDeleteView(DeleteView):
+    model = Testimonial
+    form_class = TestimonialForm
+    template_name = 'DashBoard/instructor/instructor-testimonial-create.html'
+    success_url = reverse_lazy('home:testimonial_create')
+
+    def get_context_data(self, **kwargs):
+        context = super(TestimonialDeleteView, self).get_context_data(**kwargs)
+        context['testimonials'] = Testimonial.objects.all()
+        return context
