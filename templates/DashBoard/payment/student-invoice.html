@@ -28,10 +28,12 @@
                             <div class="media-body">
                                 <h1 class="card-title h2">Invoice</h1>
                                 {% if created_at %}
-                                    <div class="card-subtitle">Created {{ created_at }}</div>
+                                    <h3 class="card-subtitle" style="font-size: 30px">Created {{ created_at }}</h3>
                                 {% endif %}
+                                <br><br>
                                 {% if next_billing_date %}
-                                    <div class="card-subtitle">Next billing Date {{ next_billing_date }}</div>
+                                    <h3 class="card-subtitle"style="font-size: 30px"><strong>Next billing
+                                        Date {{ next_billing_date }}</strong></h3>
 
                                 {% endif %}
                             </div>
@@ -67,7 +69,7 @@
 
                         </thead>
                         <tbody>
-                        {% for item in recent_course.course.all %}
+                        {% for item in recent_course.course.objects.all %}
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
