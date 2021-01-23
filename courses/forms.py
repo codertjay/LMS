@@ -1,5 +1,4 @@
 from django import forms
-from django_quill.forms import QuillFormField
 from upload_validator import FileTypeValidator
 
 from .models import Course, Lesson

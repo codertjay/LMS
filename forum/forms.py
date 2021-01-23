@@ -1,5 +1,4 @@
 from django import forms
-from django_quill.forms import QuillFormField
 
 from .models import ForumAnswer, ForumQuestion
 
@@ -11,7 +10,6 @@ class ForumQuestionForm(forms.ModelForm):
         'cols': '40',
         'rows': '4'
     }))
-    # content = QuillFormField()
 
     class Meta:
         model = ForumQuestion

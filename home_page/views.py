@@ -11,7 +11,7 @@ from courses.models import Course
 from home_page.forms import SubscribeForm, TestimonialForm
 from home_page.models import Testimonial
 from memberships.models import Membership
-
+from django.utils.translation import gettext as _
 
 def freeMembership():
     free_qs = Membership.objects.filter(membership_type='Free')
