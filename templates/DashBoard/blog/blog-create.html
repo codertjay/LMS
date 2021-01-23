@@ -2,12 +2,11 @@
 {% load crispy_forms_filters %}
 
 {% block title %}
-
+Create blog
 {% endblock %}
 
 {% block styles %}
  {{ form.media }}
-
 {% endblock %}
 
 {% block content %}
@@ -26,7 +25,7 @@
         <div class="row">
 
             <div class="col-md-10 mx-auto">
-                <div class="card card_color" >
+                <div class="card " >
                     <form action=" {% url 'blog:blog_create' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">

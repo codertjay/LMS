@@ -40,12 +40,12 @@
             <div class="container-fluid  mb-3">
                 <div class="row {% comment %}flex-sm-nowrap{% endcomment %}">
                     <div class="col" style="{% comment %}width: 265px{% endcomment %};">
-                        <div class="d-flex">
-                            <h4 class=" mb-1 text-info">{{ user.profile.first_name }}
+                        <div class="">
+                            <h4 class="d-flex align-items-center  mb-1 text-info">{{ user.profile.first_name }}
                                 - {{ user.profile.last_name }}</h4>
-                            <div class="text-muted d-flex align-items-center mb-2 text-info">
-                                <br>
-                                <i class="fa fa-user mr-1 fa-2x text-info pl-3"></i>
+                            <br>
+                            <div class="text-muted  mb-2 text-info">
+                                <span> <i class="fa fa-user mr-1 fa-2x text-info pl-3"></i></span>
                                 <div class="flex text-info">{{ user.profile.user_type }}
                                     since {{ user.profile.timestamp }}</div>
                             </div>
@@ -61,67 +61,78 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6" style="height: 600px; overflow-y: scroll;"><h3>Forum Questions</h3>
-                        {% for item in user_forums %}
-                            <div class="card ml-5 card_shadow">
-                                <div class="card-body">
-                                    <div class="d-flex mb-1">
-                                        <div class="avatar avatar-sm mr-3">
-                                            <img src="{{ user.profile.profilePicsImageURL }}" alt="Avatar"
-                                                 class="avatar-img rounded-circle">
-                                        </div>
-                                        <div class="flex">
-                                            <div class="d-flex align-items-center mb-1">
-                                                <strong class="text-15pt">Jimmy Carter</strong>
-                                                <small class="ml-auto text-muted">{{ item.timestamp|timesince }} </small>
+                    <div class="col-md-6"><h3>Forum Questions</h3>
+                        <div class="" style="height: 700px; overflow-y: scroll;">
+                            {% for item in user_forums %}
+                                <div class="card ml-5 card_shadow">
+                                    <div class="card-body">
+                                        <div class="d-flex mb-1">
+                                            <div class="avatar avatar-sm mr-3">
+                                                <img src="{{ user.profile.profilePicsImageURL }}" alt="Avatar"
+                                                     class="avatar-img rounded-circle">
                                             </div>
-                                            <div>
-                                                <p>{{ item.get_markdown|truncatewords:10 }}
-                                                </p>
-                                            </div>
+                                            <div class="flex">
+                                                <div class="d-flex align-items-center mb-1">
+                                                    <strong class="text-15pt">Jimmy Carter</strong>
+                                                    <small class="ml-auto text-muted">{{ item.timestamp|timesince }} </small>
+                                                </div>
+                                                <div>
+                                                    <p>{{ item.get_markdown|truncatewords:10 }}
+                                                    </p>
+                                                </div>
 
+                                            </div>
                                         </div>
+                                        {% for item_answer in item.forum_answers %}
+                                            <div class="card ml-5 p-4 card_shadow"
+                                                 style="background-color: rgba(216,220,219,0.38)">
+                                                <div class="d-flex justify-content-between align-content-between">
+                                                    <div class="card-image">
+                                                        <a href="{% url 'users:profile' item_answer.user.username %}">
+                                                            <img
+                                                                    src="{{ item_answer.user.profile.profilePicsImageURL }}"
+                                                                    alt="{{ item_answer.user.username }}" width="50"
+                                                                    style="border-radius: 50%"></a>
+                                                    </div>
+                                                    <div class="card-body text-info">
+                                                        <p>{{ item_answer.get_markdown }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-info">
+                                                    {{ item_answer.user.profile.first_name }} {{ item_answer.user.profile.last_name }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+
                                     </div>
-                                    {% for item_answer in item.forum_answers %}
-                                        <div class="card ml-5 p-4 card_shadow"
-                                             style="background-color: rgba(216,220,219,0.38)">
-                                            <div class="d-flex justify-content-between align-content-between">
-                                                <div class="card-image">
-                                                    <img src="{{ item_answer.user.profile.profilePicsImageURL }}"
-                                                         alt="{{ item_answer.user.username }}" width="50"
-                                                         style="border-radius: 50%">
-                                                </div>
-                                                <div class="card-body text-info">
-                                                    <p>{{ item_answer.get_markdown }}</p>
-                                                </div>
-                                            </div>
-                                            <div class=" text-info">
-                                                {{ item_answer.user.profile.first_name }} {{ item_answer.user.profile.last_name }}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-                    <div class="col-md-6 mx-auto" >
-                    <h3>Course</h3>
-                        {% for item in  user_course %}
-                            <div class="card card_shadow">
-                                <div class="d-flex">
-                                    <div class="card-image">
-                                        <img src="{{ item.imageURL }}" alt=""
-                                             style="object-fit: contain; width: 300px">
-                                    </div>
-                                    <div class="" style="padding: 20px;">
-                                        <h4>{{ item.title }}</h4>
-                                        <p class="lead " > {{ item.description|truncatewords:10 }}</p>
+                    <div class="col-md-6 mx-auto">
+                        <h3 class="text-capitalize">{{ user.username }} Course</h3>
+                        <div class="" style="height: 700px; overflow-y: scroll;">
+                            {% for item in  user_course %}
+                                <div class="card card_shadow">
+                                    <div class="d-flex">
+                                        <div class="card-image">
+                                            <a href="{{ item.get_absolute_url }}"> <img
+                                                    src="{{ item.imageURL }}" alt=""
+                                                    style="object-fit: contain; width: 300px"></a>
+                                        </div>
+                                        <div class="" style="padding: 20px;">
+                                            <div class="d-flex">
+                                                <a href="{{ item.get_absolute_url }}"><h4 class="text-capitalize">{{ item.title }}</h4></a>
+                                                <h5><span><i
+                                                        class="fa fa-clock-o"></i></span> {{ item.timestamp|timesince }}
+                                                </h5>
+                                            </div>
+                                            <p class="lead "> {{ item.description|truncatewords:10 }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>

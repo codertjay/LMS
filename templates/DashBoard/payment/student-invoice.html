@@ -62,14 +62,13 @@
                     <table class="table mb-0 table--elevated">
                         <thead class="thead-light">
                         <tr>
-                            <th class="border-top-0">Title</th>
+                            <th class="border-top-0">Course's</th>
                             {% comment %}<th class="border-top-0 text-right" style="width: 120px;">Amount</th>{% endcomment %}
                         </tr>
 
-
                         </thead>
                         <tbody>
-                        {% for item in recent_course.course.objects.all %}
+                        {% for item in recent_course.courses.all %}
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">

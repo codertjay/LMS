@@ -46,4 +46,4 @@ class ProfileUpdateForm(forms.ModelForm):
                   'twitter_url',
                   'instagram_url',
                   'github_url',
-                  'linkedin_url', 'about', ]
+                  'linkedin_url','status', 'about', ]

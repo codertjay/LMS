@@ -26,7 +26,7 @@ def video_clip_duration(video_path):
     print('this is the video path', video_path)
     clip = VideoFileClip(video_path)
     print('this is the video clip', clip)
-    duration = convert(clip.duration)
+    duration = clip.duration
     print('this is the video duration', duration)
     return duration
 
@@ -64,12 +64,15 @@ class Course(models.Model):
     @property
     def course_duration(self):
         duration = 0
-        for item in self.lessons:
-            if item.video:
-                duration = video_clip_duration(item.video.path)
-                print('this is the duration of the video', duration)
-        print('this is the course duration of the video', duration)
-        return duration
+        try:
+            for item in self.lessons:
+                if item.video:
+                    duration += video_clip_duration(item.video.path)
+                    print('this is the duration of the video', duration)
+            print('this is the course duration of the video', duration)
+        except:
+            duration = 0
+        return convert(duration)
 
     @property
     def first_lesson(self):
@@ -134,9 +137,9 @@ class Lesson(models.Model):
             # Todo: change this to url when you try to push the project
             duration = video_clip_duration(self.video.path)
         except:
-            duration = None
+            duration = 0
         print('the duration of the video ', duration)
-        return duration
+        return convert(duration)
 
     def get_absolute_url(self):
         return reverse('courses:lesson_detail',

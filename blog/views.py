@@ -59,7 +59,7 @@ class BlogDetailView(DetailView):
         linked the comment models and the blog models with content_type and object_id """
 
         print('read time :', get_read_time(instance.description))
-        print('read time :', get_read_time(instance.get_markdown()))
+        print('read time :', get_read_time(instance.get_markdown))
 
         context['form'] = CommentForm()
         return context

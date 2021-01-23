@@ -130,7 +130,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 login_url = '/accounts/login'

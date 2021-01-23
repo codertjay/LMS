@@ -13,8 +13,8 @@
         </ol>
         <h1 class="h2">Dashboard</h1>
         <div class="row">
-            <div class="col-lg-6">
-               {% comment %} <div class="card">
+            <div class="col-lg-7">
+                {% comment %} <div class="card">
                     <div class="card-header d-flex align-items-center">
                         <div class="flex">
                             <h4 class="card-title">Earnings</h4>
@@ -29,47 +29,48 @@
                     </div>
                 </div>{% endcomment %}
                 <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        <div class="flex">
-                            <h4 class="card-title">Most view Course</h4>
+                    <div class="" style="max-height: 550px; overflow-y: scroll;">
+                        <div class="card-header d-flex align-items-center">
+                            <div class="flex">
+                                <h4 class="card-title">Most view Course</h4>
+                            </div>
                         </div>
-                    </div>
-                    <div data-toggle="lists" data-lists-values='[
-            "js-lists-values-course",
-            "js-lists-values-document",
-            "js-lists-values-amount",
-            "js-lists-values-date"
-          ]' data-lists-sort-by="js-lists-values-date" data-lists-sort-desc="true" class="table-responsive">
+                        <div data-toggle="lists" data-lists-sort-desc="true" class="table-responsive">
 
-                        <table class="table table-nowrap m-0">
-                            <thead class="thead-light">
-                            </thead>
-                            <tbody class="list">
-                            {% for item in most_viewed %}
+                            <table class="table table-nowrap m-0">
+                                <thead class="thead-light">
+                                </thead>
+                                <tbody class="list">
+                                {% for item in most_viewed %}
 
-                                <tr>
-                                    <td>
-                                        <div class="media align-items-center">
-                                            <a href="{% url 'courses:detail' item.slug %}"
-                                               class="avatar avatar-4by3 avatar-sm mr-3">
-                                                <img src="{{ item.imageURL }}"
-                                                     alt="course" class="avatar-img rounded">
-                                            </a>
-                                            <div class="media-body">
-                                                <a class="text-body js-lists-values-course"
-                                                   href="{{ item.get_absolute_url }}"><strong>{{ item.title }}</strong></a><br>
+                                    <tr>
+                                        <td>
+                                            <div class="media align-items-center">
+                                                <a href="{% url 'courses:detail' item.slug %}"
+                                                   class="avatar avatar-4by3 avatar-sm mr-3">
+                                                    <img src="{{ item.imageURL }}"
+                                                         alt="course" class="avatar-img rounded">
+                                                </a>
+                                                <div class="media-body">
+                                                    <a class="text-body js-lists-values-course text-primary"
+                                                       href="{{ item.get_absolute_url }}"><strong>{{ item.title }}</strong></a><br>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <small class="text-muted text-uppercase js-lists-values-date">{{ item.timestamp }}</small>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="text-right">
+                                            <small class="  text-uppercase js-lists-values-date text-primary "><i
+                                                    class="fa fa-eye"></i>{{ item.view_count }}</small>
+                                        </td>
+                                        <td class="text-right">
+                                            <small class="text-muted text-uppercase js-lists-values-date">{{ item.timestamp }}</small>
+                                        </td>
+                                    </tr>
 
-                            {% endfor %}
+                                {% endfor %}
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -77,7 +78,7 @@
             </div>
 
 
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         <div class="flex">
@@ -88,30 +89,32 @@
                         </div>
 
                     </div>
-                    <ul class="list-group list-group-fit mb-0">
-                        {% for item in course %}
-                            <li class="list-group-item">
-                                <div class="media align-items-center">
-                                    <div class="media-body">
-                                        <div class="d-flex justify-content-between align-content-between">
-                                            <a href="{% url 'courses:update_course' item.slug %}"
-                                               class="text-body"><i class="fa fa-pencil-square-o"></i> <strong>
+                    <div class=""  style="max-height: 550px; overflow-y: scroll;">
+                        <ul class="list-group list-group-fit mb-0">
+                            {% for item in course %}
+                                <li class="list-group-item">
+                                    <div class="media align-items-center">
+                                        <div class="media-body">
+                                            <div class="d-flex justify-content-between align-content-between">
+                                                <a href="{% url 'courses:update_course' item.slug %}"
+                                                   class="text-body"><i class="fa fa-pencil-square-o"></i> <strong>
 
-                                            </strong></a>
-                                            <a href="{% url 'courses:detail' item.slug %}"
-                                               class="text-body"><strong>
-                                                {{ item.title }}
-                                            </strong></a>
-                                            <a href="{% url 'courses:delete_course' item.slug %}"
-                                               class="text-body"><strong>
-                                                <i class="fa fa-trash"></i>
-                                            </strong></a>
+                                                </strong></a>
+                                                <a href="{% url 'courses:detail' item.slug %}"
+                                                   class="text-body"><strong>
+                                                    {{ item.title }}
+                                                </strong></a>
+                                                <a href="{% url 'courses:delete_course' item.slug %}"
+                                                   class="text-body"><strong>
+                                                    <i class="fa fa-trash"></i>
+                                                </strong></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

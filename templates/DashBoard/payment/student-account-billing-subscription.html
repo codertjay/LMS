@@ -45,7 +45,8 @@
                                             <p>Next payment due:
                                                 {{ user_subscription.get_next_billing_date }}</p>
                                             <a href="{% url 'memberships:cancel' %}">Cancel subscription </a>
-
+                                            <p class="text-danger lead"><strong>Note:</strong> if you cancel Your subscription you would be
+                                                converted to free access only </p>
                                             </div>
 
                                         {% endif %}
@@ -54,16 +55,6 @@
                                 </div>
                             </div>
 
-
-                            <div class="list-group-item">
-                                <div class="form-group row mb-0">
-                                    <label class="col-form-label form-label col-sm-3">Cancel</label>
-                                    <div class="col-sm-9">
-                                        <a href="{% url 'memberships:cancel' %}" class="btn btn-outline-secondary">Cancel
-                                            subscription</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 {% else %}

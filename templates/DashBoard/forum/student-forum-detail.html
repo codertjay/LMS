@@ -77,14 +77,14 @@
                     </div>
                     <div class="col-12" style="margin-top: 20vh;margin-bottom: 10vh;">
 
-                        <div class="">
+                        <div class="card card_color pt-3">
                             <form action="{% url 'forum:forum_answer_create' forum_question.pk %}" method="post"
                                   class="">
                                 <div class="card-content">
                                     {% csrf_token %}
                                     {{ form|crispy }}
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer card_color">
                                     <button class="btn btn-primary">Answer</button>
                                 </div>
                             </form>

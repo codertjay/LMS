@@ -20,18 +20,30 @@
                 <div class="card">
                     <div class="embed-responsive embed-responsive-16by9">
                         {% if lesson %}
-{#                            <video controls class="video"#}
-{#                                   src="{{ lesson.videoURL }}"#}
-{#                                   poster="{{ lesson.thumbnailURL }}"#}
-{#                                   width="500" height="500">#}
-{##}
-{#                            </video>#}
+                            {#                            <video controls class="video"#}
+                            {#                                   src="{{ lesson.videoURL }}"#}
+                            {#                                   poster="{{ lesson.thumbnailURL }}"#}
+                            {#                                   width="500" height="500">#}
+                            {##}
+                            {#                            </video>#}
 
                             <video width="320" height="240" controls>
                                 <source src="{{ lesson.videoURL }}" type="video/mp4">
                                 <source src="{{ lesson.videoURL }}" type="video/ogg">
                                 Your browser does not support the video tag.
                             </video>
+                        {% elif course.lesson_set.count == 0 %}
+                            <video controls
+                                   poster="{{ course.imageURL }}"
+                                   width="500" height="500" data-toggle="popover" title="Popover Header"
+                                   data-content="Some content inside the popover">
+                            </video>
+
+                            <div class="card">
+                                <div class="card-content">
+                                    <h3 class="text-center text-capitalize">This course has no lesson </h3>
+                                </div>
+                            </div>
                         {% else %}
                             <video controls
                                    poster="{{ course.imageURL }}"
@@ -161,7 +173,7 @@
                                     <i class="fa fa-clock-o text-muted-light"></i>
                                 </div>
                                 <div class="media-body">
-                                    <small class="text-muted"> {{ course.course_duration }} </small>hrs </small>
+                                    <small class="text-muted"> {{ course.course_duration }} </small>hrs /</small></small>/min </small>
                                 </div>
                             </div>
                         </li>
@@ -206,38 +218,3 @@
         });
     </script>
 {% endblock script %}
-
-<ul class="nav nav-pills">
-    <li class="active"><a data-toggle="pill" href="#home">About</a></li>
-    <li><a data-toggle="pill" href="#menu2">Lessons</a></li>
-</ul>
-
-<div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-        <h3>HOME</h3>
-        <div class="card-body">
-            {{ course.description }}
-        </div>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-        <h3>Lessons</h3>
-
-        <ul class="card list-group list-group-fit">
-            {% for item in course.lessons %}
-                <li class="list-group-item {% if item == lesson %} active {% endif %} ">
-                    <div class="media">
-                        <div class="media-left">
-                            <div class="text-muted">{{ forloop.counter }}.</div>
-                        </div>
-                        <div class="media-body">
-                            <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
-                        </div>
-                        <div class="media-right">
-                            <small class="text-muted-light">{{ item.duration }}</small>
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>

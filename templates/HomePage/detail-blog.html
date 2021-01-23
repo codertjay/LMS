@@ -63,6 +63,13 @@
             </div>
             <div class="row " style="margin-bottom: 20vh;margin-top: 20vh;">
 
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                       <h3> Comment's {{  post.comment_set.count }} </h3>
+                    </div>
+                </div>
+            </div>
                 {% for item in post.comment_set.all %}
                     <div class="col-lg-8">
                         <div class="card">

@@ -52,7 +52,7 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
         if request.user.profile.user_type == 'Instructor':
             course_qs = Course.objects.filter(user=request.user)
             try:
-                most_viewed_qs = Course.objects.all().order_by('-view_count')[10]
+                most_viewed_qs = Course.objects.all().order_by('-view_count')
                 if most_viewed_qs:
                     most_viewed = most_viewed_qs
                 else:
@@ -70,6 +70,7 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
                 'most_viewed': most_viewed
 
             }
+            print('these are the most viewed course',most_viewed)
             return render(request, 'DashBoard/instructor/instructor-dashboard.html', context)
         return redirect('users:profile', request.user.username)
 

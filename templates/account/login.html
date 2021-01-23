@@ -16,15 +16,6 @@
         </div>
         <div class="card-body">
 
-            <a href="#" class="btn btn-light btn-block">
-                <span class="fab fa-google mr-2"></span>
-                Continue with Google
-            </a>
-
-            <div class="page-separator">
-                <div class="page-separator__text">or</div>
-            </div>
-
             <form action="{% url 'account_login' %}" method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}

@@ -13,6 +13,11 @@
           rel="stylesheet">
 
     <title>{% block title %} {% endblock title %}</title>
+    <style>
+        .card {
+            box-shadow: 10px 10px 5px #dedbdb !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -46,10 +51,8 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
 
-                        {% if request.user.is_authenticated %}
-                            <li><a href="{% url 'courses:list' %}">Start Learning</a></li>
-                        {% endif %}
-{#                        <li><a href="{% url 'home:price' %}">Pricing</a></li>#}
+                        <li><a href="{% url 'courses:list' %}">Start Learning</a></li>
+                        {#                        <li><a href="{% url 'home:price' %}">Pricing</a></li>#}
                         <li><a href="{% url 'blog:blog_list' %}">Faq</a></li>
                         <li><a href="{% url 'home:terms_and_condition' %}">Terms</a></li>
                         <li class="dropdown language">
@@ -119,7 +122,7 @@
                         <ul class="q-links">
                             <li><a href="{% url 'home:home' %}">Home</a></li>
                             <li><a href="{% url 'home:home' %}#service">Our Services</a></li>
-{#                            <li><a href="{% url 'home:price' %}">Pricing</a></li>#}
+                            {#                            <li><a href="{% url 'home:price' %}">Pricing</a></li>#}
                             <li><a href="{% url 'home:terms_and_condition' %}">Terms and Conditions</a></li>
                         </ul>
                         <ul class="social-footer">
@@ -166,8 +169,8 @@
                             <span class="d-block text-center "> <img src="{% static 'HomePage/images/logo-white.svg' %}"
                                                                      alt=""> </span>
                             <h3 class="login100-form-title "> Log in</h3>
-                            <div class="wrap-input100 validate-input" data-validate="Enter username">
-                                <input class="input100" type="text" id='id_login' name="login" placeholder="Username">
+                            <div class="wrap-input100 validate-input" data-validate="Enter email">
+                                <input class="input100" type="email" id='id_login' name="login" placeholder="Email">
                                 <span class="focus-input100" data-placeholder="&#xf007;"></span></div>
                             <div class="wrap-input100 validate-input" data-validate="Enter password">
                                 <input class="input100" type="password" name="password" id="id_password"
@@ -183,7 +186,8 @@
                             <div class="text-center p-t-90"><a class="txt1" href="#" id="forgot"> Forgot Password? </a>
                             </div>
                             <div class="ext-link ">
-                                <a href="{% url 'memberships:membership_select' %}">Not registered yet? Subscribe to our services </a>
+                                <a href="{% url 'memberships:membership_select' %}">Not registered yet? Subscribe to our
+                                    services </a>
                             </div>
                         </form>
 
@@ -202,7 +206,8 @@
                             <div class="text-center p-t-90"><a class="txt1" href="#" id="login">Login
                             </a></div>
                             <div class="ext-link ">
-                                <a href="{% url 'memberships:membership_select' %}">Not registered yet? Subscribe to our services </a>
+                                <a href="{% url 'memberships:membership_select' %}">Not registered yet? Subscribe to our
+                                    services </a>
                             </div>
                         </form>
                     </div>
