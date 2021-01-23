@@ -19,13 +19,12 @@
                             <h3>{{ post.title }}</h3>
                         </div>
                         <ul class="share-post">
-                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ page_url}}"  target="_blank" class="fb"><span class="icon-share "><i
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ page_url }}" target="_blank"
+                                   class="fb"><span class="icon-share "><i
                                     class="fab fa-facebook-f"></i></span><span>facebbok</span> </a></li>
-                            <li><a href="https://www.twitter.com/home?status={{ post.title|slugify }}{{ page_url}}" target="_blank" class="tw"><span class="icon-share "><i
+                            <li><a href="https://www.twitter.com/home?status={{ post.title }} {{ page_url }}"
+                                   target="_blank" class="tw"><span class="icon-share "><i
                                     class="fab fa-twitter"></i></span><span>twitter</span> </a></li>
-
-                         {% comment %}   <li><a href="#" class="tp"><span class="icon-share "><i
-                                    class="fab fa-telegram-plane"></i></span><span>Telegram</span> </a></li>{% endcomment %}
 
                             {% if request.user == post.user %}
                                 <li><a href="{% url 'blog:update_post' post.slug %}" class="tp"
@@ -65,13 +64,13 @@
             </div>
             <div class="row " style="margin-bottom: 20vh;margin-top: 20vh;">
 
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-header">
-                       <h3> Comment's {{  post.comment_set.count }} </h3>
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3> Comment's {{ post.comment_set.count }} </h3>
+                        </div>
                     </div>
                 </div>
-            </div>
                 {% for item in post.comment_set.all %}
                     <div class="col-lg-8">
                         <div class="card">
