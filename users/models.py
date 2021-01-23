@@ -25,8 +25,6 @@ class Contact(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=20, choices=user_choices, default='Student')
-    first_name = models.CharField(max_length=20, blank=True, null=True)
-    last_name = models.CharField(max_length=20, blank=True, null=True)
     profile_pics = models.ImageField(upload_to='profile_pics', default='profile_pics/profile.jpg')
     about = models.TextField(max_length=500, blank=True, null=True)
     twitter_url = models.URLField(blank=True, null=True)
@@ -40,7 +38,7 @@ class Profile(models.Model):
     status = models.CharField(max_length=200)
 
     def __str__(self):
-        return f"{self.first_name} - {self.last_name} -({self.user.username})"
+        return f"{self.user.first_name} - {self.user.last_name} -({self.user.username})"
 
     @property
     def profilePicsImageURL(self):
@@ -61,4 +59,3 @@ def post_save_user_profile_create(sender, instance, created, *args, **kwargs):
 
 
 post_save.connect(post_save_user_profile_create, sender=User)
-

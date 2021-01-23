@@ -12,6 +12,7 @@ urlpatterns = [
     path('forum/', include('forum.urls')),
     path('', include('home_page.urls')),
     path('', include('users.urls')),
+    path('signal/', include('signal_app.urls')),
 ]
 
 if settings.DEBUG:

@@ -18,6 +18,9 @@
             box-shadow: 10px 10px 5px #dedbdb !important;
         }
     </style>
+    {% block style %}
+
+    {% endblock %}
 </head>
 
 <body>
@@ -51,8 +54,7 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
 
-                        <li><a href="{% url 'courses:list' %}">Start Learning</a></li>
-                                                <li><a href="{% url 'home:price' %}">Pricing</a></li>
+                        <li><a href="{% url 'home:price' %}">Pricing</a></li>
                         <li><a href="{% url 'blog:blog_list' %}">Faq</a></li>
                         <li><a href="{% url 'home:terms_and_condition' %}">Terms</a></li>
                         <li class="dropdown language">
@@ -64,7 +66,8 @@
                                     href="#"><span class="flag"><img src="{% static 'HomePage/images/flag.png' %}"
                                                                      alt=""> </span> EN</a> <a href="#"><span
                                     class="flag"><img src="{% static 'HomePage/images/portugal.svg' %}" alt=""> </span>PT</a>
-                                <a href="#"><span class="flag"><img src="images/spain.svg" alt=""> </span>ESP</a></div>
+                                <a href="#"><span class="flag"><img src="{% static 'HomePage/images/spain.svg' %}"
+                                                                    alt=""> </span>ESP</a></div>
                         </li>
                     </ul>
                 </div>
@@ -78,7 +81,7 @@
                         <img src="{% static 'HomePage/images/av.png' %}" alt=""></span> Member Login</a>
                     </div>
                     <div class="user-mian ml-auto"><a href="{% url 'account_signup' %}"><span>
-                    <img src="{% static 'HomePage/images/av.png' %}" alt=""></span> Member Signup</a>
+                    <img src="{% static 'HomePage/images/av.png' %}" alt=""></span> Signup</a>
                     </div>
 
                 {% endif %}

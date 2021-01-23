@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'blog',
     'home_page',
     'forum',
+    'signal_app',
 
     'markdown_deux',
     'upload_validator',

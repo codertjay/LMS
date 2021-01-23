@@ -14,7 +14,7 @@ from django.views import View
 from courses.models import RecentCourses, Course
 from forum.models import ForumQuestion
 from memberships.views import get_user_subscription, get_user_membership
-from users.forms import ProfileUpdateForm, ContactAdminForm
+from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER
@@ -70,7 +70,7 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
                 'most_viewed': most_viewed
 
             }
-            print('these are the most viewed course',most_viewed)
+            print('these are the most viewed course', most_viewed)
             return render(request, 'DashBoard/instructor/instructor-dashboard.html', context)
         return redirect('users:profile', request.user.username)
 
@@ -98,25 +98,17 @@ def public_profile_view(request, username):
     return HttpResponseRedirect(request.META.get('HTTP_REFER'))
 
 
-@login_required
-def Update_profile_view(request, username):
-    profile_form = ProfileUpdateForm(request.FILES or None, instance=request.user.profile)
-    profile = Profile.objects.filter(user=request.user).first()
-    context = {
-        'profile': profile,
-        'profile_form': profile_form,
-    }
-    return render(request, 'DashBoard/profile/student-account-edit.html')
-
 
 class UserProfileUpdate(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
+        user_form = UserUpdateForm(instance=self.request.user, )
         profile_form = ProfileUpdateForm(self.request.FILES or None, instance=self.request.user.profile)
         profile = Profile.objects.filter(user=self.request.user).first()
         context = {
             'profile': profile,
             'profile_form': profile_form,
+            'user_form': user_form,
         }
         return render(self.request, 'DashBoard/profile/student-account-edit.html', context)
 
@@ -124,11 +116,17 @@ class UserProfileUpdate(LoginRequiredMixin, View):
         p_form = ProfileUpdateForm(self.request.POST,
                                    self.request.FILES,
                                    instance=self.request.user.profile)
-        if p_form.is_valid():
+        u_form = UserUpdateForm(self.request.POST, instance=self.request.user)
+        if u_form.is_valid() and p_form.is_valid():
+            username = u_form.cleaned_data.get('username')
+            email = u_form.cleaned_data.get('email')
+            first_name = u_form.cleaned_data.get('first_name')
+            last_name = u_form.cleaned_data.get('last_name')
+            u_form.save()
             p_form.save()
             print('the form was valid')
             messages.success(self.request, f'Your account has been updated')
-            return redirect('')
+            return redirect('users:profile_edit')
 
 
 def contactAdminView(request):

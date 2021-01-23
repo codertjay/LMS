@@ -1,9 +1,12 @@
 from django import forms
+from django.conf import settings
 from upload_validator import FileTypeValidator
 
 from courses.models import Course
 from memberships.models import Membership
 from .models import Contact, Profile
+
+from django.contrib.auth.models import User
 
 
 class ContactAdminForm(forms.ModelForm):
@@ -40,10 +43,17 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['first_name',
-                  'last_name',
-                  'profile_pics',
-                  'twitter_url',
-                  'instagram_url',
-                  'github_url',
-                  'linkedin_url','status', 'about', ]
+        fields = [
+            'profile_pics',
+            'twitter_url',
+            'instagram_url',
+            'github_url',
+            'linkedin_url', 'status', 'about', ]
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']

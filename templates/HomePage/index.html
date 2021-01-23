@@ -17,7 +17,7 @@
                             process, our innovative education system, and live trading with detailed explanations,
                             instructions, and tips
                             led by skilled and experienced traders and instructors. </p>
-                        <a href="#" class="btn btn-dark wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">Get
+                        <a href="{% url 'courses:list' %}" class="btn btn-dark wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">Get
                             Started</a> <a href="#" data-toggle="modal" data-target="#video"
                                            class="btn btn-light wow fadeIn" data-wow-duration="1s"
                                            data-wow-delay="0.5s"><span><img
@@ -442,13 +442,14 @@
                         </ul>
                         <div class="price-box ">
                             <div class="pr-total ">
-                                <p><span class="d-price ">$200</span>/mo</p>
+                                <p><span class="d-price ">${{ monthly_signal.discount }}</span>/mo</p>
                             </div>
                             <div class="pr-total ">
-                                <p><span>$140</span>/mo</p>
+                                <p><span>${{ monthly_signal.price }}</span>/mo</p>
                                 <!--<span>(10% Discount for yearly)</span>--></div>
                         </div>
-                        <a href="# " class="btn btn-primary w-100 ">Buy Now</a></div>
+                        <a href="{% url 'signal:signal_detail' monthly_signal.signal_choice %}"
+                           class="btn btn-primary w-100 ">Buy Now</a></div>
                 </div>
                 <div class="col-lg-6 ">
                     <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
@@ -480,7 +481,8 @@
                                 <p><span>$450</span></p>
                                 <!--<span>(10% Discount for yearly)</span>--></div>
                         </div>
-                        <a href="# " class="btn btn-primary w-100 ">Buy Now</a></div>
+                        <a href="{% url 'memberships:membership_select' %}" class="btn btn-primary w-100 ">Buy Now</a>
+                    </div>
                 </div>
                 <div class="col-lg-6 ">
                     <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
@@ -500,14 +502,15 @@
                         </ul>
                         <div class="price-box ">
                             <div class="pr-total ">
-                                <p><span class="d-price ">$450</span>/mo</p>
+                                <p><span class="d-price ">${{ quarterly_signal.discount }}</span>/mo</p>
                             </div>
                             <div class="pr-total ">
-                                <p><span>$400</span>/mo</p>
+                                <p><span>${{ quarterly_signal.price }}</span>/mo</p>
                                 <!--<span>(10% Discount for yearly)</span>-->
                             </div>
                         </div>
-                        <a href="# " class="btn btn-primary w-100 ">Buy Now</a>
+                        <a href="{% url 'signal:signal_detail' quarterly_signal.signal_choice %}"
+                           class="btn btn-primary w-100 ">Buy Now</a>
                     </div>
                 </div>
                 <div class="col-lg-6 ">
@@ -556,14 +559,15 @@
                         </ul>
                         <div class="price-box ">
                             <div class="pr-total ">
-                                <p><span class="d-price ">$1300</span>/mo</p>
+                                <p><span class="d-price ">${{ yearly_signal.discount }}</span>/mo</p>
                             </div>
                             <div class="pr-total ">
-                                <p><span>$1100</span>/mo</p>
+                                <p><span>${{ yearly_signal.price }}</span>/mo</p>
                                 <!--<span>(10% Discount for yearly)</span>-->
                             </div>
                         </div>
-                        <a href="# " class="btn btn-primary w-100 ">Buy Now</a>
+                        <a href="{% url 'signal:signal_detail' yearly_signal.signal_choice %} "
+                           class="btn btn-primary w-100 ">Buy Now</a>
                     </div>
                 </div>
             </div>
