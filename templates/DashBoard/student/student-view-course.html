@@ -5,7 +5,9 @@
     Course Detail
 {% endblock title %}
 
-
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'dashboard/dashboard_base/assets/video/css/player.css' %}"/>
+{% endblock %}
 {% block content %}
     <div class="container-fluid page__container">
         <ol class="breadcrumb">
@@ -27,11 +29,18 @@
                             {##}
                             {#                            </video>#}
 
-                            <video width="320" height="240" controls>
+                            {% comment %}     <video width="320" height="240" controls>
                                 <source src="{{ lesson.videoURL }}" type="video/mp4">
                                 <source src="{{ lesson.videoURL }}" type="video/ogg">
                                 Your browser does not support the video tag.
+                            </video>{% endcomment %}
+                            <video id="player" playsinline controls data-poster="{{ course.imageURL }}" width="500"
+                                   height="500">
+                                <source src="{{ lesson.videoURL }}" type="video/mp4"/>
+                                <source src="{{ lesson.videoURL }}" type="video/webm"/>
+
                             </video>
+
                         {% elif course.lesson_set.count == 0 %}
                             <video controls
                                    poster="{{ course.imageURL }}"
@@ -51,6 +60,7 @@
                                    data-content="Some content inside the popover">
                                 Sorry your dont have access to video please upgrade memberships
                             </video>
+
 
                             <div class="card">
                                 <div class="card-content">
@@ -173,7 +183,8 @@
                                     <i class="fa fa-clock-o text-muted-light"></i>
                                 </div>
                                 <div class="media-body">
-                                    <small class="text-muted"> {{ course.course_duration }} </small>hrs /</small></small>/min </small>
+                                    <small class="text-muted"> {{ course.course_duration }} </small>hrs
+                                    /</small></small>/min </small>
                                 </div>
                             </div>
                         </li>
@@ -217,4 +228,6 @@
             $ ('[data-toggle="popover"]').popover ();
         });
     </script>
+
+    <script src="{% static 'dashboard/dashboard_base/assets/video/js/player.js' %}"></script>
 {% endblock script %}
