@@ -36,7 +36,7 @@
 
 @font-face {
     font-family: 'handwritting';
-    src: url('/fonts/best_stories/BestStories.otf');
+    src: url('../fonts/best_stories/BestStories.otf');
     font-weight: normal;
     font-style: normal;
 }
@@ -306,7 +306,7 @@ HERO SECTION
 ********************************************/
 
 .hero-main {
-    background-image: url(../images/author.jpg);
+    background-image: url(../images/bg-hero.png);
     background-position: bottom bottom;
     background-repeat: no-repeat;
     background-size: cover;

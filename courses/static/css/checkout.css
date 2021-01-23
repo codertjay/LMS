@@ -48,6 +48,10 @@ form {
   padding: 30px;
   height: 120px;
 }
+.form_class {
+  padding: 30px;
+  height: 120px;
+}
 
 label {
   font-weight: 500;

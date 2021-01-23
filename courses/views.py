@@ -17,10 +17,8 @@ from users.models import Profile
 def get_course_membership_type(course_allowed_mem_types):
     if course_allowed_mem_types.filter(membership_type='Free').exists():
         membership_type = 'Free'
-    elif course_allowed_mem_types.filter(membership_type='Professional').exists():
-        membership_type = 'Professional'
-    elif course_allowed_mem_types.filter(membership_type='Enterprise').exists():
-        membership_type = 'Enterprise'
+    elif course_allowed_mem_types.filter(membership_type='Paid').exists():
+        membership_type = 'Paid'
     else:
         membership_type = 'Free'
     return membership_type
@@ -87,11 +85,7 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         membership_type = get_course_membership_type(course_allowed_mem_types)
         if course_allowed_mem_types.filter(membership_type=user_membership_type).exists():
             context['lesson'] = lesson
-        elif user_membership_type == 'Enterprise':
-            context['lesson'] = lesson
-        elif user_membership_type == 'Enterprise' and membership_type == 'Professional':
-            context['lesson'] = lesson
-        elif membership_type == user_membership_type:
+        elif user_membership_type == 'Paid':
             context['lesson'] = lesson
         elif course_allowed_mem_types == 'Free':
             context['lesson'] = lesson
@@ -126,11 +120,7 @@ class LessonDetailView(LoginRequiredMixin, View):
 
         if course_allowed_mem_types.filter(membership_type=user_membership_type).exists():
             context = {'lesson': lesson, 'course': course, }
-        elif user_membership_type == 'Enterprise':
-            context = {'lesson': lesson, 'course': course, }
-        elif user_membership_type == 'Enterprise' and membership_type == 'Professional':
-            context = {'lesson': lesson, 'course': course, }
-        elif membership_type == user_membership_type:
+        elif user_membership_type == 'Paid':
             context = {'lesson': lesson, 'course': course, }
         elif course_allowed_mem_types == 'Free':
             context = {'lesson': lesson, 'course': course, }

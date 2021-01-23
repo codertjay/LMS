@@ -52,21 +52,19 @@
                         <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
 
                         <li><a href="{% url 'courses:list' %}">Start Learning</a></li>
-                        {#                        <li><a href="{% url 'home:price' %}">Pricing</a></li>#}
+                                                <li><a href="{% url 'home:price' %}">Pricing</a></li>
                         <li><a href="{% url 'blog:blog_list' %}">Faq</a></li>
                         <li><a href="{% url 'home:terms_and_condition' %}">Terms</a></li>
                         <li class="dropdown language">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="flag"><img src="{% static 'HomePage/images/flag.png' %}" alt=""> </span> EN
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span
+                                    class="flag"><img src="{% static 'HomePage/images/flag.png' %}" alt=""> </span> EN
                                 <i class="far fa-chevron-down"></i> </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink"><a
-                                    href="#"><span class="flag">
-                                    <img src="{% static 'HomePage/images/flag.png' %}" alt=""> </span> EN</a> <a
-                                    href="#"><span class="flag">
-                                    <img src="{% static 'HomePage/images/portugal.svg' %}" alt=""> </span>POL</a> <a
-                                    href="#"><span class="flag">
-                                    <img src="{% static 'HomePage/images/spain.svg' %}" alt=""> </span>ESP</a></div>
+                                    href="#"><span class="flag"><img src="{% static 'HomePage/images/flag.png' %}"
+                                                                     alt=""> </span> EN</a> <a href="#"><span
+                                    class="flag"><img src="{% static 'HomePage/images/portugal.svg' %}" alt=""> </span>PT</a>
+                                <a href="#"><span class="flag"><img src="images/spain.svg" alt=""> </span>ESP</a></div>
                         </li>
                     </ul>
                 </div>

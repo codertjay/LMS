@@ -7,8 +7,7 @@ from datetime import datetime
 # Create your models here.
 MembershipType = (
     ('Free', 'Free'),
-    ('Professional', 'Professional'),
-    ('Enterprise', 'Enterprise'),
+    ('Paid', 'Paid'),
 )
 
 User = settings.AUTH_USER_MODEL

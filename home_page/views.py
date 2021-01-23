@@ -13,6 +13,7 @@ from home_page.models import Testimonial
 from memberships.models import Membership
 from django.utils.translation import gettext as _
 
+
 def freeMembership():
     free_qs = Membership.objects.filter(membership_type='Free')
     if free_qs:
@@ -22,17 +23,8 @@ def freeMembership():
     return free
 
 
-def professionalMembership():
-    professional_qs = Membership.objects.filter(membership_type='Professional')
-    if professional_qs:
-        professional = professional_qs.first()
-    else:
-        professional = None
-    return professional
-
-
-def enterpriseMembership():
-    enterprise_qs = Membership.objects.filter(membership_type='Enterprise')
+def paidMembership():
+    enterprise_qs = Membership.objects.filter(membership_type='Paid')
     if enterprise_qs:
         enterprise = enterprise_qs.first()
     else:
@@ -44,28 +36,18 @@ class HomePageView(View):
 
     def get(self, *args, **kwargs):
         Free_course = Course.objects.filter(allowed_memberships=freeMembership())
-        Professional_course = Course.objects.filter(allowed_memberships=professionalMembership())
-        Enterprise_course = Course.objects.filter(allowed_memberships=enterpriseMembership())
+        Paid_course = Course.objects.filter(allowed_memberships=paidMembership())
         print('the free', Free_course)
-        print('the Professional_course', Professional_course)
-        print('the Enterpreneur_course', Enterprise_course)
-        # if Post.objects.count() > 4:
-        #     post = Post.objects.all()[4]
-        # else:
-        #     post = Post.objects.all()
+        print('the Paid_course', Paid_course)
         context = {
             'post': Post.objects.all(),
             'Free_course': Free_course.count(),
             'Free_price': freeMembership().price,
             'Free_discount_price': freeMembership().discount,
 
-            'Professional_course': Professional_course.count(),
-            'Professional_price': professionalMembership().price,
-            'Professional_discount_price': professionalMembership().discount,
-
-            'Enterprise_course': Enterprise_course.count(),
-            'Enterprise_price': enterpriseMembership().price,
-            'Enterprise_discount_price': enterpriseMembership().discount,
+            'Paid_course': Paid_course.count(),
+            'Paid_price': paidMembership().price,
+            'Paid_discount_price': paidMembership().discount,
             'testimonial': Testimonial.objects.all(),
         }
         return render(self.request, 'HomePage/index.html', context)
