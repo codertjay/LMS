@@ -1,13 +1,13 @@
 from django import forms
+from pagedown.widgets import PagedownWidget
 from .models import Post
 from .models import Comment
-from django_quill.forms import QuillFormField
 
 from upload_validator import FileTypeValidator
 
 
 class PostCreateForm(forms.ModelForm):
-    # description = QuillFormField()
+    description = forms.CharField(widget=PagedownWidget())
     published_date = forms.DateField(widget=forms.SelectDateWidget)
     image = forms.ImageField(required=True, validators=[FileTypeValidator(
         allowed_types=['image/*']

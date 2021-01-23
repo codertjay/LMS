@@ -3,6 +3,7 @@
     Blog Detail || NinjaAssassinFx
 {% endblock title %}
 {% block content %}
+
     <section class="content-main">
         <div class="container">
             <div class="row">
@@ -18,12 +19,13 @@
                             <h3>{{ post.title }}</h3>
                         </div>
                         <ul class="share-post">
-                            <li><a href="#" class="fb"><span class="icon-share "><i
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ page_url}}"  target="_blank" class="fb"><span class="icon-share "><i
                                     class="fab fa-facebook-f"></i></span><span>facebbok</span> </a></li>
-                            <li><a href="#" class="tw"><span class="icon-share "><i
+                            <li><a href="https://www.twitter.com/home?status={{ post.title|slugify }}{{ page_url}}" target="_blank" class="tw"><span class="icon-share "><i
                                     class="fab fa-twitter"></i></span><span>twitter</span> </a></li>
-                            <li><a href="#" class="tp"><span class="icon-share "><i
-                                    class="fab fa-telegram-plane"></i></span><span>Telegram</span> </a></li>
+
+                         {% comment %}   <li><a href="#" class="tp"><span class="icon-share "><i
+                                    class="fab fa-telegram-plane"></i></span><span>Telegram</span> </a></li>{% endcomment %}
 
                             {% if request.user == post.user %}
                                 <li><a href="{% url 'blog:update_post' post.slug %}" class="tp"

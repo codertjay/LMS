@@ -6,9 +6,7 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django.contrib.contenttypes.models import ContentType
-# from markdown_deux import markdown
-from django_quill.fields import QuillField
-from markdown import markdown
+from markdown_deux import markdown
 
 from .utils import get_read_time
 # markdown
@@ -45,7 +43,6 @@ class Post(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True, null=True)
-    # description = QuillField()
     image = models.ImageField(upload_to='post', blank=True, null=True)
     category = models.CharField(choices=blogCategory, max_length=3, blank=True, null=True)
     view_count = models.IntegerField(default=0)

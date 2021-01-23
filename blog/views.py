@@ -62,6 +62,7 @@ class BlogDetailView(DetailView):
         print('read time :', get_read_time(instance.get_markdown))
 
         context['form'] = CommentForm()
+        context['page_url'] = self.request.get_raw_uri()
         return context
 
 

@@ -22,23 +22,10 @@
                 <div class="card">
                     <div class="embed-responsive embed-responsive-16by9">
                         {% if lesson %}
-                            {#                            <video controls class="video"#}
-                            {#                                   src="{{ lesson.videoURL }}"#}
-                            {#                                   poster="{{ lesson.thumbnailURL }}"#}
-                            {#                                   width="500" height="500">#}
-                            {##}
-                            {#                            </video>#}
-
-                            {% comment %}     <video width="320" height="240" controls>
-                                <source src="{{ lesson.videoURL }}" type="video/mp4">
-                                <source src="{{ lesson.videoURL }}" type="video/ogg">
-                                Your browser does not support the video tag.
-                            </video>{% endcomment %}
                             <video id="player" playsinline controls data-poster="{{ course.imageURL }}" width="500"
                                    height="500">
                                 <source src="{{ lesson.videoURL }}" type="video/mp4"/>
                                 <source src="{{ lesson.videoURL }}" type="video/webm"/>
-
                             </video>
 
                         {% elif course.lesson_set.count == 0 %}
@@ -211,7 +198,10 @@
 {% endblock content %}
 
 {% block script %}
+    <script src="{% static 'dashboard/dashboard_base/assets/video/js/player.js' %}"></script>
+
     <script>
+        const player = new player ('#player');
         var video = document.getElementsByTagName ('video')[0];
         {#var video = document.getElementsByClassName ('video');#}
         var previousTime = 0;
@@ -229,5 +219,5 @@
         });
     </script>
 
-    <script src="{% static 'dashboard/dashboard_base/assets/video/js/player.js' %}"></script>
+
 {% endblock script %}
