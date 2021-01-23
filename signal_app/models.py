@@ -12,6 +12,7 @@ class SignalType(models.Model):
     signal_choice = models.CharField(max_length=20, choices=signal_choices)
     discount = models.FloatField()
     price = models.FloatField()
+    stripe_plan_id = models.CharField(max_length=40)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

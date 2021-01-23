@@ -72,3 +72,5 @@ class SignalPaymentView(LoginRequiredMixin, View):
             except Exception as a:
                 print('there was an error', a)
         return redirect('home:home')
+
+
