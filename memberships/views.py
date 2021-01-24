@@ -166,9 +166,9 @@ def update_transactions(request, subscription_id):
     sub.save()
     try:
         del request.session['selected_membership_type']
-    except:
-        pass
-    messages.info(request, f'Successfully created {selected_membership}')
+        messages.info(request, f'Successfully created {selected_membership}')
+    except Exception as a:
+        print('this is the error', a)
     return redirect('courses:list')
 
 

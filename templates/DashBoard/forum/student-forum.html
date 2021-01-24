@@ -70,7 +70,7 @@
                                     <div class="media-body">
                                         <div class="d-flex align-items-center">
                                             <a href="{{ item.get_absolute_url }}" class="text-body"><strong>
-                                                {{ item.user.profile.first_name }} {{ item.user.profile.last_name }}
+                                                {{ item.user.first_name }} {{ item.user.last_name }}
                                             </strong></a>
                                             <small class="ml-auto text-muted">{{ item.timestamp|timesince }}</small>
                                         </div>
@@ -151,7 +151,7 @@
                             </a>
                             <a href="{{ item.get_absolute_url }}"
                                class="flex mr-2 text-body"><strong>
-                                {{ item.user.profile.first_name }} {{ item.user.profile.last_name }}
+                                {{ item.user.first_name }} {{ item.user.last_name }}
                             </strong></a>
                             <span class="text-black-70 mr-2">1,233</span>
                             <i class="text-muted  font-size-16pt">opacity</i>

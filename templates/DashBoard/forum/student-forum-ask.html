@@ -52,8 +52,8 @@
                                             <div class="media-body">
                                                 <div class="d-flex align-items-center">
                                                     <a href="{% url 'users:profile' item.user.username %}"
-                                                       class="text-body"><strong>{{ item.user.profile.first_name }}
-                                                        {{ item.user.profile.last_name }}</strong></a>
+                                                       class="text-body"><strong>{{ item.user.first_name }}
+                                                        {{ item.user.last_name }}</strong></a>
                                                     <small class="ml-auto text-muted">{{ item.timestamp }}</small>
                                                 </div>
                                                 <a class="text-black-70"

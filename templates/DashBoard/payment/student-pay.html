@@ -1,61 +1,67 @@
+{% extends 'DashBoard/dashboard_base.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
+
+{% block title %}
+Upgrade membership
+{% endblock %}
+
+{% block styles %}
     <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 
-</head>
-<body>
+{% endblock %}
 
 
-<div class="container-fluid page__container">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-        <li class="breadcrumb-item active">Pay</li>
-    </ol>
+{% block content %}
 
-    <div class="col-sm-10 col-md-8">
-        <p>Selected membership: {{ selected_membership }}</p>
-        <p>Price: <strong> ${{ selected_membership.price }}/month</strong></p>
+    <div class="container-fluid page__container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+            <li class="breadcrumb-item active">Pay</li>
+        </ol>
+
+        <div class="col-sm-10 col-md-8">
+            <p>Selected membership: {{ selected_membership }}</p>
+            <p>Price: <strong> ${{ selected_membership.price }}/month</strong></p>
 
 
-        <div id="collapseStripe" class="wrapper">
-            <script src="https://js.stripe.com/v3/"></script>
+            <div id="collapseStripe" class="wrapper">
+                <script src="https://js.stripe.com/v3/"></script>
 
-            <form action="." method="post" id="payment-form" class="form_class">
-                {% csrf_token %}
-                <div class="form-row">
-                    <label for="card-element">
-                        Credit or debit card
-                    </label>
-                    <div id="card-element">
-                        <!-- A Stripe Element will be inserted here. -->
+                <form action="." method="post" id="payment-form" class="form_class">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <label for="card-element">
+                            Credit or debit card
+                        </label>
+                        <div id="card-element">
+                            <!-- A Stripe Element will be inserted here. -->
+                        </div>
+
+                        <!-- Used to display form errors. -->
+                        <div id="card-errors" role="alert"></div>
                     </div>
 
-                    <!-- Used to display form errors. -->
-                    <div id="card-errors" role="alert"></div>
+                    <button>Submit Payment</button>
+                </form>
+
+                <div id="stripe-token-handler" class="">Success! Got token: <span class="token"></span>
                 </div>
-
-                <button>Submit Payment</button>
-            </form>
-
-            <div id="stripe-token-handler" class="">Success! Got token: <span class="token"></span>
             </div>
+
         </div>
+
 
     </div>
 
+{% endblock %}
 
-</div>
 
 
-<!-- script for the stripe form -->
-<script src="{% static 'js/checkout.js' %}"></script>
+{% block script %}
 
-</body>
-</html>
+    <!-- script for the stripe form -->
+    <script src="{% static 'js/checkout.js' %}"></script>
+
+
+{% endblock %}

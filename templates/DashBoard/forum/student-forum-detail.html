@@ -62,7 +62,7 @@
                                     <div class="media-body">
                                         <div class="d-flex align-items-center">
                                             <a href="{{ item.get_absolute_url }}" class="text-body"><strong>
-                                                {{ item.user.profile.first_name }} {{ item.user.profile.last_name }}
+                                                {{ item.user.first_name }} {{ item.user.last_name }}
                                             </strong></a>
                                             <small class="ml-auto text-muted">{{ item.timestamp|timesince }} ago</small>
                                         </div>
@@ -118,7 +118,7 @@
                                 <div class="media-body">
                                     <div class="d-flex align-items-center">
                                         <a href="{{ item.get_absolute_url }}" class="text-body"><strong>
-                                            {{ item.user.profile.first_name }} {{ item.user.profile.last_name }}
+                                            {{ item.user.first_name }} {{ item.user.last_name }}
                                         </strong></a>
                                         <small class="ml-auto text-muted">{{ item.timestamp|timesince }}</small>
                                     </div>

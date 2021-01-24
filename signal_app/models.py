@@ -26,3 +26,14 @@ class UserSignal(models.Model):
 
     def __str__(self):
         return f"{self.signal_type.signal_choice} --{self.user}"
+
+
+class SignalSubscription(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    stripe_subscription_id = models.CharField(max_length=40)
+    signal_type = models.ForeignKey(SignalType, on_delete=models.CASCADE)
+    created_date = models.DateTimeField()
+    expiring_date = models.DateTimeField()
+    active = models.BooleanField(default=False)
+
+

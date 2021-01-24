@@ -52,16 +52,9 @@
                                                        class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Email</label>
-                                                <input type="email" name="email" id="id_email"
-                                                       value="{{ request.user.email }}" class="form-control">
-                                            </div>
-                                        </div>
                                     </div>
 
-                                    <h3 class="heading3">Card details</h3>
+                                    <h3 class="heading2">Card details</h3>
                                     <div class="row">
                                         <div class="form-row">
                                             <label for="card-element">
@@ -78,8 +71,10 @@
                                     </div>
                                 </form>
 
-                                <div id="stripe-token-handler" class="">Success! Got token: <span class="token"></span>
-                                </div>
+                                {% comment %}
+                            <div id="stripe-token-handler" class="">Success! Got token:
+                           <span class="token"></span>
+                                </div>{% endcomment %}
                             </div>
                             <div class="col-lg-4">
                                 <div class="order-box">
@@ -102,7 +97,7 @@
                                             <span> <b> $50</b>/mo | <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</span>
                                         </p>
                                     </div>
-                                    <a href="#" class="btn btn-primary w-100">Pay Now</a></div>
+                                    <a href="#" class="btn btn-primary w-100 disabled">Pay Now</a></div>
                             </div>
                         </div>
                     </div>
