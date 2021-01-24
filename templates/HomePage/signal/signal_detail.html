@@ -1,7 +1,13 @@
 {% extends 'HomePage/home_base.html' %}
+{% load static %}
 
 {% block title %}
     signal
+{% endblock %}
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+
 {% endblock %}
 
 {% block content %}
@@ -18,7 +24,12 @@
                     <div class="wrapper-step">
                         <div class="row">
                             <div class="col-lg-8">
-                                <form action="" class="cst-form">
+                                {% comment %} stripe script{% endcomment %}
+
+                                <script src="https://js.stripe.com/v3/"></script>
+
+                                {% comment %} end {% endcomment %}
+                                <form action="{% url 'signal:signal_payment' %}" method="post" id="payment-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="Signal" value="{{ signal.signal_choice }}"
                                            id="id_signal">
@@ -41,8 +52,6 @@
                                                        class="form-control">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group ">
                                                 <label for="">Email</label>
@@ -51,30 +60,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h3 class="heading3">Personal Details</h3>
-                                    <div class="row">
 
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Card Number </label>
-                                                <input type="text" class="form-control"
-                                                       placeholder="xxxx-xxxx-xxxx-xxxx">
+                                    <h3 class="heading3">Card details</h3>
+                                    <div class="row">
+                                        <div class="form-row">
+                                            <label for="card-element">
+                                                Credit or debit card
+                                            </label>
+                                            <div id="card-element">
+                                                <!-- A Stripe Element will be inserted here. -->
                                             </div>
+                                            <!-- Used to display form errors. -->
+                                            <div id="card-errors" role="alert"></div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group ">
-                                                <label for="">Expiration </label>
-                                                <input type="text" class="form-control" placeholder="mm/yy">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group ">
-                                                <label for="">Expiration </label>
-                                                <input type="text" class="form-control" placeholder="mm/yy">
-                                            </div>
-                                        </div>
+                                        <button>Submit Payment</button>
                                     </div>
                                 </form>
+
                             </div>
                             <div class="col-lg-4">
                                 <div class="order-box">
@@ -109,20 +111,56 @@
 {% endblock content %}
 
 {% block script %}
-    <script>
-        $ (document).ready (function () {
-            $ ('#smartwizard').smartWizard ({
-                showStepURLhash: false ,
-                anchorSettings: {
-                    anchorClickable: true , // Enable/Disable anchor navigation
-                    enableAllAnchors: true , // Activates all anchors clickable all times
-                    markDoneStep: true , // add done css
-                    enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
-                } ,
-            });
+    <!-- script for the stripe form -->
+    <script src="{% static 'js/checkout.js' %}"></script>
 
-
-        });
-    </script>
 {% endblock script %}
+{% comment %}
 
+<div class="form-row">
+<label for="card-element">
+Credit or debit card
+</label>
+<div id="card-element">
+<!-- A Stripe Element will be inserted here. -->
+</div>
+
+<!-- Used to display form errors. -->
+<div id="card-errors" role="alert"></div>
+</div>
+
+<button type="submit">Submit Payment</button>{% endcomment %}
+
+{% comment %}<style>
+        /**
+     * The CSS shown here will not be introduced in the Quickstart guide, but shows
+     * how you can use CSS to style your Element's container.
+     */
+        .StripeElement {
+            box-sizing: border-box;
+
+            height: 40px;
+
+            padding: 10px 12px;
+
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: white;
+
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-transition: box-shadow 150ms ease;
+            transition: box-shadow 150ms ease;
+        }
+
+        .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
+        }
+
+        .StripeElement--invalid {
+            border-color: #fa755a;
+        }
+
+        .StripeElement--webkit-autofill {
+            background-color: #fefde5 !important;
+        }
+    </style>{% endcomment %}

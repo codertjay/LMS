@@ -52,6 +52,7 @@ def signalDetailView(request, signal_choice, ):
 class SignalPaymentView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
         user_membership = get_user_membership(self.request)
+        print('the post',self.request.POST)
         if self.request.method == 'POST':
             try:
                 token = self.request.POST['stripeToken']
