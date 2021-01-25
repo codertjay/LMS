@@ -74,6 +74,7 @@ def post_save_send_user_message_on_signal_subscription(sender, instance, created
     # send message to the user
     if created:
         print('this is the instance', instance.user)
+        instance.save()
         signal_created_message(instance)
 
 
