@@ -48,7 +48,7 @@ class UserSignalSubscription(models.Model):
             subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
             date = datetime.fromtimestamp(subscription.current_period_end)
         except:
-            date = datetime.now()
+            date = None
         return date
 
 
@@ -56,7 +56,7 @@ class UserSignalSubscription(models.Model):
 def deactivate_signals(UserSignalSubscription):
     signal_qs = UserSignalSubscription.objects.all()
     for signal in signal_qs:
-        if signal.expiring_date <= datetime.now():
+        if not signal.expiring_date or signal.expiring_date <= datetime.now():
             signal.active = False
             signal.save()
             signal_expired_message(signal)

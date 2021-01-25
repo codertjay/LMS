@@ -22,14 +22,21 @@ class SignalPaymentView(LoginRequiredMixin, View):
         signal = SignalType.objects.filter(signal_choice=signal_choice).first()
         user_signal_sub = UserSignalSubscription.objects.filter(user=request.user).first()
         if signal:
+            print('this is the signal ', signal)
             """In here i am checking if the user have a current signal if he/she has i would redirect
              the him/her to the signal page"""
             if user_signal_sub:
+                print('this is the signal sub', user_signal_sub)
+                print('this is the signal sub expiring data', user_signal_sub.expiring_date)
+                print('this is the signal sub created_date data', user_signal_sub.created_date)
+                print('this is the signal sub active', user_signal_sub.active)
+                print('this is the date time now', datetime.now())
                 if user_signal_sub.expiring_date > datetime.now() and user_signal_sub.active:
                     return redirect(reverse('signal:signal_payment_done', kwargs={
                         'subscription_id': user_signal_sub.stripe_subscription_id,
                         'signal': user_signal_sub.signal_type
                     }))
+
         else:
             messages.error(request, 'This signal does not exist')
             return redirect('home:home')
@@ -54,6 +61,11 @@ class SignalPaymentView(LoginRequiredMixin, View):
                         subscription = stripe.Subscription.create(
                             customer=user_membership.stripe_customer_id,
                             items=[{'price': signal.stripe_plan_id}, ])
+                        if subscription.id:
+                            stripe.Subscription.modify(
+                                subscription.id,
+                                cancel_at_period_end=True
+                            )
                         return redirect(reverse('signal:signal_payment_done', kwargs={
                             'subscription_id': subscription.id, 'signal': signal
                         }))
@@ -77,8 +89,10 @@ def signal_payment_done(request, subscription_id, signal):
     stripe_id = stripe.Subscription.retrieve(subscription_id)
     print('this is the stripe id ', stripe_id)
     if signal_ and stripe_id.id == subscription_id:
-        sub, created = UserSignalSubscription.objects.get_or_create(signal_type=signal_, user=request.user )
+        sub, created = UserSignalSubscription.objects.get_or_create(signal_type=signal_, user=request.user)
         print('this is the subscription id', subscription_id)
+        print('this is the subscription expiring date', sub.expiring_date)
+        print('this is the subscription created_date ', sub.created_date)
         if sub.expiring_date == '' or sub.expiring_date == None or sub.expiring_date < datetime.now():
             sub.stripe_subscription_id = subscription_id
             sub.active = True

@@ -15,17 +15,11 @@ def signal_created_message(signal):
     plain_message = strip_tags(html_message)
     print('the signal email', signal.user.email)
     signal_email = signal.user.email
-    # send message to the user
+    # send message to the user and admin
     send_mail(
         f"AssasinFx Signal ( Created ) ",
-        plain_message, EMAIL_HOST_USER, recipient_list=[signal_email]
+        plain_message, EMAIL_HOST_USER, recipient_list=[signal_email, EMAIL_HOST_USER]
         , html_message=html_message, fail_silently=True
-    )
-    # send message to admin
-    send_mail(
-        f"{signal.user.first_name} - {signal.user.last_name} Signal Was Created ",
-        plain_message, signal_email
-        , recipient_list=[EMAIL_HOST_USER], html_message=html_message, fail_silently=True
     )
 
     return None
@@ -41,12 +35,6 @@ def signal_expired_message(signal):
     send_mail(
         f"AssasinFx Signal ( Expired ) ",
         plain_message, EMAIL_HOST_USER
-        , recipient_list=[signal_email], html_message=html_message
-    )
-    # send signal message  to admin that user signal has being expired
-    send_mail(
-        f"{signal.user.first_name} - {signal.user.last_name} Signal Expired ",
-        plain_message, signal.user.email
-        , recipient_list=[EMAIL_HOST_USER], html_message=html_message
+        , recipient_list=[signal_email, EMAIL_HOST_USER], html_message=html_message, fail_silently=True
     )
     return None
