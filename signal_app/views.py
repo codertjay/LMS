@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.context_processors import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
@@ -70,18 +71,18 @@ class SignalPaymentView(LoginRequiredMixin, View):
 
 @login_required
 def signal_payment_done(request, subscription_id, signal):
-    signal_ = SignalType.objects.filter(signal_choice=signal.signal_choice).first()
+    signal_ = SignalType.objects.filter(signal_choice=signal).first()
     # checking the stripe subscription id if it exists
     # stripe_id = stripe.Charge.retrieve(subscription_id)
     stripe_id = stripe.Subscription.retrieve(subscription_id)
     print('this is the stripe id ', stripe_id)
     if signal_ and stripe_id.id == subscription_id:
-        sub, created = UserSignalSubscription.objects.get_or_create(user=request.user)
+        sub, created = UserSignalSubscription.objects.get_or_create(user=request.user, signal_type=signal_)
+        sub.user = self.request.user
         print('this is the subscription id', subscription_id)
-        if not sub.expiring_date or sub.expiring_date < datetime.now():
+        if sub.expiring_date == '' or sub.expiring_date == None or sub.expiring_date < datetime.now():
             sub.stripe_subscription_id = subscription_id
             sub.active = True
-            sub.signal_type = signal_
             sub.save()
         context = {'signal': signal_}
         return render(request, 'HomePage/signal/signal_payment_done.html', context)
@@ -89,3 +90,20 @@ def signal_payment_done(request, subscription_id, signal):
         messages.error(request, 'There was an error ')
         return redirect('home:home')
 
+
+@login_required
+def cancel_signal_subscription(request):
+    user_signal_sub = UserSignalSubscription.objects.filter(user=request.user).first()
+    if user_signal_sub:
+        if user_signal_sub.active == False:
+            messages.info(request, "You dont have an active signal")
+            return HttpResponseRedirect(request.META.get('HTTP_REFER'))
+        sub = stripe.Subscription.retrieve(user_signal_sub.stripe_subscription_id)
+        sub.delete()
+        user_signal_sub.active = False
+        user_signal_sub.stripe_subscription_id = ''
+        user_signal_sub.save()
+        # Todo: send email to the user
+        messages.info(request, 'Successfully cancelled Signal. We have sent an email ')
+    messages.info(request, 'There was an error we would be in touch ')
+    return redirect('memberships:membership_select')
