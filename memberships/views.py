@@ -120,31 +120,12 @@ def payment_view(request):
                                     }))
         except stripe.error.CardError as e:
             messages.info(request, 'Your card has being declined')
-            print('Status is: %s' % e.http_status)
-            print('Code is: %s' % e.code)
-            # param is '' in this case
-            print('Param is: %s' % e.param)
-            print('Message is: %s' % e.user_message)
-        except stripe.error.RateLimitError as e:
-            # Too many requests made to the API too quickly
-            pass
-        except stripe.error.InvalidRequestError as e:
-            # Invalid parameters were supplied to Stripe's API
-            pass
-        except stripe.error.AuthenticationError as e:
-            # Authentication with Stripe's API failed
-            # (maybe you changed API keys recently)
-            pass
         except stripe.error.APIConnectionError as e:
-            # Network communication with Stripe failed
-            pass
+            messages.info(request, 'Network communication with Stripe failed')
         except stripe.error.StripeError as e:
-            # Display a very generic error to the user, and maybe send
-            # yourself an email
-            pass
+            messages.info(request, 'There was an error we are working on it')
         except Exception as e:
-            # Something else happened, completely unrelated to Stripe
-            messages.info(request, 'There was an error ')
+            messages.info(request, 'There error was', e)
     context = {
         'publish_key': publish_key,
         'selected_membership': selected_membership

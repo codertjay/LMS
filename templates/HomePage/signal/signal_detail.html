@@ -29,7 +29,7 @@
                                 <script src="https://js.stripe.com/v3/"></script>
 
                                 {% comment %} end {% endcomment %}
-                                <form action="{% url 'signal:signal_payment' %}" method="post" id="payment-form">
+                                <form action="." method="post" id="payment-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="Signal" value="{{ signal.signal_choice }}"
                                            id="id_signal">

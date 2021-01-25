@@ -17,7 +17,8 @@
                             process, our innovative education system, and live trading with detailed explanations,
                             instructions, and tips
                             led by skilled and experienced traders and instructors. </p>
-                        <a href="{% url 'courses:list' %}" class="btn btn-dark wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">Get
+                        <a href="{% url 'courses:list' %}" class="btn btn-dark wow fadeIn" data-wow-duration="1s"
+                           data-wow-delay="0.5s">Get
                             Started</a> <a href="#" data-toggle="modal" data-target="#video"
                                            class="btn btn-light wow fadeIn" data-wow-duration="1s"
                                            data-wow-delay="0.5s"><span><img
@@ -448,7 +449,7 @@
                                 <p><span>${{ monthly_signal.price }}</span>/mo</p>
                                 <!--<span>(10% Discount for yearly)</span>--></div>
                         </div>
-                        <a href="{% url 'signal:signal_detail' monthly_signal.signal_choice %}"
+                        <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}"
                            class="btn btn-primary w-100 ">Buy Now</a></div>
                 </div>
                 <div class="col-lg-6 ">
@@ -509,7 +510,7 @@
                                 <!--<span>(10% Discount for yearly)</span>-->
                             </div>
                         </div>
-                        <a href="{% url 'signal:signal_detail' quarterly_signal.signal_choice %}"
+                        <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}"
                            class="btn btn-primary w-100 ">Buy Now</a>
                     </div>
                 </div>
@@ -566,7 +567,7 @@
                                 <!--<span>(10% Discount for yearly)</span>-->
                             </div>
                         </div>
-                        <a href="{% url 'signal:signal_detail' yearly_signal.signal_choice %} "
+                        <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %} "
                            class="btn btn-primary w-100 ">Buy Now</a>
                     </div>
                 </div>
@@ -621,22 +622,20 @@
     <div class="gtco-testimonials" style="margin: 50px 0;">
         <h2>Testimonials</h2>
         <div class="owl-carousel owl-carousel1 owl-theme">
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1611009932295-ab92f0ee8d18?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdIfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=716&q-80"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>GregoryK<br/>
-                            <span> Student </span></h5>
-                        <p class="card-text">“Hello everyone, I am a member of the assasin academy for about a month and
-                            all i can say is WOW. A ninija is an awesome person but won't babyusity you - you have to
-                            study all the materials she provides. Charts review, free
-                            signals, she answered all my questions (believe me i asked a lot) and all members of the
-                            group are top notch! i can highly recommend the academy for everyone who wants to learn how
-                            to trade and make money.” </p>
+            {% for item in testimonial %}
+                <div class="item">
+                    <div class="card text-center"><img class="card-img-top"
+                                                       src="{{ item.imageURL }}"
+                                                       alt="">
+                        <div class="card-body">
+                            <h5 class="text-capitalize">{{ item.title }} <br/>
+                                <span> {{ item.user.profile.user_type }} </span></h5>
+                            <p class="card-text">“{{ item.content }}.” </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
+            {% comment %}
             <div>
                 <div class="card text-center"><img class="card-img-top"
                                                    src="https://images.unsplash.com/photo-1606189933558-71f9b4747578?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
@@ -772,7 +771,7 @@
                             at the end of the day, your gonna be eating good.” </p>
                     </div>
                 </div>
-            </div>
+            </div>{% endcomment %}
         </div>
     </div>
     <!--testimonial-->
@@ -785,55 +784,20 @@
             </div>
             <div class="blog-content wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s">
                 <div class="owl-carousel owl-theme blog-slider">
-                    <div class="item">
-                        <div class="card-slide"><img src="images/blogimg1.png" alt="">
-                            <div class="date-blog">
-                                <h5>30 Apr, 2020</h5>
-                            </div>
-                            <div class="blog-des">
-                                <h3>Do i need Discord to join your services?</h3>
-                                <p>Yes. Assassin Academy uses Discord to connect with their customers. if you do not
-                                    have Discord, you will not be able to complete full sign-up for most of our
-                                    services.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card-slide"><img src="images/blogimg2.png" alt="">
-                            <div class="date-blog">
-                                <h5>2 nov, 2020</h5>
-                            </div>
-                            <div class="blog-des">
-                                <h3>Changed my mind. Can i have a refund?</h3>
-                                <p>This premium service is a virtual digital product that cannot be returned and
-                                    therefore is non refundable.</p>
+                    {% for item in post %}
+                        <div class="item">
+                            <div class="card-slide"><img src="{{ item.imageURL }}" alt="">
+                                <div class="date-blog">
+                                    <h5>{{ item.timestamp|timesince }} ago</h5>
+                                </div>
+                                <div class="blog-des">
+                                    <a href="{{ item.get_absolute_url }}"><h3 class="text-capitalize">{{ item.title }}?</h3></a>
+                                    <p>{{ item.get_markdown|truncatewords:20 }}.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="card-slide"><img src="images/blogimg1.png" alt="">
-                            <div class="date-blog">
-                                <h5>19 may, 2019</h5>
-                            </div>
-                            <div class="blog-des">
-                                <h3>How accurate are your signals?</h3>
-                                <p>80-85%, with Entry, Stop-Loss, Take Profit provided.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card-slide"><img src="images/blogimg2.png" alt="">
-                            <div class="date-blog">
-                                <h5>11 dec, 2019</h5>
-                            </div>
-                            <div class="blog-des">
-                                <h3>How can i contact you?</h3>
-                                <p>Via <a href="https://instagram.com/ninjaassassinforex">Instagram</a>, <a
-                                        href="https://vm.tiktok.com/ZSvvHhmR/">Tiktok</a>, <a
-                                        href="malito:ninjaassassin@ninjaassassinforex.com">Gmail</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
+
                 </div>
             </div>
         </div>
