@@ -13,21 +13,7 @@
         </ol>
         <h1 class="h2">Dashboard</h1>
         <div class="row">
-            <div class="col-lg-7">
-                {% comment %} <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        <div class="flex">
-                            <h4 class="card-title">Earnings</h4>
-                            <p class="card-subtitle">Last 7 Days</p>
-                        </div>
-                        <a href="instructor-earnings.html" class="btn btn-sm btn-primary"><i class="material-icons">trending_up</i></a>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart" style="height: 200px;">
-                            <canvas id="earningsChart" class="chart-canvas"></canvas>
-                        </div>
-                    </div>
-                </div>{% endcomment %}
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="" style="max-height: 550px; overflow-y: scroll;">
                         <div class="card-header d-flex align-items-center">
@@ -78,7 +64,7 @@
             </div>
 
 
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         <div class="flex">
@@ -89,7 +75,7 @@
                         </div>
 
                     </div>
-                    <div class=""  style="max-height: 550px; overflow-y: scroll;">
+                    <div class="" style="max-height: 550px; overflow-y: scroll;">
                         <ul class="list-group list-group-fit mb-0">
                             {% for item in course %}
                                 <li class="list-group-item">
@@ -117,6 +103,47 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-6">
+                <h2 class="lead">Active signals</h2>
+                {% for item in signals %}
+                    <div class="card">
+                        <div class="d-flex">
+                            <div class="card-title">
+                                {{ item.user.first_name }} - {{ item.user.last_name }}
+                            </div>
+                            <div class="card-body">
+                                <h5>Created: {{ item.created_date }}</h5>
+                                <h5>Expiring Date: {{ item.expiring_date }}</h5>
+                                <h5>Signal Type: {{ item.signal_type.signal_choice }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <div class="col-lg-6">
+                <h2 class="lead">InActive signals</h2>
+                {% for item in signals %}
+                    {% if item.active == 'False' %}
+                        <div class="card">
+                            <div class="d-flex">
+                                <div class="card-title">
+                                    {{ item.user.first_name }} - {{ item.user.last_name }}
+                                </div>
+                                <div class="card-body">
+                                    <h5>Created: {{ item.created_date }}</h5>
+                                    <h5>Expiring Date: {{ item.expiring_date }}</h5>
+                                    <h5>Signal Type: {{ item.signal_type.signal_choice }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
         </div>
     </div>
 

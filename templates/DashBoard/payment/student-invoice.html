@@ -58,38 +58,6 @@
                     </div>
                 </div>
 
-                <div class="card table-responsive">
-                    <table class="table mb-0 table--elevated">
-                        <thead class="thead-light">
-                        <tr>
-                            <th class="border-top-0">Course's</th>
-                            {% comment %}<th class="border-top-0 text-right" style="width: 120px;">Amount</th>{% endcomment %}
-                        </tr>
-
-                        </thead>
-                        <tbody>
-                        {% for item in recent_course.courses.all %}
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="{{ item.get_absolute_url }}" class="avatar avatar-4by3 avatar-sm mr-3">
-                                            <img src="{{ item.imageURL }}" alt="{{ item.title }}"
-                                                 class="avatar-img rounded">
-                                        </a>
-                                        <div class="flex">
-                                            <a href="{{ item.imageURL }}" class="text-body">
-                                                <strong>{{ item.title }}</strong>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                                {% comment %} <td class="text-right"><strong>&dollar;89.00 USD</strong></td>{% endcomment %}
-                            </tr>
-                        {% endfor %}
-
-                        </tbody>
-                    </table>
-                </div>
 
                 <div class="px-16pt mb-4">
                     <p class="text-black-70 mb-8pt"><strong>Invoice paid</strong> <span>${{ membership_price }}</span>

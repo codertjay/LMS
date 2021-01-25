@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.utils.datetime_safe import datetime
 
-from .utils import signal_created_message
+from .utils import signal_created_message, signal_expired_message
 import stripe
 
 signal_choices = (
@@ -52,6 +52,22 @@ class UserSignalSubscription(models.Model):
         return date
 
 
+# this function deacivate expired signals it sends message to the user whom signals has being deactivated
+def deactivate_signals():
+    signal_qs = UserSignalSubscription.objects.all()
+    for signal in signal_qs:
+        if signal.expiring_date < datetime.now():
+            signal.active = False
+            signal.save()
+            signal_expired_message(signal)
+    return None
+
+
+# calling function that deactivate expired signals
+deactivate_signals()
+
+
+# a django signal that automatically send message to the user that has registered on a signal
 def post_save_send_user_message_on_signal_subscription(sender, instance, created, *args, **kwargs):
     # send message to the user
     if created:

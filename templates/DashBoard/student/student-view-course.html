@@ -25,7 +25,6 @@
                             <video id="player" playsinline controls data-poster="{{ course.imageURL }}" width="500"
                                    height="500">
                                 <source src="{{ lesson.videoURL }}" type="video/mp4"/>
-                                <source src="{{ lesson.videoURL }}" type="video/webm"/>
                             </video>
 
                         {% elif course.lesson_set.count == 0 %}

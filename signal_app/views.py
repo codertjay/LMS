@@ -1,19 +1,17 @@
-from datetime import timedelta
-
+import stripe
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.context_processors import messages
 from django.shortcuts import render, redirect
-from django.contrib import messages
 # Create your views here.
 from django.urls import reverse
 from django.utils.datetime_safe import datetime
 from django.views.generic.base import View
 
 from memberships.views import get_user_membership
-from .models import SignalType, UserSignalSubscription
 from users.forms import UserUpdateForm
-import stripe
+from .models import SignalType, UserSignalSubscription
 
 
 class SignalPaymentView(LoginRequiredMixin, View):
@@ -26,7 +24,7 @@ class SignalPaymentView(LoginRequiredMixin, View):
             """In here i am checking if the user have a current signal if he/she has i would redirect
              the him/her to the signal page"""
             if user_signal_sub:
-                if user_signal_sub.expiring_date > datetime.now():
+                if user_signal_sub.expiring_date > datetime.now() and user_signal_sub.active:
                     return redirect(reverse('signal:signal_payment_done', kwargs={
                         'subscription_id': user_signal_sub.stripe_subscription_id,
                         'signal': user_signal_sub.signal_type
@@ -39,23 +37,25 @@ class SignalPaymentView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         user_membership = get_user_membership(request)
         print('the data ', request.POST)
-        token = request.POST['stripeToken']
+
         signal_val = request.POST['Signal']
         # Note : This is where the charges is taking place if the user has no signal
-        if signal_val and token:
+        if signal_val:
             signal = SignalType.objects.filter(signal_choice=signal_val).first()
             if signal:
                 try:
-                    customer = stripe.Customer.retrieve(user_membership.stripe_customer_id)
-                    customer.source = token  # 4242424242424242
-                    customer.save()
-                    # changed plan to price
-                    subscription = stripe.Subscription.create(
-                        customer=user_membership.stripe_customer_id,
-                        items=[{'price': signal.stripe_plan_id}, ])
-                    return redirect(reverse('signal:signal_payment_done', kwargs={
-                        'subscription_id': subscription.id, 'signal': signal
-                    }))
+                    token = request.POST['stripeToken']
+                    if token:
+                        customer = stripe.Customer.retrieve(user_membership.stripe_customer_id)
+                        customer.source = token  # 4242424242424242
+                        customer.save()
+                        # changed plan to price
+                        subscription = stripe.Subscription.create(
+                            customer=user_membership.stripe_customer_id,
+                            items=[{'price': signal.stripe_plan_id}, ])
+                        return redirect(reverse('signal:signal_payment_done', kwargs={
+                            'subscription_id': subscription.id, 'signal': signal
+                        }))
                 except stripe.error.CardError as e:
                     messages.info(request, 'Your card has being declined')
                 except stripe.error.APIConnectionError as e:
@@ -63,7 +63,7 @@ class SignalPaymentView(LoginRequiredMixin, View):
                 except stripe.error.StripeError as e:
                     messages.info(request, 'There was an error we are working on it')
                 except Exception as e:
-                    messages.info(request, 'There error was',e)
+                    messages.info(request, 'There error was', e)
         messages.info(request, 'There was an error ')
         return redirect('home:home')
 
@@ -88,3 +88,4 @@ def signal_payment_done(request, subscription_id, signal):
     else:
         messages.error(request, 'There was an error ')
         return redirect('home:home')
+

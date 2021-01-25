@@ -16,6 +16,7 @@ from forum.models import ForumQuestion
 from memberships.views import get_user_subscription, get_user_membership
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
+from signal_app.models import UserSignalSubscription
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER
 
@@ -51,6 +52,7 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
     def get(self, request):
         if request.user.profile.user_type == 'Instructor':
             course_qs = Course.objects.filter(user=request.user)
+            signals = UserSignalSubscription.objects.all()
             try:
                 most_viewed_qs = Course.objects.all().order_by('-view_count')
                 if most_viewed_qs:
@@ -67,7 +69,8 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
             context = {
                 'active': True,
                 'course': course,
-                'most_viewed': most_viewed
+                'most_viewed': most_viewed,
+                'signals': signals,
 
             }
             print('these are the most viewed course', most_viewed)
@@ -96,7 +99,6 @@ def public_profile_view(request, username):
         return render(request, 'DashBoard/profile/profile-page.html', context)
     messages.info(request, 'This user profile page does not exist')
     return HttpResponseRedirect(request.META.get('HTTP_REFER'))
-
 
 
 class UserProfileUpdate(LoginRequiredMixin, View):
