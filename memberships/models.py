@@ -19,7 +19,7 @@ class Membership(models.Model):
     slug = models.SlugField()
     membership_type = models.CharField(choices=MembershipType, default='Free', max_length=30)
     discount = models.IntegerField()
-    price = models.IntegerField(default=15)
+    price = models.IntegerField(default=0)
     stripe_plan_id = models.CharField(max_length=40)
 
     def __str__(self):

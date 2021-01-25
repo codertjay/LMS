@@ -110,7 +110,7 @@ def payment_view(request):
             subscription = stripe.Subscription.create(
                 customer=user_membership.stripe_customer_id,
                 items=[
-                    {'plan': selected_membership.stripe_plan_id},
+                    {'price': selected_membership.stripe_plan_id},
                 ]
             )
             print('this is the subscription_id ', subscription.id)

@@ -48,15 +48,15 @@ class UserSignalSubscription(models.Model):
             subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
             date = datetime.fromtimestamp(subscription.current_period_end)
         except:
-            date = ''
+            date = datetime.now()
         return date
 
 
 # this function deacivate expired signals it sends message to the user whom signals has being deactivated
-def deactivate_signals():
+def deactivate_signals(UserSignalSubscription):
     signal_qs = UserSignalSubscription.objects.all()
     for signal in signal_qs:
-        if signal.expiring_date < datetime.now():
+        if signal.expiring_date <= datetime.now():
             signal.active = False
             signal.save()
             signal_expired_message(signal)
@@ -64,14 +64,15 @@ def deactivate_signals():
 
 
 # calling function that deactivate expired signals
-deactivate_signals()
+deactivate_signals(UserSignalSubscription)
 
 
 # a django signal that automatically send message to the user that has registered on a signal
 def post_save_send_user_message_on_signal_subscription(sender, instance, created, *args, **kwargs):
     # send message to the user
     if created:
-        signal_created_message(instance.signal_type)
+        print('this is the instance', instance.user)
+        signal_created_message(instance)
 
 
 post_save.connect(post_save_send_user_message_on_signal_subscription, sender=UserSignalSubscription)

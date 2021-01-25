@@ -77,8 +77,7 @@ def signal_payment_done(request, subscription_id, signal):
     stripe_id = stripe.Subscription.retrieve(subscription_id)
     print('this is the stripe id ', stripe_id)
     if signal_ and stripe_id.id == subscription_id:
-        sub, created = UserSignalSubscription.objects.get_or_create(user=request.user, signal_type=signal_)
-        sub.user = self.request.user
+        sub, created = UserSignalSubscription.objects.get_or_create(signal_type=signal_, user=request.user )
         print('this is the subscription id', subscription_id)
         if sub.expiring_date == '' or sub.expiring_date == None or sub.expiring_date < datetime.now():
             sub.stripe_subscription_id = subscription_id
