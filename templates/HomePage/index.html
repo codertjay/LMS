@@ -514,6 +514,9 @@
                            class="btn btn-primary w-100 ">Buy Now</a>
                     </div>
                 </div>
+
+                {% for item in copy_trade %}
+
                 <div class="col-lg-6 ">
                     <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
                         <div class="icon-box "><img src="{% static 'HomePage/images/stock.png ' %}" alt=" "></div>
@@ -532,16 +535,18 @@
                         </ul>
                         <div class="price-box ">
                             <div class="pr-total ">
-                                <p><span class="d-price ">$300</span>/mo</p>
+                                <p><span class="d-price ">${{ item.discount }}</span>/mo</p>
                             </div>
                             <div class="pr-total ">
-                                <p><span>$250</span>/mo</p>
+                                <p><span>${{ item.price }}</span>/mo</p>
                                 <!--<span>(10% Discount for yearly)</span>-->
                             </div>
                         </div>
-                        <a href="# " class="btn btn-primary w-100 ">Buy Now</a>
+                        <a href="{% url 'copy_trade:copy_trade_payment' item.copy_trade_choice %}" class="btn btn-primary w-100 ">Buy Now</a>
                     </div>
                 </div>
+                {% endfor %}
+
                 <div class="col-lg-6 ">
                     <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
                         <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png ' %}" alt=" "></div>
@@ -791,7 +796,8 @@
                                     <h5>{{ item.timestamp|timesince }} ago</h5>
                                 </div>
                                 <div class="blog-des">
-                                    <a href="{{ item.get_absolute_url }}"><h3 class="text-capitalize">{{ item.title }}?</h3></a>
+                                    <a href="{{ item.get_absolute_url }}"><h3
+                                            class="text-capitalize">{{ item.title }}?</h3></a>
                                     <p>{{ item.get_markdown|truncatewords:20 }}.</p>
                                 </div>
                             </div>

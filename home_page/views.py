@@ -1,17 +1,16 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 
 from blog.models import Post
+from copy_trading.models import CopyTrading
 from courses.models import Course
 from home_page.forms import SubscribeForm, TestimonialForm
 from home_page.models import Testimonial
 from memberships.models import Membership
-from django.utils.translation import gettext as _
 
 
 def freeMembership():
@@ -37,6 +36,7 @@ class HomePageView(View):
     def get(self, *args, **kwargs):
         Free_course = Course.objects.filter(allowed_memberships=freeMembership())
         Paid_course = Course.objects.filter(allowed_memberships=paidMembership())
+        copy_trading = CopyTrading.objects.all()
         print('the free', Free_course)
         print('the Paid_course', Paid_course)
         context = {
@@ -44,6 +44,9 @@ class HomePageView(View):
             'Free_course': Free_course.count(),
             'Free_price': freeMembership().price,
             'Free_discount_price': freeMembership().discount,
+
+            # copy trading
+            'copy_trade': copy_trading,
 
             'Paid_course': Paid_course.count(),
             'Paid_price': paidMembership().price,

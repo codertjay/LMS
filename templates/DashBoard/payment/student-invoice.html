@@ -28,12 +28,12 @@
                             <div class="media-body">
                                 <h1 class="card-title h2">Invoice</h1>
                                 {% if created_at %}
-                                    <h3 class="card-subtitle" style="font-size: 30px">Created {{ created_at }}</h3>
+                                    <h3 class="card-subtitle" style="font-size: 20px">Created {{ created_at }}</h3>
                                 {% endif %}
                                 <br><br>
                                 {% if next_billing_date %}
-                                    <h3 class="card-subtitle"style="font-size: 30px"><strong>Next billing
-                                        Date {{ next_billing_date }}</strong></h3>
+                                    <h3 class="card-subtitle" style="font-size: 20px"><strong>Subscription
+                                        ends {{ next_billing_date }}</strong></h3>
 
                                 {% endif %}
                             </div>

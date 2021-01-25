@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'home_page',
     'forum',
     'signal_app',
+    'copy_trading',
 
     'markdown_deux',
     'upload_validator',

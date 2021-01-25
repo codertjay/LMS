@@ -13,6 +13,7 @@ urlpatterns = [
     path('', include('home_page.urls')),
     path('', include('users.urls')),
     path('signal/', include('signal_app.urls')),
+    path('copy_trade/', include('copy_trading.urls')),
 ]
 
 if settings.DEBUG:

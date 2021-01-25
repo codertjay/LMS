@@ -113,6 +113,10 @@ def payment_view(request):
                     {'price': selected_membership.stripe_plan_id},
                 ]
             )
+            stripe.Subscription.modify(
+                subscription.id,
+                cancel_at_period_end=True
+            )
             print('this is the subscription_id ', subscription.id)
             return redirect(reverse('memberships:update_transactions',
                                     kwargs={
