@@ -1,22 +1,22 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.contrib import messages
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.template.loader import get_template
 from django.views import View
 
+from copy_trading.models import CopyTradingSubscription
 from courses.models import RecentCourses, Course
 from forum.models import ForumQuestion
 from memberships.views import get_user_subscription, get_user_membership
+from signal_app.models import UserSignalSubscription
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
-from signal_app.models import UserSignalSubscription
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER
 
@@ -53,6 +53,7 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
         if request.user.profile.user_type == 'Instructor':
             course_qs = Course.objects.filter(user=request.user)
             signals = UserSignalSubscription.objects.all()
+            copy_trades = CopyTradingSubscription.objects.all()
             try:
                 most_viewed_qs = Course.objects.all().order_by('-view_count')
                 if most_viewed_qs:
@@ -71,7 +72,7 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
                 'course': course,
                 'most_viewed': most_viewed,
                 'signals': signals,
-
+                'copy_trades': copy_trades,
             }
             print('these are the most viewed course', most_viewed)
             return render(request, 'DashBoard/instructor/instructor-dashboard.html', context)

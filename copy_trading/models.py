@@ -37,7 +37,7 @@ class CopyTradingSubscription(models.Model):
             subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
             date = datetime.fromtimestamp(subscription.created)
         except:
-            date = ''
+            date = None
         return date
 
     @property
@@ -54,11 +54,12 @@ class CopyTradingSubscription(models.Model):
 def deactivate_copy_trading():
     copy_trade_qs = CopyTradingSubscription.objects.all()
     for copy_trade in copy_trade_qs:
-        if not copy_trade.expiring_date or copy_trade.expiring_date <= datetime.now():
-            copy_trade.stripe_subscription_id = ''
-            copy_trade.active = False
-            copy_trading_expired_message(copy_trade)
-            copy_trade.save()
+        if copy_trade.expiring_date:
+            if copy_trade.expiring_date < datetime.now():
+                copy_trade.stripe_subscription_id = ''
+                copy_trade.active = False
+                copy_trading_expired_message(copy_trade)
+                copy_trade.save()
     return None
 
 

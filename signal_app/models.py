@@ -39,7 +39,7 @@ class UserSignalSubscription(models.Model):
             subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
             date = datetime.fromtimestamp(subscription.created)
         except:
-            date = ''
+            date = None
         return date
 
     @property
@@ -56,11 +56,12 @@ class UserSignalSubscription(models.Model):
 def deactivate_signals(UserSignalSubscription):
     signal_qs = UserSignalSubscription.objects.all()
     for signal in signal_qs:
-        if not signal.expiring_date or signal.expiring_date <= datetime.now():
-            signal.stripe_subscription_id = ''
-            signal.active = False
-            signal.save()
-            signal_expired_message(signal)
+        if signal.expiring_date:
+            if signal.expiring_date < datetime.now():
+                signal.stripe_subscription_id = ''
+                signal.active = False
+                signal.save()
+                signal_expired_message(signal)
     return None
 
 

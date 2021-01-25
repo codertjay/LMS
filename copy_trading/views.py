@@ -2,8 +2,6 @@ import stripe
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.context_processors import messages
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
@@ -17,9 +15,9 @@ from .models import CopyTrading, CopyTradingSubscription
 
 class CopyTradingPaymentView(LoginRequiredMixin, View):
 
-    def get(self, request, trade_choice):
+    def get(self, request, copy_trade_choice):
         form = UserUpdateForm(request.FILES or None, instance=request.user)
-        copy_trade = CopyTrading.objects.filter(copy_trade_choice=trade_choice).first()
+        copy_trade = CopyTrading.objects.filter(copy_trade_choice=copy_trade_choice).first()
         user_copy_trade_sub = CopyTradingSubscription.objects.filter(user=request.user).first()
         if copy_trade:
             print('this is the copy_trade ', copy_trade)
@@ -31,11 +29,12 @@ class CopyTradingPaymentView(LoginRequiredMixin, View):
                 print('this is the copy_trade sub created_date data', user_copy_trade_sub.created_date)
                 print('this is the copy_trade sub active', user_copy_trade_sub.active)
                 print('this is the date time now', datetime.now())
-                if user_copy_trade_sub.expiring_date > datetime.now() and user_copy_trade_sub.active:
-                    return redirect(reverse('copy_trade:copy_trade_payment_done', kwargs={
-                        'subscription_id': user_copy_trade_sub.stripe_subscription_id,
-                        'copy_trade': user_copy_trade_sub.signal_type
-                    }))
+                if user_copy_trade_sub.expiring_date:
+                    if user_copy_trade_sub.expiring_date > datetime.now():
+                        return redirect(reverse('copy_trade:copy_trade_payment_done', kwargs={
+                            'subscription_id': user_copy_trade_sub.stripe_subscription_id,
+                            'copy_trade': user_copy_trade_sub.signal_type
+                        }))
 
         else:
             messages.error(request, 'This copy_trade does not exist')
@@ -81,4 +80,24 @@ class CopyTradingPaymentView(LoginRequiredMixin, View):
         return redirect('home:home')
 
 
-
+@login_required
+def copy_trade_payment_done(request, subscription_id, copy_trade):
+    copy_trade_ = CopyTrading.objects.filter(copy_trade_choice=copy_trade).first()
+    # checking the stripe subscription id if it exists
+    # stripe_id = stripe.Charge.retrieve(subscription_id)
+    stripe_id = stripe.Subscription.retrieve(subscription_id)
+    print('this is the stripe id ', stripe_id)
+    if copy_trade_:
+        if stripe_id.id == subscription_id:
+            sub, created = CopyTradingSubscription.objects.get_or_create(copy_trade=copy_trade_, user=request.user)
+            print('this is the subscription id', subscription_id)
+            print('this is the subscription expiring date', sub.expiring_date)
+            print('this is the subscription created_date ', sub.created_date)
+            sub.stripe_subscription_id = subscription_id
+            sub.active = True
+            sub.save()
+            context = {'copy_trade': copy_trade_}
+            return render(request, 'HomePage/copy_trade/copy_trade_payment_done.html', context)
+    else:
+        messages.error(request, 'There was an error ')
+    return redirect('home:home')

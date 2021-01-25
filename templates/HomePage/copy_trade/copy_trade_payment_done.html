@@ -1,0 +1,70 @@
+{% extends 'HomePage/home_base.html' %}
+{% load static %}
+
+
+{% block title %}
+
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+    <!--Select Links End-->
+    <section class="pricing-table">
+        <div id="smartwizard">
+            <ul class="step-links">
+                <li><a href="#"><span><small>1</small><i class="far fa-check"></i></span>Payment Checkout</a></li>
+                <li><a href="#step-3"><span><small>2</small><i class="far fa-check"></i></span>Payment Confirmation</a>
+                </li>
+            </ul>
+            <div class="container mx-auto pr-wrapper">
+
+                <div id="step-3" class="">
+                    <div class="wrapper-step step-finsh">
+                        <div class="payment-confirm text-center"><img src="{% static 'HomePage/images/check.png' %}"
+                                                                      alt=""> <small>You are now a part of {{ copy_trade.copy_trade_choice }}!</small>
+                            <h3>Your payment has been confirmed! </h3>
+                            <p>Welcome to your new pathway towards financial freedom! We’re glad you’ve decided to make
+                                the journey. Now, let us guide you down the path! </p>
+                            <a href="#" class="btn btn-primary">Go to Dashboard</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Section Footer Start-->
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $ (document).ready (function () {
+            $ ('#smartwizard').smartWizard ({
+                showStepURLhash: false ,
+                anchorSettings: {
+                    anchorClickable: true , // Enable/Disable anchor navigation
+                    enableAllAnchors: true , // Activates all anchors clickable all times
+                    markDoneStep: true , // add done css
+                    enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+                } ,
+            });
+
+
+        });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
