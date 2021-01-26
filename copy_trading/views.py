@@ -34,7 +34,7 @@ class CopyTradingPaymentView(LoginRequiredMixin, View):
                     if user_copy_trade_sub.expiring_date > datetime.now():
                         return redirect(reverse('copy_trade:copy_trade_payment_done', kwargs={
                             'subscription_id': user_copy_trade_sub.stripe_subscription_id,
-                            'copy_trade': user_copy_trade_sub.signal_type
+                            'copy_trade': user_copy_trade_sub.copy_trade
                         }))
 
         else:
@@ -53,7 +53,7 @@ class CopyTradingPaymentView(LoginRequiredMixin, View):
         user.save()
 
         copy_trade_val = request.POST['copy_trade']
-        # Note : This is where the charges is taking place if the user has no signal
+        # Note : This is where the charges is taking place if the user has no copy trade
         if copy_trade_val:
             copy_trade = CopyTrading.objects.copy_trade_filter_choice(copy_trade_val)
             if copy_trade:
