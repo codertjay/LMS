@@ -606,11 +606,11 @@
                     </div>
                 </div>
                 <div class="col-lg-7 ">
-                    <form action="{% url 'home:subscribe' %}" class="custom-form mt-3 ">
+                    <form action="{% url 'home:subscribe' %}" class="custom-form mt-3 " method="post">
                         {% csrf_token %}
                         <div class="input-group ">
                             <div class="input-group-append icon-e "><i class="fal fa-envelope "></i></div>
-                            <input type="text " class="form-control " placeholder="Email Address "
+                            <input type="email" class="form-control " name="email" placeholder="Email Address "
                                    aria-label="Recipient 's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-group">Subscribe Here</button>

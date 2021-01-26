@@ -70,10 +70,11 @@ class PricingView(View):
 
 def subscribe_view(request):
     form = SubscribeForm(request.POST)
+    print('the post items',request.POST)
     if form.is_valid():
         form.save()
+        print('the form data',form.data)
         messages.success(request, 'You have successfully subscribed')
-        return redirect('home:subscribe_page')
     return redirect('home:home')
 
 

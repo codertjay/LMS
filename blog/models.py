@@ -1,14 +1,18 @@
-from django.db import models
+import datetime
+from datetime import timedelta, datetime
+
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.db.models.signals import pre_save
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-from django.contrib.contenttypes.models import ContentType
 from markdown_deux import markdown
 
 from .utils import get_read_time
+
 # markdown
 blogCategory = (
     ('ED', 'Education'),
@@ -30,6 +34,10 @@ class BlogPostManager(models.Manager):
 
     def published(self):
         return self.get_queryset().published()
+
+    def last_post_for_the_week(self):
+        last_7_days_ago = datetime.now() - timedelta(days=7)
+        return self.filter(published_date__lte=last_7_days_ago)
 
 
 class Action(models.Model):

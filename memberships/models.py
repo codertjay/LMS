@@ -72,7 +72,6 @@ class Subscription(models.Model):
         return date
 
 
-# Todo check if the users auto renew fail then change the membership to free
 
 def post_save_user_membership_create(sender, instance, created, *args, **kwargs):
     if created:
