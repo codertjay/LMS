@@ -9,8 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-from markdown_deux import markdown
-
+from markdown import markdown
 from .utils import get_read_time
 
 # markdown
@@ -85,6 +84,9 @@ class Post(models.Model):
     def get_markdown(self):
         description = self.description
         markdown_text = markdown(description)
+        print('markdown text',markdown_text)
+        print('markdown marksafe',mark_safe(markdown_text))
+        print('markdown description',description)
         return mark_safe(markdown_text)
 
     @property

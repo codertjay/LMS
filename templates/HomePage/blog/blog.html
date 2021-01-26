@@ -11,8 +11,8 @@
                     {% for item in object_list %}
                         <div class="blog_content">
                             <div class="blog-date">
-                                <p>{{ item.timestamp|timesince }} By <a href="#">{{ item.user.profile.first_name }} -
-                                    {{ item.user.profile.last_name }}</a> {{ item.comments.count }} <a href="#"
+                                <p>{{ item.timestamp|timesince }} By <a href="#">{{ item.user.first_name }} -
+                                    {{ item.user.last_name }}</a> {{ item.comments.count }} <a href="#"
                                                                                                        class="comments-link">Comments</a>
                                 </p>
                             </div>

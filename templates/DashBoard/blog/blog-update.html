@@ -6,7 +6,19 @@
 {% endblock %}
 
 {% block styles %}
- {{ form.media }}
+    {{ form.media }}
+    <style>
+        {% comment %} this style is from the markdown html{% endcomment %}
+        .wmd-panel {
+            margin: 3px !important;
+            width: 100%;
+        }
+    #wmd-input-id_description{
+        height:auto !important ;
+    }
+
+
+    </style>
 {% endblock %}
 
 {% block content %}

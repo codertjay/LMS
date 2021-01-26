@@ -10,8 +10,8 @@
                 <div class="col-lg-8">
                     <div class="blog_content">
                         <div class="blog-date">
-                            <p>{{ post.timestamp|timesince }} By <a
-                                    href="#"> {{ post.user.username }}</a> {{ post.comments.count }}
+                            <p>{{ post.timestamp|timesince }} ago By <a
+                                    href="#"> {{ post.user.first_name }} - {{ post.user.last_name }}</a> {{ post.comments.count }}
                                 <a href="#" class="comments-link">Comments</a>
                             </p>
                         </div>
@@ -41,6 +41,7 @@
                         <div class="blog-img"><img src="{{ post.imageURL }}" style="max-height: 604px !important;"
                                                    alt="" class="img-fluid w-100"></div>
                         <div class="blog-detail">
+
                             {{ post.get_markdown }}
                             <span class="divider"></span></div>
                     </div>
