@@ -11,8 +11,15 @@ User = settings.AUTH_USER_MODEL
 
 class ForumManager(models.Manager):
     def top_forums(self):
-        forum_qs = self.all().order_by('-view_count')
-        return forum_qs
+        top_forums = self.all()
+        if self.count() > 9:
+            top_forums = ForumQuestion.objects.all().order_by('-view_count')
+            print('tbis is the top fffggggggg', top_forums)
+        elif self.count() > 15:
+            top_forums = ForumQuestion.objects.all().order_by('-view_count')
+            print('tbis is the top fffaaaaaaaa', top_forums)
+
+        return top_forums
 
 
 class ForumQuestion(models.Model):

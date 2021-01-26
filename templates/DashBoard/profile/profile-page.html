@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block profile_page %}
-active
+    active
 {% endblock %}
 
 
@@ -63,95 +63,110 @@ active
 
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 "><h3 class="lead">Forum Questions</h3>
-                        <div class="" style="height: 700px; overflow-y: auto;">
+                <ul class="nav nav-pills">
+                    <li>
+                        <a data-toggle="pill" href="#forum_question" class="active">
+                            <h3 class=" text-decoration-underline"
+                                style="padding-left: 20px">
+                                Forum Question </h3></a>
+                    </li>
+                    <li><a data-toggle="pill" href="#created_course">
+                        <h3 class=" text-decoration-underline"
+                            style="padding-left: 40px">
+                            Created Course
+                        </h3></a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="forum_question" class="tab-pane fade  active show">
+                        <div class="row">
+                            <h2 class="lead">Forum Questions</h2>
                             {% for item in user_forums %}
-                                <div class="card ml-5 card_shadow">
-                                    <div class="card-body">
-                                        <div class="d-flex mb-1">
-                                            <div class="avatar avatar-sm mr-3">
-                                                <img src="{{ user.profile.profilePicsImageURL }}" alt="Avatar"
-                                                     class="avatar-img rounded-circle">
+                                <div class="col-md-6 ">
+                                    <div class="card  " style="height: auto">
+                                        <div class="card-body">
+                                            <div class="card-body d-flex mb-1">
+                                                <div class="avatar avatar-sm mr-3">
+                                                    <img src="{{ user.profile.profilePicsImageURL }}" alt="Avatar"
+                                                         class="avatar-img rounded-circle">
+                                                </div>
+                                                <div class="flex">
+                                                    <div class="d-flex align-items-center mb-1">
+                                                        <strong class="text-15pt">{{ item.user.first_name }}</strong>
+                                                        <small class="ml-auto text-muted">{{ item.timestamp|timesince }} </small>
+                                                    </div>
+                                                    <div>
+                                                        <div>{{ item.get_markdown|truncatewords:10 }}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="flex">
-                                                <div class="d-flex align-items-center mb-1">
-                                                    <strong class="text-15pt">{{ item.user.first_name }}</strong>
-                                                    <small class="ml-auto text-muted">{{ item.timestamp|timesince }} </small>
-                                                </div>
-                                                <div>
-                                                    <p>{{ item.get_markdown|truncatewords:10 }}
-                                                    </p>
-                                                </div>
 
-                                            </div>
+                                            {% if item.forum_answers.count > 0 %}
+                                                {% for item_answer in item.forum_answers %}
+                                                    <div class="card ml-5 p-4 ">
+                                                        <div class="d-flex justify-content-between align-content-between">
+                                                            <div class="card-image">
+                                                                <a href="{% url 'users:profile' item_answer.user.username %}">
+                                                                    <img
+                                                                            src="{{ item_answer.user.profile.profilePicsImageURL }}"
+                                                                            alt="{{ item_answer.user.username }}"
+                                                                            width="50"
+                                                                            style="border-radius: 50%"></a>
+                                                            </div>
+                                                            <div class="card-body text-info">
+                                                                <p>{{ item_answer.get_markdown }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" text-info">
+                                                            {{ item_answer.user.first_name }} {{ item_answer.user.last_name }}
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
                                         </div>
-                                        {% for item_answer in item.forum_answers %}
-                                            <div class="card ml-5 p-4 card_shadow"
-                                                 style="background-color: rgba(216,220,219,0.38)">
-                                                <div class="d-flex justify-content-between align-content-between">
-                                                    <div class="card-image">
-                                                        <a href="{% url 'users:profile' item_answer.user.username %}">
-                                                            <img
-                                                                    src="{{ item_answer.user.profile.profilePicsImageURL }}"
-                                                                    alt="{{ item_answer.user.username }}" width="50"
-                                                                    style="border-radius: 50%"></a>
-                                                    </div>
-                                                    <div class="card-body text-info">
-                                                        <p>{{ item_answer.get_markdown }}</p>
-                                                    </div>
-                                                </div>
-                                                <div class=" text-info">
-                                                    {{ item_answer.user.first_name }} {{ item_answer.user.last_name }}
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-
                                     </div>
                                 </div>
                             {% endfor %}
                         </div>
                     </div>
-                    {% if user_course %}
-                        <div class="col-md-6 mx-auto">
-                            <h3 class="text-capitalize">{{ user.username }} Course</h3>
-                            <div class="" style="height: 700px; overflow-y: scroll;">
+                    <div id="created_course" class="tab-pane fade">
+                        <div class="row">
+                            {% if user_course %}
+                                <h3 class="text-capitalize">Created Course</h3>
                                 {% for item in  user_course %}
-                                    <div class="card card_shadow">
-                                        <div class="d-flex">
+                                    <div class="col-md-4 ">
+                                        <div class="card " style="width: 400px">
                                             <div class="card-image">
                                                 <a href="{{ item.get_absolute_url }}"> <img
                                                         src="{{ item.imageURL }}" alt=""
-                                                        style="object-fit: contain; width: 300px"></a>
+                                                        style="object-fit: contain; height: 200px;width: 100%;"></a>
                                             </div>
-                                            <div class="" style="padding: 20px;">
-                                                <div class="d-flex">
-                                                    <a href="{{ item.get_absolute_url }}"><h4
-                                                            class="text-capitalize">{{ item.title }}</h4></a>
-                                                    <h5><span><i
-                                                            class="fa fa-clock-o"></i></span> {{ item.timestamp|timesince }}
-                                                    </h5>
-                                                </div>
+                                            <div class="card-content" style="padding: 20px;">
                                                 <p class="lead "> {{ item.description|truncatewords:10 }}</p>
+                                                <a href="{{ item.get_absolute_url }}"><h4
+                                                        class="text-capitalize">{{ item.title }}</h4></a>
+                                            </div>
+                                            <div class="card-footer">
+                                                <i class="fa fa-clock-o"></i>{{ item.timestamp|timesince }}
                                             </div>
                                         </div>
                                     </div>
                                 {% endfor %}
-                            </div>
+
+                            {% endif %}
                         </div>
-                    {% endif %}
-
+                    </div>
                 </div>
+
+
             </div>
-
-
         </div>
-
     </div>
 {% endblock %}
 
 {% block script %}
 
 {% endblock %}
-
 

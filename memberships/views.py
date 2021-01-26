@@ -193,18 +193,25 @@ def student_membership_invoice(request):
         recent_course = recent_course_qs.first()
     else:
         recent_course = None
-    context = {
-        'user_membership': user_membership,
-        'user_subscription': user_subscription,
-        'membership_type': user_membership.membership.membership_type,
-        'membership_price': user_membership.membership.price,
-        'next_billing_date': user_subscription.get_next_billing_date,
-        'created_at': user_subscription.get_created_date,
-        'recent_course': recent_course,
-    }
-    print('user_membership', user_membership.membership.membership_type)
-    print('user_membership', user_membership.membership.membership_type)
-    print('user_subscription', user_subscription)
-    # print('next_billing_date', user_subscription.get_next_billing_date)
-    # print('created_at', user_subscription.get_created_date)
+    if user_subscription:
+        context = {
+            'user_membership': user_membership,
+            'user_subscription': user_subscription,
+            'membership_type': user_membership.membership.membership_type,
+            'membership_price': user_membership.membership.price,
+            'next_billing_date': user_subscription.get_next_billing_date,
+            'created_at': user_subscription.get_created_date,
+            'recent_course': recent_course,
+        }
+        print('user_membership', user_membership.membership.membership_type)
+        print('user_membership', user_membership.membership.membership_type)
+        print('user_subscription', user_subscription)
+    else:
+        context = {
+            'user_membership': user_membership,
+            'user_subscription': user_subscription,
+            'membership_type': user_membership.membership.membership_type,
+            'membership_price': user_membership.membership.price,
+            'recent_course': recent_course,
+        }
     return render(request, 'DashBoard/payment/student-invoice.html', context)

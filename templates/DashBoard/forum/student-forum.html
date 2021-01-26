@@ -53,7 +53,7 @@
 
                     <ul class="list-group list-group-fit">
 
-                        {% for item in forumquestion_list %}
+                        {% for item in object_list %}
                             <li class="list-group-item forum-thread">
                                 <div class="media align-items-center">
                                     <div class="media-left">
@@ -141,23 +141,28 @@
                 <p class="text-black-70">Top forums.</p>
 
                 <div class="mb-4">
+                    {% if top_forums %}
 
-                    {% for item in object_list.top_forums %}
-                        <div class="d-flex align-items-center mb-2">
-                            <a href="{{ item.get_absolute_url }}"
-                               class="avatar avatar-sm mr-3">
-                                <img src="{{ item.user.profile.profilePicsImageURL }}" alt="course"
-                                     class="avatar-img rounded-circle">
-                            </a>
-                            <a href="{{ item.get_absolute_url }}"
-                               class="flex mr-2 text-body"><strong>
-                                {{ item.user.first_name }} {{ item.user.last_name }}
-                            </strong></a>
-                            <span class="text-black-70 mr-2">1,233</span>
-                            <i class="text-muted  font-size-16pt">opacity</i>
-                        </div>
+                        {% for item in top_forums %}
+                            <div class="d-flex align-items-center mb-2">
+                                <a href="{{ item.get_absolute_url }}"
+                                   class="avatar avatar-sm mr-3">
+                                    <img src="{{ item.user.profile.profilePicsImageURL }}" alt="course"
+                                         class="avatar-img rounded-circle">
+                                </a>
+                                <a href="{{ item.get_absolute_url }}"
+                                   class="flex mr-2 text-body"><strong>
+                                    {{ item.user.first_name }} {{ item.user.last_name }}
+                                    <br>
+                                    {{ item.title }}
+                                </strong></a>
+                                <span class="text-black-70 mr-2">{{ item.view_count }}</span>
+                                <i class="text-muted  font-size-16pt fa fa-eye"></i>
+                            </div>
 
-                    {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+
                 </div>
 
             </div>

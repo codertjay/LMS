@@ -23,7 +23,7 @@
                 <div class="card card_shadow" style="padding-right:  20px;padding-left:  50px;padding-top:  50px;">
                     <div class="d-flex justify-content-between">
                         <div class="card-title">
-                            <h4 class="text-capitalize text-info">{{ forum_question.title }}</h4>
+                            <h4 class="text-capitalize ">{{ forum_question.title }}</h4>
                         </div>
                         <div class="card-image">
                             <a href="{% url 'users:profile' forum_question.user.username %}"><img
@@ -37,6 +37,13 @@
                             {{ forum_question.get_markdown }}
                         </p>
                     </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between ">
+                            <div class="lead font-italic">{{ forum_question.user.first_name }}
+                                - {{ forum_question.user.last_name }}</div>
+                            <div class="lead font-italic"> {{ forum_question.timestamp|timesince }}</div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -49,26 +56,26 @@
                                 <div class="media align-items-center" style="padding-left:  50px;padding-top:  50px">
                                     <div class="media-left">
                                         <div class="forum-icon-wrapper">
-                                            <a href="{{ item.get_absolute_url }}" class="forum-thread-icon">
-                                                <i class="fa fa-info-circle fa-2x"></i>
-                                            </a>
                                             <a href="{{ item.get_absolute_url }}" class="forum-thread-user pl-5">
                                                 <img src="{{ item.user.profile.profilePicsImageURL }}" alt=""
-                                                     width="100"
+                                                     width="50"
                                                      class="rounded-circle ">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="media-body">
-                                        <div class="d-flex align-items-center">
-                                            <a href="{{ item.get_absolute_url }}" class="text-body"><strong>
-                                                {{ item.user.first_name }} {{ item.user.last_name }}
-                                            </strong></a>
-                                            <small class="ml-auto text-muted">{{ item.timestamp|timesince }} ago</small>
+                                        <div class="">
+                                            <p>{{ item.get_markdown }}</p>
+
+                                            <div class="d-flex">
+                                                <a href="{{ item.get_absolute_url }}" class="text-body"><strong>
+                                                    {{ item.user.first_name }} {{ item.user.last_name }}
+                                                </strong></a>
+                                                <small class="ml-auto text-muted">{{ item.timestamp|timesince }}
+                                                    ago</small>
+                                            </div>
+
                                         </div>
-                                        <br>
-                                        <p>{{ item.get_markdown }}</p>
-                                        <a class="text-black-70" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                                     </div>
                                 </div>
                             </li>
@@ -77,14 +84,14 @@
                     </div>
                     <div class="col-12" style="margin-top: 20vh;margin-bottom: 10vh;">
 
-                        <div class="card card_color pt-3">
+                        <div class="card  pt-3">
                             <form action="{% url 'forum:forum_answer_create' forum_question.pk %}" method="post"
                                   class="">
                                 <div class="card-content">
                                     {% csrf_token %}
                                     {{ form|crispy }}
                                 </div>
-                                <div class="card-footer card_color">
+                                <div class="card-footer ">
                                     <button class="btn btn-primary">Answer</button>
                                 </div>
                             </form>
