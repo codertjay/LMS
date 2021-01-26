@@ -17,6 +17,7 @@ from memberships.views import get_user_subscription, get_user_membership
 from signal_app.models import UserSignalSubscription
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
+from forum.models import ForumQuestion
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER
 
@@ -27,7 +28,7 @@ class StudentDashBoardView(LoginRequiredMixin, View):
         recent_course_qs = RecentCourses.objects.filter(user=request.user)
         user_membership = get_user_membership(request)
         user_subscription = get_user_subscription(request)
-
+        forum_question = ForumQuestion.objects.filter(user=request.user)
         if recent_course_qs:
             recent_course = recent_course_qs.first()
         else:
@@ -39,7 +40,8 @@ class StudentDashBoardView(LoginRequiredMixin, View):
             'active': True,
             'RecentCourse': recent_course,
             'user_membership': user_membership,
-            'user_subscription': user_subscription
+            'user_subscription': user_subscription,
+            'forum_requestion':forum_question,
         }
         return render(request, 'DashBoard/student/student-dashboard.html', context)
 

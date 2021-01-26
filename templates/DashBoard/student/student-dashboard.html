@@ -4,6 +4,10 @@
 {% block title %}
     Student Dashboard
 {% endblock title %}
+
+{% block student_dash %}
+    active
+{% endblock %}
 {% block content %}
 
     <div class="container-fluid page__container">
@@ -18,7 +22,7 @@
             <div class="card-body">
                 <div class="media flex-wrap align-items-center">
                     <div class="media-left">
-                        <i class="material-icons text-muted-light">credit_card</i>
+                        <i class="fa fa-credit-card  text-muted-light"></i>
                     </div>
                     <div class="media-body" style="min-width: 180px">
                         {% if user_subscription != None %}
@@ -81,17 +85,15 @@
                                             {{ recent_course.title }}
                                         </strong></a>
                                         <div class="d-flex align-items-center">
-                                            <small class="text-muted ml-2">{{ recent_course.percent }}%</small>
+                                            <small class="text-muted ml-2">{{ recent_course.percent }}</small>
                                         </div>
                                     </div>
                                     <div class="dropdown ml-3">
-                                        <a href="#" class="dropdown-toggle text-muted" data-caret="false"
-                                           data-toggle="dropdown">
-                                            <i class="material-icons">more_vert</i>
-                                        </a>
+
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item"
-                                               href="{{ recent_course.get_absolute_url }}">Continue</a>
+                                               href="{{ recent_course.get_absolute_url }}"> <i
+                                                    class="fa fa-street-view"></i>Continue</a>
                                         </div>
                                     </div>
                                 </div>
@@ -120,19 +122,26 @@
                     </div>
 
 
-                    <ul class="list-group list-group-fit">
+                    <li class="list-group list-group-fit">
 
 
-                        {% for message in RecentCourse.courses.all %}
-                            {% for course_message in message.course_messages %}
-                                <li class="list-group-item forum-thread">
+                        {% for message in forum_requestion %}
+
+
+                            <li class="list-group-item forum-thread">
+                                <div class="card-title">
+                                    <a href=""> {{ message.title|capfirst }}</a>
+                                </div>
+                                {% for item in message.forum_answers %}
                                     <div class="media align-items-center">
                                         <div class="media-left">
                                             <div class="forum-icon-wrapper">
-                                                <a href="student-forum-thread.html" class="forum-thread-icon">
+                                                <a href="#"
+                                                   class="forum-thread-icon">
                                                     <i class="fa fa-info-circle">description</i>
                                                 </a>
-                                                <a href="student-profile.html" class="forum-thread-user">
+                                                <a href="{% url 'users:profile' item.user.username %}"
+                                                   class="forum-thread-user">
                                                     <img src="{{ message.user.profile.profilePicImageURL }}"
                                                          alt="profile" width="20"
                                                          class="rounded-circle">
@@ -141,17 +150,17 @@
                                         </div>
                                         <div class="media-body">
                                             <div class="d-flex align-items-center">
-                                                <a href="student-profile.html"
+                                                <a href="{% url 'users:profile'  message.user.username %}"
                                                    class="text-body"><strong>{{ message.user.username }}</strong></a>
                                                 <small class="ml-auto text-muted">{{ message.timestamp|timesince }}</small>
                                             </div>
                                             <a class="text-black-70"
-                                               href="student-forum-thread.html">{{ message.content }}?</a>
+                                               href="#">{{ message.content }}?</a>
                                         </div>
                                     </div>
-                                </li>
-                            {% endfor %}
+                                {% endfor %}
 
+                            </li>
                         {% endfor %}
 
 
@@ -168,26 +177,26 @@
 
 {% block script %}
 
-<!-- App Settings (safe to remove) -->
-<script src="{% static 'dashboard/dashboard_base/assets/js/app-settings.js' %}"></script>
+    <!-- App Settings (safe to remove) -->
+    <script src="{% static 'dashboard/dashboard_base/assets/js/app-settings.js' %}"></script>
 
 
-<!-- Global Settings -->
-<script src="{% static 'dashboard/dashboard_base/assets/js/settings.js' %}"></script>
+    <!-- Global Settings -->
+    <script src="{% static 'dashboard/dashboard_base/assets/js/settings.js' %}"></script>
 
-<!-- Moment.js -->
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/moment.min.js' %}"></script>
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/moment-range.min.js' %}"></script>
+    <!-- Moment.js -->
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/moment.min.js' %}"></script>
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/moment-range.min.js' %}"></script>
 
 
-<!-- Chart.js -->
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/Chart.min.js' %}"></script>
+    <!-- Chart.js -->
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/Chart.min.js' %}"></script>
 
-<!-- UI Charts Page JS -->
-<script src="{% static 'dashboard/dashboard_base/assets/js/chartjs-rounded-bar.js' %}"></script>
-<script src="{% static 'dashboard/dashboard_base/assets/js/chartjs.js' %}"></script>
+    <!-- UI Charts Page JS -->
+    <script src="{% static 'dashboard/dashboard_base/assets/js/chartjs-rounded-bar.js' %}"></script>
+    <script src="{% static 'dashboard/dashboard_base/assets/js/chartjs.js' %}"></script>
 
-<!-- Chart.js Samples -->
-<script src="{% static 'dashboard/dashboard_base/assets/js/page.student-dashboard.js' %}"></script>
+    <!-- Chart.js Samples -->
+    <script src="{% static 'dashboard/dashboard_base/assets/js/page.student-dashboard.js' %}"></script>
 
 {% endblock script %}

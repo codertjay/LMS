@@ -175,10 +175,10 @@
                                 {% if request.user.is_authenticated %}
 
                                     {% if request.user.profile.user_type == 'Student' %}
-                                        <li class="sidebar-menu-item  active ">
+                                        <li class="sidebar-menu-item  {% block student_dash %}  {% endblock %}  ">
                                             <a class="sidebar-menu-button" href="{% url 'users:student_dashboard' %}">
-                                                <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons"></i>
-
+                                                <i class="sidebar-menu-icon sidebar-menu-icon--left  fa fa-person-carry"></i>
+                                                Student
                                             </a>
                                         </li>
                                     {% endif %}
@@ -244,14 +244,6 @@
                                         My Course
                                     </a>
                                 </li>
-                                {% if request.user.is_authenticated %}
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button" href="{% url 'account_logout' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-lock-open"></i>
-                                            Logout
-                                        </a>
-                                    </li>
-                                {% endif %}
                             </ul>
                             <!-- Account menu -->
                             <div class="sidebar-heading">Account</div>
@@ -335,6 +327,17 @@
                                 </li>
                             </ul>
 
+                            <div class="sidebar-heading"></div>
+                            <ul class="sidebar-menu sm-active-button-bg">
+                                {% if request.user.is_authenticated %}
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="{% url 'account_logout' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-lock-open"></i>
+                                            Logout
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
                         </div>
                     </div>
                 </div>
