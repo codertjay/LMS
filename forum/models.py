@@ -9,12 +9,22 @@ from markdown_deux import markdown
 User = settings.AUTH_USER_MODEL
 
 
+class ForumManager(models.Manager):
+    def top_forums(self):
+        forum_qs = self.all().order_by('-view_count')
+        return forum_qs
+
+
 class ForumQuestion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=500)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    view_count = models.IntegerField(default=0)
+    objects = ForumManager()
 
+    class Meta:
+        ordering = ['-id']
 
     def __str__(self):
         return self.title

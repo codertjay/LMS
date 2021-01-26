@@ -16,7 +16,7 @@ from .models import ForumQuestion
 class ForumListView(LoginRequiredMixin, ListView):
     model = ForumQuestion
     template_name = 'DashBoard/forum/student-forum.html'
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get('search')
@@ -68,6 +68,8 @@ class ForumQuestionDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         instance = context['object']
+        instance.view_count += 1
+        instance.save()
         forumquestion_list = ForumQuestion.objects.all()
         context['form'] = ForumAnswerForm()
         context['forumquestion_list'] = forumquestion_list

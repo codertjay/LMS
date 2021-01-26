@@ -43,6 +43,9 @@ class Course(models.Model):
     view_count = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-id']
+
     @property
     def imageURL(self):
         try:
