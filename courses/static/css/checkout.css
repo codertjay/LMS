@@ -130,7 +130,7 @@ label {
     -webkit-transition: box-shadow 150ms ease;
     transition: box-shadow 150ms ease;
     /* my style*/
-    min-width: 60vw !important;
+    min-width: 40vw !important;
 }
 
 .StripeElement--focus {

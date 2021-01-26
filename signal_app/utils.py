@@ -19,7 +19,7 @@ def signal_created_message(signal):
     send_mail(
         f"AssasinFx Signal ( Created ) ",
         plain_message, EMAIL_HOST_USER, recipient_list=[signal_email, EMAIL_HOST_USER]
-        , html_message=html_message
+        , html_message=html_message,fail_silently=True
     )
 
     return None

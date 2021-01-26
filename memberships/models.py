@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 import stripe
 from datetime import datetime
+from django.db.models import Model, Manager
 
 # Create your models here.
 MembershipType = (
@@ -15,16 +16,24 @@ User = settings.AUTH_USER_MODEL
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+class MembershipManager(models.Manager):
+    def get_membership(self, keyword):
+        membership = self.filter(membership_type=keyword).first()
+        if membership:
+            return membership
+        return None
+
+
 class Membership(models.Model):
     slug = models.SlugField()
     membership_type = models.CharField(choices=MembershipType, default='Free', max_length=30)
     discount = models.IntegerField()
     price = models.IntegerField(default=0)
     stripe_plan_id = models.CharField(max_length=40)
+    objects = MembershipManager()
 
     def __str__(self):
         return self.membership_type
-
 
 
 class UserMembership(models.Model):
@@ -62,6 +71,7 @@ class Subscription(models.Model):
             date = ''
         return date
 
+
 # Todo check if the users auto renew fail then change the membership to free
 
 def post_save_user_membership_create(sender, instance, created, *args, **kwargs):
@@ -71,6 +81,7 @@ def post_save_user_membership_create(sender, instance, created, *args, **kwargs)
     if user_membership.stripe_customer_id is None or user_membership.stripe_customer_id == '':
         new_customer_id = stripe.Customer.create(email=instance.email)
         user_membership.stripe_customer_id = new_customer_id['id']
+        user_membership.membership = Membership.objects.get_membership('Free')
         user_membership.save()
 
 
