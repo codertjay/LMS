@@ -786,34 +786,6 @@
     <section class="blog">
         <div class="container">
             <div class="caption">
-                <h3 class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s">Frequently Asked Questions</h3>
-                <p class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s"></p>
-            </div>
-            <div class="blog-content wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s">
-                <div class="owl-carousel owl-theme blog-slider">
-                    {% for item in post %}
-                        <div class="item">
-                            <div class="card-slide"><img src="{{ item.imageURL }}" alt="">
-                                <div class="date-blog">
-                                    <h5>{{ item.timestamp|timesince }} ago</h5>
-                                </div>
-                                <div class="blog-des">
-                                    <a href="{{ item.get_absolute_url }}"><h3
-                                            class="text-capitalize">{{ item.title }}?</h3></a>
-                                    <p>{{ item.get_markdown|truncatewords:20 }}.</p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="blog">
-        <div class="container">
-            <div class="caption">
                 <h3 class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s"
                     style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;">
                     Frequently Asked Questions</h3>
@@ -830,16 +802,18 @@
                              style="transform: translate3d(-1040px, 0px, 0px);
                              transition: all 0s ease 0s; width: 4160px;">
                             {% for item in post %}
-                                <div class="owl-item {% if item.first %} active {% else %} cloned{% endif %}"
+                                <div class="owl-item {% if item.first %} active {% else %} {% endif %}"
                                      style="width: 510px; margin-right: 10px;">
                                     <div class="item">
-                                        <div class="card-slide"><img src="images/blogimg1.png" alt="">
+                                        <div class="card-slide"><a href="{{ item.get_absolute_url }}"><img
+                                                src="{{ item.imageURL }}" alt=""></a>
                                             <div class="date-blog">
-                                                <h5>19 may, 2019</h5>
+                                                <a href="{{ item.get_absolute_url }}"><h5>{{ item.timestamp }}</h5></a>
                                             </div>
                                             <div class="blog-des">
-                                                <h3>How accurate are your signals?</h3>
-                                                <p>80-85%, with Entry, Stop-Loss, Take Profit provided.</p>
+                                               <a href="{{ item.get_absolute_url }}"> <h3>{{ item.title|capfirst }}
+                                                </h3></a>
+                                                <p>{{ item.get_markdown|truncatechars:1 }}.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -858,7 +832,6 @@
             </div>
         </div>
     </section>
-
     <!--Section Educational Blog End-->
     <!--Section Contact Us Start-->
     <section class="contact-main">

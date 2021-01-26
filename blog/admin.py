@@ -1,14 +1,9 @@
 from django.contrib import admin
-from.models import Post,Action,Comment
+
+from .models import Post, Comment
+
 # Register your models here.
 
 
-class ActionAdmin(admin.TabularInline):
-    model = Action
-
-class PostAdminModel(admin.ModelAdmin):
-    inlines = [ActionAdmin]
-
-
-admin.site.register(Post,PostAdminModel)
+admin.site.register(Post)
 admin.site.register(Comment)

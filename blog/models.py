@@ -39,12 +39,6 @@ class BlogPostManager(models.Manager):
         return self.filter(published_date__lte=last_7_days_ago)
 
 
-class Action(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    blog = models.ForeignKey('Post', on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-
 class Post(models.Model):
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True, null=True)
@@ -53,9 +47,6 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post', blank=True, null=True)
     category = models.CharField(choices=blogCategory, max_length=3, blank=True, null=True)
     view_count = models.IntegerField(default=0)
-    like = models.IntegerField(default=0)
-    unlike = models.IntegerField(default=0)
-    user_action = models.ManyToManyField(User, related_name='blog_action', through=Action, blank=True)
     published_date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     read_time = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -70,9 +61,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('blog:blog_detail', kwargs={'slug': self.slug})
 
-    def get_api_url(self):
-        return reverse('blog_api:detail', kwargs={'slug': self.slug})
-
     @property
     def imageURL(self):
         try:
@@ -84,9 +72,6 @@ class Post(models.Model):
     def get_markdown(self):
         description = self.description
         markdown_text = markdown(description)
-        print('markdown text',markdown_text)
-        print('markdown marksafe',mark_safe(markdown_text))
-        print('markdown description',description)
         return mark_safe(markdown_text)
 
     @property
