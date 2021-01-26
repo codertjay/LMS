@@ -1,4 +1,5 @@
 {% extends 'HomePage/home_base.html' %}
+{% load static %}
 {% block title %}
     Pricing || ForexTrading
 {% endblock title %}
@@ -23,7 +24,9 @@
                                 <tbody>
                                 <tr>
                                     <td class="bg-white">
-                                        <div class="gurannte-box"><img src="images/gurantee-img.png" alt="">
+                                        <div class="gurannte-box"><img
+                                                src="{% static 'dashboard/dashboard_base/assets/images/gurantee-img.png' %}"
+                                                alt="">
                                             <h4>100% No-Risk Guarantee</h4>
                                             <p>if you are not fully satisfied, request to cancel within 7 days of your
                                                 purchase and receive a full refund.</p>
@@ -31,7 +34,9 @@
                                     </td>
                                     <td class="bg-lightblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img src="images/icon1.png" alt=""></div>
+                                            <div class="img-holder"><img
+                                                    src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}"
+                                                    alt=""></div>
                                             <h4>Forex Academy</h4>
                                             <div class="pr-my"><span><b>$50</b>/mo</span> <span><b>$450</b>/yr</span>
                                             </div>
@@ -40,7 +45,7 @@
                                     </td>
                                     <td class="bg-darkblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img src="images/stock.png" alt=""></div>
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}" alt=""></div>
                                             <h4>Signal Services </h4>
                                             <div class="pr-my"><span><b>$140</b>/mo</span> <span><b>$1100</b>/yr</span>
                                             </div>
@@ -49,7 +54,7 @@
                                     </td>
                                     <td class="bg-lightblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img src="images/cryto-icon.png" alt=""></div>
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}" alt=""></div>
                                             <h4>Copy Trading </h4>
                                             <div class="pr-my"><span><b>$300</b>/mo</span> <span><b>$3000</b>/yr</span>
                                             </div>
@@ -240,7 +245,9 @@
                 </div>
                 <div id="step-3" class="">
                     <div class="wrapper-step step-finsh">
-                        <div class="payment-confirm text-center"><img src="images/check.png" alt=""> <small>Ahoy! Please
+                        <div class="payment-confirm text-center"><img
+                                src="{% static 'dashboard/dashboard_base/assets/images/check.png' %}" alt=""> <small>Ahoy!
+                            Please
                             come aboard!</small>
                             <h3>Your payment has been confirmed! </h3>
                             <p>Welcome to your new pathway towards financial freedom! We’re glad you’ve decided to make

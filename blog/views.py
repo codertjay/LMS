@@ -20,7 +20,7 @@ from .utils import get_read_time
 class BloglistView(ListView):
     model = Post
     queryset = Post.objects.published()
-    template_name = 'HomePage/blog.html'
+    template_name = 'HomePage/blog/blog.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -39,7 +39,7 @@ class BloglistView(ListView):
 
 class BlogUserListView(ListView):
     model = Post
-    template_name = 'HomePage/blog.html'
+    template_name = 'HomePage/blog/blog.html'
     context_object_name = 'object_list'
 
     def get_queryset(self):
@@ -48,7 +48,7 @@ class BlogUserListView(ListView):
 
 
 class BlogDetailView(DetailView):
-    template_name = 'HomePage/detail-blog.html'
+    template_name = 'HomePage/blog/detail-blog.html'
     model = Post
     context_object_name = 'post'
 
@@ -135,5 +135,5 @@ def update_post_view(request, slug=None):
 
 class DeletePostView(LoginRequiredMixin, DeleteView):
     model = Post
-    template_name = 'HomePage/delete-blog.html'
+    template_name = 'HomePage/blog/delete-blog.html'
     success_url = 'blog/'

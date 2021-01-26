@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.datetime_safe import datetime
+from django.db.models import Model
 
 from .utils import copy_trading_created_message, copy_trading_expired_message
 
@@ -11,12 +12,21 @@ copy_choices = (
 )
 
 
+class CopyTradeManager(models.Manager):
+    def copy_trade_filter_choice(self, keyword):
+        copy_trade = self.filter(copy_trade_choice=keyword).first()
+        if copy_trade:
+            return copy_trade
+        return None
+
+
 class CopyTrading(models.Model):
     copy_trade_choice = models.CharField(max_length=20, choices=copy_choices, default='Monthly')
     discount = models.FloatField()
     price = models.FloatField()
     stripe_plan_id = models.CharField(max_length=40)
     timestamp = models.DateTimeField(auto_now_add=True)
+    objects = CopyTradeManager()
 
     def __str__(self):
         return self.copy_trade_choice

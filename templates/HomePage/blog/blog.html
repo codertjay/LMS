@@ -1,0 +1,40 @@
+{% extends 'HomePage/home_base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <section class="content-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+
+                    {% for item in object_list %}
+                        <div class="blog_content">
+                            <div class="blog-date">
+                                <p>{{ item.timestamp|timesince }} By <a href="#">{{ item.user.profile.first_name }} -
+                                    {{ item.user.profile.last_name }}</a> {{ item.comments.count }} <a href="#"
+                                                                                                       class="comments-link">Comments</a>
+                                </p>
+                            </div>
+                            <div class="blog-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                            </div>
+                            <div class="blog-img">
+                                <a href="{{ item.get_absolute_url }}"><img src="{{ item.imageURL }}" alt=""
+                                                                           style="max-height: 604px !important;"
+                                                                           class="img-fluid w-100"></a>
+                            </div>
+                            <div class="blog-detail">
+                                <p>{{ item.description|truncatewords:20 }}</p>
+                                <span class="divider"></span></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% comment %} blog section start{% endcomment %}
+                {% include 'HomePage/blog_suggestion.html' %}
+
+                {% comment %} end blog section {% endcomment %}
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

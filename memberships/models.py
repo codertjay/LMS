@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 import stripe
 from datetime import datetime
-from django.db.models import Model, Manager
+from django.db.models import Model
 
 # Create your models here.
 MembershipType = (

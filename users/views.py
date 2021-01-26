@@ -142,7 +142,7 @@ def contactAdminView(request):
     )
     if form.is_valid():
         contact.save()
-        template = get_template('main/contact_admin.txt')
+        template = get_template('EmailTemplates/contact_admin.txt')
         context = {
             'contact_name': contact.contact_name,
             'contact_email': contact.contact_email,

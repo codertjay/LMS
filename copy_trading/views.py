@@ -2,6 +2,7 @@ import stripe
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
@@ -44,11 +45,17 @@ class CopyTradingPaymentView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         user_membership = get_user_membership(request)
         print('the data ', request.POST)
+        user = User.objects.filter(username=request.user.username).first()
+        if request.POST['first_name']:
+            user.first_name = request.POST['first_name']
+        if request.POST['last_name']:
+            user.last_name = request.POST['last_name']
+        user.save()
 
         copy_trade_val = request.POST['copy_trade']
         # Note : This is where the charges is taking place if the user has no signal
         if copy_trade_val:
-            copy_trade = CopyTrading.objects.filter(copy_trade_choice=copy_trade_val).first()
+            copy_trade = CopyTrading.objects.copy_trade_filter_choice(copy_trade_val)
             if copy_trade:
                 try:
                     token = request.POST['stripeToken']
@@ -69,13 +76,13 @@ class CopyTradingPaymentView(LoginRequiredMixin, View):
                             'subscription_id': subscription.id, 'copy_trade': copy_trade
                         }))
                 except stripe.error.CardError as e:
-                    messages.info(request, 'Your card has being declined')
+                    messages.error(request, 'Your card has being declined')
                 except stripe.error.APIConnectionError as e:
-                    messages.info(request, 'Network communication with Stripe failed')
+                    messages.error(request, 'Network communication with Stripe failed')
                 except stripe.error.StripeError as e:
-                    messages.info(request, 'There was an error we are working on it')
+                    messages.error(request, 'There was an error we are working on it')
                 except Exception as e:
-                    messages.info(request, 'There error was', e)
+                    messages.error(request, 'There error was', e)
         messages.info(request, 'There was an error ')
         return redirect('home:home')
 
