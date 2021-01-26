@@ -25,7 +25,7 @@
                         <input type="text" name="search" id="id_search" class="form-control"
                                placeholder="Search courses"
                                id="searchSample02">
-                        <button class="btn" type="button" role="button"><i class="fa fa-search fa-2x text-info"></i>
+                        <button class="btn" type="submit" role="button"><i class="fa fa-search fa-2x text-info"></i>
                         </button>
                     </div>
                 </div>
@@ -40,13 +40,6 @@
                     <div class="card-header text-center">
                         <h4 class="card-title mb-0 text-capitalize"><a
                                 href="{{ course.get_absolute_url }}">{{ course.title }}</a></h4>
-                        {% comment %}
-                        <div class="rating">
-                            {% for course in course.rating|times %}
-                                <i class="fa fa-star"></i>
-                            {% endfor %}
-                        </div>
-                        {% endcomment %}
                     </div>
                     <a href="{{ course.get_absolute_url }}">
 
@@ -61,15 +54,17 @@
                         {% else %}
                                  badge-success
                             {% endif %} ">{{ course.tag }}</span>
+
                         {% for member in course.allowed_memberships.all %}
-                            <span class="badge {% if member == 'Enterprice' %}
+                            <span class="badge {% if member == 'Paid' %}
                              badge-danger
-                             {% elif member == 'Professional' %}
+                             {% elif member == 'Free' %}
                              badge-warning
                              {% else %}
                              badge-success
                             {% endif %} ">{{ member }}</span>
                         {% endfor %}
+
                         <a class="text-center"
                            href="{{ course.get_absolute_url }}">
                                 <span class=" badge badge-warning "
