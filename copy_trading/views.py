@@ -21,15 +21,9 @@ class CopyTradingPaymentView(LoginRequiredMixin, View):
         copy_trade = CopyTrading.objects.filter(copy_trade_choice=copy_trade_choice).first()
         user_copy_trade_sub = CopyTradingSubscription.objects.filter(user=request.user).first()
         if copy_trade:
-            print('this is the copy_trade ', copy_trade)
             """In here i am checking if the user have a current copy_trade if he/she has i would redirect
              the him/her to the copy_trade page"""
             if user_copy_trade_sub:
-                print('this is the copy_trade sub', user_copy_trade_sub)
-                print('this is the copy_trade sub expiring data', user_copy_trade_sub.expiring_date)
-                print('this is the copy_trade sub created_date data', user_copy_trade_sub.created_date)
-                print('this is the copy_trade sub active', user_copy_trade_sub.active)
-                print('this is the date time now', datetime.now())
                 if user_copy_trade_sub.expiring_date:
                     if user_copy_trade_sub.expiring_date > datetime.now():
                         return redirect(reverse('copy_trade:copy_trade_payment_done', kwargs={
@@ -44,13 +38,13 @@ class CopyTradingPaymentView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         user_membership = get_user_membership(request)
-        print('the data ', request.POST)
         user = User.objects.filter(username=request.user.username).first()
-        if request.POST['first_name']:
-            user.first_name = request.POST['first_name']
-        if request.POST['last_name']:
-            user.last_name = request.POST['last_name']
-        user.save()
+        if user:
+            if request.POST['first_name']:
+                user.first_name = request.POST['first_name']
+            if request.POST['last_name']:
+                user.last_name = request.POST['last_name']
+            user.save()
 
         copy_trade_val = request.POST['copy_trade']
         # Note : This is where the charges is taking place if the user has no copy trade
@@ -93,16 +87,13 @@ def copy_trade_payment_done(request, subscription_id, copy_trade):
     # checking the stripe subscription id if it exists
     # stripe_id = stripe.Charge.retrieve(subscription_id)
     stripe_id = stripe.Subscription.retrieve(subscription_id)
-    print('this is the stripe id ', stripe_id)
     if copy_trade_:
         if stripe_id.id == subscription_id:
             sub, created = CopyTradingSubscription.objects.get_or_create(copy_trade=copy_trade_, user=request.user)
-            print('this is the subscription id', subscription_id)
-            print('this is the subscription expiring date', sub.expiring_date)
-            print('this is the subscription created_date ', sub.created_date)
-            sub.stripe_subscription_id = subscription_id
-            sub.active = True
-            sub.save()
+            if sub.stripe_subscription_id == '' or sub.stripe_subscription_id is None or sub.expiring_date < datetime.now():
+                sub.stripe_subscription_id = subscription_id
+                sub.active = True
+                sub.save()
             context = {'copy_trade': copy_trade_}
             return render(request, 'HomePage/copy_trade/copy_trade_payment_done.html', context)
     else:

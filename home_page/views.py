@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse_lazy
@@ -9,6 +10,7 @@ from blog.models import Post
 from copy_trading.models import CopyTrading
 from courses.models import Course
 from home_page.forms import SubscribeForm, TestimonialForm
+from home_page.mixins import InstructorAndLoginRequiredMixin
 from home_page.models import Testimonial
 from memberships.models import Membership
 
@@ -30,14 +32,20 @@ def paidMembership():
         enterprise = None
     return enterprise
 
+def view_404(request, exception):
+    return render(request, '404.html')
+
+def view_403(request, exception):
+    return render(request, '403.html')
+
+def view_500(request):
+    return render(request, '500.html')
 
 class HomePageView(View):
 
     def get(self, *args, **kwargs):
         Free_course = Course.objects.filter(allowed_memberships=freeMembership())
         Paid_course = Course.objects.filter(allowed_memberships=paidMembership())
-        print('the free', Free_course)
-        print('the Paid_course', Paid_course)
         context = {
             'post': Post.objects.all(),
             'testimonial': Testimonial.objects.all(),
@@ -59,15 +67,13 @@ class PricingView(View):
 
 def subscribe_view(request):
     form = SubscribeForm(request.POST)
-    print('the post items',request.POST)
     if form.is_valid():
         form.save()
-        print('the form data',form.data)
         messages.success(request, 'You have successfully subscribed')
     return redirect('home:home')
 
 
-class TestimonialCreateView(CreateView):
+class TestimonialCreateView(InstructorAndLoginRequiredMixin, CreateView):
     model = Testimonial
     form_class = TestimonialForm
     template_name = 'DashBoard/instructor/instructor-testimonial-create.html'
@@ -79,7 +85,7 @@ class TestimonialCreateView(CreateView):
         return context
 
 
-class TestimonialUpdateView(UpdateView):
+class TestimonialUpdateView(InstructorAndLoginRequiredMixin,UpdateView):
     model = Testimonial
     form_class = TestimonialForm
     template_name = 'DashBoard/instructor/instructor-testimonial-create.html'
@@ -91,7 +97,7 @@ class TestimonialUpdateView(UpdateView):
         return context
 
 
-class TestimonialDeleteView(DeleteView):
+class TestimonialDeleteView(InstructorAndLoginRequiredMixin,DeleteView):
     model = Testimonial
     form_class = TestimonialForm
     template_name = 'DashBoard/instructor/instructor-testimonial-create.html'

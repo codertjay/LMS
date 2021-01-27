@@ -10,6 +10,7 @@ from django.views.generic.base import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from courses.forms import CourseCreateEditForm, LessonCreateEditForm
 from courses.models import Course, Lesson
+from home_page.mixins import InstructorAndLoginRequiredMixin
 from memberships.models import UserMembership, Membership
 from users.models import Profile
 
@@ -45,7 +46,7 @@ class CourseListView(LoginRequiredMixin, ListView):
         return object_list
 
 
-class StudentCourseListView(View):
+class StudentCourseListView(LoginRequiredMixin,View):
 
     def get(self, request):
         course = self.request.user.profile.applied_courses.all()
@@ -132,7 +133,7 @@ class LessonDetailView(LoginRequiredMixin, View):
         return render(request, 'DashBoard/student/student-view-course.html', context)
 
 
-class CourseCreateView(LoginRequiredMixin, View):
+class CourseCreateView(InstructorAndLoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         form = CourseCreateEditForm()
@@ -197,13 +198,13 @@ def course_update_view(request, slug=None):
     return render(request, 'DashBoard/instructor/instructor-course-update.html', context)
 
 
-class CourseDeleteView(LoginRequiredMixin, DeleteView):
+class CourseDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
     model = Course
     success_url = '/'
     template_name = 'DashBoard/instructor/instructor-course-delete.html'
 
 
-class LessonCreateView(LoginRequiredMixin, View):
+class LessonCreateView(InstructorAndLoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         form = LessonCreateEditForm()
@@ -247,7 +248,7 @@ def lesson_update_view(request, slug=None):
     return render(request, 'DashBoard/instructor/instructor-lesson-edit.html', context)
 
 
-class LessonDeleteView(LoginRequiredMixin, DeleteView):
+class LessonDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
     model = Lesson
     success_url = '/'
     context_object_name = 'lesson'

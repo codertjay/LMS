@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DeleteView, View, DetailView, CreateView
 
+from home_page.mixins import InstructorAndLoginRequiredMixin
 from .forms import CommentForm
 from .forms import PostCreateForm
 from .models import Post
@@ -93,7 +94,7 @@ def create_comment(request, slug=None):
     return redirect('blog:blog_detail', instance.slug)
 
 
-class BlogCreateView(LoginRequiredMixin, View):
+class BlogCreateView(InstructorAndLoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         form = PostCreateForm()
@@ -133,7 +134,7 @@ def update_post_view(request, slug=None):
     return render(request, 'DashBoard/blog/blog-update.html', {'form': form,'slug':slug})
 
 
-class DeletePostView(LoginRequiredMixin, DeleteView):
+class DeletePostView(InstructorAndLoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'HomePage/blog/delete-blog.html'
     success_url = 'blog/'
