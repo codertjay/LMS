@@ -40,7 +40,7 @@
 
 {% block script %}
     <script>
-        $ (document).ready (function () {
+       {% comment %} $ (document).ready (function () {
             $ ('#smartwizard').smartWizard ({
                 showStepURLhash: false ,
                 anchorSettings: {
@@ -52,7 +52,7 @@
             });
 
 
-        });
+        });{% endcomment %}
     </script>
 {% endblock %}
 

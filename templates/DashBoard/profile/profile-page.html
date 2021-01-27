@@ -30,8 +30,15 @@
             </div>
             <div class="container-fluid page__container d-flex align-items-end position-relative mb-4">
                 <div class="avatar avatar-xxl position-absolute bottom-0 left-0 right-0">
-                    <img src="{{ user.profile.profilePicsImageURL }}" alt="avatar"
-                         class="avatar-img rounded-circle border-3">
+                    {% if request.user == user %}
+                        <a href="{% url 'users:profile_edit' %}">
+                            <img src="{{ user.profile.profilePicsImageURL }}" alt="avatar"
+                                 class="avatar-img rounded-circle border-3"></a>
+                    {% else %}
+                        <img src="{{ user.profile.profilePicsImageURL }}" alt="avatar"
+                             class="avatar-img rounded-circle border-3">
+                    {% endif %}
+
                 </div>
                 <ul class="nav nav-tabs-links flex" style="margin-left: 265px;">
                     <li class="nav-item">
