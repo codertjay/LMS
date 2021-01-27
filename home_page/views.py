@@ -36,21 +36,10 @@ class HomePageView(View):
     def get(self, *args, **kwargs):
         Free_course = Course.objects.filter(allowed_memberships=freeMembership())
         Paid_course = Course.objects.filter(allowed_memberships=paidMembership())
-        copy_trading = CopyTrading.objects.all()
         print('the free', Free_course)
         print('the Paid_course', Paid_course)
         context = {
             'post': Post.objects.all(),
-            'Free_course': Free_course.count(),
-            'Free_price': freeMembership().price,
-            'Free_discount_price': freeMembership().discount,
-
-            # copy trading
-            'copy_trade': copy_trading,
-
-            'Paid_course': Paid_course.count(),
-            'Paid_price': paidMembership().price,
-            'Paid_discount_price': paidMembership().discount,
             'testimonial': Testimonial.objects.all(),
         }
         return render(self.request, 'HomePage/index.html', context)

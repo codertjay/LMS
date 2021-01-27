@@ -424,34 +424,38 @@
                     holistic trading and investment education programs specifically designed to help our clients gain a
                     deep understanding and an extensive expertise in the market of their choice. </p>
             </div>
-            <div class="row ">
-                <div class="col-lg-6 ">
-                    <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                        <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png ' %}" alt=" "></div>
-                        <h2>Monthly Signals</h2>
-                        <ul>
-                            <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
-                            <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                            <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                            <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                            <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                            <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                            <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                            <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                Report
-                            </li>
-                        </ul>
-                        <div class="price-box ">
-                            <div class="pr-total ">
-                                <p><span class="d-price ">${{ monthly_signal.discount }}</span>/mo</p>
+            <div class="row " id="signal_payment">
+
+                {% if monthly_signal %}
+                    <div class="col-lg-6 ">
+                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png ' %}" alt=" "></div>
+                            <h2>Monthly Signals</h2>
+                            <ul>
+                                <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
+                                <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
+                                <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
+                                <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
+                                <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
+                                <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
+                                <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
+                                <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
+                                    Report
+                                </li>
+                            </ul>
+                            <div class="price-box ">
+                                <div class="pr-total ">
+                                    <p><span class="d-price ">${{ monthly_signal.discount }}</span>/mo</p>
+                                </div>
+                                <div class="pr-total ">
+                                    <p><span>${{ monthly_signal.price }}</span>/mo</p>
+                                    <!--<span>(10% Discount for yearly)</span>--></div>
                             </div>
-                            <div class="pr-total ">
-                                <p><span>${{ monthly_signal.price }}</span>/mo</p>
-                                <!--<span>(10% Discount for yearly)</span>--></div>
-                        </div>
-                        <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}"
-                           class="btn btn-primary w-100 ">Buy Now</a></div>
-                </div>
+                            <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}"
+                               class="btn btn-primary w-100 ">Buy Now</a></div>
+                    </div>
+                {% endif %}
+
                 <div class="col-lg-6 ">
                     <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
                         <div class="icon-box "><img src="{% static 'HomePage/images/stock.png ' %}" alt=" "></div>
@@ -485,42 +489,12 @@
                         <a href="{% url 'memberships:membership_select' %}" class="btn btn-primary w-100 ">Buy Now</a>
                     </div>
                 </div>
-                <div class="col-lg-6 ">
-                    <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                        <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png ' %}" alt=" "></div>
-                        <h2>Quarterly Signals</h2>
-                        <ul>
-                            <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
-                            <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                            <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                            <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                            <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                            <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                            <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                            <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                Report
-                            </li>
-                        </ul>
-                        <div class="price-box ">
-                            <div class="pr-total ">
-                                <p><span class="d-price ">${{ quarterly_signal.discount }}</span>/mo</p>
-                            </div>
-                            <div class="pr-total ">
-                                <p><span>${{ quarterly_signal.price }}</span>/mo</p>
-                                <!--<span>(10% Discount for yearly)</span>-->
-                            </div>
-                        </div>
-                        <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}"
-                           class="btn btn-primary w-100 ">Buy Now</a>
-                    </div>
-                </div>
 
-                {% for item in copy_trade %}
-
+                {% if quarterly_signal %}
                     <div class="col-lg-6 ">
                         <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                            <div class="icon-box "><img src="{% static 'HomePage/images/stock.png ' %}" alt=" "></div>
-                            <h2>Copy Trading</h2>
+                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png ' %}" alt=" "></div>
+                            <h2>Quarterly Signals</h2>
                             <ul>
                                 <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
                                 <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
@@ -535,48 +509,88 @@
                             </ul>
                             <div class="price-box ">
                                 <div class="pr-total ">
-                                    <p><span class="d-price ">${{ item.discount }}</span>/mo</p>
+                                    <p><span class="d-price ">${{ quarterly_signal.discount }}</span>/mo</p>
                                 </div>
                                 <div class="pr-total ">
-                                    <p><span>${{ item.price }}</span>/mo</p>
+                                    <p><span>${{ quarterly_signal.price }}</span>/mo</p>
                                     <!--<span>(10% Discount for yearly)</span>-->
                                 </div>
                             </div>
-                            <a href="{% url 'copy_trade:copy_trade_payment' item.copy_trade_choice %}"
+                            <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}"
                                class="btn btn-primary w-100 ">Buy Now</a>
                         </div>
                     </div>
-                {% endfor %}
+                {% endif %}
 
-                <div class="col-lg-6 ">
-                    <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                        <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png ' %}" alt=" "></div>
-                        <h2>Yearly Signals</h2>
-                        <ul>
-                            <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
-                            <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                            <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                            <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                            <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                            <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                            <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                            <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                Report
-                            </li>
-                        </ul>
-                        <div class="price-box ">
-                            <div class="pr-total ">
-                                <p><span class="d-price ">${{ yearly_signal.discount }}</span>/mo</p>
-                            </div>
-                            <div class="pr-total ">
-                                <p><span>${{ yearly_signal.price }}</span>/mo</p>
-                                <!--<span>(10% Discount for yearly)</span>-->
+
+                {% if copy_trade %}
+
+                        <div class="col-lg-6 ">
+                            <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                                <div class="icon-box "><img src="{% static 'HomePage/images/stock.png ' %}" alt=" ">
+                                </div>
+                                <h2>Copy Trading</h2>
+                                <ul>
+                                    <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
+                                    <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100
+                                    </li>
+                                    <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
+                                    <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
+                                    <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
+                                    <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
+                                    <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
+                                    <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview /
+                                        Profit
+                                        Report
+                                    </li>
+                                </ul>
+                                <div class="price-box ">
+                                    <div class="pr-total ">
+                                        <p><span class="d-price ">${{ copy_trade.discount }}</span>/mo</p>
+                                    </div>
+                                    <div class="pr-total ">
+                                        <p><span>${{ copy_trade.price }}</span>/mo</p>
+                                        <!--<span>(10% Discount for yearly)</span>-->
+                                    </div>
+                                </div>
+                                <a href="{% url 'copy_trade:copy_trade_payment' copy_trade.copy_trade_choice %}"
+                                   class="btn btn-primary w-100 ">Buy Now</a>
                             </div>
                         </div>
-                        <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %} "
-                           class="btn btn-primary w-100 ">Buy Now</a>
+                {% endif %}
+
+                {% if yearly_signal %}
+                    <div class="col-lg-6 ">
+                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png ' %}" alt=" "></div>
+                            <h2>Yearly Signals</h2>
+                            <ul>
+                                <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
+                                <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
+                                <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
+                                <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
+                                <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
+                                <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
+                                <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
+                                <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
+                                    Report
+                                </li>
+                            </ul>
+                            <div class="price-box ">
+                                <div class="pr-total ">
+                                    <p><span class="d-price ">${{ yearly_signal.discount }}</span>/mo</p>
+                                </div>
+                                <div class="pr-total ">
+                                    <p><span>${{ yearly_signal.price }}</span>/mo</p>
+                                    <!--<span>(10% Discount for yearly)</span>-->
+                                </div>
+                            </div>
+                            <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %} "
+                               class="btn btn-primary w-100 ">Buy Now</a>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
+
             </div>
         </div>
     </section>
@@ -641,143 +655,7 @@
                     </div>
                 </div>
             {% endfor %}
-            {% comment %}
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1606189933558-71f9b4747578?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>Murph<br/>
-                            <span> Copy Trading </span></h5>
-                        <p class="card-text">“Hey everybody, i have been taking signals from Ninja for approximately a
-                            month now. Her accuracy is incredible. Her intelligence is unmatched. I had no choice but to
-                            enroll into the Academy. I am a lot more successful with
-                            her than without her LOL. I cannot wait until this week. I can now sleep at night LOL. Very
-                            respectfull and humble thank you ninija.” </p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1609414744228-d50478d72066?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>Iryna Moreo<br/>
-                            <span>Student</span></h5>
-                        <p class="card-text">“it's very hard to find someone who teaches you how to fish as she feeds
-                            you! AssassinFx is the epitome of example of this! she has created a beautiful community and
-                            a great platform where you will make back and learn at the
-                            same time. She's willing to help, check your chart markups and advise, give constant updates
-                            on the signal given, encourage the team and even get everyone straight with the psychology
-                            of trading. A special thank you for
-                            cheering women in this industry and for showing us that it can also be a women's world she
-                            is truly a gem, so i'm not sure what you are waiting for... join then team, thank me
-                            later!” </p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1474524955719-b9f87c50ce47?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1052&q=80"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>itsjeanpockets<br/>
-                            <span> student </span></h5>
-                        <p class="card-text">“if you're struggling to find your footing within the forex world,
-                            AssassinFx is the best place to start. Psychology within the industry is a big part of the
-                            battle and she effortlessly helps you with all of your concerns.
-                            She's not a babysitter but if you are having a bad week and need some exoertise insight,
-                            she's got your back with the pick me up. Ninja also offers many strategies that you can
-                            easily study on and if you don't get the hang
-                            of it just ask for a markup in the <b>#chart-practice</b> and she's more than willing to
-                            help you out with any ecplanations until you get the hang of it. The community and the help
-                            that you get within the group is well
-                            worth the investment. Thank you ninija” </p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1601758176559-76c75ead317a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>stacey-syk36<br/>
-                            <span> Student </span></h5>
-                        <p class="card-text">“hi everyone i am in the AssassinFxAcademy and i am also in the signals
-                            group. I have learned a lot of information over the month about myself as a trader. Things i
-                            need to work on. How to improve my trading skills. I have
-                            taken my time going through the information going through the infromation in the academy.
-                            There is so much good information, videos, printouts. I am in the signal group so that i can
-                            understand how to place trades and earn
-                            while i learn. AssassinAcademy has been so helpful. Responding to questions. She is so
-                            sccurate with her trades. Of course sometimes the market does what the market does and you
-                            just have to flow with it. I am so happy
-                            to be part of the group. I could not have done tghis alone, i am grateful. I really hope she
-                            knows how special she is and if you trust the process you will see results. i know that
-                            AssassinFx wants us to develop the skills.
-                            It takes a community. I welcome all suggestions and corrections. The video call/chats we had
-                            on psychology really changed things for me. AssassinFx heart is in the right place. You have
-                            to think about this as an investment
-                            to your future. The value in this program is excellent. There is so much more i can say, but
-                            i will just end here.” </p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=953&q=80"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>Akohli<br/>
-                            <span> Signal Copier</span></h5>
-                        <p class="card-text">“So i have been a member of the signals group for just over a week now and
-                            i tried plenty of other signal channels over the last few months and nothing compares!! the
-                            quality and accuracy of the signals has been absolutely
-                            amazing and there is plenty of choice from indicies, forex, metals, swing trades and scalps.
-                            One things is AssassinFx is the master of indicies as you can see in her testimonials and is
-                            completely transparent with the group
-                            to say either market isn't presenting any opportunities yet or just waiting for the right
-                            time to pounce. The community is great and is well set up for everyone to help each other.
-                            Long story short... This is the place
-                            to be to learn, grow and follow the best signala.” </p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1591196702597-062a87208fed?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>Mr.Doctor<br/>
-                            <span> Signal Copier</span></h5>
-                        <p class="card-text">“Well i've been with ninja only since Monday(2days) and i've onlu put in a
-                            small amount, but shes increased my account by 15% in not even three days, even with me
-                            using the lowest lot size, i can't wait to have more capital
-                            over growing it slowly, so she can help increase it more and more thanks so much ninja” </p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="card text-center"><img class="card-img-top"
-                                                   src="https://images.unsplash.com/photo-1599597098541-4a851d567ce5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=660&q=80"
-                                                   alt="">
-                    <div class="card-body">
-                        <h5>AdamB<br/>
-                            <span>Student</span></h5>
-                        <p class="card-text">“I would like to just take a moment to appreciate the owner AssassinFx who
-                            truly cares and wants the best for all the members of this community. My trading journey
-                            begun july 13th 2020, & i remeber coming across Ninja and seeing
-                            how hugely profitable she was. I was so intiguied & i had to contact her to ask how she does
-                            it... so when i heard about her starting a signal service i didnt hesitate throwing my money
-                            at her. I honestly couldn't ask for
-                            me continously profitable weeks and with a win rate at 80% - imean do i have to say
-                            anymore?? this is the right place for you if you find that you're busy with whatever it may
-                            be and don't have yime to constantly scan the
-                            charts to catch them pips. The great thing about it is you don't even have to worry because
-                            at the end of the day, your gonna be eating good.” </p>
-                    </div>
-                </div>
-            </div>{% endcomment %}
+
         </div>
     </div>
 
@@ -811,7 +689,7 @@
                                                 <a href="{{ item.get_absolute_url }}"><h5>{{ item.timestamp }}</h5></a>
                                             </div>
                                             <div class="blog-des">
-                                               <a href="{{ item.get_absolute_url }}"> <h3>{{ item.title|capfirst }}
+                                                <a href="{{ item.get_absolute_url }}"><h3>{{ item.title|capfirst }}
                                                 </h3></a>
                                                 <p>{{ item.get_markdown|truncatechars:1 }}.</p>
                                             </div>

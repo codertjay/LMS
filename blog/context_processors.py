@@ -1,3 +1,4 @@
+from copy_trading.models import CopyTrading
 from signal_app.models import SignalType
 from .models import Post
 from forum.models import ForumQuestion
@@ -38,6 +39,7 @@ def add_variable_to_context(try_content=None):
     if Post.objects.count() > 6:
         older_posts = Post.objects.all().order_by('id')[3]
 
+    copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()
     print('this is the top_forums hhh', top_forums)
     return {'older_posts': older_posts,
@@ -46,5 +48,7 @@ def add_variable_to_context(try_content=None):
             'monthly_signal': monthly_signal,
             'quarterly_signal': quarterly_signal,
             'yearly_signal': yearly_signal,
-            'top_forums': top_forums
+            'top_forums': top_forums,
+            # copy trading
+            'copy_trade': copy_trading,
             }
