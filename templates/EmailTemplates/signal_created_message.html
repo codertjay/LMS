@@ -8,10 +8,13 @@
     <title>{{ signal.signal_type.signal_choice }} Signal register successfully (AssasinFx)</title>
 </head>
 <body>
-<h4>{{ signal.user.first_name }} - {{ signal.user.last_name }}</h4>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Asperiores consequuntur cupiditate dolores expedita facere
-    impedit maiores nihil quibusdam sed sit.</p>
-</body>
-</html>
+<h3>Hi {% if copy_trade.user.first_name %} {{ copy_trade.user.first_name }}  -
+    {{ copy_trade.user.last_name }} {% else %}{{ copy_trade.user.username }}{% endif %},
+</h3>
+<p>
+    Thank you for your purchase with us. Your order should have arrived by now and we hope everything went well. Feel
+    free
+    to inform us about any delays or problems you might have faced – we want to make sure you’ve had a good experience.
+    [You can reply to this email or contact support@yourcompany.com.]
+</p>

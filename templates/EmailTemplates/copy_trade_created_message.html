@@ -8,10 +8,18 @@
     <title>Copy trade register successfully (AssasinFx)</title>
 </head>
 <body>
-<h4>{{ copy_trade.user.first_name }} - {{ copy_trade.user.last_name }}</h4>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Asperiores consequuntur cupiditate dolores expedita facere
-    impedit maiores nihil quibusdam sed sit.</p>
+<h3>Hi {% if copy_trade.user.first_name %} {{ copy_trade.user.first_name }}  -
+    {{ copy_trade.user.last_name }} {% else %}{{ copy_trade.user.username }}{% endif %},
+</h3>
+<p>
+    It’s great to have you here, thanks for choosing us! I’ll be your guide during this onboarding period. As we learn
+    more
+    about one another, my goal is to ensure you have a positive experience and get the most out of our product/service.
+
+    I’ve attached a [link] mapping out the steps of your onboarding.
+    As a first step, please {follow these instructions} to
+    customize your account. Also, here are some resources you might find useful:
+</p>
 </body>
 </html>

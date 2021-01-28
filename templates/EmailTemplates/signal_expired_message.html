@@ -8,10 +8,19 @@
     <title>{{ signal.signal_type.signal_choice }} Signal Expired (AssasinFx)</title>
 </head>
 <body>
-<h4>{{ signal.user.first_name }} - {{ signal.user.last_name }}</h4>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Asperiores consequuntur cupiditate dolores expedita facere
-    impedit maiores nihil quibusdam sed sit.</p>
-</body>
-</html>
+<h3>Hi {% if signal.user.first_name %} {{ signal.user.first_name }}  -
+    {{ signal.user.last_name }} {% else %}{{ signal.user.username }}{% endif %},
+</h3>
+
+<p>
+    Thank you for using our product for the past [{{ signal.created_date }}]. Your contract expired on
+    [{{ signal.expiring_date }}] and you no longer have access to your account.
+
+    If you’d like to renew or upgrade your contract, please let me know. We can complete the renewal process in [two
+    business days], restore your access and get you up and running again.
+
+    Feel free to send me a message by clicking on {this link}
+</p>
+<br>
+Thanks,

@@ -8,10 +8,18 @@
     <title>Copy trade expired (AssasinFx)</title>
 </head>
 <body>
-<h4>{{ copy_trade.user.first_name }} - {{ copy_trade.user.last_name }}</h4>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Asperiores consequuntur cupiditate dolores expedita facere
-    impedit maiores nihil quibusdam sed sit.</p>
-</body>
-</html>
+<h3>Hi {% if copy_trade.user.first_name %} {{ copy_trade.user.first_name }}  -
+    {{ copy_trade.user.last_name }} {% else %}{{ copy_trade.user.username }}{% endif %},
+</h3>
+<p>
+    Thank you for using our product for the past [{{ copy_trade.created_date }}]. Your contract expired on
+    [{{ copy_trade.expiring_date }}] and you no longer have access to your account.
+
+    If you’d like to renew or upgrade your contract, please let me know. We can complete the renewal process in [two
+    business days], restore your access and get you up and running again.
+
+    Feel free to send me a message by clicking on {this link}
+</p>
+<br>
+Thanks,

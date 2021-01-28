@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -9,7 +10,7 @@ class Subscribe(models.Model):
 
 
 class Testimonial(models.Model):
-    name = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=40)
     image = models.ImageField(blank=True, null=True)
     content = models.CharField(max_length=500)

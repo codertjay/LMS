@@ -13,6 +13,7 @@ body, html {
     padding: 0;
     margin: 0;
     -webkit-font-smoothing: antialiased;
+    font-weight: bolder;
 }
 
 button {
@@ -47,8 +48,7 @@ button:hover {
 }
 
 /* comment the form to fix bug*/
-/*
-form {
+/*form {
   padding: 30px;
   height: 120px;
 }
@@ -115,6 +115,11 @@ label {
     transform: translateY(-80px);
 }
 
+.h1_size {
+    font-size: 30px;
+    font-family: 'Source Code Pro', monospace;
+    color: #32325d;
+}
 
 /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
@@ -122,7 +127,7 @@ label {
  */
 .StripeElement {
     background-color: white;
-    height: 40px;
+    /*height: 40px;*/
     padding: 10px 12px;
     border-radius: 4px;
     border: 1px solid transparent;
@@ -131,8 +136,12 @@ label {
     transition: box-shadow 150ms ease;
     /* my style*/
     min-width: 690px;
-}
+    min-height: 1000px;
 
+}
+input{
+
+}
 .StripeElement--focus {
     box-shadow: 0 1px 3px 0 #cfd7df;
 }
