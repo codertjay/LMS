@@ -21,7 +21,17 @@
         <div class="row">
             <div class="col-md-8" style="overflow:auto;">
                 <div class="card card_shadow" style="padding-right:  20px;padding-left:  50px;padding-top:  50px;">
+                    {% if requset.user == forum_question.user or request.user.is_superuser %}
+                        <div class="d-flex justify-content-between  ">
+                            <div><a href="{% url 'forum:forum_update' forum_question.id %}"><i
+                                    class="fa fa-pencil-square-o"></i></a></div>
+                            <div><a href="{% url 'forum:forum_delete'  forum_question.id %}"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {% endif %}
+
                     <div class="d-flex justify-content-between">
+
                         <div class="card-title">
                             <h4 class="text-capitalize ">{{ forum_question.title }}</h4>
                         </div>

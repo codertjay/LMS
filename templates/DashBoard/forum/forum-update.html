@@ -1,0 +1,45 @@
+{% extends 'DashBoard/dashboard_base.html' %}
+{% load crispy_forms_filters %}
+
+
+{% block styles %}
+
+{% endblock %}
+
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid page__container">
+        <div class="row m-0">
+            <div class="col-lg container-fluid page__container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home:home' %}l">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'forum:forum_list' %}">Forum</a></li>
+                    <li class="breadcrumb-item active">Update Question</li>
+                </ol>
+                <h1 class="h2">Update Question</h1>
+
+
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <div class="card  my_shadow" {% comment %}style="box-shadow: 10px 10px 5px #888888;"{% endcomment %}>
+                        <div class="card-body">
+                            {{ form|crispy }}
+                        </div>
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

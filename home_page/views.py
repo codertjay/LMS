@@ -32,17 +32,22 @@ def paidMembership():
         enterprise = None
     return enterprise
 
+
 def view_404(request, exception):
-    return render(request, 'HomePage/errors/404.html')
+    return render(request, 'HomePage/errors/404.html', status=404)
+
 
 def view_403(request, exception):
-    return render(request, 'HomePage/errors/403.html')
+    return render(request, 'HomePage/errors/403.html', status=403)
+
 
 def view_400(request, exception):
-    return render(request, 'HomePage/errors/400.html')
+    return render(request, 'HomePage/errors/400.html', status=400)
+
 
 def view_500(request):
-    return render(request, 'HomePage/errors/500.html')
+    return render(request, 'HomePage/errors/500.html', status=500)
+
 
 class HomePageView(View):
 
@@ -88,7 +93,7 @@ class TestimonialCreateView(InstructorAndLoginRequiredMixin, CreateView):
         return context
 
 
-class TestimonialUpdateView(InstructorAndLoginRequiredMixin,UpdateView):
+class TestimonialUpdateView(InstructorAndLoginRequiredMixin, UpdateView):
     model = Testimonial
     form_class = TestimonialForm
     template_name = 'DashBoard/instructor/instructor-testimonial-create.html'
@@ -100,7 +105,7 @@ class TestimonialUpdateView(InstructorAndLoginRequiredMixin,UpdateView):
         return context
 
 
-class TestimonialDeleteView(InstructorAndLoginRequiredMixin,DeleteView):
+class TestimonialDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
     model = Testimonial
     form_class = TestimonialForm
     template_name = 'DashBoard/instructor/instructor-testimonial-create.html'

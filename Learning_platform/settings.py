@@ -97,11 +97,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'dataflair',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': '',
-            'PORT': '',
+            'NAME': 'djangodatabase',
+            'USER': 'dbadmin',
+            'PASSWORD': '12345',
+            'HOST': 'localhost',
+            'PORT': '3306',
             'OPTIONS': {
                 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
             }
@@ -195,7 +195,7 @@ EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
 
 #  handling errors
-handler404 = 'home_page.views.view_404'
-handler500 = 'home_page.views.view_500'
-handler403 = 'home_page.views.view_403'
-handler400 = 'home_page.views.view_400'
+# handler404 = 'home_page.views.view_404'
+# handler500 = 'home_page.views.view_500'
+# handler403 = 'home_page.views.view_403'
+# handler400 = 'home_page.views.view_400'

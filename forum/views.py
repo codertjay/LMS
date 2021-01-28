@@ -1,14 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # Create your views here.
-from django.views.generic import ListView, DeleteView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DeleteView, DetailView, UpdateView
 from django.views.generic.base import View
 
+from home_page.mixins import InstructorAndLoginRequiredMixin
 from .forms import ForumAnswerForm, ForumQuestionForm
 from .models import ForumQuestion
 
@@ -54,12 +56,6 @@ class ForumQuestionCreateView(LoginRequiredMixin, View):
         return redirect('for')
 
 
-class ForumQuestionDeleteView(LoginRequiredMixin, DeleteView):
-    model = ForumQuestion
-    success_url = '/'
-    template_name = 'DashBoard/instructor/instructor-course-delete.html'
-
-
 class ForumQuestionDetailView(LoginRequiredMixin, DetailView):
     template_name = 'DashBoard/forum/student-forum-detail.html'
     model = ForumQuestion
@@ -101,3 +97,51 @@ def forum_answer_create_view(request, pk=None):
     else:
         messages.error(request, f'There was an error ')
     return redirect('forum:forum_detail', instance.id)
+
+
+class ForumQuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = ForumQuestion
+    template_name = 'DashBoard/forum/forum-update.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user or self.request.user.is_superuser:
+            return True
+        return False
+
+    def get_success_url(self):
+        return redirect('forum:forum_detail')
+
+
+class ForumQuestionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = ForumQuestion
+    template_name = 'DashBoard/forum/forum-delete.html'
+    success_url = reverse_lazy('forum:forum_list')
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user or self.request.user.is_superuser:
+            return True
+        return False
+
+
+@login_required
+def forum_update_view(request, id=None):
+    instance = get_object_or_404(ForumQuestion, id=id)
+    form = ForumQuestionForm(request.POST or None, request.FILES or None, instance=instance)
+    if request.user == instance.user or request.user.is_superuser:
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            print('updating the post', request.POST, '\n', instance.user)
+            messages.success(request, 'The form is  valid')
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.warning(request, 'The form isn\'t valid')
+    context = {'form': form, 'object': instance}
+    return render(request, 'DashBoard/forum/forum-update.html', context)
