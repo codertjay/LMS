@@ -166,7 +166,6 @@ ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 200
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_BLACKLIST = []
 
-
 if DEBUG:
     STRIPE_PUBLISHABLE_KEY = 'pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ'
     STRIPE_SECRET_KEY = 'sk_test_51I7JYzAS6n0shLOq6XZJdgF0ihJh4ZanPMqWMELlomYfJ3vZXQwq4kWj4fsXhsOsWE1DQm0AgIV2pD7yZcKEyKG9005LDdWKEU'
@@ -194,3 +193,9 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
+
+#  handling errors
+handler404 = 'home_page.views.view_404'
+handler500 = 'home_page.views.view_500'
+handler403 = 'home_page.views.view_403'
+handler400 = 'home_page.views.view_400'

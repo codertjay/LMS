@@ -33,13 +33,16 @@ def paidMembership():
     return enterprise
 
 def view_404(request, exception):
-    return render(request, '404.html')
+    return render(request, 'HomePage/errors/404.html')
 
 def view_403(request, exception):
-    return render(request, '403.html')
+    return render(request, 'HomePage/errors/403.html')
+
+def view_400(request, exception):
+    return render(request, 'HomePage/errors/400.html')
 
 def view_500(request):
-    return render(request, '500.html')
+    return render(request, 'HomePage/errors/500.html')
 
 class HomePageView(View):
 
