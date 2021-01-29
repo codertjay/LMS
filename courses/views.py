@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,6 +14,8 @@ from courses.forms import CourseCreateEditForm, LessonCreateEditForm
 from courses.models import Course, Lesson
 from home_page.mixins import InstructorAndLoginRequiredMixin
 from memberships.models import UserMembership, Membership
+from memberships.utils import cancel_user_subscription
+from memberships.utils import get_user_subscription
 from users.models import Profile
 
 
@@ -46,7 +50,7 @@ class CourseListView(LoginRequiredMixin, ListView):
         return object_list
 
 
-class StudentCourseListView(LoginRequiredMixin,View):
+class StudentCourseListView(LoginRequiredMixin, View):
 
     def get(self, request):
         course = self.request.user.profile.applied_courses.all()
@@ -83,6 +87,9 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         user_membership_type = user_membership.membership.membership_type
         course_allowed_mem_types = course.allowed_memberships.all()
 
+        """ checking if user membership has expired  """
+        cancel_user_subscription(self.request)
+
         membership_type = get_course_membership_type(course_allowed_mem_types)
         if course_allowed_mem_types.filter(membership_type=user_membership_type).exists():
             context['lesson'] = lesson
@@ -110,14 +117,14 @@ class LessonDetailView(LoginRequiredMixin, View):
     def get(self, request, course_slug, lesson_slug, *args, **kwargs):
         course = get_object_or_404(Course, slug=course_slug)
         lesson = get_object_or_404(Lesson, slug=lesson_slug)
-        course.view_count += 1
-        course.save()
-
         user_membership = get_object_or_404(UserMembership, user=request.user)
         user_membership_type = user_membership.membership.membership_type
         course_allowed_mem_types = course.allowed_memberships.all()
 
         membership_type = get_course_membership_type(course_allowed_mem_types)
+
+        """ checking if user membership has expired  """
+        cancel_user_subscription(self.request)
 
         if course_allowed_mem_types.filter(membership_type=user_membership_type).exists():
             context = {'lesson': lesson, 'course': course, }

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+
+<h3>Hi {% if user_membership.user.first_name %} {{ user_membership.user.first_name }}  -
+    {{ user_membership.user.last_name }} {% else %}{{ user_membership.user.username }}{% endif %},
+</h3>
+
+<p>
+
+    Thank you for using our product for the past [{{ user_sub.get_created_date }}]. Your contract expired on
+    [{{ user_sub.get_next_billing_date }}] and you no longer have access to your account.
+
+    If you’d like to renew or upgrade your contract, please let me know. We can complete the renewal process in [two
+    business days], restore your access and get you up and running again.
+
+    Feel free to send me a message by clicking on {this link}
+</p>
+<br>
+Thanks,

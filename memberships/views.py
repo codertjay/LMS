@@ -1,3 +1,4 @@
+import stripe
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -6,11 +7,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView
-import stripe
 
-from courses.models import RecentCourses
-from memberships.models import Membership, UserMembership, Subscription
 from copy_trading.models import CopyTradingSubscription
+from courses.models import RecentCourses
+from memberships.models import Membership, Subscription
+from memberships.utils import get_user_membership, get_user_subscription, get_selected_membership, \
+    membership_created_message
 from signal_app.models import UserSignalSubscription
 
 
@@ -36,36 +38,6 @@ def profile_view(request):
     print('user_membership', user_membership.membership.membership_type)
     print('user_subscription', user_subscription)
     return render(request, 'DashBoard/payment/student-account-billing-subscription.html', context)
-
-
-def get_user_membership(request):
-    user_membership_qs = UserMembership.objects.filter(user=request.user)
-    if user_membership_qs.exists():
-        current_membership = user_membership_qs.first()
-        return current_membership
-    return None
-
-
-def get_user_subscription(request):
-    user_subscription_qs = Subscription.objects.filter(
-        user_membership=get_user_membership(request))
-    if user_subscription_qs.exists():
-        current_subscription = user_subscription_qs.first()
-        return current_subscription
-    return None
-
-
-def get_selected_membership(request):
-    try:
-        membership_type = request.session['selected_membership_type']
-        selected_membership_qs = Membership.objects.filter(
-            membership_type=membership_type
-        )
-        if selected_membership_qs.exists():
-            return selected_membership_qs.first()
-    except Exception as a:
-        print('this is  the error', a)
-        return None
 
 
 class MemberShipSelectView(LoginRequiredMixin, ListView):
@@ -117,7 +89,7 @@ def payment_view(request):
             print('this is the strip plan id ', selected_membership.stripe_plan_id)
 
             customer = stripe.Customer.retrieve(user_membership.stripe_customer_id)
-            customer.source = token  # 4242424242424242
+            customer.source = token  # 4242424242424242 for testing
             customer.save()
 
             subscription = stripe.Subscription.create(
@@ -162,6 +134,8 @@ def update_transactions(request, subscription_id):
     sub.stripe_subscription_id = subscription_id
     sub.active = True
     sub.save()
+    # sending message to the user that he has successfully a created membership
+    membership_created_message(user_membership, sub)
     try:
         del request.session['selected_membership_type']
         messages.info(request, f'Successfully created {selected_membership}')

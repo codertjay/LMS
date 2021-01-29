@@ -59,18 +59,18 @@ class Subscription(models.Model):
             subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
             date = datetime.fromtimestamp(subscription.created)
         except:
-            date = ''
+            date = None
         return date
 
+    # this the the expiring date
     @property
     def get_next_billing_date(self):
         try:
             subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
             date = datetime.fromtimestamp(subscription.current_period_end)
         except:
-            date = ''
+            date = None
         return date
-
 
 
 def post_save_user_membership_create(sender, instance, created, *args, **kwargs):

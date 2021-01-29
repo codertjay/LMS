@@ -8,8 +8,7 @@ from django.utils.text import slugify
 from moviepy.editor import VideoFileClip
 
 from memberships.models import Membership
-
-User = settings.AUTH_USER_MODEL
+from django.contrib.auth.models import User
 
 CourseTag = (
     ('Beginner', 'Beginner'),

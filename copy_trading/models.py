@@ -61,20 +61,30 @@ class CopyTradingSubscription(models.Model):
 
 
 # this function deactivate expired copy_trades it sends message to the user whom copy_trades has being deactivated
-def deactivate_copy_trading():
-    copy_trade_qs = CopyTradingSubscription.objects.all()
-    for copy_trade in copy_trade_qs:
-        if copy_trade.expiring_date:
-            if copy_trade.expiring_date < datetime.now():
-                copy_trade.stripe_subscription_id = ''
-                copy_trade.active = False
-                copy_trading_expired_message(copy_trade)
-                copy_trade.save()
+def deactivate_copy_trading(copy_trade_subscription):
+    try:
+        copy_trade_qs = copy_trade_subscription.objects.all()
+        checking = """
+=================================== \n
+checking for expired copy trade \n
+=================================== \n
+                """
+        print(checking)
+        for copy_trade in copy_trade_qs:
+            if copy_trade.active:
+                print(""" this are the expired copy_trade """, copy_trade.user)
+                if copy_trade.expiring_date < datetime.now():
+                    copy_trade.stripe_subscription_id = ''
+                    copy_trade.active = False
+                    copy_trading_expired_message(copy_trade)
+                    copy_trade.save()
+    except Exception as a:
+        print('this is the exception ', a)
     return None
 
 
 # calling function that deactivate expired copy_trades
-deactivate_copy_trading()
+deactivate_copy_trading(CopyTradingSubscription)
 
 
 # a django copy_trade that automatically send message to the user that has registered on a copy_trade

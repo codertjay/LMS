@@ -1,9 +1,7 @@
-from django.core.mail import send_mail
-from django.template.loader import get_template
 from django.conf import settings
-from django.utils.html import strip_tags
-
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER
 
@@ -19,7 +17,7 @@ def signal_created_message(signal):
     send_mail(
         f"AssasinFx Signal ( Created ) ",
         plain_message, EMAIL_HOST_USER, recipient_list=[signal_email, EMAIL_HOST_USER]
-        , html_message=html_message,fail_silently=True
+        , html_message=html_message, fail_silently=True
     )
 
     return None
@@ -38,3 +36,5 @@ def signal_expired_message(signal):
         , recipient_list=[signal_email, EMAIL_HOST_USER], html_message=html_message, fail_silently=True
     )
     return None
+
+

@@ -1,7 +1,6 @@
 from django.conf import settings
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.db import models
 # Create your models here.
 from django.db.models.signals import post_save
 
