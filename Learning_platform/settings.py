@@ -199,3 +199,13 @@ DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
 # handler500 = 'home_page.views.view_500'
 # handler403 = 'home_page.views.view_403'
 # handler400 = 'home_page.views.view_400'
+
+# price_1I7JxZAS6n0shLOq5zD6Jsfn paid membership
+
+# price_1IDcZYAS6n0shLOqnCrpNss4 copy tading
+
+# price_1ICusiAS6n0shLOqnp8R8mec yearly signal
+
+# price_1ICusiAS6n0shLOqHHZDpS2m quaterly signal
+
+# price_1ICusiAS6n0shLOqeQSzloAn monthly signal

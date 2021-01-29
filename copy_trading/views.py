@@ -90,7 +90,7 @@ def copy_trade_payment_done(request, subscription_id, copy_trade):
     if copy_trade_:
         if stripe_id.id == subscription_id:
             sub, created = CopyTradingSubscription.objects.get_or_create(copy_trade=copy_trade_, user=request.user)
-            if sub.stripe_subscription_id == '' or sub.stripe_subscription_id is None or sub.expiring_date < datetime.now():
+            if sub.stripe_subscription_id == '' or sub.stripe_subscription_id is None or sub.expiring_date < datetime.now() or sub.active == False:
                 sub.stripe_subscription_id = subscription_id
                 sub.active = True
                 sub.save()

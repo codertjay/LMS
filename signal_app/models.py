@@ -53,7 +53,7 @@ class UserSignalSubscription(models.Model):
 
 
 # this function deacivate expired signals it sends message to the user whom signals has being deactivated
-def deactivate_signals(UserSignalSubscription):
+def deactivate_signals():
     signal_qs = UserSignalSubscription.objects.all()
     for signal in signal_qs:
         if signal.expiring_date:
@@ -66,7 +66,7 @@ def deactivate_signals(UserSignalSubscription):
 
 
 # calling function that deactivate expired signals
-deactivate_signals(UserSignalSubscription)
+deactivate_signals()
 
 
 # a django signal that automatically send message to the user that has registered on a signal

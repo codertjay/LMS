@@ -259,15 +259,8 @@
                                                 class="fa fa-arrows-h"></i></span> </span>
                                     </a>
                                     <ul class="sidebar-submenu sm-indent collapse" id="account_menu">
-                                        {% if request.user.is_authenticated %}
+                                        {% if not   request.user.is_authenticated %}
 
-                                            <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="{% url 'account_logout' %}">
-                                                    <span class="sidebar-menu-text">Logout</span>
-                                                </a>
-                                            </li>
-
-                                        {% else %}
 
                                             <li class="sidebar-menu-item">
                                                 <a class="sidebar-menu-button" href="{% url 'account_login' %}">
@@ -290,8 +283,8 @@
                                         </li>
                                         <li class="sidebar-menu-item">
                                             <a class="sidebar-menu-button"
-                                               href="{% url 'memberships:membership_select' %}">
-                                                <span class="sidebar-menu-text">Upgrade academy</span>
+                                               href="{% url 'memberships:profile' %}">
+                                                <span class="sidebar-menu-text">Subscription</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-menu-item">
@@ -331,6 +324,12 @@
 
                             <div class="sidebar-heading"></div>
                             <ul class="sidebar-menu sm-active-button-bg">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button" href="{% url 'memberships:membership_select' %}">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-subscript"></i>
+                                        Subscription
+                                    </a>
+                                </li>
                                 {% if request.user.is_authenticated %}
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button" href="{% url 'account_logout' %}">

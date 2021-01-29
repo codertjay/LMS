@@ -91,7 +91,7 @@ def signal_payment_done(request, subscription_id, signal):
     if signal_ and stripe_id.id == subscription_id:
         if signal_ and stripe_id.id == subscription_id:
             sub, created = UserSignalSubscription.objects.get_or_create(signal_type=signal_, user=request.user)
-            if sub.stripe_subscription_id == '' or sub.stripe_subscription_id is None or sub.expiring_date < datetime.now():
+            if sub.stripe_subscription_id == '' or sub.stripe_subscription_id is None or sub.expiring_date < datetime.now() or sub.active == False:
                 sub.stripe_subscription_id = subscription_id
                 sub.active = True
                 sub.save()

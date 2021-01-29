@@ -45,7 +45,8 @@
                                             <p>Next payment due:
                                                 {{ user_subscription.get_next_billing_date }}</p>
                                             <a href="{% url 'memberships:cancel' %}">Cancel subscription </a>
-                                            <p class="text-danger lead"><strong>Note:</strong> if you cancel Your subscription you would be
+                                            <p class="text-danger lead"><strong>Note:</strong> if you cancel Your
+                                                subscription you would be
                                                 converted to free access only </p>
                                             </div>
 
@@ -64,6 +65,22 @@
                         </div>
                     </div>
                 {% endif %}
+                <div class="card">
+                    <div class="card-body">
+                        {% if user_signal_sub %}
+                            <h3 class="text-center font-italic text-primary text-decoration-underline">Signal
+                            </h3>
+                            <h5>Created Date : <small>{{ user_signal_sub.created_date }}</small></h5>
+                            <h5>Expiring Date: <small>{{ user_signal_sub.expiring_date }}</small></h5>
+                        {% endif %}
+                        {% if user_copy_trade_sub %}
+                            <h3 class="text-center font-italic text-primary text-decoration-underline">Copy
+                                trade</h3>
+                            <h5>Created Date: <small>{{ user_copy_trade_sub.created_date }}</small></h5>
+                            <h5>Expiring Date: <small>{{ user_copy_trade_sub.expiring_date }}</small></h5>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
 
             {#             beginning the page nav#}
