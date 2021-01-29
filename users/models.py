@@ -24,7 +24,8 @@ class Contact(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=20, choices=user_choices, default='Student')
-    profile_pics = models.ImageField(upload_to='profile_pics', default='profile_pics/profile.jpg')
+    profile_pics = models.ImageField(upload_to='profile', default='profile_pics/profile.jpg')
+    background_image = models.ImageField(upload_to='profile', default='profile_pics/background.jpg')
     about = models.TextField(max_length=500, blank=True, null=True)
     twitter_url = models.URLField(blank=True, null=True)
     instagram_url = models.URLField(blank=True, null=True)
@@ -43,6 +44,15 @@ class Profile(models.Model):
     def profilePicsImageURL(self):
         try:
             image = self.profile_pics.url
+        except:
+            image = None
+        return image
+
+
+    @property
+    def backgroundImageURL(self):
+        try:
+            image = self.background_image.url
         except:
             image = None
         return image

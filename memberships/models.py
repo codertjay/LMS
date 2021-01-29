@@ -73,15 +73,15 @@ class Subscription(models.Model):
         return date
 
 
-def post_save_user_membership_create(sender, instance, created, *args, **kwargs):
-    if created:
-        UserMembership.objects.get_or_create(user=instance)
-    user_membership, created = UserMembership.objects.get_or_create(user=instance)
-    if user_membership.stripe_customer_id is None or user_membership.stripe_customer_id == '':
-        new_customer_id = stripe.Customer.create(email=instance.email)
-        user_membership.stripe_customer_id = new_customer_id['id']
-        user_membership.membership = Membership.objects.get_membership('Free')
-        user_membership.save()
-
-
-post_save.connect(post_save_user_membership_create, sender=User)
+# def post_save_user_membership_create(sender, instance, created, *args, **kwargs):
+#     if created:
+#         UserMembership.objects.get_or_create(user=instance)
+#     user_membership, created = UserMembership.objects.get_or_create(user=instance)
+#     if user_membership.stripe_customer_id is None or user_membership.stripe_customer_id == '':
+#         new_customer_id = stripe.Customer.create(email=instance.email)
+#         user_membership.stripe_customer_id = new_customer_id['id']
+#         user_membership.membership = Membership.objects.get_membership('Free')
+#         user_membership.save()
+#
+#
+# post_save.connect(post_save_user_membership_create, sender=User)

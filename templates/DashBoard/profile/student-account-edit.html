@@ -23,7 +23,7 @@
         <h1 class="h2">Edit Account</h1>
         <div class="card card_color" style="padding:20px">
             <div class="card-content">
-                <form action="." method="post">
+                <form action="." method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ user_form|crispy }}
                     {{ profile_form|crispy }}

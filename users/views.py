@@ -41,7 +41,7 @@ class StudentDashBoardView(LoginRequiredMixin, View):
             'RecentCourse': recent_course,
             'user_membership': user_membership,
             'user_subscription': user_subscription,
-            'forum_requestion':forum_question,
+            'forum_requestion': forum_question,
         }
         return render(request, 'DashBoard/student/student-dashboard.html', context)
 
@@ -119,19 +119,29 @@ class UserProfileUpdate(LoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         p_form = ProfileUpdateForm(self.request.POST,
-                                   self.request.FILES,
+                                   self.request.FILES or None,
                                    instance=self.request.user.profile)
         u_form = UserUpdateForm(self.request.POST, instance=self.request.user)
+        profile_pics = self.request.FILES.get('profile_pics')
+        background_image = self.request.FILES.get('background_image')
+        print(profile_pics,background_image)
         if u_form.is_valid() and p_form.is_valid():
             username = u_form.cleaned_data.get('username')
             email = u_form.cleaned_data.get('email')
             first_name = u_form.cleaned_data.get('first_name')
             last_name = u_form.cleaned_data.get('last_name')
             u_form.save()
-            p_form.save()
+            profile_form = p_form.save(commit=False)
+            if profile_pics:
+                profile_form.profile_pics = self.request.FILES.get('profile_pics')
+            if background_image:
+                profile_form.background_image = self.request.FILES.get('background_image')
+            profile_form.save()
             print('the form was valid')
             messages.success(self.request, f'Your account has been updated')
-            return redirect('users:profile_edit')
+        else:
+            messages.warning(self.request, f'There was an error please filled the form correctly')
+        return redirect('users:profile_edit')
 
 
 def contactAdminView(request):

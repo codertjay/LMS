@@ -244,9 +244,7 @@ def lesson_update_view(request, slug=None):
     course = Course.objects.filter(user=request.user)
     if form.is_valid():
         instance = form.save(commit=False)
-        print(instance.slug)
         instance.save()
-        print('updating the post', request.POST, '\n', instance.user)
         messages.success(request, 'The form is  valid')
         return HttpResponseRedirect(instance.get_absolute_url())
     else:

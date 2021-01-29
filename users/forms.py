@@ -45,6 +45,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = [
             'profile_pics',
+            'background_image',
             'twitter_url',
             'instagram_url',
             'github_url',

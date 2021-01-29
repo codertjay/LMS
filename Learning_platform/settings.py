@@ -148,7 +148,7 @@ MEDIA_URL = '/media/'
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_root'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'courses/static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
@@ -194,12 +194,13 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
 
-#  handling errors
+#  handling errors for demo
 # handler404 = 'home_page.views.view_404'
 # handler500 = 'home_page.views.view_500'
 # handler403 = 'home_page.views.view_403'
 # handler400 = 'home_page.views.view_400'
 
+# for demo create these
 # price_1I7JxZAS6n0shLOq5zD6Jsfn paid membership
 
 # price_1IDcZYAS6n0shLOqnCrpNss4 copy tading
