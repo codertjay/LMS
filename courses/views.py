@@ -1,21 +1,20 @@
-from datetime import datetime
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView
 from django.views.generic.base import View
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from courses.forms import CourseCreateEditForm, LessonCreateEditForm
 from courses.models import Course, Lesson
 from home_page.mixins import InstructorAndLoginRequiredMixin
 from memberships.models import UserMembership, Membership
 from memberships.utils import cancel_user_subscription
-from memberships.utils import get_user_subscription
 from users.models import Profile
 
 
@@ -99,14 +98,14 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
             context['lesson'] = lesson
         else:
             context['lesson'] = None
-        print('this is the lesson ', context['lesson'])
-        print('this is the user_membership_type ', user_membership_type)
-        print('this is the ciurse membership_type ', membership_type)
+        # print('this is the lesson ', context['lesson'])
+        # print('this is the user_membership_type ', user_membership_type)
+        # print('this is the ciurse membership_type ', membership_type)
         user_profile_qs = Profile.objects.filter(user=self.request.user)
         if user_profile_qs:
             user_profile = user_profile_qs.first()
             _applied_course_qs = user_profile.applied_courses.filter(id=course.id)
-            print('these are the user applied courses', _applied_course_qs)
+            # print('these are the user applied courses', _applied_course_qs)
             if not _applied_course_qs.exists():
                 user_profile.applied_courses.add(course)
         return context
@@ -134,9 +133,9 @@ class LessonDetailView(LoginRequiredMixin, View):
             context = {'lesson': lesson, 'course': course, }
         else:
             context = {'lesson': None, 'course': course, }
-        print('the user lesson ', lesson)
-        print('the user membership type', user_membership_type)
-        print('the context', context)
+        # print('the user lesson ', lesson)
+        # print('the user membership type', user_membership_type)
+        # print('the context', context)
         return render(request, 'DashBoard/student/student-view-course.html', context)
 
 
@@ -150,23 +149,22 @@ class CourseCreateView(InstructorAndLoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         form = CourseCreateEditForm(self.request.POST, self.request.FILES or None)
-        print(self.request.POST)
-        print('form:', form.errors)
+        # print(self.request.POST)
+        # print('form:', form.errors)
         form.image = self.request.POST.get('image')
         form.allowed_memberships = self.request.POST.get('allowed_memberships')
-        print('these are the allowed membership', form.allowed_memberships)
+        # print('these are the allowed membership', form.allowed_memberships)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = self.request.user
             try:
                 for x in self.request.POST.get('allowed_memberships'):
                     _membership = Membership.objects.filter(id=x).first()
-                    print('this is the membership', _membership)
+                    # print('this is the membership', _membership)
                     if _membership:
                         instance.allowed_memberships.add(_membership)
             except Exception as a:
                 print('there was an error', a)
-
             instance.save()
             messages.success(self.request, 'course have being created')
             return HttpResponseRedirect(instance.get_absolute_url())
@@ -183,20 +181,20 @@ def course_update_view(request, slug=None):
     course = Course.objects.filter(user=request.user)
     if form.is_valid():
         instance = form.save(commit=False)
-        print(instance.slug)
+        # print(instance.slug)
 
         try:
             for x in request.POST.get('allowed_memberships'):
                 _membership = Membership.objects.filter(id=x).first()
                 if _membership:
-                    print('this is the memebrship', _membership)
+                    # print('this is the memebrship', _membership)
                     instance.allowed_memberships.add(_membership)
-                    print('the instance allowed memberships', instance.allowed_memberships)
+                    # print('the instance allowed memberships', instance.allowed_memberships)
         except Exception as a:
             print('there was an error', a)
 
         instance.save()
-        print('updating the post', request.POST, '\n', instance.user)
+        # print('updating the post', request.POST, '\n', instance.user)
         messages.success(request, 'The form is  valid')
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
@@ -207,8 +205,9 @@ def course_update_view(request, slug=None):
 
 class CourseDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
     model = Course
-    success_url = '/'
+    success_url = reverse_lazy('courses:create_course')
     template_name = 'DashBoard/instructor/instructor-course-delete.html'
+
 
 
 class LessonCreateView(InstructorAndLoginRequiredMixin, View):
@@ -220,8 +219,8 @@ class LessonCreateView(InstructorAndLoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         form = LessonCreateEditForm(self.request.POST, self.request.FILES or None)
-        print(self.request.POST)
-        print('form:', form.errors)
+        # print(self.request.POST)
+        # print('form:', form.errors)
         form.image = self.request.POST.get('image')
         form.video = self.request.POST.get('video')
 

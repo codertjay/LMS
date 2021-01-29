@@ -17,16 +17,17 @@
                 <div class="card  p-5 ">
                     <div class="card-title">
                         <h3><span class="text-capitalize">  Are you sure you want to delete ?</span>
-                            <strong> {{ lesson.title }}</strong></h3>
+                            <strong> {{ course.title }}</strong></h3>
                     </div>
                     <div class="card-content p-5">
                         <div class="text-capitalize font-weight-bold">If you delete this lesson you wont be able to
                             get it back
                         </div>
                         <br> <br>
+
                         <form action="." method="post">
                             {% csrf_token %}
-                            <a href="{% url 'courses:lesson_update' lesson.slug %}" class="btn btn-info">Update <i
+                            <a href="{% url 'courses:update_course' course.slug %}" class="btn btn-info">Update <i
                                     class="fa fa-backward"></i></a>
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>

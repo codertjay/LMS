@@ -24,11 +24,22 @@ class SignalType(models.Model):
         return self.signal_choice
 
 
+class UserSignalSubscriptionManager(models.Manager):
+
+    def get_user_signal_sub(self, user):
+        user_signal_sub = self.filter(user=user).first()
+        if user_signal_sub:
+            return user_signal_sub
+        else:
+            return None
+
+
 class UserSignalSubscription(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     stripe_subscription_id = models.CharField(max_length=40)
     signal_type = models.ForeignKey(SignalType, on_delete=models.CASCADE)
     active = models.BooleanField(default=False)
+    objects = UserSignalSubscriptionManager()
 
     def __str__(self):
         return f"{self.signal_type.signal_choice} --{self.user}"
@@ -52,31 +63,35 @@ class UserSignalSubscription(models.Model):
         return date
 
 
-# this function deacivate expired signals it sends message to the user whom signals has being deactivated
-def deactivate_signals(user_signal_subscription):
+# this function deactivate expired signals it sends message to the user whom signals has being deactivated
+def deactivate_signals():
     try:
         signal_qs = UserSignalSubscription.objects.all()
         checking = """
-============================= \n
-checking for expired signals \n
-============================= \n
+============================= 
+checking for expired signals 
+============================= 
         """
         print(checking)
         for signal in signal_qs:
             if signal.active:
                 print(""" this are the expired signals """, signal.user)
-                if signal.expiring_date < datetime.now():
+                if signal.expiring_date < datetime.now() or signal.expiring_date is None or signal.expiring_date == '':
                     signal.stripe_subscription_id = ''
                     signal.active = False
                     signal.save()
                     signal_expired_message(signal)
     except Exception as a:
-        print('this is the exception ', a)
+        print(f"""
+======================================
+Error  {a}
+======================================
+        """)
     return None
 
 
 # calling function that deactivate expired signals
-deactivate_signals(UserSignalSubscription)
+deactivate_signals()
 
 
 # a django signal that automatically send message to the user that has registered on a signal

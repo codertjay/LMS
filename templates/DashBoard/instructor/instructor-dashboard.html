@@ -104,91 +104,96 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
-                <h2 class="lead">Active signals</h2>
-                {% for item in signals %}
-                    {% if item.active  %}
-                        <div class="card">
-                            <div class="d-flex">
-                                <div class="card-title">
-                                    {{ item.user.first_name }} - {{ item.user.last_name }}
-                                </div>
-                                <div class="card-body">
-                                    <h5>Created: {{ item.created_date }}</h5>
-                                    <h5>Expiring Date: {{ item.expiring_date }}</h5>
-                                    <h5>Signal Type: {{ item.signal_type.signal_choice }}</h5>
-                                </div>
-                            </div>
+            <div class="row">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h2 class="lead">Active signals</h2>
+                            {% for item in signals %}
+                                {% if item.active %}
+                                    <div class="card">
+                                        <div class="d-flex">
+                                            <div class="card-title">
+                                                {{ item.user.first_name }} - {{ item.user.last_name }}
+                                            </div>
+                                            <div class="card-body">
+                                                <h5>Created: {{ item.created_date }}</h5>
+                                                <h5>Expiring Date: {{ item.expiring_date }}</h5>
+                                                <h5>Signal Type: {{ item.signal_type.signal_choice }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            {% endfor %}
+
                         </div>
-                    {% endif %}
 
-                {% endfor %}
+                        <div class="col-lg-6">
+                            <h2 class="lead">InActive signals</h2>
+                            {% for item in signals %}
+                                {% if not item.active %}
+                                    <div class="card">
+                                        <div class="d-flex">
+                                            <div class="card-title">
+                                                {{ item.user.first_name }} - {{ item.user.last_name }}
+                                            </div>
+                                            <div class="card-body">
+                                                <h5>Created: {{ item.created_date }}</h5>
+                                                <h5>Expiring Date: {{ item.expiring_date }}</h5>
+                                                <h5>Signal Type: {{ item.signal_type.signal_choice }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
 
-            </div>
-
-            <div class="col-lg-6">
-                <h2 class="lead">InActive signals</h2>
-                {% for item in signals %}
-                    {% if not item.active  %}
-                        <div class="card">
-                            <div class="d-flex">
-                                <div class="card-title">
-                                    {{ item.user.first_name }} - {{ item.user.last_name }}
-                                </div>
-                                <div class="card-body">
-                                    <h5>Created: {{ item.created_date }}</h5>
-                                    <h5>Expiring Date: {{ item.expiring_date }}</h5>
-                                    <h5>Signal Type: {{ item.signal_type.signal_choice }}</h5>
-                                </div>
-                            </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
 
-            </div>
+                        <div class="col-lg-6">
+                            <h2 class="lead">Active Copy Trade</h2>
+                            {% for item in copy_trades %}
+                                {% if item.active %}
+                                    <div class="card">
+                                        <div class="d-flex">
+                                            <div class="card-title">
+                                                {{ item.user.first_name }} - {{ item.user.last_name }}
+                                            </div>
+                                            <div class="card-body">
+                                                <h5>Created: {{ item.created_date }}</h5>
+                                                <h5>Expiring Date: {{ item.expiring_date }}</h5>
+                                                <h5>Copy Trade: {{ item.copy_trade.copy_trade_choice }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
 
-            <div class="col-lg-6">
-                <h2 class="lead">Active Copy Trade</h2>
-                {% for item in copy_trades %}
-                    {% if item.active  %}
-                        <div class="card">
-                            <div class="d-flex">
-                                <div class="card-title">
-                                    {{ item.user.first_name }} - {{ item.user.last_name }}
-                                </div>
-                                <div class="card-body">
-                                    <h5>Created: {{ item.created_date }}</h5>
-                                    <h5>Expiring Date: {{ item.expiring_date }}</h5>
-                                    <h5>Copy Trade: {{ item.copy_trade.copy_trade_choice }}</h5>
-                                </div>
-                            </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
 
-            </div>
+                        <div class="col-lg-6">
+                            <h2 class="lead">InActive Copy Trade</h2>
+                            {% for item in copy_trades %}
+                                {% if not item.active %}
+                                    <div class="card">
+                                        <div class="d-flex">
+                                            <div class="card-title">
+                                                {{ item.user.first_name }} - {{ item.user.last_name }}
+                                            </div>
+                                            <div class="card-body">
+                                                <h5>Created: {{ item.created_date }}</h5>
+                                                <h5>Expiring Date: {{ item.expiring_date }}</h5>
+                                                <h5>Signal Type: {{ item.copy_trade.copy_trade_choice }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
 
-            <div class="col-lg-6">
-                <h2 class="lead">InActive Copy Trade</h2>
-                {% for item in copy_trades %}
-                    {% if not item.active  %}
-                        <div class="card">
-                            <div class="d-flex">
-                                <div class="card-title">
-                                    {{ item.user.first_name }} - {{ item.user.last_name }}
-                                </div>
-                                <div class="card-body">
-                                    <h5>Created: {{ item.created_date }}</h5>
-                                    <h5>Expiring Date: {{ item.expiring_date }}</h5>
-                                    <h5>Signal Type: {{ item.copy_trade.copy_trade_choice }}</h5>
-                                </div>
-                            </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
-
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 

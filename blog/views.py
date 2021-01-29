@@ -59,8 +59,8 @@ class BlogDetailView(DetailView):
         """ note this instance.get_content_type is from our models where we 
         linked the comment models and the blog models with content_type and object_id """
 
-        print('read time :', get_read_time(instance.description))
-        print('read time :', get_read_time(instance.get_markdown))
+        # print('read time :', get_read_time(instance.description))
+        # print('read time :', get_read_time(instance.get_markdown))
 
         context['form'] = CommentForm()
         context['page_url'] = self.request.get_raw_uri()
@@ -75,9 +75,9 @@ def create_comment(request, slug=None):
         instance = None
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        print('The form data :', form)
+        # print('The form data :', form)
         if form.is_valid():
-            print(form.cleaned_data)
+            # print(form.cleaned_data)
             form_data = form.save(commit=False)
             form_data.user = request.user
             form_data.post = instance
@@ -85,7 +85,7 @@ def create_comment(request, slug=None):
             messages.success(request, 'form has being submitted')
             return HttpResponseRedirect(instance.get_absolute_url())
         else:
-            print('there was an error ', f'{form.errors}')
+            # print('there was an error ', f'{form.errors}')
             messages.error(request, f'{form.errors}')
             return redirect('blog:blog_detail', instance.slug)
 
@@ -102,8 +102,8 @@ class BlogCreateView(InstructorAndLoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         form = PostCreateForm(self.request.POST, self.request.FILES or None)
-        print(self.request.POST)
-        print('form:', form.errors)
+        # print(self.request.POST)
+        # print('form:', form.errors)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = self.request.user
@@ -122,11 +122,11 @@ def update_post_view(request, slug=None):
     form = PostCreateForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
-        print(instance.read_time)
-        print(instance.slug)
-        print(instance.slug)
-        instance.save()
-        print('updating the post', request.POST, '\n', instance.user)
+        # print(instance.read_time)
+        # print(instance.slug)
+        # print(instance.slug)
+        # instance.save()
+        # print('updating the post', request.POST, '\n', instance.user)
         messages.success(request, 'The form is  valid')
         return HttpResponseRedirect(instance.get_absolute_url())
     else:

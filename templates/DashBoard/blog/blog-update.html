@@ -18,6 +18,11 @@
             width: 100% !important;
         }
 
+        .wmd-preview {
+            color: black;
+            background-color: rgba(246, 243, 243, 0.49);
+        }
+
     </style>
 {% endblock %}
 
@@ -31,13 +36,14 @@
         </ol>
         <div class="media align-items-center mb-headings">
             <div class="media-body">
-                <h1 class="h2 ">Update Course</h1>
+                <h1 class="h2  text-decoration-underline ">Update Course</h1>
             </div>
         </div>
         <div class="row">
 
             <div class="col-md-10 mx-auto">
-                <div class="card" style="background-color: rgba(226,230,239,0.78); box-shadow: rgba(3,3,3,0.81);">
+                <div class="card card_color"
+                     style="background-color: rgba(226,230,239,0.78); box-shadow: rgba(3,3,3,0.81);">
                     <form action=" {% url 'blog:update_post' slug %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">

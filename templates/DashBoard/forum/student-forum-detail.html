@@ -25,7 +25,7 @@
                         <div class="d-flex justify-content-between  ">
                             <div><a href="{% url 'forum:forum_update' forum_question.id %}"><i
                                     class="fa fa-pencil-square-o"></i></a></div>
-                            <div><a href="{% url 'forum:forum_delete'  forum_question.id %}"><i class="fa fa-trash"></i></a>
+                            <div><a href="{% url 'forum:forum_delete'  forum_question.id %}"><i class="fa fa-trash text-danger"></i></a>
                             </div>
                         </div>
                     {% endif %}
@@ -51,7 +51,7 @@
                         <div class="d-flex justify-content-between ">
                             <div class="lead font-italic">{{ forum_question.user.first_name }}
                                 - {{ forum_question.user.last_name }}</div>
-                            <div class="lead font-italic"> {{ forum_question.timestamp|timesince }}</div>
+                            <div class="lead font-italic"> {{ forum_question.timestamp|timesince }} ago</div>
                         </div>
                     </div>
                 </div>
@@ -94,14 +94,14 @@
                     </div>
                     <div class="col-12" style="margin-top: 20vh;margin-bottom: 10vh;">
 
-                        <div class="card  pt-3">
+                        <div class="card  pt-3 bg-secondary">
                             <form action="{% url 'forum:forum_answer_create' forum_question.pk %}" method="post"
                                   class="">
-                                <div class="card-content">
+                                <div class="card-content p-3">
                                     {% csrf_token %}
                                     {{ form|crispy }}
                                 </div>
-                                <div class="card-footer ">
+                                <div class="card-footer bg-secondary ">
                                     <button class="btn btn-primary">Answer</button>
                                 </div>
                             </form>
@@ -115,7 +115,7 @@
             <div class="col-md-4">
                 <h3 class="text-capitalize">Recent Questions </h3>
                 <p class="lead text-secondary"> Take part in recent forum</p>
-                <div class="" style="height: 500px;overflow:auto">
+                <div class="" style="height: 500px;overflow-y:scroll">
 
                     {% for item in forumquestion_list %}
                         <li class="list-group-item forum-thread">
@@ -123,12 +123,12 @@
                                 <div class="media-left">
                                     <div class="forum-icon-wrapper">
                                         <a href="{{ item.get_absolute_url }}" class="forum-thread-icon">
-                                            <i class="fa fa-info-circle fa-2x"></i>
+                                            <i class="fa fa-info-circle "></i>
                                         </a>
                                         <a href="{% url 'users:profile' item.user.username %}"
                                            class="forum-thread-user">
-                                            <img src="  {{ item.user.profile.profilePicsImageURL }}" alt="" width="20"
-                                                 class="rounded-circle">
+                                            <img src=" {{ item.user.profile.profilePicsImageURL }}" alt="profile image" width="50"
+                                                 class="rounded-circle ">
                                         </a>
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@
                                         </strong></a>
                                         <small class="ml-auto text-muted">{{ item.timestamp|timesince }}</small>
                                     </div>
-                                    <a class="text-black-70" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                    <a class="text-black-70" href="{{ item.get_absolute_url }}">{{ item.title|truncatechars:20 }}</a>
                                 </div>
                             </div>
                         </li>

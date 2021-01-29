@@ -20,12 +20,8 @@ from signal_app.models import UserSignalSubscription
 def profile_view(request):
     user_membership = get_user_membership(request)
     user_subscription = get_user_subscription(request)
-    user_signal_sub_qs = UserSignalSubscription.objects.filter(user=request.user).first()
-    if user_signal_sub_qs:
-        user_signal_sub = user_signal_sub_qs
-    user_copy_trade_sub_qs = CopyTradingSubscription.objects.filter(user=request.user).first()
-    if user_copy_trade_sub_qs:
-        user_copy_trade_sub = user_copy_trade_sub_qs
+    user_signal_sub = UserSignalSubscription.objects.get_user_signal_sub(user=request.user)
+    user_copy_trade_sub = CopyTradingSubscription.objects.get_user_copy_trade_sub(user=request.user)
     context = {
         'user_membership': user_membership,
         'user_subscription': user_subscription,
@@ -34,9 +30,9 @@ def profile_view(request):
         'user_signal_sub': user_signal_sub,
         'user_copy_trade_sub': user_copy_trade_sub,
     }
-    print('user_membership', user_membership.membership.membership_type)
-    print('user_membership', user_membership.membership.membership_type)
-    print('user_subscription', user_subscription)
+    # print('user_membership', user_membership.membership.membership_type)
+    # print('user_membership', user_membership.membership.membership_type)
+    # print('user_subscription', user_subscription)
     return render(request, 'DashBoard/payment/student-account-billing-subscription.html', context)
 
 
@@ -48,12 +44,12 @@ class MemberShipSelectView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         current_membership = get_user_membership(self.request)
         context['current_membership'] = str(current_membership.membership.membership_type)
-        print(current_membership)
+        # print(current_membership)
         return context
 
     def post(self, request, *args, **kwargs):
         selected_membership_type = request.POST.get('membership_type')
-        print(selected_membership_type)
+        # print(selected_membership_type)
         user_membership = get_user_membership(request)
         user_subscription = get_user_subscription(request)
         selected_membership_qs = Membership.objects.filter(
@@ -80,13 +76,13 @@ def payment_view(request):
     user_membership = get_user_membership(request)
     selected_membership = get_selected_membership(request)
     publish_key = settings.STRIPE_PUBLISHABLE_KEY
-    print('The selected', selected_membership)
+    # print('The selected', selected_membership)
     if request.method == 'POST':
         try:
             token = request.POST['stripeToken']
-            print('this is the token', token)
-            print('this is the user_membership customer id ', user_membership.stripe_customer_id)
-            print('this is the strip plan id ', selected_membership.stripe_plan_id)
+            # print('this is the token', token)
+            # print('this is the user_membership customer id ', user_membership.stripe_customer_id)
+            # print('this is the strip plan id ', selected_membership.stripe_plan_id)
 
             customer = stripe.Customer.retrieve(user_membership.stripe_customer_id)
             customer.source = token  # 4242424242424242 for testing
@@ -102,7 +98,7 @@ def payment_view(request):
                 subscription.id,
                 cancel_at_period_end=True
             )
-            print('this is the subscription_id ', subscription.id)
+            # print('this is the subscription_id ', subscription.id)
             return redirect(reverse('memberships:update_transactions',
                                     kwargs={
                                         'subscription_id': subscription.id
@@ -113,8 +109,13 @@ def payment_view(request):
             messages.info(request, 'Network communication with Stripe failed')
         except stripe.error.StripeError as e:
             messages.info(request, 'There was an error we are working on it')
-        except Exception as e:
-            messages.info(request, 'There error was', e)
+        except Exception as a:
+            print(f"""
+======================================
+Error  {a}
+======================================
+                    """)
+            messages.info(request, 'There error was', a)
     context = {
         'publish_key': publish_key,
         'selected_membership': selected_membership
@@ -130,7 +131,7 @@ def update_transactions(request, subscription_id):
     user_membership.save()
     sub, created = Subscription.objects.get_or_create(
         user_membership=user_membership)
-    print('this is the subscription id', subscription_id)
+    # print('this is the subscription id', subscription_id)
     sub.stripe_subscription_id = subscription_id
     sub.active = True
     sub.save()
@@ -140,7 +141,11 @@ def update_transactions(request, subscription_id):
         del request.session['selected_membership_type']
         messages.info(request, f'Successfully created {selected_membership}')
     except Exception as a:
-        print('this is the error', a)
+        print(f"""
+======================================
+Error  {a}
+======================================
+                """)
     return redirect('courses:list')
 
 
@@ -187,9 +192,9 @@ def student_membership_invoice(request):
             'created_at': user_subscription.get_created_date,
             'recent_course': recent_course,
         }
-        print('user_membership', user_membership.membership.membership_type)
-        print('user_membership', user_membership.membership.membership_type)
-        print('user_subscription', user_subscription)
+        # print('user_membership', user_membership.membership.membership_type)
+        # print('user_membership', user_membership.membership.membership_type)
+        # print('user_subscription', user_subscription)
     else:
         context = {
             'user_membership': user_membership,

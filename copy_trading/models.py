@@ -32,11 +32,22 @@ class CopyTrading(models.Model):
         return self.copy_trade_choice
 
 
+class CopyTradingSubscriptionManager(models.Manager):
+
+    def get_user_copy_trade_sub(self, user):
+        user_signal_sub = self.filter(user=user).first()
+        if user_signal_sub:
+            return user_signal_sub
+        else:
+            return None
+
+
 class CopyTradingSubscription(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     stripe_subscription_id = models.CharField(max_length=40)
     copy_trade = models.ForeignKey(CopyTrading, on_delete=models.CASCADE)
     active = models.BooleanField(default=False)
+    objects = CopyTradingSubscriptionManager()
 
     def __str__(self):
         return f"{self.copy_trade.copy_trade_choice} --{self.user}"
@@ -61,30 +72,34 @@ class CopyTradingSubscription(models.Model):
 
 
 # this function deactivate expired copy_trades it sends message to the user whom copy_trades has being deactivated
-def deactivate_copy_trading(copy_trade_subscription):
+def deactivate_copy_trading():
     try:
-        copy_trade_qs = copy_trade_subscription.objects.all()
+        copy_trade_qs = CopyTradingSubscription.objects.all()
         checking = """
-=================================== \n
-checking for expired copy trade \n
-=================================== \n
+=================================
+checking for expired copy trade 
+=================================
                 """
         print(checking)
         for copy_trade in copy_trade_qs:
             if copy_trade.active:
                 print(""" this are the expired copy_trade """, copy_trade.user)
-                if copy_trade.expiring_date < datetime.now():
+                if copy_trade.expiring_date < datetime.now() or copy_trade.expiring_date is None or copy_trade.expiring_date == '':
                     copy_trade.stripe_subscription_id = ''
                     copy_trade.active = False
                     copy_trading_expired_message(copy_trade)
                     copy_trade.save()
     except Exception as a:
-        print('this is the exception ', a)
+        print(f"""
+======================================
+Error  {a}
+======================================
+                """)
     return None
 
 
 # calling function that deactivate expired copy_trades
-deactivate_copy_trading(CopyTradingSubscription)
+# deactivate_copy_trading()
 
 
 # a django copy_trade that automatically send message to the user that has registered on a copy_trade

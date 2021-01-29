@@ -79,8 +79,14 @@ def membership_expired_message(user_membership, user_sub):
 def cancel_user_subscription(request):
     try:
         user_sub = get_user_subscription(request)
+        print("""
+========================================
+checking user academy expiring date
+========================================
+        """)
         if user_sub.active == False:
             print("You dont have an active membership")
+            print(user_sub.get_next_billing_date)
         elif user_sub.get_next_billing_date < datetime.now() or user_sub.get_next_billing_date == '' or user_sub.get_next_billing_date is None:
             user_sub.active = False
             user_sub.save()
@@ -92,5 +98,9 @@ def cancel_user_subscription(request):
         else:
             print('there was an error')
     except Exception as a:
-        print('this is  the error', a)
+        print(f"""
+======================================
+Error  {a}
+======================================
+""")
     return None

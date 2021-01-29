@@ -42,7 +42,9 @@
                                     <label class="col-form-label form-label col-sm-3">Billing cycle</label>
                                     <div class="col-sm-9">
                                         <div class="mb-1">  {% if user_subscription.active != False %}
-                                            <p>Next payment due:
+                                            <p>Created date:
+                                                {{ user_subscription.get_created_date }}</p>
+                                            <p>Expiring date:
                                                 {{ user_subscription.get_next_billing_date }}</p>
                                             <a href="{% url 'memberships:cancel' %}">Cancel subscription </a>
                                             <p class="text-danger lead"><strong>Note:</strong> if you cancel Your

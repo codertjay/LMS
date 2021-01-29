@@ -10,7 +10,6 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, DetailView, UpdateView
 from django.views.generic.base import View
 
-from home_page.mixins import InstructorAndLoginRequiredMixin
 from .forms import ForumAnswerForm, ForumQuestionForm
 from .models import ForumQuestion
 
@@ -43,7 +42,7 @@ class ForumQuestionCreateView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
         form = ForumQuestionForm(self.request.POST)
         print(self.request.POST)
-        print('form:', form.errors)
+        # print('form:', form.errors)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = self.request.user
@@ -80,9 +79,9 @@ def forum_answer_create_view(request, pk=None):
         instance = None
     if request.method == 'POST':
         form = ForumAnswerForm(request.POST)
-        print('The form data :', form)
+        # print('The form data :', form)
         if form.is_valid():
-            print(form.cleaned_data)
+            # print(form.cleaned_data)
             form_data = form.save(commit=False)
             form_data.user = request.user
             form_data.forum_question = instance
@@ -138,7 +137,7 @@ def forum_update_view(request, id=None):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            print('updating the post', request.POST, '\n', instance.user)
+            # print('updating the post', request.POST, '\n', instance.user)
             messages.success(request, 'The form is  valid')
             return HttpResponseRedirect(instance.get_absolute_url())
     else:
