@@ -6,7 +6,6 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
 from memberships.models import Membership, Subscription, UserMembership
-from memberships.views import get_user_subscription, get_user_membership
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER
 
@@ -95,5 +94,3 @@ def cancel_user_subscription(request):
     except Exception as a:
         print('this is  the error', a)
     return None
-
-
