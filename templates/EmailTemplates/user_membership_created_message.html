@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+
+<h3>Hi {% if user_membership.user.first_name %} {{ user_membership.user.first_name }}  -
+    {{ user_membership.user.last_name }} {% else %}{{ user_membership.user.username }}{% endif %},
+</h3>
+<p>
+    It’s great to have you here, thanks for choosing us! I’ll be your guide during this on boarding period. As we learn
+    more
+    about one another, my goal is to ensure you have a positive experience and get the most out of our product/service.
+
+    I’ve attached a [link] mapping out the steps of your on boarding.
+    As a first step, please {follow these instructions} to
+    customize your account. Also, here are some resources you might find useful:
+</p>
+</body>
+</html>
