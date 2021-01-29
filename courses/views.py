@@ -149,23 +149,13 @@ class CourseCreateView(InstructorAndLoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         form = CourseCreateEditForm(self.request.POST, self.request.FILES or None)
-        # print(self.request.POST)
-        # print('form:', form.errors)
         form.image = self.request.POST.get('image')
         form.allowed_memberships = self.request.POST.get('allowed_memberships')
-        # print('these are the allowed membership', form.allowed_memberships)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = self.request.user
-            try:
-                for x in self.request.POST.get('allowed_memberships'):
-                    _membership = Membership.objects.filter(id=x).first()
-                    # print('this is the membership', _membership)
-                    if _membership:
-                        instance.allowed_memberships.add(_membership)
-            except Exception as a:
-                print('there was an error', a)
             instance.save()
+            form.save_m2m()
             messages.success(self.request, 'course have being created')
             return HttpResponseRedirect(instance.get_absolute_url())
 
@@ -181,20 +171,8 @@ def course_update_view(request, slug=None):
     course = Course.objects.filter(user=request.user)
     if form.is_valid():
         instance = form.save(commit=False)
-        # print(instance.slug)
-
-        try:
-            for x in request.POST.get('allowed_memberships'):
-                _membership = Membership.objects.filter(id=x).first()
-                if _membership:
-                    # print('this is the memebrship', _membership)
-                    instance.allowed_memberships.add(_membership)
-                    # print('the instance allowed memberships', instance.allowed_memberships)
-        except Exception as a:
-            print('there was an error', a)
-
         instance.save()
-        # print('updating the post', request.POST, '\n', instance.user)
+        form.save_m2m()
         messages.success(request, 'The form is  valid')
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
@@ -209,7 +187,6 @@ class CourseDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
     template_name = 'DashBoard/instructor/instructor-course-delete.html'
 
 
-
 class LessonCreateView(InstructorAndLoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
@@ -219,18 +196,14 @@ class LessonCreateView(InstructorAndLoginRequiredMixin, View):
 
     def post(self, *args, **kwargs):
         form = LessonCreateEditForm(self.request.POST, self.request.FILES or None)
-        # print(self.request.POST)
-        # print('form:', form.errors)
-        form.image = self.request.POST.get('image')
-        form.video = self.request.POST.get('video')
-
+        form.image = self.request.FILES.get('image')
+        form.video = self.request.FILES.get('video')
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = self.request.user
             instance.save()
             messages.success(self.request, 'Course has being deleted')
             return HttpResponseRedirect(instance.get_absolute_url())
-
         else:
             messages.error(self.request, 'invalid form data')
             return redirect('courses:create_lesson')

@@ -13,7 +13,6 @@ class CourseCreateEditForm(forms.ModelForm):
     image = forms.ImageField(required=True, validators=[FileTypeValidator(
         allowed_types=['image/*']
     )])
-    # description = QuillFormField()
 
     class Meta:
         model = Course
@@ -23,6 +22,11 @@ class CourseCreateEditForm(forms.ModelForm):
             , 'tag'
             , 'description'
                   ]
+
+    # def save(self, commit=True):
+    #     instance = forms.ModelForm.save(self,False)
+    #     old_save_m2m = self.save_m2m
+    #     # fet the unsaved
 
 
 class LessonCreateEditForm(forms.ModelForm):

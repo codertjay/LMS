@@ -72,7 +72,6 @@ class Subscription(models.Model):
             date = None
         return date
 
-
 # def post_save_user_membership_create(sender, instance, created, *args, **kwargs):
 #     if created:
 #         UserMembership.objects.get_or_create(user=instance)
