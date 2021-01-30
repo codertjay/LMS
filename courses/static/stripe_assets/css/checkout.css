@@ -127,8 +127,8 @@ label {
  */
 .StripeElement {
     background-color: white;
-    /*height: 40px;*/
-    padding: 10px 12px;
+    height: 40px;
+    padding: 35px 25px;
     border-radius: 4px;
     border: 1px solid transparent;
     box-shadow: 0 1px 3px 0 #e6ebf1;
@@ -136,7 +136,6 @@ label {
     transition: box-shadow 150ms ease;
     /* my style*/
     min-width: 690px;
-    min-height: 1000px;
 
 }
 input{

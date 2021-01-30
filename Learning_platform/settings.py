@@ -195,10 +195,10 @@ EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
 
 #  handling errors for demo
-# handler404 = 'home_page.views.view_404'
-# handler500 = 'home_page.views.view_500'
-# handler403 = 'home_page.views.view_403'
-# handler400 = 'home_page.views.view_400'
+handler404 = 'home_page.views.view_404'
+handler500 = 'home_page.views.view_500'
+handler403 = 'home_page.views.view_403'
+handler400 = 'home_page.views.view_400'
 
 # for demo create these
 # price_1I7JxZAS6n0shLOq5zD6Jsfn paid membership

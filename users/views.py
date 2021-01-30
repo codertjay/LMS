@@ -10,14 +10,13 @@ from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.views import View
 
-from copy_trading.models import CopyTradingSubscription
+from copy_trading.models import CopyTradingSubscription, deactivate_copy_trading
 from courses.models import RecentCourses, Course
 from forum.models import ForumQuestion
 from memberships.views import get_user_subscription, get_user_membership
-from signal_app.models import UserSignalSubscription
+from signal_app.models import UserSignalSubscription, deactivate_signals
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
-from forum.models import ForumQuestion
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER
 
@@ -56,6 +55,8 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
             course_qs = Course.objects.filter(user=request.user)
             signals = UserSignalSubscription.objects.all()
             copy_trades = CopyTradingSubscription.objects.all()
+            deactivate_signals()
+            deactivate_copy_trading()
             try:
                 most_viewed_qs = Course.objects.all().order_by('-view_count')
                 if most_viewed_qs:
@@ -124,7 +125,7 @@ class UserProfileUpdate(LoginRequiredMixin, View):
         u_form = UserUpdateForm(self.request.POST, instance=self.request.user)
         profile_pics = self.request.FILES.get('profile_pics')
         background_image = self.request.FILES.get('background_image')
-        print(profile_pics,background_image)
+        print(profile_pics, background_image)
         if u_form.is_valid() and p_form.is_valid():
             username = u_form.cleaned_data.get('username')
             email = u_form.cleaned_data.get('email')
@@ -161,7 +162,6 @@ def contactAdminView(request):
             'contact_subject': contact.contact_subject,
             'contact_message': contact.contact_message
         }
-        print('the for is valid')
         content = template.render(context)
         if context:
             send_mail(
@@ -171,7 +171,6 @@ def contactAdminView(request):
                 [EMAIL_HOST_USER],
                 fail_silently=True,
             )
-            print('sent the message', content)
             messages.success(request, 'Your message has being sent we would be in touch with you later ')
             return redirect('home:subscribe')
     print('there was an error sending your message')

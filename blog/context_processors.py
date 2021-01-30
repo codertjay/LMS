@@ -1,9 +1,8 @@
 from copy_trading.models import CopyTrading
+from forum.models import ForumQuestion
 from signal_app.models import SignalType
 from .models import Post
-from forum.models import ForumQuestion
-from copy_trading.models import deactivate_copy_trading
-from signal_app.models import deactivate_signals
+
 
 def monthly_signal():
     monthly_signal_qs = SignalType.objects.filter(signal_choice='Monthly')
@@ -40,8 +39,7 @@ def add_variable_to_context(try_content=None):
     if Post.objects.count() > 6:
         older_posts = Post.objects.all().order_by('id')[3]
 
-    deactivate_signals()
-    deactivate_copy_trading()
+
     copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()
     print('this is the top_forums hhh', top_forums)

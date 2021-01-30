@@ -98,7 +98,7 @@ def payment_view(request):
                 subscription.id,
                 cancel_at_period_end=True
             )
-            # print('this is the subscription_id ', subscription.id)
+            print('this is the subscription_id ', subscription.id)
             return redirect(reverse('memberships:update_transactions',
                                     kwargs={
                                         'subscription_id': subscription.id
@@ -110,12 +110,12 @@ def payment_view(request):
         except stripe.error.StripeError as e:
             messages.info(request, 'There was an error we are working on it')
         except Exception as a:
+            messages.info(request, 'There error was', a)
             print(f"""
 ======================================
 Error  {a}
 ======================================
                     """)
-            messages.info(request, 'There error was', a)
     context = {
         'publish_key': publish_key,
         'selected_membership': selected_membership
@@ -146,7 +146,7 @@ def update_transactions(request, subscription_id):
 Error  {a}
 ======================================
                 """)
-    return redirect('courses:list')
+    return redirect('memberships:profile')
 
 
 @login_required
