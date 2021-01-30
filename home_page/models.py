@@ -10,8 +10,7 @@ class Subscribe(models.Model):
 
 
 class Testimonial(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    title = models.CharField(max_length=40)
+    name = models.CharField(max_length=40)
     image = models.ImageField(blank=True, null=True)
     content = models.TextField()
 

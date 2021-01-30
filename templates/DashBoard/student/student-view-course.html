@@ -1,158 +1,132 @@
-{% extends 'DashBoard/dashboard_base.html' %}
-{% load static %}
-
-{% block title %}
-    Course Detail
-{% endblock title %}
-
-{% block styles %}
-    <link rel="stylesheet" href="{% static 'dashboard/dashboard_base/assets/video/css/player.css' %}"/>
-{% endblock %}
-{% block content %}
-    <div class="container-fluid page__container">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'courses:list' %}">Courses</a></li>
-            <li class="breadcrumb-item active">{{ course.title }}</li>
-        </ol>
-        <h1 class="h2 text-capitalize">{{ course.title }}  {% if lesson %} <br>
-            <small>{{ lesson.title }}</small>{% endif %}</h1>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        {% if lesson %}
-                            <video id="player" playsinline controls data-poster="{{ course.imageURL }}" width="500"
-                                   height="500">
+{% extends 'DashBoard/dashboard_base.html' %} {% load static %} {% block title %} Course Detail {% endblock title %} {% block styles %}
+<link rel="stylesheet" href="{% static 'dashboard/dashboard_base/assets/video/css/player.css' %}" /> {% endblock %} {% block content %}
+<div class="container-fluid page__container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'courses:list' %}">Courses</a></li>
+        <li class="breadcrumb-item active">{{ course.title }}</li>
+    </ol>
+    <h1 class="h2 text-capitalize">{{ course.title }} {% if lesson %} <br>
+        <small>{{ lesson.title }}</small>{% endif %}</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="embed-responsive embed-responsive-16by9">
+                    {% if lesson %}
+                    <video id="player" playsinline controls data-poster="{{ course.imageURL }}" width="500" height="500">
                                 <source src="{{ lesson.videoURL }}" type="video/mp4"/>
+                            </video> {% elif course.lesson_set.count == 0 %}
+                    <video controls poster="{{ course.imageURL }}" width="500" height="500" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">
                             </video>
 
-                        {% elif course.lesson_set.count == 0 %}
-                            <video controls
-                                   poster="{{ course.imageURL }}"
-                                   width="500" height="500" data-toggle="popover" title="Popover Header"
-                                   data-content="Some content inside the popover">
-                            </video>
-
-                            <div class="card">
-                                <div class="card-content">
-                                    <h3 class="text-center text-capitalize">This course has no lesson </h3>
-                                </div>
-                            </div>
-                        {% else %}
-                            <video controls
-                                   poster="{{ course.imageURL }}"
-                                   width="500" height="500" data-toggle="popover" title="Popover Header"
-                                   data-content="Some content inside the popover">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="text-center text-capitalize">This course has no lesson </h3>
+                        </div>
+                    </div>
+                    {% else %}
+                    <video controls poster="{{ course.imageURL }}" width="500" height="500" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">
                                 Sorry your dont have access to video please upgrade memberships
                             </video>
 
 
-                            <div class="card">
-                                <div class="card-content">
-                                    <h3 class="text-center text-capitalize"> please upgrade membership to view this
-                                        course </h3>
-                                    <p class="text-center  text-capitalize">
-                                        click <a href="{% url 'memberships:membership_select' %}">here</a> to upgrade
-                                    </p>
-                                </div>
-                            </div>
-                        {% endif %}
-
-
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="text-center text-capitalize"> please upgrade membership to view this course </h3>
+                            <p class="text-center  text-capitalize">
+                                click <a href="{% url 'memberships:membership_select' %}">here</a> to upgrade
+                            </p>
+                        </div>
                     </div>
+                    {% endif %}
 
 
-                    <ul class="nav nav-pills">
-                        <li class="active">
-                            <a data-toggle="pill" href="#about">
-                                <h3 class=" text-decoration-underline"
-                                    style="padding-left: 20px">About</h3></a>
-                        </li>
-                        <li><a data-toggle="pill" href="#lesson">
-                            <h3 class=" text-decoration-underline"
-                                style="padding-left: 40px">
+                </div>
+
+
+                <ul class="nav nav-pills">
+                    <li class="active">
+                        <a data-toggle="pill" href="#about">
+                            <h3 class=" text-decoration-underline" style="padding-left: 20px">About</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#lesson">
+                            <h3 class=" text-decoration-underline" style="padding-left: 40px">
                                 Lessons
-                            </h3></a>
-                        </li>
-                    </ul>
+                            </h3>
+                        </a>
+                    </li>
+                </ul>
 
-                    <div class="tab-content">
-                        <div id="about" class="tab-pane fade in active show">
-                            <h3 class=" text-decoration-underline text-center">About</h3>
-                            <div class="card-body">
-                                {{ course.description }}
-                            </div>
+                <div class="tab-content">
+                    <div id="about" class="tab-pane fade in active show">
+                        <h3 class=" text-decoration-underline text-center">About</h3>
+                        <div class="card-body">
+                            {{ course.description }}
                         </div>
-                        <div id="lesson" class="tab-pane fade">
-                            <h3 class="text-center text-decoration-underline">Lessons</h3>
-                            <div class="card">
-                                <div class="card-content">
-                                    <ul class="card list-group list-group-fit">
-                                        {% for item in course.lessons %}
-                                            <li class="list-group-item {% if item == lesson %} active {% endif %} ">
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <div class="text-muted">{{ forloop.counter }}.</div>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a href="{{ item.get_absolute_url }}"
-                                                           class="{% if item == lesson %} text-white {% endif %}">{{ item.title }}</a>
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted-light">{{ item.duration }}</small>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                    </div>
+                    <div id="lesson" class="tab-pane fade">
+                        <h3 class="text-center text-decoration-underline">Lessons</h3>
+                        <div class="card">
+                            <div class="card-content">
+                                <ul class="card list-group list-group-fit">
+                                    {% for item in course.lessons %}
+                                    <li class="list-group-item {% if item == lesson %} active {% endif %} ">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <div class="text-muted">{{ forloop.counter }}.</div>
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="{{ item.get_absolute_url }}" class="{% if item == lesson %} text-white {% endif %}">{{ item.title }}</a>
+                                            </div>
+                                            <div class="media-right">
+                                                <small class="text-muted-light">{{ item.duration }}</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                         </div>
                     </div>
+                </div>
 
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="media align-items-center">
+                        <div class="media-left">
+                            <img src="{{ course.user.profile.profilePicsImageURL }}" alt="About Adrian" width="50" class="rounded-circle" style="max-height: 50px">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="card-title"><a href="{% url 'users:profile' course.user.username %}">{{ course.user.first_name }}
+                                    - {{ course.user.last_name }}</a></h5>
+                            <p class="card-subtitle">{{ course.user.profile.user_type }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-muted">
+                    <p>{{ course.user.profile.about|truncatewords:20 }}</p>
+                    <a href="#" class="btn btn-light" target="_blank"><i
+                                class="fab fa-twitter"></i></a>
+                    <a href="#" class="btn btn-light" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
                 </div>
             </div>
-
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
+            <div class="card">
+                <ul class="list-group list-group-fit">
+                    <li class="list-group-item">
                         <div class="media align-items-center">
                             <div class="media-left">
-                                <img src="{{ course.user.profile.profilePicsImageURL }}"
-                                     alt="About Adrian" width="50"
-                                     class="rounded-circle" style="max-height: 50px">
+                                <i class="fa fa-adversal text-muted-light"></i>
                             </div>
                             <div class="media-body">
-                                <h5 class="card-title"><a
-                                        href="{% url 'users:profile' course.user.username %}">{{ course.user.first_name }}
-                                    - {{ course.user.last_name }}</a></h5>
-                                <p class="card-subtitle">{{ course.user.profile.user_type }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body text-muted">
-                        <p>{{ course.user.profile.about|truncatewords:20 }}</p>
-                        <a href="{{ course.user.profile.twitter_url }}" class="btn btn-light" target="_blank"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="{{ course.user.profile.instagram_url }}" class="btn btn-light" target="_blank"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="{{ course.user.profile.github_url }}" class="btn btn-light" target="_blank"><i
-                                class="fab fa-github"></i></a>
-                        <a href="{{ course.user.profile.linkedin_url }}" class="btn btn-light" target="_blank"><i
-                                class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="card">
-                    <ul class="list-group list-group-fit">
-                        <li class="list-group-item">
-                            <div class="media align-items-center">
-                                <div class="media-left">
-                                    <i class="fa fa-adversal text-muted-light"></i>
-                                </div>
-                                <div class="media-body">
-                                 <span class="badge {% if course.tag == 'Advance' %}
+                                <span class="badge {% if course.tag == 'Advance' %}
                                         badge-danger
                                 {% elif course.tag == 'Professional' %}
                                              badge-warning
@@ -160,63 +134,63 @@
                                          badge-success
                             {% endif %} ">{{ course.tag }}
                                  </span>
-                                </div>
                             </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media align-items-center">
-                                <div class="media-left">
-                                    <i class="fa fa-clock-o text-muted-light"></i>
-                                </div>
-                                <div class="media-body">
-                                    <small class="text-muted"> {{ course.course_duration }} </small>hrs
-                                    /</small></small>/min </small>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Ratings</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
                         </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="media align-items-center">
+                            <div class="media-left">
+                                <i class="fa fa-clock-o text-muted-light"></i>
+                            </div>
+                            <div class="media-body">
+                                <small class="text-muted"> {{ course.course_duration }} </small>hrs /
+                                </small>
+                                </small>/min </small>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Ratings</h4>
+                </div>
+                <div class="card-body">
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-{% endblock content %}
+{% endblock content %} {% block script %}
+<script src="{% static 'dashboard/dashboard_base/assets/video/js/player.js' %}"></script>
 
-{% block script %}
-    <script src="{% static 'dashboard/dashboard_base/assets/video/js/player.js' %}"></script>
-
-    <script>
-        const player = new player ('#player');
-        var video = document.getElementsByTagName ('video')[0];
-        {#var video = document.getElementsByClassName ('video');#}
-        var previousTime = 0;
-        video.addEventListener ('timeUpdate' , function (event) {
-            previousTime = video.currentTime
-            console.log ('the previous time' , previousTime)
-        })
-        video.addEventListener ('seeking' , function (event) {
-            if (video.currentTime > previousTime) {
-                video.currentTime = previousTime;
-            }
-        })
-        $ (document).ready (function () {
-            $ ('[data-toggle="popover"]').popover ();
-        });
-    </script>
+<script>
+    const player = new player('#player');
+    var video = document.getElementsByTagName('video')[0]; {#
+        var video = document.getElementsByClassName('video');#
+    }
+    var previousTime = 0;
+    video.addEventListener('timeUpdate', function(event) {
+        previousTime = video.currentTime
+        console.log('the previous time', previousTime)
+    })
+    video.addEventListener('seeking', function(event) {
+        if (video.currentTime > previousTime) {
+            video.currentTime = previousTime;
+        }
+    })
+    $(document).ready(function() {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
 
 
 {% endblock script %}

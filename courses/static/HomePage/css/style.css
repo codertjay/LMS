@@ -36,7 +36,7 @@
 
 @font-face {
     font-family: 'handwritting';
-    src: url('../fonts/best_stories/BestStories.otf');
+    src: url('/fonts/best_stories/BestStories.otf');
     font-weight: normal;
     font-style: normal;
 }
@@ -2865,6 +2865,21 @@ span.divider {
     padding: 0 10px;
     border-radius: 20px;
     border: 0;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.gtco-testimonials .card::-webkit-scrollbar {
+    width: 10px;
+}
+
+.gtco-testimonials .card::-webkit-scrollbar-track {
+    background: #eee;
+}
+
+.gtco-testimonials .card::-webkit-scrollbar-thumb {
+    background-color: #0bc2ef;
+    border-radius: 10px;
 }
 
 .gtco-testimonials .card .card-img-top {

@@ -27,10 +27,6 @@ class Profile(models.Model):
     profile_pics = models.ImageField(upload_to='profile', default='profile_pics/profile.jpg')
     background_image = models.ImageField(upload_to='profile', default='profile_pics/background.jpg')
     about = models.TextField(max_length=500, blank=True, null=True)
-    twitter_url = models.URLField(blank=True, null=True)
-    instagram_url = models.URLField(blank=True, null=True)
-    github_url = models.URLField(blank=True, null=True)
-    linkedin_url = models.URLField(blank=True, null=True)
     applied_courses = models.ManyToManyField(Course,
                                              related_name='applied_courses', blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
