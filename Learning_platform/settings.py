@@ -11,7 +11,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 if DEBUG:
@@ -38,7 +37,6 @@ INSTALLED_APPS = [
     'signal_app',
     'copy_trading',
 
-    'markdown_deux',
     'upload_validator',
     'pagedown',
     'import_export',
@@ -99,15 +97,12 @@ if DEBUG:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'djangodatabase',
-            'USER': 'dbadmin',
-            'PASSWORD': '12345',
-            'HOST': 'localhost',
-            'PORT': '3306',
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-            }
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('POSTGRESDB_NAME', default=''),
+            'USER': config('POSTGRESDB_USER', default=''),
+            'PASSWORD': config('POSTGRESDB_PASSWORD', default=''),
+            'HOST': config('POSTGRESDB_HOST', default=''),
+            'PORT': '',
         }
     }
 
