@@ -35,7 +35,7 @@ psycopg2-binary==2.8.6
 pycparser==2.20
 PyJWT==2.0.0
 python-decouple==3.4
-python-magic-bin==0.4.14
+# python-magic-bin==0.4.14
 python3-openid==3.2.0
 pytz==2020.5
 PyYAML==5.3.1

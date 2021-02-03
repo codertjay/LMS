@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'signal_app',
     'copy_trading',
 
-    # 'upload_validator',
+    'upload_validator',
     'pagedown',
     'import_export',
     'crispy_forms',
