@@ -14,9 +14,9 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 if DEBUG:
-    ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+    ALLOWED_HOSTS = ['127.0.0.1', '.localhost', 'localhost']
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'signal_app',
     'copy_trading',
 
-    'upload_validator',
+    # 'upload_validator',
     'pagedown',
     'import_export',
     'crispy_forms',
