@@ -90,6 +90,7 @@ class TestimonialCreateView(InstructorAndLoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super(TestimonialCreateView, self).get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
+        context['page_content'] ="Create"
         return context
 
 
@@ -102,6 +103,9 @@ class TestimonialUpdateView(InstructorAndLoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(TestimonialUpdateView, self).get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
+        context['page_content'] ="Update"
+        
+        
         return context
 
 

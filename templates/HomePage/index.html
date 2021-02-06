@@ -147,7 +147,7 @@
                             <div class="content-card ">
                                 <h3>Seasoned Professionals You Can count on </h3>
                                 <p><strong> AssassinFX </strong>is a team of qualified multi-national professionals with nearly 10 years of experience in stocks, trading, and investments. For us, nothing is more important than ensuring that our members have
-                                    the right knowledge, skills, and market understanding to make informed decisions when investing and trading  with your OWN money. </p>
+                                    the right knowledge, skills, and market understanding to make informed decisions when investing and trading with your OWN money. </p>
                             </div>
                             <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative3.png ' %}" alt=" "></div>
                         </div>
@@ -337,13 +337,15 @@
 
                     </ul>
                     <div class="price-box ">
+                        {% if paid_membership %}
                         <div class="pr-total ">
-                            <p><span class="d-price ">$500</span>/mo</p>
+                            <p><span class="d-price ">${{paid_membership.discount}}</span>/mo</p>
                         </div>
                         <div class="pr-total ">
-                            <p><span>$450</span></p>
+                            <p><span>${{paid_membership.price}}</span></p>
                             <!--<span>(10% Discount for yearly)</span>--></div>
                     </div>
+                    {% endif %}
                     <a href="{% url 'memberships:membership_select' %}" class="btn btn-primary w-100 ">Buy Now</a>
                 </div>
             </div>
@@ -506,7 +508,7 @@
     <div class="container">
         <div class="caption">
             <h3 class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;">
-                Frequently Asked Questions</h3>
+                Blog</h3>
             <p class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;"></p>
         </div>
         <div class="blog-content wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;">

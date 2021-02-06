@@ -1,56 +1,39 @@
-{% extends 'HomePage/home_base.html' %}
-{% load static %}
-{% block title %}
-    Pricing || ForexTrading
-{% endblock title %}
-
-
-{% block content %}
-    <!--Select Links End-->
-    <section class="pricing-table">
-        <div id="smartwizard">
-            <ul class="step-links">
-                <li><a href="#step-1"><span> <small>1</small><i class="far fa-check"></i></span> Select Your Plan</a>
-                </li>
-                <li><a href="#step-2"><span><small>2</small><i class="far fa-check"></i></span>Payment Checkout</a></li>
-                <li><a href="#step-3"><span><small>3</small><i class="far fa-check"></i></span>Payment Confirmation</a>
-                </li>
-            </ul>
-            <div class="container mx-auto pr-wrapper">
-                <div id="step-1" class="">
-                    <div class="wrapper-step">
-                        <div class="table-responsive">
-                            <table class="table table-header">
-                                <tbody>
+{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} Pricing || ForexTrading {% endblock title %} {% block content %}
+<!--Select Links End-->
+<section class="pricing-table">
+    <div id="smartwizard">
+        <ul class="step-links">
+            <li><a href="#step-1"><span> <small>1</small><i class="far fa-check"></i></span> Select Your Plan</a>
+            </li>
+            </li>
+        </ul>
+        <div class="container mx-auto pr-wrapper">
+            <div id="step-1" class="">
+                <div class="wrapper-step">
+                    <div class="table-responsive">
+                        <table class="table table-header">
+                            <tbody>
                                 <tr>
                                     <td class="bg-white">
-                                        <div class="gurannte-box"><img
-                                                src="{% static 'dashboard/dashboard_base/assets/images/gurantee-img.png' %}"
-                                                alt="">
+                                        <div class="gurannte-box"><img src="{% static 'dashboard/dashboard_base/assets/images/gurantee-img.png' %}" alt="">
                                             <h4>100% No-Risk Guarantee</h4>
-                                            <p>if you are not fully satisfied, request to cancel within 7 days of your
-                                                purchase and receive a full refund.</p>
+                                            <p>if you are not fully satisfied, request to cancel within 7 days of your purchase and receive a full refund.</p>
                                         </div>
                                     </td>
 
                                     <td class="bg-lightblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img
-                                                    src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}"
-                                                    alt=""></div>
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
                                             <h4>Forex Academy</h4>
-                                            <div class="pr-my"><span><b>$50</b>/mo</span> <span><b>$450</b>/yr</span>
+                                            <div class="pr-my">${{paid_membership.price}}</span>
                                             </div>
-                                            <p>(10% discount for yearly)</p>
-                                            <a href="{% url 'memberships:membership_select' %}"
-                                               class="btn btn_default ">Subscribe Now</a></div>
+                                            <p>(One time payment)</p>
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
                                     </td>
 
                                     <td class="bg-darkblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img
-                                                    src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}"
-                                                    alt=""></div>
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}" alt=""></div>
                                             <h4>Signal Services </h4>
                                             <div class="pr-my"><span><b>$140</b>/mo</span> <span><b>$1100</b>/yr</span>
                                             </div>
@@ -60,26 +43,23 @@
                                     </td>
 
                                     {% if copy_trade %}
-                                        <td class="bg-lightblue">
-                                            <div class="card-subs">
-                                                <div class="img-holder"><img
-                                                        src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}"
-                                                        alt=""></div>
-                                                <h4>Copy Trading </h4>
-                                                <div class="pr-my"><span><b>${{ copy_trading.price }}</b>/mo</span>
-                                                    <span><b>$3000</b>/yr</span>
-                                                </div>
-                                                <p>(10% discount for yearly)</p>
-                                                <a href="{% url 'copy_trade:copy_trade_payment' copy_trade.copy_trade_choice %}"
-                                                   class="btn btn_default ">Subscribe Now</a></div>
-                                        </td>
+                                    <td class="bg-lightblue">
+                                        <div class="card-subs">
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}" alt=""></div>
+                                            <h4>Copy Trading </h4>
+                                            <div class="pr-my"><span><b>${{ copy_trading.price }}</b>/mo</span>
+                                                <span><b>$3000</b>/yr</span>
+                                            </div>
+                                            <p>(10% discount for yearly)</p>
+                                            <a href="{% url 'copy_trade:copy_trade_payment' copy_trade.copy_trade_choice %}" class="btn btn_default ">Subscribe Now</a></div>
+                                    </td>
                                     {% endif %}
 
                                 </tr>
-                                </tbody>
-                            </table>
-                            <table class="table table-content">
-                                <tbody>
+                            </tbody>
+                        </table>
+                        <table class="table table-content">
+                            <tbody>
                                 <tr>
                                     <td>Number of Guaranteed Trading Alerts Weekly</td>
                                     <td><span class="txtb">none</span></td>
@@ -141,8 +121,7 @@
                                             <div class="pr-my"><span><b>$50</b>/mo</span> <span><b>$450</b>/yr</span>
                                             </div>
                                             <p>(10% discount for yearly)</p>
-                                            <a href="{% url 'memberships:membership_select' %}"
-                                               class="btn btn_default ">Subscribe Now</a></div>
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
                                     </td>
                                     <td>
                                         <div class="card-subs">
@@ -153,136 +132,28 @@
                                     </td>
 
                                     {% if copy_trade %}
-                                        <td>
-                                            <div class="card-subs">
-                                                <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
-                                                    <span><b>$3000</b>/yr</span>
-                                                </div>
-                                                <p>(10% discount for yearly)</p>
-                                                <a href="{% url 'copy_trade:copy_trade_payment' copy_trade.copy_trade_choice %}"
-                                                   class="btn btn_default ">Subscribe Now</a></div>
-                                        </td>
+                                    <td>
+                                        <div class="card-subs">
+                                            <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
+                                                <span><b>$3000</b>/yr</span>
+                                            </div>
+                                            <p>(10% discount for yearly)</p>
+                                            <a href="{% url 'copy_trade:copy_trade_payment' copy_trade.copy_trade_choice %}" class="btn btn_default ">Subscribe Now</a></div>
+                                    </td>
                                     {% endif %}
                                 </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div id="step-2" class="">
-                    <div class="wrapper-step">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <form action="" class="cst-form">
-                                    <h3 class="heading3">Personal Details</h3>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">First Name</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">First Name</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Email</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Age</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-40">
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Telegram ID <span> (not required)</span> </label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Phone Number<span>(Optional) </span> </label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h3 class="heading3">Personal Details</h3>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Card Number </label>
-                                                <input type="text" class="form-control"
-                                                       placeholder="xxxx-xxxx-xxxx-xxxx">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group ">
-                                                <label for="">Expiration </label>
-                                                <input type="text" class="form-control" placeholder="mm/yy">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group ">
-                                                <label for="">Expiration </label>
-                                                <input type="text" class="form-control" placeholder="mm/yy">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="order-box">
-                                    <h3 class="heading3">Order Summary</h3>
-                                    <div class="order-c">
-                                        <h3>Email</h3>
-                                        <p>text02154@gmail.com</p>
-                                    </div>
-                                    <div class="order-c">
-                                        <h3>Plan</h3>
-                                        <p>US Stock</p>
-                                        <p><b>$50</b>/mo | <b>$540</b>/yr</p>
-                                        <p>(10% discount for yearly)</p>
-                                    </div>
-                                    <div class="total ">
-                                        <p><strong>Sub Total</strong> <span> <b> $50</b>/mo | <b>$540</b>/yr</span></p>
-                                        <p><strong>Total</strong> <span> <b> $50</b>/mo | <b>$540</b>/yr</span></p>
-                                    </div>
-                                    <a href="#" class="btn btn-primary w-100">Pay Now</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="step-3" class="">
-                    <div class="wrapper-step step-finsh">
-                        <div class="payment-confirm text-center"><img
-                                src="{% static 'dashboard/dashboard_base/assets/images/check.png' %}" alt=""> <small>Ahoy!
-                            Please
-                            come aboard!</small>
-                            <h3>Your payment has been confirmed! </h3>
-                            <p>Welcome to your new pathway towards financial freedom! We’re glad you’ve decided to make
-                                the journey. Now, let us guide you down the path! </p>
-                            <a href="#" class="btn btn-primary">Go to Dashboard</a></div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!--Section Footer Start-->
-{% endblock content %}
 
-{% block script %}
-    <script>
+        </div>
+    </div>
+</section>
+<!--Section Footer Start-->
+{% endblock content %} {% block script %}
+<!-- <script>
         $ (document).ready (function () {
             $ ('#smartwizard').smartWizard ({
                 showStepURLhash: false ,
@@ -296,6 +167,5 @@
 
 
         });
-    </script>
+    </script> -->
 {% endblock script %}
-

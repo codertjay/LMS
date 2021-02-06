@@ -1,114 +1,97 @@
-{% extends 'HomePage/home_base.html' %}
-{% load static %}
+{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} Copy trade {% endblock %} {% block style %}
 
-{% block title %}
-    Copy trade
-{% endblock %}
-{% block style %}
+<link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}"> {% endblock %} {% block content %}
+<!--Select Links End-->
+<section class="pricing-table">
+    <div id="smartwizard">
+        <ul class="step-links">
+            <li><a href="#step-2"><span><small>1</small><i class="far fa-check"></i></span>Payment Checkout</a></li>
+            <li><a href="#"><span><small>2</small><i class="far fa-check"></i></span>Payment Confirmation</a>
+            </li>
+        </ul>
+        <div class="container mx-auto pr-wrapper">
+            <div id="step-2" class="">
+                <div class="wrapper-step">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            {% comment %} stripe script{% endcomment %}
 
-    <link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}">
+                            <script src="https://js.stripe.com/v3/"></script>
 
-{% endblock %}
+                            {% comment %} end {% endcomment %}
+                            <form action="." method="post" id="payment-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="copy_trade" value="{{ copy_trade.copy_trade_choice }}" id="id_copy_trade">
+                                <h3 class="heading3">Personal Details</h3>
 
-{% block content %}
-    <!--Select Links End-->
-    <section class="pricing-table">
-        <div id="smartwizard">
-            <ul class="step-links">
-                <li><a href="#step-2"><span><small>1</small><i class="far fa-check"></i></span>Payment Checkout</a></li>
-                <li><a href="#"><span><small>2</small><i class="far fa-check"></i></span>Payment Confirmation</a>
-                </li>
-            </ul>
-            <div class="container mx-auto pr-wrapper">
-                <div id="step-2" class="">
-                    <div class="wrapper-step">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                {% comment %} stripe script{% endcomment %}
-
-                                <script src="https://js.stripe.com/v3/"></script>
-
-                                {% comment %} end {% endcomment %}
-                                <form action="." method="post" id="payment-form">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="copy_trade" value="{{ copy_trade.copy_trade_choice }}"
-                                           id="id_copy_trade">
-                                    <h3 class="heading3">Personal Details</h3>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">First Name</label>
-                                                <input type="text" name="first_name" id="id_first_name"
-                                                       value="{{ request.user.first_name }}"
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Last Name</label>
-                                                <input type="text" name="last_name" id="id_last_name"
-                                                       value="{{ request.user.last_name }}"
-                                                       class="form-control">
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label for="">First Name</label>
+                                            <input type="text" name="first_name" id="id_first_name" value="{{ request.user.first_name }}" class="form-control">
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label for="">Last Name</label>
+                                            <input type="text" name="last_name" id="id_last_name" value="{{ request.user.last_name }}" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
 
-                                    <h1 class="text-center h1_size" >Card details</h1>
-                                    <div class="row">
-                                        <div class="form-row">
-                                            <label for="card-element">
+                                <h1 class="text-center h1_size">Card details</h1>
+                                <div class="row">
+                                    <div class="form-row">
+                                        <label for="card-element">
                                               <h4>  Credit or debit card</h4>
                                             </label>
-                                            <div id="card-element">
-                                                <!-- A Stripe Element will be inserted here. -->
-                                            </div>
-                                            <!-- Used to display form errors. -->
-                                            <div id="card-errors" role="alert"></div>
+                                        <div id="card-element">
+                                            <!-- A Stripe Element will be inserted here. -->
                                         </div>
-                                        <button>Submit Payment</button>
+                                        <!-- Used to display form errors. -->
+                                        <div id="card-errors" role="alert"></div>
                                     </div>
-                                </form>
+                                    <button>Submit Payment</button>
+                                </div>
+                            </form>
 
-                              {% comment %}  <div id="stripe-token-handler " class="">Success! Got token:
-                                    <span class="token"></span>
-                                </div>{% endcomment %}
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="order-box">
-                                    <h3 class="heading3">Order Summary</h3>
-                                    <div class="order-c">
-                                        <h3>Email</h3>
-                                        <p>{{ request.user.email }}</p>
-                                    </div>
-                                    <div class="order-c">
-                                        <h3>Plan</h3>
-                                        <p>US Stock</p>
-                                        <p><span
-                                                class="text-decoration-line-through">${{ copy_trade.discount }}</span>/{{ copy_trade.copy_trade_choice }}
-                                            |
-                                            <b>${{ copy_trade.price }}</b>/{{ copy_trade.copy_trade_choice }}</p>
-                                    </div>
-                                    <div class="total ">
-                                        <p><strong>Total</strong>
-                                            <span> <b> ${{ copy_trade.discount }}</b>/mo | <b>${{ copy_trade.price }}</b>/{{ copy_trade.copy_trade_choice }}</span>
-                                        </p>
-                                    </div>
-                                    <a href="#" class="btn btn-primary w-100 disabled">Pay Now</a></div>
+                            {% comment %}
+                            <div id="stripe-token-handler " class="">Success! Got token:
+                                <span class="token"></span>
+                            </div>{% endcomment %}
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="order-box">
+                                <h3 class="heading3">Order Summary</h3>
+                                <div class="order-c">
+                                    <h3>Email</h3>
+                                    <p>{{ request.user.email }}</p>
+                                </div>
+                                <div class="order-c">
+                                    <h3>Plan</h3>
+                                    <p>US Stock</p>
+                                    <p><span class="text-decoration-line-through">${{ copy_trade.discount }}</span>/{{ copy_trade.copy_trade_choice }} |
+                                        <b>${{ copy_trade.price }}</b>/{{ copy_trade.copy_trade_choice }}</p>
+                                </div>
+                                <div class="total ">
+                                    <p><strong>Total</strong>
+                                        <span> <b style="color: #444;">
+                                                ${{ copy_trade.discount }}</b>/mo |
+                                                <b>${{ copy_trade.price }}
+
+                                                </b>/{{ copy_trade.copy_trade_choice }}</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--Section Footer Start-->
-{% endblock content %}
-
-{% block script %}
-    <!-- script for the stripe form -->
-    <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
+</section>
+<!--Section Footer Start-->
+{% endblock content %} {% block script %}
+<!-- script for the stripe form -->
+<script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
 
 {% endblock script %}
-
-

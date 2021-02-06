@@ -2,7 +2,7 @@ from copy_trading.models import CopyTrading
 from forum.models import ForumQuestion
 from signal_app.models import SignalType
 from .models import Post
-
+from memberships.models import Membership
 
 def monthly_signal():
     monthly_signal_qs = SignalType.objects.filter(signal_choice='Monthly')
@@ -42,6 +42,7 @@ def add_variable_to_context(try_content=None):
 
     copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()
+    paid_membership = Membership.objects.get_membership('Paid')
     print('this is the top_forums hhh', top_forums)
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
@@ -50,6 +51,7 @@ def add_variable_to_context(try_content=None):
             'quarterly_signal': quarterly_signal,
             'yearly_signal': yearly_signal,
             'top_forums': top_forums,
+            'paid_membership': paid_membership,
             # copy trading
             'copy_trade': copy_trading,
             }

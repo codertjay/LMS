@@ -1,144 +1,113 @@
-{% extends 'DashBoard/dashboard_base.html' %}
-{% load i18n %}
-{% load static %}
-{#{% load course_rating %}#}
-
-{% block title %}
-    Browse Course
-{% endblock title %}
-
-{% block content %}
-    <div class="container-fluid page__container">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-            <li class="breadcrumb-item active">Courses</li>
-        </ol>
-        <div class="media align-items-center mb-headings">
-            <div class="media-body">
-                <h3 class="font-italic">Browse Course</h3>
-            </div>
+{% extends 'DashBoard/dashboard_base.html' %} {% load i18n %} {% load static %} {#{% load course_rating %}#} {% block title %} Browse Course {% endblock title %} {% block content %}
+<div class="container-fluid page__container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Courses</li>
+    </ol>
+    <div class="media align-items-center mb-headings">
+        <div class="media-body">
+            <h3 class="">Browse Course</h3>
         </div>
-        <div class="card card-body border-left-3 border-left-primary navbar-shadow mb-4 card_shadow">
-            <form action="{% url 'courses:list' %}" method="get">
-                <div class="d-flex flex-wrap2 align-items-center mb-headings">
-                    <div class="flex search-form ml-3 search-form--light">
-                        <input type="text" name="search" id="id_search" class="form-control"
-                               placeholder="Search courses"
-                               id="searchSample02">
-                        <button class="btn" type="submit" role="button"><i class="fa fa-search fa-2x text-info"></i>
+    </div>
+    <div class="card card-body border-left-3 border-left-primary navbar-shadow mb-4 card_shadow">
+        <form action="{% url 'courses:list' %}" method="get">
+            <div class="d-flex flex-wrap2 align-items-center mb-headings">
+                <div class="flex search-form ml-3 search-form--light">
+                    <input type="text" name="search" id="id_search" class="form-control" placeholder="Search courses" id="searchSample02">
+                    <button class="btn" type="submit" role="button"><i class="fa fa-search fa-2x text-info"></i>
                         </button>
-                    </div>
                 </div>
+            </div>
 
-            </form>
-        </div>
-        <div class="clearfix"></div>
-        <div class="card-columns">
+        </form>
+    </div>
+    <div class="clearfix"></div>
+    <div class="card-columns">
 
-            {% for course in object_list %}
-                <div class="card card_shadow">
-                    <div class="card-header text-center">
-                        <h4 class="card-title mb-0 text-capitalize"><a
-                                href="{{ course.get_absolute_url }}">{{ course.title }}</a></h4>
-                    </div>
-                    <a href="{{ course.get_absolute_url }}">
+        {% for course in object_list %}
+        <div class="card card_shadow">
+            <div class="card-header text-center">
+                <h4 class="card-title mb-0 text-capitalize"><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></h4>
+            </div>
+            <a href="{{ course.get_absolute_url }}">
 
-                        <img src="{{ course.imageURL }}" alt="Card image cap" style="width:100%;">
-                    </a>
-                    <div class="card-body">
-                        <br>{{ course.description|truncatewords:10 }}...<br>
-                        <span class="badge {% if course.tag == 'Advance' %}
+                <img src="{{ course.imageURL }}" alt="Card image cap" style="width:100%;">
+            </a>
+            <div class="card-body">
+                <br>{{ course.description|truncatewords:10 }}...<br>
+                <span class="badge {% if course.tag == 'Advance' %}
                                 badge-danger
                         {% elif course.tag == 'Professional' %}
                                      badge-warning
                         {% else %}
                                  badge-success
-                            {% endif %} ">{{ course.tag }}</span>
-
-                        {% for member in course.allowed_memberships.all %}
-                            <span class="badge {% if member == 'Paid' %}
+                            {% endif %} ">{{ course.tag }}</span> {% for member in course.allowed_memberships.all %}
+                <span class="badge {% if member == 'Paid' %}
                              badge-danger
                              {% elif member == 'Free' %}
                              badge-warning
                              {% else %}
                              badge-success
-                            {% endif %} ">{{ member }}</span>
-                        {% endfor %}
+                            {% endif %} ">{{ member }}</span> {% endfor %}
 
-                        <a class="text-center"
-                           href="{{ course.get_absolute_url }}">
-                                <span class=" badge badge-warning "
-                                      style="font-size: larger">
+                <a class="text-center" href="{{ course.get_absolute_url }}">
+                    <span class=" badge badge-warning " style="font-size: larger">
                                     {% if course in request.user.profile.applied_courses.all %}
                                         Continue
                                     {% else %}
                                         Apply
                                     {% endif %}
                                     </span>
-                            <span class="pull-right float-right text-info "> <i
+                    <span class="pull-right float-right text-info "> <i
                                     class="fa fa-eye "></i>{{ course.view_count }} </span>
-                        </a>
+                </a>
 
-                    </div>
-                </div>
-            {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+    <!-- Pagination -->
+    <ul class="pagination justify-content-center pagination-sm">
+        <div class="d-flex justify-content-center">
+            <nav aria-label="...">
+                {% if is_paginated %}
+
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item pr-2 fa-2x ">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled  pr-2  fa-2x">
+                        <span class="page-link"><i class="fa fa-chevron-left"></i></span>
+                    </li>
+                    {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                    <li class="page-item active " aria-current="page">
+                        <span class="page-link">{{ i }} </span>
+                    </li>
+                    {% else %}
+                    <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    {% endif %} {% endfor %} {% if page_obj.has_next %}
+                    <li class="page-item pl-2  fa-2x">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                                            class="fa fa-chevron-right"></i></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled pl-2  fa-2x">
+                        <span class="page-link"><i class="fa fa-chevron-right"></i></span>
+                    </li>
+
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
 
         </div>
 
-
-        <!-- Pagination -->
-        <ul class="pagination justify-content-center pagination-sm">
-            <div class="d-flex justify-content-center">
-                <nav aria-label="...">
-                    {% if is_paginated %}
-
-                        <ul class="pagination">
-                            {% if page_obj.has_previous %}
-                                <li class="page-item pr-2 fa-2x ">
-                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"
-                                       aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
-                                </li>
-                            {% else %}
-                                <li class="page-item disabled  pr-2  fa-2x">
-                                    <span class="page-link"><i class="fa fa-chevron-left"></i></span>
-                                </li>
-                            {% endif %}
-                            {% for i in paginator.page_range %}
-
-                                {% if page_obj.number == i %}
-                                    <li class="page-item active " aria-current="page">
-                                        <span class="page-link">{{ i }} </span>
-                                    </li>
-                                {% else %}
-                                    <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-
-                            {% if page_obj.has_next %}
-                                <li class="page-item pl-2  fa-2x">
-                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
-                                            class="fa fa-chevron-right"></i></a>
-                                </li>
-                            {% else %}
-                                <li class="page-item disabled pl-2  fa-2x">
-                                    <span class="page-link"><i class="fa fa-chevron-right"></i></span>
-                                </li>
-
-                            {% endif %}
-                        </ul>
-                    {% endif %}
-                </nav>
-
-            </div>
-
-        </ul>
-    </div>
-{% endblock content %}
-
-
-{% block script %}
-
-{% endblock script %}
-
-
+    </ul>
+</div>
+{% endblock content %} {% block script %} {% endblock script %}
