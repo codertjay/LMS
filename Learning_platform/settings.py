@@ -190,7 +190,6 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
-EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
 
 #  handling errors for demo
@@ -198,7 +197,10 @@ handler404 = 'home_page.views.view_404'
 handler500 = 'home_page.views.view_500'
 handler403 = 'home_page.views.view_403'
 handler400 = 'home_page.views.view_400'
-
+ADMINS = (
+    ('You', 'begintjay@email.com'),
+)
+MANAGERS = ADMINS
 # for demo create these
 # price_1I7JxZAS6n0shLOq5zD6Jsfn paid membership
 
