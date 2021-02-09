@@ -45,8 +45,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = [
             'profile_pics',
-            'background_image',
-             'status', 'about', ]
+            'background_image', 'about', ]
 
 
 class UserUpdateForm(forms.ModelForm):

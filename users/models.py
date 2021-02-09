@@ -31,7 +31,6 @@ class Profile(models.Model):
                                              related_name='applied_courses', blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     about = models.TextField()
-    status = models.CharField(max_length=200)
 
     def __str__(self):
         return f"{self.user.first_name} - {self.user.last_name} -({self.user.username})"
