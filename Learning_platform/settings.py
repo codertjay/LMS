@@ -198,7 +198,7 @@ handler500 = 'home_page.views.view_500'
 handler403 = 'home_page.views.view_403'
 handler400 = 'home_page.views.view_400'
 ADMINS = (
-    ('You', 'begintjay@email.com'),
+    ('codertjay', 'begintjay@email.com'),
 )
 MANAGERS = ADMINS
 # for demo create these
