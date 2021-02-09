@@ -6,6 +6,7 @@
 @import "animate.css";
 @import "smart_wizard.css";
 @import "breaking-news-ticker.min.css";
+
 @font-face {
     font-family: 'Mont-Regular';
     src: url('../fonts/Mont-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/Mont-Regular.woff') format('woff'), url('../fonts/Mont-Regular.ttf') format('truetype'), url('../fonts/Mont-Regular.svg#Mont-Regular') format('svg');
@@ -36,7 +37,7 @@
 
 @font-face {
     font-family: 'handwritting';
-    src: url('/fonts/best_stories/BestStories.otf');
+    src: url('/courses/static/HomePage/fonts/best_stories/BestStories.otf');
     font-weight: normal;
     font-style: normal;
 }
@@ -376,7 +377,7 @@ HERO SECTION
 
 .btn-light:not(:disabled):not(.disabled).active,
 .btn-light:not(:disabled):not(.disabled):active,
-.show>.btn-light.dropdown-toggle {
+.show > .btn-light.dropdown-toggle {
     box-shadow: none;
     background-color: #1d1d1d;
     color: #fff;
@@ -758,8 +759,7 @@ OUR PRODUCT
 }
 
 .price-box .pr-total:last-child {
-    border-right: none;
-    ;
+    border-right: none;;
 }
 
 .price-box .pr-total p {
@@ -799,7 +799,7 @@ OUR PRODUCT
 
 .btn.btn-primary:not(:disabled):not(.disabled).active,
 .btn.btn-primary:not(:disabled):not(.disabled):active,
-.btn.show>.btn-primary.dropdown-toggle {
+.btn.show > .btn-primary.dropdown-toggle {
     background-color: #1d1d1d;
     border-color: #1d1d1d;
     color: #fff;
@@ -969,7 +969,7 @@ Blog
 .blog-slider.owl-carousel .owl-nav button {
     position: absolute;
     top: 43%;
-    transform: translate(0-50%);
+    transform: translate(0 -50%);
     width: 59px;
     height: 59px;
     -webkit-border-radius: 29px 30px 30px 29px/29px 29px 30px 30px;
@@ -1106,8 +1106,7 @@ footer {
 }
 
 .footer-logo:hover {
-    color: #00b9ce;
-    ;
+    color: #00b9ce;;
 }
 
 .q-links,
@@ -1237,10 +1236,10 @@ PRICING PAGE
     min-height: 125px;
 }
 
-.sw-theme-default>ul.step-anchor>li.done>a,
-.sw-theme-default>ul.step-anchor>li.active>a,
-.sw-theme-default>ul.step-anchor>li>a,
-.sw-theme-default>ul.step-anchor>li>a:hover {
+.sw-theme-default > ul.step-anchor > li.done > a,
+.sw-theme-default > ul.step-anchor > li.active > a,
+.sw-theme-default > ul.step-anchor > li > a,
+.sw-theme-default > ul.step-anchor > li > a:hover {
     color: #fff !important;
 }
 
@@ -1258,7 +1257,7 @@ PRICING PAGE
     padding: 0 54px;
 }
 
-.sw-theme-default>ul.step-anchor>li.clickable>a:hover {
+.sw-theme-default > ul.step-anchor > li.clickable > a:hover {
     color: #fff !important;
 }
 
@@ -1285,20 +1284,20 @@ PRICING PAGE
     font-size: 16px;
 }
 
-.sw-theme-default>ul.step-anchor>li.done a span {
+.sw-theme-default > ul.step-anchor > li.done a span {
     background-color: transparent;
     color: #fff;
 }
 
-.sw-theme-default>ul.step-anchor>li.done a span small {
+.sw-theme-default > ul.step-anchor > li.done a span small {
     display: none;
 }
 
-.sw-theme-default>ul.step-anchor>li.done a span i {
+.sw-theme-default > ul.step-anchor > li.done a span i {
     display: block;
 }
 
-.sw-theme-default>ul.step-anchor>li>a::after {
+.sw-theme-default > ul.step-anchor > li > a::after {
     background-color: #fff;
     width: 67px;
     right: -34px;
@@ -1310,11 +1309,11 @@ PRICING PAGE
     opacity: 0.5;
 }
 
-.sw-theme-default>ul.step-anchor>li:last-child>a:after {
+.sw-theme-default > ul.step-anchor > li:last-child > a:after {
     content: none;
 }
 
-.sw-theme-default>ul.step-anchor>li.done>a::after {
+.sw-theme-default > ul.step-anchor > li.done > a::after {
     opacity: 1;
     background-color: #fff;
 }
@@ -2034,8 +2033,8 @@ PRICING PAGE
     text-align: center;
 }
 
-.checkbox-style:checked+.checkbox-style-3-label:before,
-.radio-style:checked+.radio-style-3-label:before {
+.checkbox-style:checked + .checkbox-style-3-label:before,
+.radio-style:checked + .radio-style-3-label:before {
     content: "\f00c";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
@@ -2452,21 +2451,21 @@ span.divider {
     padding-left: 5px;
 }
 
-.input100:focus+.focus-input100::after {
+.input100:focus + .focus-input100::after {
     top: -22px;
     font-size: 18px;
 }
 
-.input100:focus+.focus-input100::before {
+.input100:focus + .focus-input100::before {
     width: 100%;
 }
 
-.has-val.input100+.focus-input100::after {
+.has-val.input100 + .focus-input100::after {
     top: -22px;
     font-size: 18px;
 }
 
-.has-val.input100+.focus-input100::before {
+.has-val.input100 + .focus-input100::before {
     width: 100%;
 }
 
@@ -2531,7 +2530,7 @@ span.divider {
     transform: translateY(-50%);
 }
 
-.input-checkbox100:checked+.label-checkbox100::before {
+.input-checkbox100:checked + .label-checkbox100::before {
     color: #555555;
 }
 
