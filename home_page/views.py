@@ -33,19 +33,19 @@ def paidMembership():
     return enterprise
 
 
-def view_404(request, exception):
+def view_404(request,  exception=None):
     return render(request, 'HomePage/errors/404.html', status=404)
 
 
-def view_403(request, exception):
+def view_403(request,  exception=None):
     return render(request, 'HomePage/errors/403.html', status=403)
 
 
-def view_400(request, exception):
+def view_400(request,  exception=None):
     return render(request, 'HomePage/errors/400.html', status=400)
 
 
-def view_500(request):
+def view_500(request, exception=None):
     return render(request, 'HomePage/errors/500.html', status=500)
 
 
