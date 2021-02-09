@@ -170,8 +170,8 @@ if DEBUG:
 
 else:
     # live keys
-    STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', cast=Csv())
-    STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', cast=Csv())
+    STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', default='')
+    STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
 
 # Django allauth
 AUTHENTICATION_BACKENDS = [
