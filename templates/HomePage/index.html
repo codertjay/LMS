@@ -345,8 +345,9 @@
                             <p><span>${{paid_membership.price}}</span></p>
                             <!--<span>(10% Discount for yearly)</span>--></div>
                     </div>
-                    {% endif %}
                     <a href="{% url 'memberships:membership_select' %}" class="btn btn-primary w-100 ">Buy Now</a>
+                                        {% endif %}
+
                 </div>
             </div>
 
