@@ -1,39 +1,48 @@
-{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} Pricing || ForexTrading {% endblock title %} {% block content %}
-<!--Select Links End-->
-<section class="pricing-table">
-    <div id="smartwizard">
-        <ul class="step-links">
-            <li><a href="#step-1"><span> <small>1</small><i class="far fa-check"></i></span> Select Your Plan</a>
-            </li>
-            </li>
-        </ul>
-        <div class="container mx-auto pr-wrapper">
-            <div id="step-1" class="">
-                <div class="wrapper-step">
-                    <div class="table-responsive">
-                        <table class="table table-header">
-                            <tbody>
+{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} Pricing || ForexTrading {% endblock title %}
+{% block content %}
+    <!--Select Links End-->
+    <section class="pricing-table">
+        <div id="smartwizard">
+            <ul class="step-links">
+                <li><a href="#step-1"><span> <small>1</small><i class="far fa-check"></i></span> Select Your Plan</a>
+                </li>
+                </li>
+            </ul>
+            <div class="container mx-auto pr-wrapper">
+                <div id="step-1" class="">
+                    <div class="wrapper-step">
+                        <div class="table-responsive">
+                            <table class="table table-header">
+                                <tbody>
                                 <tr>
                                     <td class="bg-white">
-                                        <div class="gurannte-box"><img src="{% static 'dashboard/dashboard_base/assets/images/gurantee-img.png' %}" alt="">
+                                        <div class="gurannte-box"><img
+                                                src="{% static 'dashboard/dashboard_base/assets/images/gurantee-img.png' %}"
+                                                alt="">
                                             <h4>100% No-Risk Guarantee</h4>
-                                            <p>if you are not fully satisfied, request to cancel within 7 days of your purchase and receive a full refund.</p>
+                                            <p>if you are not fully satisfied, request to cancel within 7 days of your
+                                                purchase and receive a full refund.</p>
                                         </div>
                                     </td>
 
                                     <td class="bg-lightblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
+                                            <div class="img-holder"><img
+                                                    src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}"
+                                                    alt=""></div>
                                             <h4>Forex Academy</h4>
-                                            <div class="pr-my">${{paid_membership.price}}</span>
+                                            <div class="pr-my">${{ paid_membership.price }}
                                             </div>
                                             <p>(One time payment)</p>
-                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
+                                            <a href="{% url 'memberships:membership_select' %}"
+                                               class="btn btn_default ">Subscribe Now</a></div>
                                     </td>
 
                                     <td class="bg-darkblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}" alt=""></div>
+                                            <div class="img-holder"><img
+                                                    src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}"
+                                                    alt=""></div>
                                             <h4>Signal Services </h4>
                                             <div class="pr-my"><span><b>$140</b>/mo</span> <span><b>$1100</b>/yr</span>
                                             </div>
@@ -43,23 +52,26 @@
                                     </td>
 
                                     {% if copy_trade %}
-                                    <td class="bg-lightblue">
-                                        <div class="card-subs">
-                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}" alt=""></div>
-                                            <h4>Copy Trading </h4>
-                                            <div class="pr-my"><span><b>${{ copy_trading.price }}</b>/mo</span>
-                                                <span><b>$3000</b>/yr</span>
-                                            </div>
-                                            <p>(10% discount for yearly)</p>
-                                            <a href="{% url 'copy_trade:copy_trade_payment' copy_trade.copy_trade_choice %}" class="btn btn_default ">Subscribe Now</a></div>
-                                    </td>
+                                        <td class="bg-lightblue">
+                                            <div class="card-subs">
+                                                <div class="img-holder"><img
+                                                        src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}"
+                                                        alt=""></div>
+                                                <h4>Copy Trading </h4>
+                                                <div class="pr-my"><span><b>${{ copy_trading.price }}</b>/mo</span>
+                                                    <span><b>$3000</b>/yr</span>
+                                                </div>
+                                                <p>(10% discount for yearly)</p>
+                                                <a  href="https://ninja.assasinfx.com"  target="_blank" class="btn btn_default ">Subscribe
+                                                    Now</a></div>
+                                        </td>
                                     {% endif %}
 
                                 </tr>
-                            </tbody>
-                        </table>
-                        <table class="table table-content">
-                            <tbody>
+                                </tbody>
+                            </table>
+                            <table class="table table-content">
+                                <tbody>
                                 <tr>
                                     <td>Number of Guaranteed Trading Alerts Weekly</td>
                                     <td><span class="txtb">none</span></td>
@@ -121,51 +133,54 @@
                                             <div class="pr-my"><span><b>$50</b>/mo</span> <span><b>$450</b>/yr</span>
                                             </div>
                                             <p>(10% discount for yearly)</p>
-                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
+                                            <a href="{% url 'memberships:membership_select' %}"
+                                               class="btn btn_default ">Subscribe Now</a></div>
                                     </td>
                                     <td>
                                         <div class="card-subs">
                                             <div class="pr-my"><span><b>$140</b>/mo</span> <span><b>$1100</b>/yr</span>
                                             </div>
                                             <p>(10% discount for yearly)</p>
-                                            <a href="{% url 'home:home' %}#signal_payment" class="btn btn-primary ">Subscribe Now</a></div>
+                                            <a href="{% url 'home:home' %}#signal_payment" class="btn btn-primary ">Subscribe
+                                                Now</a></div>
                                     </td>
 
                                     {% if copy_trade %}
-                                    <td>
-                                        <div class="card-subs">
-                                            <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
-                                                <span><b>$3000</b>/yr</span>
-                                            </div>
-                                            <p>(10% discount for yearly)</p>
-                                            <a href="{% url 'copy_trade:copy_trade_payment' copy_trade.copy_trade_choice %}" class="btn btn_default ">Subscribe Now</a></div>
-                                    </td>
+                                        <td>
+                                            <div class="card-subs">
+                                                <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
+                                                    <span><b>$3000</b>/yr</span>
+                                                </div>
+                                                <p>(10% discount for yearly)</p>
+                                                <a  href="https://ninja.assasinfx.com"  target="_blank" class="btn btn_default ">Subscribe
+                                                    Now</a></div>
+                                        </td>
                                     {% endif %}
                                 </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
-</section>
-<!--Section Footer Start-->
+    </section>
+    <!--Section Footer Start-->
 {% endblock content %} {% block script %}
-<!-- <script>
-        $ (document).ready (function () {
-            $ ('#smartwizard').smartWizard ({
-                showStepURLhash: false ,
-                anchorSettings: {
-                    anchorClickable: true , // Enable/Disable anchor navigation
-                    enableAllAnchors: true , // Activates all anchors clickable all times
-                    markDoneStep: true , // add done css
-                    enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
-                } ,
+    <!-- <script>
+            $ (document).ready (function () {
+                $ ('#smartwizard').smartWizard ({
+                    showStepURLhash: false ,
+                    anchorSettings: {
+                        anchorClickable: true , // Enable/Disable anchor navigation
+                        enableAllAnchors: true , // Activates all anchors clickable all times
+                        markDoneStep: true , // add done css
+                        enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+                    } ,
+                });
+
+
             });
-
-
-        });
-    </script> -->
+        </script> -->
 {% endblock script %}
