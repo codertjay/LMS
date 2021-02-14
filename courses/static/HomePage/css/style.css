@@ -37,7 +37,7 @@
 
 @font-face {
     font-family: 'handwritting';
-    src: url('/courses/static/HomePage/fonts/best_stories/BestStories.otf');
+    src: url('../fonts/best_stories/BestStories.otf');
     font-weight: normal;
     font-style: normal;
 }

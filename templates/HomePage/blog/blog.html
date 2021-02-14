@@ -12,11 +12,12 @@
                         <div class="blog_content">
                             <div class="blog-date">
                                 <p>{{ item.timestamp|timesince }} By <a href="#">{{ item.user.first_name }} -
-                                    {{ item.user.last_name }}</a> {{ item.comments.count }} <a href="{{ item.get_absolute_url }}#comments_sect"
-                                                                                                       class="comments-link">Comments</a>
+                                    {{ item.user.last_name }}</a> {{ item.comments.count }} <a
+                                        href="{{ item.get_absolute_url }}#comments_sect"
+                                        class="comments-link">Comments</a>
                                 </p>
                             </div>
-                            <div class="blog-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                            <div class="blog-title text-capitalize"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                             </div>
                             <div class="blog-img">
                                 <a href="{{ item.get_absolute_url }}"><img src="{{ item.imageURL }}" alt=""
@@ -28,6 +29,48 @@
                                 <span class="divider"></span></div>
                         </div>
                     {% endfor %}
+                    <br>
+                    <ul class="pagination justify-content-center pagination-sm">
+                        <div class="d-flex justify-content-center">
+                            <nav aria-label="...">
+                                {% if is_paginated %}
+
+                                    <ul class="pagination">
+                                        {% if page_obj.has_previous %}
+                                            <li class="page-item pr-2 fa-2x ">
+                                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                                                   tabindex="-1"
+                                                   aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item disabled  pr-2  fa-2x">
+                                                <span class="page-link"><i class="fa fa-chevron-left"></i></span>
+                                            </li>
+                                        {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                                        <li class="page-item active " aria-current="page">
+                                            <span class="page-link">{{ i }} </span>
+                                        </li>
+                                    {% else %}
+                                        <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% endif %} {% endfor %} {% if page_obj.has_next %}
+                                        <li class="page-item pl-2  fa-2x">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                                                    class="fa fa-chevron-right"></i></a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled pl-2  fa-2x">
+                                            <span class="page-link"><i class="fa fa-chevron-right"></i></span>
+                                        </li>
+
+                                    {% endif %}
+                                    </ul>
+                                {% endif %}
+                            </nav>
+
+                        </div>
+
+                    </ul>
                 </div>
                 {% comment %} blog section start{% endcomment %}
                 {% include 'HomePage/blog/blog_suggestion.html' %}

@@ -69,7 +69,7 @@
                                   placeholder="Please comment  here"
                                   cols="15" rows="5"></textarea>
                         <br>
-                        <button class="btn btn-primary  float-right">Comment <i class="fa fa-comment-plus"></i></button>
+                        <button class="btn btn-primary  float-right">Comment</button>
                     </form>
                 </div>
             </div>
@@ -77,26 +77,29 @@
 
                 <div class="col-lg-8">
                     <div class="card">
-                        <div class="card-header">
-                            <h3> Comment's {{ post.comment_set.count }} </h3>
+                        <div class="card-title p-5 text-center">
+                            {% if  post.comment_set.count  > 0 %}
+                                <h1 class="text-center"> Comment's {{ post.comment_set.count }} </h1>
+
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 {% for item in post.comment_set.all %}
-                    <div class="col-lg-8">
+                    <div class="col-lg-8 pb-2">
                         <div class="card">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-4 ">
                                     <div class="card-image"><img src="{{ item.user.profile.profilePicsImageURL }}"
-                                                                 style="max-height: 110px;max-width: 110px;border-radius: 80%"
+                                                                 style="max-height: 90px;max-width: 90px;border-radius: 50%"
                                                                  alt=""></div>
                                 </div>
                                 <div class="col-8">
-                                    <div class="lead p-5" style="padding-right: 50%">{{ item.content }}</div>
+                                    <div class="lead p-2" style="padding-right: 50%">{{ item.content }}</div>
                                 </div>
                             </div>
-                            <div class="pl-3 pb-4 pt-4">
-                                <h5 class="">by <span>{{ item.user.username }}</span>{{ item.timestamp|timesince }}</h5>
+                            <div class="p-2">
+                                <h5 class="text-muted">by <span>{{ item.user.username }}</span> {{ item.timestamp|timesince }} ago</h5>
                             </div>
                         </div>
                     </div>

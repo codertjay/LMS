@@ -1,83 +1,90 @@
-{% extends 'DashBoard/dashboard_base.html' %} {% load crispy_forms_filters %} {% load static %} {% block title %}Instructor - Edit course {% endblock title %} {% block styles %} {{ form.media }} {% endblock styles %} {% block content %}
+{% extends 'DashBoard/dashboard_base.html' %} {% load crispy_forms_filters %} {% load static %} {% block title %}
+    Instructor - Edit course {% endblock title %} {% block styles %} {{ form.media }} {% endblock styles %}
+{% block content %}
 
 
-<div class="container-fluid ">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'courses:create_course' %}">Courses</a></li>
-        <li class="breadcrumb-item active">Create Testimonial</li>
-    </ol>
-    <div class="media align-items-center mb-headings">
-        <div class="media-body">
-            <h1 class="h2 ">{{page_content}} Testimonial</h1>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="col-md-7">
-            <div class="card card_color">
-                <form action="." {% url 'home:testimonial_create' %} method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="card-body">
-                        {{ form|crispy }}
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+    <div class="container-fluid ">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'courses:create_course' %}">Courses</a></li>
+            <li class="breadcrumb-item active">Create Testimonial</li>
+        </ol>
+        <div class="media align-items-center mb-headings">
+            <div class="media-body">
+                <h1 class="h2 ">{{ page_content }} Testimonial</h1>
             </div>
         </div>
+        <div class="row">
 
-        <div class="col-md-5 ">
-            <p><a href="instructor-lesson-add.html" class="btn btn-primary">Update and Delete Testimonials<i
+            <div class="col-md-7">
+                <div class="card card_color">
+                    <form action="." {% url 'home:testimonial_create' %} method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {{ form|crispy }}
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-5 ">
+                <p><a href="instructor-lesson-add.html" class="btn btn-primary">Update and Delete Testimonials<i
                         class="material-icons"></i></a></p>
-            <div class="card card_color" style="height: 500px; overflow-y: scroll;">
-                <div class="card-body">
+                <div class="card card_color" style="height: 500px; overflow-y: scroll;">
+                    <div class="card-body">
 
-                    <div class="nestable" id="nestable-handles-primary">
-                        <ul class="nestable-list">
+                        <div class="nestable" id="nestable-handles-primary">
+                            <ul class="nestable-list">
 
-                            {% for item in testimonials %}
-                            <li class="nestable-item nestable-item-handle list-group" data-id="{{ item.id }}">
+                                {% for item in testimonials %}
+                                    <li class="nestable-item nestable-item-handle list-group" data-id="{{ item.id }}">
 
-                                <div class="nestable-content">
-                                    <div class="media align-items-center">
-                                        <div class="media-left">
-                                            <form action="{% url 'home:testimonial_delete' item.id %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" style="background: #fff; outline: none; border: 1px solid #fff; border-radius: 5px;"><i
-                                                                class="text-danger fa fa-trash-alt"></i>
+                                        <div class="nestable-content">
+                                            <div class="media align-items-center">
+                                                <div class="media-left">
+                                                    <form action="{% url 'home:testimonial_delete' item.id %}"
+                                                          method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit"
+                                                                style="background: #fff; outline: none; border: 1px solid #fff; border-radius: 5px;">
+                                                            <i
+                                                                    class="text-danger fa fa-trash-alt"></i>
                                                         </button>
-                                            </form>
+                                                    </form>
 
-                                        </div>
-                                        <div class="media-left">
-                                            <img src="{{ item.imageURL }}" alt="" width="100" height="70" class="rounded">
-                                        </div>
-                                        <div class="media-body">
-                                            <h5 class="card-title h6 mb-0 text-white">
-                                                {{ item.name }}
-                                            </h5>
-                                        </div>
-                                        <div class="media-right">
-                                            <a href="{% url 'home:testimonial_update' item.id %}" class="text-info"><i
+                                                </div>
+                                                <div class="media-left">
+                                                    <img src="{{ item.imageURL }}" alt="" width="100" height="70"
+                                                         class="rounded">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="card-title h6 mb-0 text-white">
+                                                        {{ item.name }}
+                                                    </h5>
+                                                </div>
+                                                <div class="media-right">
+                                                    <a href="{% url 'home:testimonial_update' item.id %}"
+                                                       class="text-info"><i
                                                             class="fa fa-edit"></i></a>
-                                        </div>
+                                                </div>
 
-                                    </div>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
+
     </div>
-
-
-</div>
 
 
 {% endblock content %} {% block script %} {% endblock %}

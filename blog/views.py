@@ -22,6 +22,7 @@ class BloglistView(ListView):
     model = Post
     queryset = Post.objects.published()
     template_name = 'HomePage/blog/blog.html'
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -42,6 +43,7 @@ class BlogUserListView(ListView):
     model = Post
     template_name = 'HomePage/blog/blog.html'
     context_object_name = 'object_list'
+    paginate_by = 10
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))

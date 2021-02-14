@@ -46,7 +46,8 @@ def add_variable_to_context(try_content=None):
     print('this is the top_forums hhh', top_forums)
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
-            'instagram_url': 'http:instagram.com',
+            'instagram_url': 'https://instagram.com/ninjaassinfx/',
+            'tiktok_url': 'https://instagram.com',
             'monthly_signal': monthly_signal,
             'quarterly_signal': quarterly_signal,
             'yearly_signal': yearly_signal,

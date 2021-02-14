@@ -31,7 +31,7 @@ def video_clip_duration(video_path):
 
 
 class Course(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, default=1, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     slug = models.SlugField(unique=True)
     title = models.CharField(max_length=120)
     description = models.TextField()
