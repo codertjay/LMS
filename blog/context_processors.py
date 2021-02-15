@@ -47,7 +47,7 @@ def add_variable_to_context(try_content=None):
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
             'instagram_url': 'https://instagram.com/ninjaassinfx/',
-            'tiktok_url': 'https://instagram.com',
+            'tiktok_url': 'https://vm.tiktok.com/ZS9HWMCN/',
             'monthly_signal': monthly_signal,
             'quarterly_signal': quarterly_signal,
             'yearly_signal': yearly_signal,
