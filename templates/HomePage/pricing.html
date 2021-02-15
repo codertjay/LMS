@@ -1,4 +1,12 @@
 {% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} Pricing || ForexTrading {% endblock title %}
+
+{% block style %}
+    <style>
+    .icon_color{
+        color:#00b9ce !important;
+    }
+    </style>
+{% endblock %}
 {% block content %}
     <!--Select Links End-->
     <section class="pricing-table">
@@ -44,9 +52,9 @@
                                                     src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}"
                                                     alt=""></div>
                                             <h4>Signal Services </h4>
-                                            <div class="pr-my"><span><b>$140</b>/mo</span> <span><b>$1100</b>/yr</span>
+                                            <div class="pr-my"><span><b>${{ monthly_signal.price }}</b>/mo</span>
                                             </div>
-                                            <p>(10% discount for yearly)</p>
+
                                             <a href="{% url 'home:home' %}#signal_payment" class="btn btn-primary ">Subscribe
                                                 Now</a></div>
                                     </td>
@@ -58,10 +66,10 @@
                                                         src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}"
                                                         alt=""></div>
                                                 <h4>Copy Trading </h4>
-                                                <div class="pr-my"><span><b>${{ copy_trading.price }}</b>/mo</span>
-                                                    <span><b>$3000</b>/yr</span>
+                                                <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
+
                                                 </div>
-                                                <p>(10% discount for yearly)</p>
+
                                                 <a  href="https://ninja.assassinfx.com/"  target="_blank" class="btn btn_default ">Subscribe
                                                     Now</a></div>
                                         </td>
@@ -81,30 +89,30 @@
                                 <tr>
                                     <td>Signals currencies, US30 and Nas 100</td>
                                     <td><span class="txtb">none</span></td>
-                                    <td><span class="txtg"><i class="fal fa-check"></i></span></td>
-                                    <td><span class="txtg"><i class="fal fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>5 - 15 Signals per week </td>
-                                    <td><span class="txtg">none</span></td>
+                                    <td><span class="txtb">none</span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
-                                    <td><span class="txtg"><i class="far fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Month-to-Month Income Generation</td>
-                                    <td><span class="txtg"><i class="fal fa-check"></i></span></td>
-                                    <td><span class="txtg"><i class="fal fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Comprehensive Market Research & In-Depth Analaysis </td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
-                                    <td><span class="txtg">none</span></td>
-                                    <td><span class="txtg">none</span></td>
+                                    <td><span class="txtb">none</span></td>
+                                    <td><span class="txtb">none</span></td>
                                 </tr>
                                 <tr>
                                     <td>Oppurtunity for Long Term {% comment %}w/ 100%+ Return{% endcomment %}</td>
-                                    <td><span class="txtg"><i class="fal fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
@@ -130,17 +138,17 @@
                                     <td></td>
                                     <td>
                                         <div class="card-subs">
-                                            <div class="pr-my"><span><b>$50</b>/mo</span> <span><b>$450</b>/yr</span>
+                                            <div class="pr-my"><span><b>${{ paid_membership.price }}</b></span>
                                             </div>
-                                            <p>(10% discount for yearly)</p>
+
                                             <a href="{% url 'memberships:membership_select' %}"
                                                class="btn btn_default ">Subscribe Now</a></div>
                                     </td>
                                     <td>
                                         <div class="card-subs">
-                                            <div class="pr-my"><span><b>$140</b>/mo</span> <span><b>$1100</b>/yr</span>
+                                            <div class="pr-my"><span><b>${{ monthly_signal.price }}</b>/mo</span>
                                             </div>
-                                            <p>(10% discount for yearly)</p>
+
                                             <a href="{% url 'home:home' %}#signal_payment" class="btn btn-primary ">Subscribe
                                                 Now</a></div>
                                     </td>
@@ -149,9 +157,8 @@
                                         <td>
                                             <div class="card-subs">
                                                 <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
-                                                    <span><b>$3000</b>/yr</span>
                                                 </div>
-                                                <p>(10% discount for yearly)</p>
+
                                                 <a  href="https://ninja.assassinfx.com/"  target="_blank" class="btn btn_default ">Subscribe
                                                     Now</a></div>
                                         </td>
