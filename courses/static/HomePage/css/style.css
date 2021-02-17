@@ -36,16 +36,20 @@
 }
 
 @font-face {
-    font-family: 'handwritting';
-    src: url('../fonts/best_stories/BestStories.otf');
+    font-family: 'logo1';
+    src: url('../fonts/Creattion Demo.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 .cls-1 {
     fill: #0bc2ef;
-    font-size: 40px;
-    font-family: handwritting;
+    font-family: logo1;
+}
+
+.l1 {
+    font-family: logo1;
+    font-size: 3em;
 }
 
 body {

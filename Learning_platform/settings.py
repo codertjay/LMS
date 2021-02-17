@@ -14,7 +14,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', '.localhost', 'localhost','104.248.230.206']
+    ALLOWED_HOSTS = ['127.0.0.1', '.localhost', 'localhost', '104.248.230.206']
 else:
     ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # Application definition
@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'Learning_platform.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-if  DEBUG:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -184,13 +184,23 @@ SITE_ID = 1
 
 # for sending email
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='localhost')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
-DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER ='begintjay@gmail.com'
+    EMAIL_HOST_PASSWORD ='Thankgod12'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL ='begintjay@gmail.com'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+    EMAIL_HOST = config('EMAIL_HOST', default='localhost')
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+    EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+    EMAIL_PORT = config('EMAIL_PORT', cast=int)
+    EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
+    DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
 
 #  handling errors for demo
 handler404 = 'home_page.views.view_404'
@@ -201,3 +211,4 @@ ADMINS = (
     ('codertjay', 'begintjay@email.com'),
 )
 MANAGERS = ADMINS
+SITE_URL = "https://assassinfx.com/"

@@ -45,7 +45,7 @@
                             <g id="Group_1" data-name="Group 1">
                                 <text id="AssassinFx_" data-name="AssassinFx " class="cls-1"
                                       transform="translate(466 331)">
-                                    <tspan x="0" y="0">AssassinFx</tspan>
+                                    <tspan x="0" y="0" class="l1">AssassinFx</tspan>
                                 </text>
                             </g>
                         </g>
@@ -210,17 +210,27 @@
                         </form>
 
 
-                        <form class="login100-form validate-form forgot" autocomplete="on" style="display: none;">
-                                <span class="d-block text-center "> <img
-                                        src="{% static 'HomePage/images/logo-white.svg' %}"
-                                        alt=""> </span>
+                        <form class=" forgot" method="post" action="{% url 'account_reset_password' %}"
+                              style="display: none;">
+                            {% csrf_token %}
+
+                            <span class="d-block text-center "> <img
+                                    src="{% static 'HomePage/images/logo-white.svg' %}"
+                                    alt=""> </span>
+
                             <h3 class="login100-form-title ">Forgot Password</h3>
+
                             <div class="wrap-input100 validate-input" data-validate="Enter username">
-                                <input class="input100" type="text" name="username" placeholder="Email">
+                                <input class="input100" type="email" name="email" placeholder="Email">
                                 <span class="focus-input100" data-placeholder="&#xf007;"></span></div>
 
                             <div class="container-login100-form-btn">
-                                <button class="login100-form-btn mb-3"> Submit</button>
+                                <button class=" mb-3" type="submit"
+                                        style="width: 200px; height: 40px; border-radius: 5px;
+                                        background: #fff; outline: none; border: 1px solid #fff;
+                                         color: #000">
+                                    Submit
+                                </button>
                             </div>
                             <div class="text-center p-t-90"><a class="txt1" href="#" id="login">Login
                             </a></div>
@@ -229,6 +239,8 @@
                                     services </a>
                             </div>
                         </form>
+
+
                     </div>
                 </div>
             </div>
