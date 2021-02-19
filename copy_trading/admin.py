@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CopyTrading, CopyTradingSubscription
+from .models import CopyTrading, CopyTradeInfo
 
 admin.site.register(CopyTrading)
-admin.site.register(CopyTradingSubscription)
+admin.site.register(CopyTradeInfo)

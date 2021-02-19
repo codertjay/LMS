@@ -10,7 +10,6 @@ from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.views import View
 
-from copy_trading.models import CopyTradingSubscription, deactivate_copy_trading
 from courses.models import RecentCourses, Course
 from forum.models import ForumQuestion
 from memberships.views import get_user_subscription, get_user_membership
@@ -54,9 +53,7 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
         if request.user.profile.user_type == 'Instructor':
             course_qs = Course.objects.filter(user=request.user)
             signals = UserSignalSubscription.objects.all()
-            copy_trades = CopyTradingSubscription.objects.all()
             deactivate_signals()
-            deactivate_copy_trading()
             try:
                 most_viewed_qs = Course.objects.all().order_by('-view_count')
                 if most_viewed_qs:
@@ -75,7 +72,6 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
                 'course': course,
                 'most_viewed': most_viewed,
                 'signals': signals,
-                'copy_trades': copy_trades,
             }
             print('these are the most viewed course', most_viewed)
             return render(request, 'DashBoard/instructor/instructor-dashboard.html', context)

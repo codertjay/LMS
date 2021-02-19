@@ -1,11 +1,30 @@
-import stripe
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
-from django.utils.datetime_safe import datetime
 from django.db.models import Model
 
-from .utils import copy_trading_created_message, copy_trading_expired_message
+account_type = (
+    ('MT4', 'MT4'),
+    ('MT5', 'MT5'),
+)
+Yes_or_No = (
+    ('Yes', 'Yes'),
+    ('No', 'No'),
+)
+
+
+class CopyTradeInfo(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=80)
+    account_type = models.CharField(choices=account_type,max_length=10)
+    account_number = models.CharField(max_length=100)
+    broker = models.CharField(max_length=100)
+    Broker_server = models.CharField(max_length=100)
+    choice_of_symbols = models.CharField(max_length=100)
+    slippage = models.CharField(choices=Yes_or_No, max_length=6)
+    forex_pairs = models.CharField(choices=Yes_or_No, max_length=6)
+    indices = models.CharField(choices=Yes_or_No, max_length=6)
+    metals = models.CharField(choices=Yes_or_No, max_length=6)
+
 
 copy_choices = (
     ('Monthly', 'Monthly'),
@@ -30,84 +49,3 @@ class CopyTrading(models.Model):
 
     def __str__(self):
         return self.copy_trade_choice
-
-
-class CopyTradingSubscriptionManager(models.Manager):
-
-    def get_user_copy_trade_sub(self, user):
-        user_signal_sub = self.filter(user=user).first()
-        if user_signal_sub:
-            return user_signal_sub
-        else:
-            return None
-
-
-class CopyTradingSubscription(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    stripe_subscription_id = models.CharField(max_length=40)
-    copy_trade = models.ForeignKey(CopyTrading, on_delete=models.CASCADE)
-    active = models.BooleanField(default=False)
-    objects = CopyTradingSubscriptionManager()
-
-    def __str__(self):
-        return f"{self.copy_trade.copy_trade_choice} --{self.user}"
-
-    @property
-    def created_date(self):
-        try:
-            subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
-            date = datetime.fromtimestamp(subscription.created)
-        except:
-            date = None
-        return date
-
-    @property
-    def expiring_date(self):
-        try:
-            subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
-            date = datetime.fromtimestamp(subscription.current_period_end)
-        except:
-            date = None
-        return date
-
-
-# this function deactivate expired copy_trades it sends message to the user whom copy_trades has being deactivated
-def deactivate_copy_trading():
-    try:
-        copy_trade_qs = CopyTradingSubscription.objects.all()
-        checking = """
-=================================
-checking for expired copy trade 
-=================================
-                """
-        print(checking)
-        for copy_trade in copy_trade_qs:
-            if copy_trade.active:
-                print(""" this are the expired copy_trade """, copy_trade.user)
-                if copy_trade.expiring_date < datetime.now() or copy_trade.expiring_date is None or copy_trade.expiring_date == '':
-                    copy_trade.stripe_subscription_id = ''
-                    copy_trade.active = False
-                    copy_trading_expired_message(copy_trade)
-                    copy_trade.save()
-    except Exception as a:
-        print(f"""
-======================================
-Error  {a}
-======================================
-                """)
-    return None
-
-
-# calling function that deactivate expired copy_trades
-# deactivate_copy_trading()
-
-
-# a django copy_trade that automatically send message to the user that has registered on a copy_trade
-def post_save_send_user_message_on_copy_trading_subscription(sender, instance, created, *args, **kwargs):
-    # send message to the user
-    if created:
-        print('this is the instance', instance.user)
-        copy_trading_created_message(instance)
-
-
-post_save.connect(post_save_send_user_message_on_copy_trading_subscription, sender=CopyTradingSubscription)

@@ -8,7 +8,6 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView
 
-from copy_trading.models import CopyTradingSubscription
 from courses.models import RecentCourses
 from memberships.models import Membership, Subscription
 from memberships.utils import get_user_membership, get_user_subscription, get_selected_membership, \
@@ -21,18 +20,13 @@ def profile_view(request):
     user_membership = get_user_membership(request)
     user_subscription = get_user_subscription(request)
     user_signal_sub = UserSignalSubscription.objects.get_user_signal_sub(user=request.user)
-    user_copy_trade_sub = CopyTradingSubscription.objects.get_user_copy_trade_sub(user=request.user)
     context = {
         'user_membership': user_membership,
         'user_subscription': user_subscription,
         'membership_type': user_membership.membership.membership_type,
         'membership_price': user_membership.membership.price,
         'user_signal_sub': user_signal_sub,
-        'user_copy_trade_sub': user_copy_trade_sub,
     }
-    # print('user_membership', user_membership.membership.membership_type)
-    # print('user_membership', user_membership.membership.membership_type)
-    # print('user_subscription', user_subscription)
     return render(request, 'DashBoard/payment/student-account-billing-subscription.html', context)
 
 

@@ -2,9 +2,9 @@
 
 {% block style %}
     <style>
-    .icon_color{
-        color:#00b9ce !important;
-    }
+        .icon_color {
+            color: #00b9ce !important;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -70,7 +70,8 @@
 
                                                 </div>
 
-                                                <a  href="https://ninja.assassinfx.com/"  target="_blank" class="btn btn_default ">Subscribe
+                                                <a href="{% url 'copy_trade:copy_trade_form' %}" target="_blank"
+                                                   class="btn btn_default ">Subscribe
                                                     Now</a></div>
                                         </td>
                                     {% endif %}
@@ -93,7 +94,7 @@
                                     <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                 </tr>
                                 <tr>
-                                    <td>5 - 15 Signals per week </td>
+                                    <td>5 - 15 Signals per week</td>
                                     <td><span class="txtb">none</span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
@@ -105,7 +106,7 @@
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
-                                    <td>Comprehensive Market Research & In-Depth Analaysis </td>
+                                    <td>Comprehensive Market Research & In-Depth Analaysis</td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb">none</span></td>
                                     <td><span class="txtb">none</span></td>
@@ -159,7 +160,8 @@
                                                 <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
                                                 </div>
 
-                                                <a  href="https://ninja.assassinfx.com/"  target="_blank" class="btn btn_default ">Subscribe
+                                                <a href="{% url 'copy_trade:copy_trade_form' %}" target="_blank"
+                                                   class="btn btn_default ">Subscribe
                                                     Now</a></div>
                                         </td>
                                     {% endif %}
@@ -175,19 +177,4 @@
     </section>
     <!--Section Footer Start-->
 {% endblock content %} {% block script %}
-    <!-- <script>
-            $ (document).ready (function () {
-                $ ('#smartwizard').smartWizard ({
-                    showStepURLhash: false ,
-                    anchorSettings: {
-                        anchorClickable: true , // Enable/Disable anchor navigation
-                        enableAllAnchors: true , // Activates all anchors clickable all times
-                        markDoneStep: true , // add done css
-                        enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
-                    } ,
-                });
-
-
-            });
-        </script> -->
 {% endblock script %}

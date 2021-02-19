@@ -55,4 +55,5 @@ def add_variable_to_context(try_content=None):
             'paid_membership': paid_membership,
             # copy trading
             'copy_trade': copy_trading,
+            'site_name': 'https://assassinfx.com/',
             }
