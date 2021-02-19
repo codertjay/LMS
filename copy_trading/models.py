@@ -19,11 +19,11 @@ class CopyTradeInfo(models.Model):
     account_number = models.CharField(max_length=100)
     broker = models.CharField(max_length=100)
     Broker_server = models.CharField(max_length=100)
-    choice_of_symbols = models.CharField(max_length=100)
     slippage = models.CharField(choices=Yes_or_No, max_length=6)
     forex_pairs = models.CharField(choices=Yes_or_No, max_length=6)
     indices = models.CharField(choices=Yes_or_No, max_length=6)
     metals = models.CharField(choices=Yes_or_No, max_length=6)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
 
 copy_choices = (

@@ -1,0 +1,52 @@
+@media only screen and (max-width: 600px) {
+    .main {
+        width: 320px !important;
+    }
+
+    .top-image {
+        width: 100% !important;
+    }
+
+    .inside-footer {
+        width: 320px !important;
+    }
+
+    table[class="contenttable"] {
+        width: 320px !important;
+        text-align: left !important;
+    }
+
+    td[class="force-col"] {
+        display: block !important;
+    }
+
+    td[class="rm-col"] {
+        display: none !important;
+    }
+
+    .mt {
+        margin-top: 15px !important;
+    }
+
+    *[class].width300 {
+        width: 255px !important;
+    }
+
+    *[class].block {
+        display: block !important;
+    }
+
+    *[class].blockcol {
+        display: none !important;
+    }
+
+    .emailButton {
+        width: 100% !important;
+    }
+
+    .emailButton a {
+        display: block !important;
+        font-size: 18px !important;
+    }
+
+}

@@ -19,6 +19,8 @@
 
     <!-- Main CSS-->
     <link href="{% static 'HomePage/copy_trade_form/css/main.css' %}" rel="stylesheet" media="all">
+    <style>
+    </style>
 {% endblock %}
 
 {% block title %}
@@ -63,14 +65,12 @@
                                 {{ form.Broker_server }}
                             </div>
                             <div class="col-md-12">
-                                <label class="label">Shoice Of Symbols</label>
-                                {{ form.choice_of_symbols }}
+                                <h3 class="text-muted text-center py-4 lead">Choice of Symbols</h3>
                             </div>
-
 
                             <div class="col-6">
                                 <div class="">
-                                    <label class="label">Slippage</label>
+                                    <label class="label pt-3">Slippage</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
                                             <input type="radio" checked="checked" value="Yes" name="slippage">
@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="">
-                                    <div class="label">Forex Pairs</div>
+                                    <div class="label pt-3">Forex Pairs</div>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
                                             <input type="radio" checked="checked" value="Yes" name="forex_pairs">
@@ -100,7 +100,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="">
-                                    <label class="label">Indices</label>
+                                    <label class="label pt-3">Indices</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
                                             <input type="radio" checked="checked" value="Yes" name="indices">
@@ -115,7 +115,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="">
-                                    <label class="label">Metals</label>
+                                    <label class="label pt-3">Metals</label>
                                     <div class="p-t-10 ">
                                         <label class="radio-container m-r-45">Yes
                                             <input type="radio" checked="checked" value="Yes" name="metals">
