@@ -14,8 +14,9 @@ Yes_or_No = (
 
 class CopyTradeInfo(models.Model):
     name = models.CharField(max_length=100)
+    discord_username = models.CharField(max_length=100)
     email = models.EmailField(max_length=80)
-    account_type = models.CharField(choices=account_type,max_length=10)
+    account_type = models.CharField(choices=account_type, max_length=10)
     account_number = models.CharField(max_length=100)
     broker = models.CharField(max_length=100)
     Broker_server = models.CharField(max_length=100)

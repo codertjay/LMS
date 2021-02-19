@@ -5,6 +5,7 @@ from copy_trading.models import CopyTradeInfo, Yes_or_No, account_type
 
 class CopyTradeInfoForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    discord_username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     account_type = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), choices=account_type)
     account_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
