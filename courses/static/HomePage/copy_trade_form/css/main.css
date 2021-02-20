@@ -178,11 +178,11 @@ h6 {
 }
 
 .bg-gra-02 {
-  background: -webkit-gradient(linear, left bottom, right top, from(#fc2c77), to(#6c4079));
-  background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
-  background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
-  background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
-  background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+  background: -webkit-gradient(linear, left bottom, right top, from(#00b9ce), to(#00b9ce));
+  background: -webkit-linear-gradient(bottom left, #00b9ce 0%, #00b9ce 100%);
+  background: -moz-linear-gradient(bottom left, #00b9ce 0%, #00b9ce 100%);
+  background: -o-linear-gradient(bottom left, #00b9ce 0%, #00b9ce 100%);
+  background: linear-gradient(to top right, #00b9ce 0%, #00b9ce 100%);
 }
 
 /* ==========================================================================

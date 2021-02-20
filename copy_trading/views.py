@@ -13,8 +13,8 @@ from .models import CopyTradeInfo
 
 
 # send created mail mail to the user
-def copy_trade_created_message(email):
-    html_message = render_to_string('EmailTemplates/copy_trade_created.html')
+def copy_trade_created_message(email, name):
+    html_message = render_to_string('EmailTemplates/copy_trade_created.html', {'email': email, 'name': name})
     plain_message = strip_tags(html_message)
     send_mail(
         f"AssasinFx Copy Trade ( Created ) ",
@@ -36,7 +36,7 @@ class CopyTradeFormView(View):
         if form.is_valid():
             print(form.cleaned_data)
             form.save()
-            copy_trade_created_message(form.cleaned_data.get('email'))
+            copy_trade_created_message(email=form.cleaned_data.get('email'), name=form.cleaned_data.get('name'))
             messages.success(request, 'You have successfully filled the form, a message has being sent to your mail')
             return redirect('home:home')
         messages.error(request, 'please fill in the form correctly')
