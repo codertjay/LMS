@@ -1,4 +1,5 @@
 {% extends "account/base.html" %}
+{% load crispy_forms_filters %}
 
 {% load i18n %}
 
@@ -34,11 +35,11 @@
                 {% endfor %}
 
                 <div class="buttonHolder">
-                    <button  type="submit" name="action_primary"
+                    <button type="submit" name="action_primary"
                             class="btn btn-primary">{% trans 'Make Primary' %}</button>
                     <button type="submit" name="action_send"
                             class="btn btn-info">{% trans 'Re-send Verification' %}</button>
-                    <button  type="submit" name="action_remove"
+                    <button type="submit" name="action_remove"
                             class="btn btn-danger">{% trans 'Remove' %}</button>
                 </div>
 
@@ -57,7 +58,7 @@
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button name="action_add" class="btn btn-primary" type="submit">{% trans "Add E-mail" %}</button>
     </form>
 

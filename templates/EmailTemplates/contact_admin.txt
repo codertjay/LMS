@@ -6,8 +6,8 @@ Contact name:
     {{contact_name }}
 
 Email:
-    {{contact_email}}
-<a
+      {{contact_email}}
+
 subject:
     {{contact_subject}}
 
