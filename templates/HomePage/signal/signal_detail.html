@@ -20,7 +20,7 @@
                     <div class="wrapper-step">
                         <div class="row">
                             <div class="col-lg-8">
-                                <script src="https://js.stripe.com/v3/"></script>
+{#                                <script src="https://js.stripe.com/v3/"></script>#}
                                 <form action="." method="post" id="payment-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="Signal" value="{{ signal.signal_choice }}"
@@ -52,13 +52,7 @@
                                         <button>Submit Payment</button>
                                     </div>
                                 </form>
-
-
-
-
                             </div>
-
-
                             <div class="col-lg-4">
                                 <div class="order-box">
                                     <h3 class="heading3">Order Summary</h3>
@@ -92,6 +86,7 @@
 {% endblock content %}
 {% block script %}
     <!-- script for the stripe form -->
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
 
 {% endblock script %}
