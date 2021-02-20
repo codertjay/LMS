@@ -279,11 +279,11 @@ h6 {
 }
 
 .btn--green {
-  background: #57b846;
+  background: #00b9ce;
 }
 
 .btn--green:hover {
-  background: #4dae3c;
+  background: #00b9ce;
 }
 
 .btn--blue {
@@ -452,7 +452,7 @@ input {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background: #57b846;
+  background: #00b9ce;
 }
 
 .checkmark {

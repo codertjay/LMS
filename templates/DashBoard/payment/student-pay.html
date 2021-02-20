@@ -3,7 +3,7 @@
 
 
 {% block title %}
-Upgrade membership
+    Upgrade membership
 {% endblock %}
 
 {% block styles %}
@@ -27,7 +27,6 @@ Upgrade membership
 
             <div id="collapseStripe" class="wrapper">
                 <script src="https://js.stripe.com/v3/"></script>
-
                 <form action="." method="post" id="payment-form" class="form_class">
                     {% csrf_token %}
                     <div class="form-row">
@@ -44,9 +43,6 @@ Upgrade membership
 
                     <button>Submit Payment</button>
                 </form>
-
-              {% comment %}  <div id="stripe-token-handler" class="">Success! Got token: <span class="token"></span>
-                </div>{% endcomment %}
             </div>
 
         </div>
@@ -59,9 +55,6 @@ Upgrade membership
 
 
 {% block script %}
-
     <!-- script for the stripe form -->
     <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
-
-
 {% endblock %}
