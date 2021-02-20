@@ -19,7 +19,7 @@ def copy_trade_created_message(email, name):
     send_mail(
         f"AssasinFx Copy Trade ( Created ) ",
         plain_message, EMAIL_HOST_USER, recipient_list=[email, EMAIL_HOST_USER]
-        , html_message=html_message, fail_silently=True
+        , html_message=html_message
     )
 
     return None
