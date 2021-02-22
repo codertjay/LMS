@@ -24,3 +24,7 @@ class Testimonial(models.Model):
 
     def get_absolute_url(self):
         return reverse('home:testimonial_create')
+
+
+class ComingSoon(models.Model):
+    coming_soon = models.BooleanField(default=True)

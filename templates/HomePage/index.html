@@ -1,702 +1,592 @@
-{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} HOME || NinjaAssassin {% endblock title %}
-{% block content %}
-    <!--Hero Section Start-->
-    <section class="hero-main">
+{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} HOME || NinjaAssassin {% endblock title %} {% block content %}
+<!--Hero Section Start-->
+<section class="hero-main">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7 ">
-                    <div class="text-holder"><span class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">Welcome</span>
-                        <h3 class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">To AssassinFx! </h3>
-                        <p class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-                            Where you can learn to DAY, SWING and POSITION trade
-                            Providing a relaxed and friendly environment to ensure traders learn and develop. You’ll be
-                            able to share ideas in our discord group take advantage of the support from others, whilst
-                            learning about key trading factors i.e. psychology fundamentals and technical analysis.
-                        </p>
-                        <a href="{% url 'courses:list' %}" class="btn btn-dark wow fadeIn" data-wow-duration="1s"
-                           data-wow-delay="0.5s">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 ">
+                <div class="text-holder"><span class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">Welcome</span>
+                    <h3 class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">To AssassinFx! </h3>
+                    <p class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+                        Where you can learn to DAY, SWING and POSITION trade Providing a relaxed and friendly environment to ensure traders learn and develop. You’ll be able to share ideas in our discord group take advantage of the support from others, whilst learning about
+                        key trading factors i.e. psychology fundamentals and technical analysis.
+                    </p>
+                    <a href="{% url 'courses:list' %}" class="btn btn-dark wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
                             Get Started</a>
-                        <a href="https://discord.gg/ninjaassassin"
-                           class="btn btn-light wow fadeIn" target="_blank" data-wow-duration="1s"
-                           data-wow-delay="0.5s"><span><img
+                    <a href="https://discord.gg/ninjaassassin" class="btn btn-light wow fadeIn" target="_blank" data-wow-duration="1s" data-wow-delay="0.5s"><span><img
                                 src="{% static 'HomePage/images/play-icon.png' %}" alt="">Discord </span>
                         </a></div>
+            </div>
+            <div class="col-md-5 ">
+                <div class="img-holder "><img src="{% static 'HomePage/images/img-hero.png' %}" alt="" class="wow fadeInRight" data-wow-duration="0.7s" data-wow-delay="0.5s"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Hero Section End-->
+
+<!--Section Education Start-->
+<section class="education">
+    <div class="container">
+        <div class="content-edu">
+
+            <ul class="nav nav-pills row no-gutters wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s" id="pills-tab" role="tablist">
+                <li class="col-md-4">
+                    <a class="active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+                        <div class="card-edu ">
+                            <h3>Education </h3>
+                            <p>Empowering members to learn how to make a steady profit with good risk management. </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="col-md-4">
+                    <a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+                        <div class="card-edu ">
+                            <h3>Trade Analysis & Research </h3>
+                            <p>Here we highlight the importance of research and backtesting to discover profitable opportunities. </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="col-md-4">
+                    <a id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">
+                        <div class="card-edu ">
+                            <h3>We are here to help </h3>
+                            <p>"You are always a student, never a master. You have to keep moving forward" AssassinFx encourages individuals to learn from their failures to become better traders</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="meet-innovative">
+        <div class="tab-content tab-desktop" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="container">
+                    <div class="content-card left-pos">
+                        <h3>Meet the group </h3>
+                        <p>Learn from other profitable traders. Support on where to check News and how to use it as confluence for your trades. Broker information and help is also available. In addition, we are a multi lingual server. The languages spoken
+                            are: English, Spanish and Portuguese. We also have a women only channel! </p>
+                    </div>
+                    <div class="img-inno right-pos"><img src="{% static 'HomePage/images/img-innovative1.png' %}" alt=""></div>
                 </div>
-                <div class="col-md-5 ">
-                    <div class="img-holder "><img src="{% static 'HomePage/images/img-hero.png' %}" alt=""
-                                                  class="wow fadeInRight" data-wow-duration="0.7s"
-                                                  data-wow-delay="0.5s"></div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="container">
+                    <div class="content-card ">
+                        <h3>Crystal Clear Methodology </h3>
+                        <p>Our services are transparent. Our members who take Ninja's trades have full access to live trading, buy/sell information, as well as Ninja Assassin's trading record. As a member, you know WHERE Ninja took a position, HOW , and
+                            WHY , so that you, too, can learn to trade just like Ninja Assassin. We also offer email alerts so that you know when a trade has been taken and when profit has been hit. You may analyse the trade thoroughly to understand Ninja's
+                            perspective. </p>
+                    </div>
+                    <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative2.png' %}" alt=" ">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="container">
+                    <div class="content-card ">
+                        <h3>Seasoned community you can count on</h3>
+                        <p>Nothing is more important than ensuring that our members have the right knowledge, skills, help and market understanding to make informed decisions when trading with either your own money or with funded accounts. </p>
+                    </div>
+                    <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative3.png' %} " alt=" ">
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--Hero Section End-->
-
-    <!--Section Education Start-->
-    <section class="education">
-        <div class="container">
-            <div class="content-edu">
-
-                <ul class="nav nav-pills row no-gutters wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s"
-                    id="pills-tab" role="tablist">
-                    <li class="col-md-4">
-                        <a class="active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                           aria-controls="pills-home" aria-selected="true">
+        <div class="container mob-content wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s">
+            <div id="accordion-2">
+                <div class="card-collapse active">
+                    <div class="card_header1" id="headingOne">
+                        <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             <div class="card-edu ">
                                 <h3>Education </h3>
-                                <p>Empowering members to learn how to make a steady profit with good risk
-                                    management. </p>
+                                <p>We’re empowering our members to learn just how to make a steady profit with every transaction. </p>
                             </div>
                         </a>
-                    </li>
-                    <li class="col-md-4">
-                        <a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                           aria-controls="pills-profile" aria-selected="false">
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-2">
+                        <div class="card-body">
+                            <div class="content-card ">
+                                <h3>Meet our Innovative Education system </h3>
+                                <p>Well, because we offer the very best and most innovative investment/trading education program currently found in the market. We have full confidence in our system and we have research-backed evidence to support our profitability.
+                                    Your satisfaction, Guaranteed. </p>
+                            </div>
+                            <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative1.png' %} " alt=" "></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-collapse">
+                    <div class="card_header1" id="headingTwo">
+                        <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             <div class="card-edu ">
                                 <h3>Trade Analysis & Research </h3>
-                                <p>Here we highlight the importance of research and backtesting to discover profitable
-                                    opportunities. </p>
+                                <p>We use our proprietary research and trading system to discover profitable opportunities. </p>
                             </div>
                         </a>
-                    </li>
-                    <li class="col-md-4">
-                        <a id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                           aria-controls="pills-contact" aria-selected="false">
-                            <div class="card-edu ">
-                                <h3>We are here to help </h3>
-                                <p>"You are always a student, never a master. You have to
-                                    keep moving forward" AssassinFx encourages individuals to learn from their
-                                    failures
-                                    to become better traders</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="meet-innovative">
-            <div class="tab-content tab-desktop" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="container">
-                        <div class="content-card left-pos">
-                            <h3>Meet the group </h3>
-                            <p>Learn from other profitable traders. Support on where to check News and how to use it as
-                                confluence for your trades. Broker information and help is also available.
-                                In addition, we are a multi lingual server. The languages spoken are: English, Spanish
-                                and Portuguese.
-                                We also have a women only channel! </p>
-                        </div>
-                        <div class="img-inno right-pos"><img src="{% static 'HomePage/images/img-innovative1.png' %}"
-                                                             alt=""></div>
                     </div>
-                </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="container">
-                        <div class="content-card ">
-                            <h3>Crystal Clear Methodology </h3>
-                            <p>Our services are transparent. Our members who take Ninja's trades have full access to
-                                live trading, buy/sell information, as well as Ninja Assassin's trading record. As a
-                                member, you know WHERE Ninja took a position, HOW , and WHY , so that you, too, can
-                                learn to trade just like Ninja Assassin. We also offer email alerts so that you know
-                                when a trade has been taken and when profit has been hit. You may analyse the trade
-                                thoroughly to understand Ninja's perspective. </p>
-                        </div>
-                        <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative2.png' %}" alt=" ">
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <div class="container">
-                        <div class="content-card ">
-                            <h3>Seasoned community you can count on</h3>
-                            <p>Nothing is more important than ensuring that our members have the right knowledge,
-                                skills, help and market understanding to make informed decisions when trading with
-                                either your own money or with funded accounts. </p>
-                        </div>
-                        <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative3.png' %} " alt=" ">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mob-content wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s">
-                <div id="accordion-2">
-                    <div class="card-collapse active">
-                        <div class="card_header1" id="headingOne">
-                            <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                               aria-controls="collapseOne">
-                                <div class="card-edu ">
-                                    <h3>Education </h3>
-                                    <p>We’re empowering our members to learn just how to make a steady profit with every
-                                        transaction. </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                             data-parent="#accordion-2">
-                            <div class="card-body">
-                                <div class="content-card ">
-                                    <h3>Meet our Innovative Education system </h3>
-                                    <p>Well, because we offer the very best and most innovative investment/trading
-                                        education program currently found in the market. We have full confidence in our
-                                        system and we have research-backed evidence to support our profitability.
-                                        Your satisfaction, Guaranteed. </p>
-                                </div>
-                                <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative1.png' %} "
-                                                            alt=" "></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-collapse">
-                        <div class="card_header1" id="headingTwo">
-                            <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                               aria-expanded="false" aria-controls="collapseTwo">
-                                <div class="card-edu ">
-                                    <h3>Trade Analysis & Research </h3>
-                                    <p>We use our proprietary research and trading system to discover profitable
-                                        opportunities. </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-2">
-                            <div class="card-body">
-                                <div class="content-card ">
-                                    <h3>Crystal Clear Methodology </h3>
-                                    <p>We always keep our services transparent. Our members have full access to live
-                                        trading, buy/sell information, as well as our trading records and our investment
-                                        portfolios. As a member, you know WHERE we took our position,
-                                        HOW, and WHY, so that you, too, can learn to invest and trade just like the pros
-                                        do. We also offer live market alerts, so that you can analyze the market along
-                                        with us and thoroughly understand our perspective. </p>
-                                </div>
-                                <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative2.png' %} "
-                                                            alt=" "></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-collapse">
-                        {% comment %} <div class="card_header1" id="headingThree">
-                            <a class=" collapsed" data-toggle="collapse" data-target="#collapseThree"
-                               aria-expanded="false" aria-controls="collapseThree">
-                                <div class="card-edu ">
-                                    <h3>We are professionals </h3>
-                                    <p><strong>AssassinFx</strong> is a team of qualified multi-national professionals
-                                        with 10+ years in the industry </p>
-                                </div>
-                            </a>
-                        </div>{% endcomment %}
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                             data-parent="#accordion-2">
-                            <div class="card-body">
-                                <div class="content-card ">
-                                    <h3>Seasoned Professionals You Can count on </h3>
-                                    <p><strong> AssassinFx </strong>is a team of qualified multi-national professionals
-                                        with nearly 10 years of experience in stocks, trading, and investments. For us,
-                                        nothing is more important than ensuring that our members have
-                                        the right knowledge, skills, and market understanding to make informed decisions
-                                        when investing and trading with your OWN money. </p>
-                                </div>
-                                <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative3.png' %}"
-                                                            alt=" "></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--section education end-->
-    <!--trading view-->
-    <!-- TradingView Widget BEGIN -->
-    <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <div class="tradingview-widget-copyright"><a href="https://uk.tradingview.com" rel="noopener"
-                                                     target="_blank"><span class="blue-text">Ticker Tape</span></a> by
-            TradingView
-        </div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-                async>
-            {
-                "symbols"
-            :
-                [{
-                    "proName": "FOREXCOM:SPXUSD" ,
-                    "title": "S&P 500"
-                } , {
-                    "proName": "FOREXCOM:NSXUSD" ,
-                    "title": "Nasdaq 100"
-                } , {
-                    "proName": "FX_IDC:EURUSD" ,
-                    "title": "EUR/USD"
-                } , {
-                    "proName": "BITSTAMP:BTCUSD" ,
-                    "title": "BTC/USD"
-                } , {
-                    "proName": "BITSTAMP:ETHUSD" ,
-                    "title": "ETH/USD"
-                } , {
-                    "description": "ETH/GBP" ,
-                    "proName": "FX_IDC:ETBGBP"
-                } , {
-                    "description": "CHF/JPY" ,
-                    "proName": "OANDA:CHFJPY"
-                } , {
-                    "description": "XRP/USD" ,
-                    "proName": "BITSTAMP:XRPUSD"
-                } , {
-                    "description": "AUD/USD" ,
-                    "proName": "KRAKEN:AUDUSD"
-                } , {
-                    "description": "ETH/GBP" ,
-                    "proName": "KRAKEN:ETHGBP"
-                } , {
-                    "description": "JPY/USD" ,
-                    "proName": "FX_IDC:JPYUSD"
-                } , {
-                    "description": "AUD/CAD" ,
-                    "proName": "OANDA:AUDCAD"
-                } , {
-                    "description": "AUD/NZD" ,
-                    "proName": "OANDA:AUDNZD"
-                } , {
-                    "description": "AUD/JPY" ,
-                    "proName": "OANDA:AUDJPY"
-                } , {
-                    "description": "AUD/CHF" ,
-                    "proName": "FOREXCOM:AUDCHF"
-                } , {
-                    "description": "EUR/GBP" ,
-                    "proName": "OANDA:EURGBP"
-                } , {
-                    "description": "EUR/JPY" ,
-                    "proName": "OANDA:EURJPY"
-                }],
-                    "showSymbolLogo"
-            :
-                true,
-                    "colorTheme"
-            :
-                "light",
-                    "isTransparent"
-            :
-                false,
-                    "displayMode"
-            :
-                "adaptive",
-                    "locale"
-            :
-                "uk"
-            }
-        </script>
-    </div>
-    <!-- TradingView Widget END -->
-    <!--Section Our Process Start-->
-    <section class="our-process ">
-        <div class="container ">
-            <div class="caption ">
-                <h3 class="wow fadeIn " data-wow-duration="0.7s" data-wow-delay="0.5s">Our Process</h3>
-                <p class="wow fadeIn " data-wow-duration="0.7s" data-wow-delay="0.5s">The goal is to walk you down the
-                    ultimate pathway towards being your own boss. The long term goal is financial freedom. A
-                    comprehensive academy has been designed for students to offer insight into Forex, Indicies, Crypto,
-                    and Metals.</div>
-            <div class="row ">
-                <div class="col-lg-6 ">
-                    <div id="accordion" class="accordian wow fadeInLeft" data-wow-duration="0.7s" data-wow-delay="0.5s">
-                        <div class="card-wrapper active">
-                            <div class="card_header" id="heading1"><a href="#" data-toggle="collapse"
-                                                                      data-target="#member" aria-expanded="true"
-                                                                      aria-controls="member">Join
-                                Us {% comment %}Become A Student{% endcomment %} </a>
-                            </div>
-                            <div id="member" class="collapse show" aria-labelledby="heading1" data-parent="#accordion">
-                                <div class="card_body">
-                                    You can join us on Discord to work on your personal goals and trading styles. From
-                                    price action, entries, key levels, psychology and much more!{% comment %}You can apply to AssassinFx academy as a student. THings you will
-                                    learn on a long run Price actions, Entries, Key Levels, psychology and many more...{% endcomment %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-wrapper">
-                            <div class="card_header" id="headingTwo"><a href="#" class="collapsed"
-                                                                        data-toggle="collapse" data-target="#expert"
-                                                                        aria-expanded="false" aria-controls="expert">AssassinFx
-                                Support system </a></div>
-                            <div id="expert" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                <div class="card_body">Ninja Assassin started AssassinFx for individuals who asked for
-                                    trade ideas, signals and trading outlook. The aim was never to start up a platform.
-                                    Yet by simply posting screenshots of profits, analysis and market predictions this
-                                    support system can help others in masses rather than individually.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-wrapper">
-                            <div class="card_header" id="headingThree"><a href="#" class="collapsed"
-                                                                          data-toggle="collapse" data-target="#educate"
-                                                                          aria-expanded="false" aria-controls="educate">
-                                Educate yourself </a></div>
-                            <div id="educate" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                <div class="card_body"> Join the discord group and follow Ninja Assassin's trades with
-                                    secured payment.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-wrapper">
-                            <div class="card_header" id="headingFour"><a href="#" class="collapsed"
-                                                                         data-toggle="collapse" data-target="#design"
-                                                                         aria-expanded="false" aria-controls="design">Contact
-                                via</a></div>
-                            <div id="design" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                                <div class="card_body">You can contact me via <a
-                                        href="{{ instagram_url }}" target="_blank">Instagram</a>, <a
-                                        href="{{ tiktok_url }}">Tiktok</a>, <a
-                                        href="mailto:admin@AssassinFx.com" target="_blank">Email</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="img-holder text-center"><img src="{% static 'HomePage/images/phone.svg' %}" alt=""
-                                                             class="img-fluid wow fadeInRight" data-wow-duration="0.7s"
-                                                             data-wow-delay="0.5s"></div>
-                </div>
-            </div>
-        </div>
-        <img src="{% static 'HomePage/images/left-trinangle.png' %}" alt="" class="left-img wow fadeInLeft"
-             data-wow-duration="0.7s" data-wow-delay="0.5s">
-        <img src="{% static 'HomePage/images/right-triangle.png' %}" alt="" class="right-img wow fadeInRight"
-             data-wow-duration="0.7s" data-wow-delay="0.5s"></section>
-    <!--Section Our Process End-->
-    <!--Section Our Products Start-->
-    <section class="our-products" id="service"><img src="{% static 'HomePage/images/left-trinangle.png' %}" alt=""
-                                                    class="left-img wow fadeInLeft" data-wow-duration="0.7s"
-                                                    data-wow-delay="0.5s">
-        <div class="container ">
-            <div class="caption ">
-                <h3 class="wow fadeIn " data-wow-duration="0.7s " data-wow-delay="0.5s ">Our Products</h3>
-                <p class="wow fadeIn " data-wow-duration="0.7s " data-wow-delay="0.5s ">AssassinFx offers three
-                    products, Academy, Signals and the opportunity to take trades directly from Ninja to your MT4/MT5
-                    accounts. Designed for members to gain understanding and confidence in the market. </p>
-            </div>
-            <div class="row " id="signal_payment">
-
-                {% if monthly_signal %}
-                    <div class="col-lg-6 ">
-                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
-                            <h2>Monthly Signals</h2>
-                            <ul>
-                                <li><span>5 - 15</span> Number of Guaranteed Trading Alerts Weekly</li>
-                                <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                                <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                                <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                                <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                                <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                                <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                                <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                    Report
-                                </li>
-                            </ul>
-                            <div class="price-box ">
-                                <div class="pr-total ">
-                                    <p><span class="d-price ">${{ monthly_signal.discount }}</span>/mo</p>
-                                </div>
-                                <div class="pr-total ">
-                                    <p><span>${{ monthly_signal.price }}</span>/mo</p>
-                                    <!--<span>(10% Discount for yearly)</span>--></div>
-                            </div>
-                            <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}"
-                               class="btn btn-primary w-100 ">Buy Now</a></div>
-                    </div>
-                {% endif %}
-
-                <div class="col-lg-6 ">
-                    <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                        <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" "></div>
-                        <h2>Academy</h2>
-                        <ul>
-                            <li><span><i class="fal fa-check "></i></span>Learn from profitable traders</li>
-                            <li><span><i class="fal fa-check "></i></span>Where to check News and how to use it as
-                                confluence for your trades
-                            </li>
-                            <li><span><i class="far fa-check "></i></span>Broker information</li>
-                            <li><span><i class="fal fa-check"></i></span>Multiple languages spoken to cater for all
-                                bilinguals
-                            </li>
-                            <li><span><i class="fal fa-check "></i></span>How to chart up with our members trade ideas
-                                from experienced traders
-                            </li>
-                            <li><span><i class="far fa-check "></i></span>A friendly environment to learn</li>
-                            <li><span><i class="far fa-check "></i></span>Comprehensive Market Research & In-Depth
-                                Analaysis
-                            </li>
-
-                        </ul>
-                        <div class="price-box ">
-                            {% if paid_membership %}
-                                <div class="pr-total ">
-                                    <p><span class="d-price ">${{ paid_membership.discount }}</span>/mo</p>
-                                </div>
-                                <div class="pr-total ">
-                                    <p><span>${{ paid_membership.price }}</span></p>
-                                    <!--<span>(10% Discount for yearly)</span>--></div>
-                                </div>
-                                <a href="{% url 'memberships:membership_select' %}" class="btn btn-primary w-100 ">Buy
-                                    Now</a>
-                            {% endif %}
-
-                    </div>
-                </div>
-
-                {% if quarterly_signal %}
-                    <div class="col-lg-6 ">
-                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
-                            <h2>Quarterly Signals</h2>
-                            <ul>
-                                <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
-                                <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                                <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                                <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                                <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                                <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                                <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                                <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                    Report
-                                </li>
-                            </ul>
-                            <div class="price-box ">
-                                <div class="pr-total ">
-                                    <p><span class="d-price ">${{ quarterly_signal.discount }}</span>/mo</p>
-                                </div>
-                                <div class="pr-total ">
-                                    <p><span>${{ quarterly_signal.price }}</span>/mo</p>
-                                    <!--<span>(10% Discount for yearly)</span>-->
-                                </div>
-                            </div>
-                            <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}"
-                               class="btn btn-primary w-100 ">Buy Now</a>
-                        </div>
-                    </div>
-                {% endif %} {% if copy_trade %}
-
-                <div class="col-lg-6 ">
-                    <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                        <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" ">
-                        </div>
-                        <h2>Copy Trading</h2>
-                        <ul>
-                            <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
-                            <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100
-                            </li>
-                            <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                            <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                            <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                            <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                            <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                            <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                Report
-                            </li>
-                        </ul>
-                        <div class="price-box ">
-                            <div class="pr-total ">
-                                <p><span class="d-price ">${{ copy_trade.discount }}</span>/mo</p>
-                            </div>
-                            <div class="pr-total ">
-                                <p><span>${{ copy_trade.price }}</span>/mo</p>
-                                <!--<span>(10% Discount for yearly)</span>-->
-                            </div>
-                        </div>
-                        <a href="{% url 'copy_trade:copy_trade_form' %}" class="btn btn-primary w-100 " >Buy
-                            Now</a>
-                    </div>
-                </div>
-            {% endif %}
-                {% if yearly_signal %}
-                    <div class="col-lg-6 ">
-                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
-                            <h2>Yearly Signals</h2>
-                            <ul>
-                                <li><span>15</span> Number of Guaranteed Trading Alerts Weekly</li>
-                                <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                                <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                                <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                                <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                                <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                                <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                                <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                    Report
-                                </li>
-                            </ul>
-                            <div class="price-box ">
-                                <div class="pr-total ">
-                                    <p><span class="d-price ">${{ yearly_signal.discount }}</span>/mo</p>
-                                </div>
-                                <div class="pr-total ">
-                                    <p><span>${{ yearly_signal.price }}</span>/mo</p>
-                                    <!--<span>(10% Discount for yearly)</span>-->
-                                </div>
-                            </div>
-                            <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %} "
-                               class="btn btn-primary w-100 ">Buy Now</a>
-                        </div>
-                    </div>
-                {% endif %}
-
-            </div>
-        </div>
-    </section>
-    <!--Section Our Products End-->
-    <!--Section Subscribe Now-->
-    <section class="subscribe-now ">
-        <div class="container ">
-            <div class="caption ">
-                <h3 class="wow fadeIn " data-wow-duration="0.7s " data-wow-delay="0.5s ">Subscribe to Our Mailer
-                </h3>
-                <p class="wow fadeIn " data-wow-duration="0.7s " data-wow-delay="0.5s ">Subscribe to Ninja Assassin on
-                    Instagram
-                    For latest information, discounts and new projects. </p>
-            </div>
-        </div>
-    </section>
-    <!--Section Subscribe Now End-->
-    <!--Section NewsLetter-->
-    <section class="newsletter ">
-        <div class="container ">
-            <div class="row ">
-                <div class="col-lg-5 ">
-                    <div class="caption ">
-                        <h3>Subscribe Newsletter </h3>
-                        <p>Want to receive our periodic mailers? Your pathway towards financial independence has never
-                            been closer.</p>
-                    </div>
-                </div>
-                <div class="col-lg-7 ">
-                    <form action="{% url 'home:subscribe' %}" class="custom-form mt-3 " method="post">
-                        {% csrf_token %}
-                        <div class="input-group ">
-                            <div class="input-group-append icon-e "><i class="fal fa-envelope "></i></div>
-                            <input type="email" class="form-control " name="email" placeholder="Email Address "
-                                   aria-label="Recipient 's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-group">Subscribe Here</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!--Section NewsLetter End-->
-    <!--Section Educational Blog Start-->
-    <!--testimonial-->
-
-    <div class="gtco-testimonials" style="margin: 50px 0;">
-        <h2>Testimonials</h2>
-        <div class="owl-carousel owl-carousel1 owl-theme">
-            {% for item in testimonial %}
-                <div>
-                    <div class="card text-center"><img class="card-img-top" src="{{ item.imageURL }}" alt="">
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-2">
                         <div class="card-body">
-                            <h5>{{ item.name }}<br/></h5>
-                            <p class="card-text">“{{ item.content }}.” </p>
+                            <div class="content-card ">
+                                <h3>Crystal Clear Methodology </h3>
+                                <p>We always keep our services transparent. Our members have full access to live trading, buy/sell information, as well as our trading records and our investment portfolios. As a member, you know WHERE we took our position,
+                                    HOW, and WHY, so that you, too, can learn to invest and trade just like the pros do. We also offer live market alerts, so that you can analyze the market along with us and thoroughly understand our perspective. </p>
+                            </div>
+                            <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative2.png' %} " alt=" "></div>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+                <div class="card-collapse">
+                    {% comment %}
+                    <div class="card_header1" id="headingThree">
+                        <a class=" collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <div class="card-edu ">
+                                <h3>We are professionals </h3>
+                                <p><strong>AssassinFx</strong> is a team of qualified multi-national professionals with 10+ years in the industry </p>
+                            </div>
+                        </a>
+                    </div>{% endcomment %}
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-2">
+                        <div class="card-body">
+                            <div class="content-card ">
+                                <h3>Seasoned Professionals You Can count on </h3>
+                                <p><strong> AssassinFx </strong>is a team of qualified multi-national professionals with nearly 10 years of experience in stocks, trading, and investments. For us, nothing is more important than ensuring that our members have
+                                    the right knowledge, skills, and market understanding to make informed decisions when investing and trading with your OWN money. </p>
+                            </div>
+                            <div class="img-inno "><img src="{% static 'HomePage/images/img-innovative3.png' %}" alt=" "></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--section education end-->
+<!--trading view-->
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <div class="tradingview-widget-copyright"><a href="https://uk.tradingview.com" rel="noopener" target="_blank"><span class="blue-text">Ticker Tape</span></a> by TradingView
+    </div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+            "symbols": [{
+                "proName": "FOREXCOM:SPXUSD",
+                "title": "S&P 500"
+            }, {
+                "proName": "FOREXCOM:NSXUSD",
+                "title": "Nasdaq 100"
+            }, {
+                "proName": "FX_IDC:EURUSD",
+                "title": "EUR/USD"
+            }, {
+                "proName": "BITSTAMP:BTCUSD",
+                "title": "BTC/USD"
+            }, {
+                "proName": "BITSTAMP:ETHUSD",
+                "title": "ETH/USD"
+            }, {
+                "description": "ETH/GBP",
+                "proName": "FX_IDC:ETBGBP"
+            }, {
+                "description": "CHF/JPY",
+                "proName": "OANDA:CHFJPY"
+            }, {
+                "description": "XRP/USD",
+                "proName": "BITSTAMP:XRPUSD"
+            }, {
+                "description": "AUD/USD",
+                "proName": "KRAKEN:AUDUSD"
+            }, {
+                "description": "ETH/GBP",
+                "proName": "KRAKEN:ETHGBP"
+            }, {
+                "description": "JPY/USD",
+                "proName": "FX_IDC:JPYUSD"
+            }, {
+                "description": "AUD/CAD",
+                "proName": "OANDA:AUDCAD"
+            }, {
+                "description": "AUD/NZD",
+                "proName": "OANDA:AUDNZD"
+            }, {
+                "description": "AUD/JPY",
+                "proName": "OANDA:AUDJPY"
+            }, {
+                "description": "AUD/CHF",
+                "proName": "FOREXCOM:AUDCHF"
+            }, {
+                "description": "EUR/GBP",
+                "proName": "OANDA:EURGBP"
+            }, {
+                "description": "EUR/JPY",
+                "proName": "OANDA:EURJPY"
+            }],
+            "showSymbolLogo": true,
+            "colorTheme": "light",
+            "isTransparent": false,
+            "displayMode": "adaptive",
+            "locale": "uk"
+        }
+    </script>
+</div>
+<!-- TradingView Widget END -->
+<!--Section Our Process Start-->
+<section class="our-process ">
+    <div class="container ">
+        <div class="caption ">
+            <h3 class="wow fadeIn " data-wow-duration="0.7s" data-wow-delay="0.5s">Our Process</h3>
+            <p class="wow fadeIn " data-wow-duration="0.7s" data-wow-delay="0.5s">The goal is to walk you down the ultimate pathway towards being your own boss. The long term goal is financial freedom. A comprehensive academy has been designed for students to offer insight into Forex, Indicies, Crypto, and Metals.</div>
+        <div class="row ">
+            <div class="col-lg-6 ">
+                <div id="accordion" class="accordian wow fadeInLeft" data-wow-duration="0.7s" data-wow-delay="0.5s">
+                    <div class="card-wrapper active">
+                        <div class="card_header" id="heading1"><a href="#" data-toggle="collapse" data-target="#member" aria-expanded="true" aria-controls="member">Join
+                                Us {% comment %}Become A Student{% endcomment %} </a>
+                        </div>
+                        <div id="member" class="collapse show" aria-labelledby="heading1" data-parent="#accordion">
+                            <div class="card_body">
+                                You can join us on Discord to work on your personal goals and trading styles. From price action, entries, key levels, psychology and much more!{% comment %}You can apply to AssassinFx academy as a student. THings you will learn on a long run Price actions,
+                                Entries, Key Levels, psychology and many more...{% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-wrapper">
+                        <div class="card_header" id="headingTwo"><a href="#" class="collapsed" data-toggle="collapse" data-target="#expert" aria-expanded="false" aria-controls="expert">AssassinFx
+                                Support system </a></div>
+                        <div id="expert" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card_body">Ninja Assassin started AssassinFx for individuals who asked for trade ideas, signals and trading outlook. The aim was never to start up a platform. Yet by simply posting screenshots of profits, analysis and market predictions
+                                this support system can help others in masses rather than individually.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-wrapper">
+                        <div class="card_header" id="headingThree"><a href="#" class="collapsed" data-toggle="collapse" data-target="#educate" aria-expanded="false" aria-controls="educate">
+                                Educate yourself </a></div>
+                        <div id="educate" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card_body"> Join the discord group and follow Ninja Assassin's trades with secured payment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-wrapper">
+                        <div class="card_header" id="headingFour"><a href="#" class="collapsed" data-toggle="collapse" data-target="#design" aria-expanded="false" aria-controls="design">Contact
+                                via</a></div>
+                        <div id="design" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                            <div class="card_body">You can contact me via <a href="{{ instagram_url }}" target="_blank">Instagram</a>, <a href="{{ tiktok_url }}">Tiktok</a>, <a href="mailto:admin@AssassinFx.com" target="_blank">Email</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="img-holder text-center"><img src="{% static 'HomePage/images/phone.svg' %}" alt="" class="img-fluid wow fadeInRight" data-wow-duration="0.7s" data-wow-delay="0.5s"></div>
+            </div>
+        </div>
+    </div>
+    <img src="{% static 'HomePage/images/left-trinangle.png' %}" alt="" class="left-img wow fadeInLeft" data-wow-duration="0.7s" data-wow-delay="0.5s">
+    <img src="{% static 'HomePage/images/right-triangle.png' %}" alt="" class="right-img wow fadeInRight" data-wow-duration="0.7s" data-wow-delay="0.5s"></section>
+<!--Section Our Process End-->
+<!--Section Our Products Start-->
+<section class="our-products" id="service"><img src="{% static 'HomePage/images/left-trinangle.png' %}" alt="" class="left-img wow fadeInLeft" data-wow-duration="0.7s" data-wow-delay="0.5s">
+    <div class="container ">
+        <div class="caption ">
+            <h3 class="wow fadeIn " data-wow-duration="0.7s " data-wow-delay="0.5s ">Our Products</h3>
+            <p class="wow fadeIn " data-wow-duration="0.7s " data-wow-delay="0.5s ">AssassinFx offers three products, Academy, Signals and the opportunity to take trades directly from Ninja to your MT4/MT5 accounts. Designed for members to gain understanding and confidence in the market. </p>
+        </div>
+        <div class="row " id="signal_payment">
+
+            {% if monthly_signal %}
+            <div class="col-lg-6 ">
+                <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                    <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
+                    <h2>Monthly Signals</h2>
+                    <ul>
+                        <li><span><i class="far fa-check "></i></span> 5-15 Number of Guaranteed Trading Alerts Weekly</li>
+                        <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
+                        <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
+                        <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
+                        <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
+                        <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
+                        <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
+                        <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit Report
+                        </li>
+                    </ul>
+                    <div class="price-box ">
+                        <div class="pr-total ">
+                            <p><span class="d-price ">${{ monthly_signal.discount }}</span>/mo</p>
+                        </div>
+                        <div class="pr-total ">
+                            <p><span>${{ monthly_signal.price }}</span>/mo</p>
+                            <!--<span>(10% Discount for yearly)</span>--></div>
+                    </div>
+                    <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}" class="btn btn-primary w-100 ">Buy Now</a></div>
+            </div>
+            {% endif %}
+
+            <div class="col-lg-6 ">
+                <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                    <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" "></div>
+                    <h2>Academy</h2>
+                    <ul>
+                        <li><span><i class="fal fa-check "></i></span>Learn from profitable traders</li>
+                        <li><span><i class="fal fa-check "></i></span>Where to check News and how to use it as confluence for your trades
+                        </li>
+                        <li><span><i class="far fa-check "></i></span>Broker information</li>
+                        <li><span><i class="fal fa-check"></i></span>Multiple languages spoken to cater for all bilinguals
+                        </li>
+                        <li><span><i class="fal fa-check "></i></span>How to chart up with our members trade ideas from experienced traders
+                        </li>
+                        <li><span><i class="far fa-check "></i></span>A friendly environment to learn</li>
+                        <li><span><i class="far fa-check "></i></span>Comprehensive Market Research & In-Depth Analaysis
+                        </li>
+
+                    </ul>
+                    <div class="price-box ">
+                        {% if paid_membership %}
+                        <div class="pr-total ">
+                            <p><span class="d-price ">${{ paid_membership.discount }}</span>/mo</p>
+                        </div>
+                        <div class="pr-total ">
+                            <p><span>${{ paid_membership.price }}</span></p>
+                            <!--<span>(10% Discount for yearly)</span>--></div>
+                    </div>
+                    <a href="{% url 'memberships:membership_select' %}" class="btn btn-primary w-100 ">Buy
+                                    Now</a> {% endif %}
+
+                </div>
+            </div>
+
+            {% if quarterly_signal %}
+            <div class="col-lg-6 ">
+                <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                    <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
+                    <h2>Quarterly Signals</h2>
+                    <ul>
+                        <li><span><i class="far fa-check "></i></span> 5-15 Number of Guaranteed Trading Alerts Weekly
+                        </li>
+                        <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
+                        <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
+                        <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
+                        <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
+                        <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
+                        <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
+                        <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit Report
+                        </li>
+                    </ul>
+                    <div class="price-box ">
+                        <div class="pr-total ">
+                            <p><span class="d-price ">${{ quarterly_signal.discount }}</span>/mo</p>
+                        </div>
+                        <div class="pr-total ">
+                            <p><span>${{ quarterly_signal.price }}</span>/mo</p>
+                            <!--<span>(10% Discount for yearly)</span>-->
+                        </div>
+                    </div>
+                    <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}" class="btn btn-primary w-100 ">Buy Now</a>
+                </div>
+            </div>
+            {% endif %} {% if copy_trade %}
+
+            <div class="col-lg-6 ">
+                <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                    <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" ">
+                    </div>
+                    <h2>Copy Trading</h2>
+                    <ul>
+                        <li><span><i class="far fa-check "></i></span> 5-15 Number of Guaranteed Trading Alerts Weekly
+                        </li>
+                        <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100
+                        </li>
+                        <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
+                        <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
+                        <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
+                        <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
+                        <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
+                        <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit Report
+                        </li>
+                    </ul>
+                    <div class="price-box ">
+                        <div class="pr-total ">
+                            <p><span class="d-price ">${{ copy_trade.discount }}</span>/mo</p>
+                        </div>
+                        <div class="pr-total ">
+                            <p><span>${{ copy_trade.price }}</span>/mo</p>
+                            <!--<span>(10% Discount for yearly)</span>-->
+                        </div>
+                    </div>
+                    <a href="{% url 'copy_trade:copy_trade_form' %}" class="btn btn-primary w-100 ">Buy
+                            Now</a>
+                </div>
+            </div>
+            {% endif %} {% if yearly_signal %}
+            <div class="col-lg-6 ">
+                <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                    <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
+                    <h2>Yearly Signals</h2>
+                    <ul>
+                        <li><span><i class="far fa-check "></i></span> 5-15 Number of Guaranteed Trading Alerts Weekly
+                        </li>
+                        <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
+                        <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
+                        <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
+                        <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
+                        <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
+                        <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
+                        <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit Report
+                        </li>
+                    </ul>
+                    <div class="price-box ">
+                        <div class="pr-total ">
+                            <p><span class="d-price ">${{ yearly_signal.discount }}</span>/mo</p>
+                        </div>
+                        <div class="pr-total ">
+                            <p><span>${{ yearly_signal.price }}</span>/mo</p>
+                            <!--<span>(10% Discount for yearly)</span>-->
+                        </div>
+                    </div>
+                    <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %} " class="btn btn-primary w-100 ">Buy Now</a>
+                </div>
+            </div>
+            {% endif %}
 
         </div>
     </div>
-
-    <!--testimonial-->
-    <!--Section Educational Blog Start-->
-    <section class="blog">
-        <div class="container">
-            <div class="caption">
-                <h3 class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s"
-                    style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;">
-                    Blog</h3>
-                <p class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s"
-                   style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;"></p>
+</section>
+<!--Section Our Products End-->
+<!--Section Subscribe Now-->
+<section class="subscribe-now ">
+    <div class="container ">
+        <div class="caption ">
+            <h3 class="wow fadeIn " data-wow-duration="0.7s " data-wow-delay="0.5s ">Subscribe to Our Mailer
+            </h3>
+            <p class="wow fadeIn " data-wow-duration="0.7s " data-wow-delay="0.5s ">Subscribe to Ninja Assassin on Instagram For latest information, discounts and new projects. </p>
+        </div>
+    </div>
+</section>
+<!--Section Subscribe Now End-->
+<!--Section NewsLetter-->
+<section class="newsletter ">
+    <div class="container ">
+        <div class="row ">
+            <div class="col-lg-5 ">
+                <div class="caption ">
+                    <h3>Subscribe Newsletter </h3>
+                    <p>Want to receive our periodic mailers? Your pathway towards financial independence has never been closer.</p>
+                </div>
             </div>
-            <div class="blog-content wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s"
-                 style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;">
-                <div class="owl-carousel owl-theme blog-slider owl-loaded owl-drag">
+            <div class="col-lg-7 ">
+                <form action="{% url 'home:subscribe' %}" class="custom-form mt-3 " method="post">
+                    {% csrf_token %}
+                    <div class="input-group ">
+                        <div class="input-group-append icon-e "><i class="fal fa-envelope "></i></div>
+                        <input type="email" class="form-control " name="email" placeholder="Email Address " aria-label="Recipient 's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-group">Subscribe Here</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 
 
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage" style="transform: translate3d(-1040px, 0px, 0px);
+<!--Section NewsLetter End-->
+<!--Section Educational Blog Start-->
+<!--testimonial-->
+
+<div class="gtco-testimonials" style="margin: 50px 0;">
+    <h2>Testimonials</h2>
+    <div class="owl-carousel owl-carousel1 owl-theme">
+        {% for item in testimonial %}
+        <div>
+            <div class="card text-center"><img class="card-img-top" src="{{ item.imageURL }}" alt="">
+                <div class="card-body">
+                    <h5>{{ item.name }}<br/></h5>
+                    <p class="card-text">“{{ item.content }}.” </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<!--testimonial-->
+<!--Section Educational Blog Start-->
+<section class="blog">
+    <div class="container">
+        <div class="caption">
+            <h3 class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;">
+                Blog</h3>
+            <p class="wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;"></p>
+        </div>
+        <div class="blog-content wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 0.7s; animation-delay: 0.5s; animation-name: fadeIn;">
+            <div class="owl-carousel owl-theme blog-slider owl-loaded owl-drag">
+
+
+                <div class="owl-stage-outer">
+                    <div class="owl-stage" style="transform: translate3d(-1040px, 0px, 0px);
                              transition: all 0s ease 0s; width: 4160px;">
-                            {% for item in post %}
-                                <div class="owl-item {% if item.first %} active {% else %} {% endif %}"
-                                     style="width: 510px; margin-right: 10px;">
-                                    <div class="item">
-                                        <div class="card-slide">
-                                            <a href="{{ item.get_absolute_url }}"><img src="{{ item.imageURL }}" alt=""></a>
-                                            <div class="date-blog">
-                                                <a href="{{ item.get_absolute_url }}">
-                                                    <h5>{{ item.timestamp }}</h5>
-                                                </a>
-                                            </div>
-                                            <div class="blog-des">
-                                                <a href="{{ item.get_absolute_url }}">
-                                                    <h3>{{ item.title|capfirst }}
-                                                    </h3>
-                                                </a>
-                                                <p>{{ item.get_markdown|truncatechars:1 }}.</p>
-                                            </div>
-                                        </div>
+                        {% for item in post %}
+                        <div class="owl-item {% if item.first %} active {% else %} {% endif %}" style="width: 510px; margin-right: 10px;">
+                            <div class="item">
+                                <div class="card-slide">
+                                    <a href="{{ item.get_absolute_url }}"><img src="{{ item.imageURL }}" alt=""></a>
+                                    <div class="date-blog">
+                                        <a href="{{ item.get_absolute_url }}">
+                                            <h5>{{ item.timestamp }}</h5>
+                                        </a>
+                                    </div>
+                                    <div class="blog-des">
+                                        <a href="{{ item.get_absolute_url }}">
+                                            <h3>{{ item.title|capfirst }}
+                                            </h3>
+                                        </a>
+                                        <p>{{ item.get_markdown|truncatechars:1 }}.</p>
                                     </div>
                                 </div>
-                            {% endfor %}
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    <div class="owl-nav">
-                        <button type="button" role="presentation" class="owl-prev"><i class="far fa-chevron-left"></i>
-                        </button>
-                        <button type="button" role="presentation" class="owl-next"><i class="far fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    <div class="owl-dots disabled"></div>
                 </div>
+                <div class="owl-nav">
+                    <button type="button" role="presentation" class="owl-prev"><i class="far fa-chevron-left"></i>
+                        </button>
+                    <button type="button" role="presentation" class="owl-next"><i class="far fa-chevron-right"></i>
+                        </button>
+                </div>
+                <div class="owl-dots disabled"></div>
             </div>
         </div>
-    </section>
-    <!--Section Educational Blog End-->
-    <!--Section Contact Us Start-->
-    <section class="contact-main">
-        <div class="container">
-            <div class="caption">
-                <h3 class="wow fadeIn" data-wow-duration="0.5s" data-wow-delay="0.5s">Contact Us </h3>
-                <h4 class="wow fadeIn" data-wow-duration="0.5s" data-wow-delay="0.5s">We look forward to hearing from
-                    you!
-                </h4>
-                <p class="wow fadeIn" data-wow-duration="0.5s" data-wow-delay="0.5s">For any questions, comments, or
-                    concerns about our services, please do not hesitate to reach out to us directly for more
-                    information.
-                </p>
+    </div>
+</section>
+<!--Section Educational Blog End-->
+<!--Section Contact Us Start-->
+<section class="contact-main">
+    <div class="container">
+        <div class="caption">
+            <h3 class="wow fadeIn" data-wow-duration="0.5s" data-wow-delay="0.5s">Contact Us </h3>
+            <h4 class="wow fadeIn" data-wow-duration="0.5s" data-wow-delay="0.5s">We look forward to hearing from you!
+            </h4>
+            <p class="wow fadeIn" data-wow-duration="0.5s" data-wow-delay="0.5s">For any questions, comments, or concerns about our services, please do not hesitate to reach out to us directly for more information.
+            </p>
+        </div>
+        <form action="{% url 'users:contact' %}" class="row custom-form" autocomplete="on" method="post">
+            {% csrf_token %}
+            <div class="col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s">
+                <input type="text" class="form-control" placeholder="Name" id="id_contact_name" name="contact_name">
+                <input type="email" class="form-control" placeholder="Email" id="id_contact_email" name="contact_email">
+                <input type="text" class="form-control" placeholder="Subject" id="id_contact_subject" name="contact_subject">
             </div>
-            <form action="{% url 'users:contact' %}" class="row custom-form" autocomplete="on" method="post">
-                {% csrf_token %}
-                <div class="col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s">
-                    <input type="text" class="form-control" placeholder="Name" id="id_contact_name" name="contact_name">
-                    <input type="email" class="form-control" placeholder="Email" id="id_contact_email"
-                           name="contact_email">
-                    <input type="text" class="form-control" placeholder="Subject" id="id_contact_subject"
-                           name="contact_subject">
-                </div>
-                <div class="col-md-6 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.5s">
-                    <textarea cols="30" rows="3" class="form-control" id="id_contact_message" name="contact_message"
-                              placeholder="Message"></textarea>
-                    <button class="btn btn-primary w-100">Submit</button>
+            <div class="col-md-6 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.5s">
+                <textarea cols="30" rows="3" class="form-control" id="id_contact_message" name="contact_message" placeholder="Message"></textarea>
+                <button class="btn btn-primary w-100">Submit</button>
 
-                </div>
-            </form>
-        </div>
-    </section>
-    <!--Section Contact Us End-->
+            </div>
+        </form>
+    </div>
+</section>
+<!--Section Contact Us End-->
 
 {% endblock content %}
 <!--Section Footer Start-->

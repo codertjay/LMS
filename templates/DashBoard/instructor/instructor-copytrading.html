@@ -1,72 +1,55 @@
-{% extends 'DashBoard/dashboard_base.html' %}
-
-{% block profile_page %}
-
-{% endblock %}
-
-{% block styles %}
-
-{% endblock %}
-
-{% block title %}
-
-{% endblock %}
-
-{% block content %}
+{% extends 'DashBoard/dashboard_base.html' %} {% block profile_page %} {% endblock %} {% block styles %} {% endblock %} {% block title %} {% endblock %} {% block content %}
 
 
-    <div class="container-fluid ">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'courses:create_course' %}">Courses</a></li>
-            <li class="breadcrumb-item active">Copy Trade</li>
-        </ol>
-        <div class="media align-items-center mb-headings">
-            <div class="media-body">
-                <h1 class="text-center text-capitalize ">Copy Trade </h1>
+<div class="container-fluid ">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'courses:create_course' %}">Courses</a></li>
+        <li class="breadcrumb-item active">Copy Trade</li>
+    </ol>
+    <div class="media align-items-center mb-headings">
+        <div class="media-body">
+            <h1 class="text-center text-capitalize ">Copy Trade </h1>
+        </div>
+    </div>
+    <div class="row">
+
+        {% for item in copy_trade %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3 class="text-capitalize"><strong>{{ item.name }}</strong></h3>
+                </div>
+                <div class="card-body  ">
+                    <h5><strong> Discord Username: </strong>{{ item.discord_username }}</h5>
+                    <h5><strong> Email: </strong>{{ item.email }}</h5>
+                    <h5><strong>Account Type:</strong> {{ item.account_type }}</h5>
+                    <h5><strong>Account Number:</strong> {{ item.account_number }}</h5>
+                    <h5><strong>Account Password:</strong> {{ item.account_password }}</h5>
+                    <h5><strong>Broker:</strong>{{ item.broker }}</h5>
+                    <h5><strong>Broke Server:</strong>{{ item.Broker_server }}</h5>
+                    <h5><strong>Slippage:</strong> {{ item.slippage }}</h5>
+                    <h5><strong>Forex pairs:</strong> {{ item.forex_pairs }}</h5>
+                    <h5><strong>Indices:</strong> {{ item.indices }}</h5>
+                    <h5><strong>Metals:</strong> {{ item.metals }}</h5>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <div> Created : {{ item.timestamp }}</div>
+                    <form action="." method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ item.id }}">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="row">
-
-            {% for item in copy_trade %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <h3 class="text-capitalize"><strong>{{ item.name }}</strong></h3>
-                        </div>
-                        <div class="card-body  ">
-                            <h5><strong> Discord Username: </strong>{{ item.discord_username }}</h5>
-                            <h5><strong> Email: </strong>{{ item.email }}</h5>
-                            <h5><strong>Account Type:</strong> {{ item.account_type }}</h5>
-                            <h5><strong>Account Number:</strong> {{ item.account_number }}</h5>
-                            <h5><strong>Broker:</strong>{{ item.broker }}</h5>
-                            <h5><strong>Broke Server:</strong>{{ item.Broker_server }}</h5>
-                            <h5><strong>Slippage:</strong> {{ item.slippage }}</h5>
-                            <h5><strong>Forex pairs:</strong> {{ item.forex_pairs }}</h5>
-                            <h5><strong>Indices:</strong> {{ item.indices }}</h5>
-                            <h5><strong>Metals:</strong> {{ item.metals }}</h5>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between">
-                            <div> Created : {{ item.timestamp }}</div>
-                            <form action="." method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="id" value="{{ item.id }}">
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-
-
-        </div>
+        {% endfor %}
 
 
     </div>
 
 
-{% endblock %}
+</div>
 
-{% block script %}
 
-{% endblock %}
+{% endblock %} {% block script %} {% endblock %}
