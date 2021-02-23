@@ -52,8 +52,10 @@ def coming_soon(request):
     coming_soon = ComingSoon.objects.first()
     if coming_soon:
         if coming_soon.coming_soon == True:
-            return render(request,'Homepage/coming_soon.html')
-    return redirect('home:home')
+            return render(request,'HomePage/terms.html' )
+    else:
+        return redirect('home:home')
+
 class HomePageView(View):
 
     def get(self, *args, **kwargs):
@@ -69,7 +71,7 @@ class HomePageView(View):
 class TermsAndConditionView(View):
 
     def get(self, *args, **kwargs):
-        return render(self.request, 'HomePage/terms.html')
+        return render(self.request,'HomePage/terms.html' )
 
 
 class PricingView(View):
