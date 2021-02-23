@@ -52,7 +52,7 @@ def coming_soon(request):
     coming_soon = ComingSoon.objects.first()
     if coming_soon:
         if coming_soon.coming_soon == True:
-            return render(request,'HomePage/terms.html' )
+            return render(request,'HomePage/soon.html' )
     else:
         return redirect('home:home')
 
