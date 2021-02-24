@@ -195,7 +195,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
-DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER_SENDGRID
 
 #  handling errors for demo
 handler404 = 'home_page.views.view_404'
