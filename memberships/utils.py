@@ -7,7 +7,7 @@ from django.utils.html import strip_tags
 
 from memberships.models import Membership, Subscription, UserMembership
 
-EMAIL_HOST_USER = settings.EMAIL_HOST_USER
+EMAIL_HOST_USER = settings.EMAIL_HOST_USER_SENDGRID
 
 
 def get_user_membership(request):
