@@ -13,7 +13,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG= True
+DEBUG=False
 SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 
 # ALLOWED_HOSTS = ['127.0.0.1', '.localhost', 'localhost', '104.248.230.206','assassinfx.com','www.assassinfx.com']
