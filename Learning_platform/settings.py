@@ -186,7 +186,7 @@ SITE_ID = 1
 
 # for sending email
 
-EMAIL_BACKEND ='EMAIL_BACKEND ="sendgrid_backend.SendgridBackend"
+EMAIL_BACKEND ="sendgrid_backend.SendgridBackend"
 
 SENDGRID_API_KEY = config('SENDGRID_API_KEY')
 
