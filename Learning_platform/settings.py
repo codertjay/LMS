@@ -149,7 +149,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'courses/static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/courses/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SIGNUP_REDIRECT_URL = '/courses/'
 
