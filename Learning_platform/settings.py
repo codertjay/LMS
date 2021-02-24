@@ -185,7 +185,7 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 # for sending email
-
+EMAIL_HOST_USER_SENDGRID='ninjaassassin@assassinfx.com'
 EMAIL_BACKEND ="sendgrid_backend.SendgridBackend"
 
 SENDGRID_API_KEY = config('SENDGRID_API_KEY')
