@@ -15,10 +15,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 SENDGRID_SANDBOX_MODE_IN_DEBUG=DEBUG
 
-if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', '.localhost', 'localhost', '104.248.230.206','assassinfx.com','www.assassinfx.com']
-else:
-    ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['127.0.0.1', '.localhost', 'localhost', '104.248.230.206','assassinfx.com','www.assassinfx.com']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -160,7 +158,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_UNIQUE_USERNAME = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 200
