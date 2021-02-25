@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.messages.context_processors import messages
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
