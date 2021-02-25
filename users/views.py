@@ -17,7 +17,7 @@ from signal_app.models import UserSignalSubscription, deactivate_signals
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
 
-EMAIL_HOST_USER = settings.EMAIL_HOST_USER
+EMAIL_HOST_USER = settings.EMAIL_HOST_USER_SENDGRID
 
 
 class StudentDashBoardView(LoginRequiredMixin, View):
