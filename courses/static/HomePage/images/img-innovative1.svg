@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="716" height="511" viewBox="0 0 716 511">
   <defs>
-    <filter id="Rectangle_18" x="73" y="85" width="215" height="246" filterUnits="userSpaceOnUse">
+    <filter id="Rectangle_18" x="73" y="85" width="215" height="226" filterUnits="userSpaceOnUse">
       <feOffset dx="3" dy="3" input="SourceAlpha"/>
       <feGaussianBlur stdDeviation="15" result="blur"/>
       <feFlood flood-opacity="0.012"/>
