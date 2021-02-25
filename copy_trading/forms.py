@@ -13,6 +13,7 @@ class CopyTradeInfoForm(forms.ModelForm):
     account_password = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     broker = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     Broker_server = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    risk = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     slippage = forms.ChoiceField(label='Slippage', widget=forms.RadioSelect(attrs={'class': 'form-control '}),
                                  choices=Yes_or_No)
     forex_pairs = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class': '  '}),

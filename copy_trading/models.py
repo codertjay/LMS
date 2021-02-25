@@ -21,6 +21,7 @@ class CopyTradeInfo(models.Model):
     account_password = models.CharField(max_length=100)
     broker = models.CharField(max_length=100)
     Broker_server = models.CharField(max_length=100)
+    risk = models.CharField(max_length=100)
     slippage = models.CharField(choices=Yes_or_No, max_length=6)
     forex_pairs = models.CharField(choices=Yes_or_No, max_length=6)
     indices = models.CharField(choices=Yes_or_No, max_length=6)

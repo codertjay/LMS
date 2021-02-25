@@ -1,56 +1,46 @@
-{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} Pricing || ForexTrading {% endblock title %}
-
-{% block style %}
-    <style>
-        .icon_color {
-            color: #00b9ce !important;
-        }
-    </style>
-{% endblock %}
-{% block content %}
-    <!--Select Links End-->
-    <section class="pricing-table">
-        <div id="smartwizard">
-            <ul class="step-links">
-                <li><a href="#step-1"><span> <small>1</small><i class="far fa-check"></i></span> Select Your Plan</a>
-                </li>
-                </li>
-            </ul>
-            <div class="container mx-auto pr-wrapper">
-                <div id="step-1" class="">
-                    <div class="wrapper-step">
-                        <div class="table-responsive">
-                            <table class="table table-header">
-                                <tbody>
+{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} Pricing || ForexTrading {% endblock title %} {% block style %}
+<style>
+    .icon_color {
+        color: #00b9ce !important;
+    }
+</style>
+{% endblock %} {% block content %}
+<!--Select Links End-->
+<section class="pricing-table">
+    <div id="smartwizard">
+        <ul class="step-links">
+            <li><a href="#step-1"><span> <small>1</small><i class="far fa-check"></i></span> Select Your Plan</a>
+            </li>
+            </li>
+        </ul>
+        <div class="container mx-auto pr-wrapper">
+            <div id="step-1" class="">
+                <div class="wrapper-step">
+                    <div class="table-responsive">
+                        <table class="table table-header">
+                            <tbody>
                                 <tr>
                                     <td class="bg-white">
-                                        {% comment %}<div class="gurannte-box"><img
-                                                src="{% static 'dashboard/dashboard_base/assets/images/gurantee-img.png' %}"
-                                                alt="">
+                                        {% comment %}
+                                        <div class="gurannte-box"><img src="{% static 'dashboard/dashboard_base/assets/images/gurantee-img.png' %}" alt="">
                                             <h4>100% No-Risk Guarantee</h4>
-                                            <p>if you are not fully satisfied, request to cancel within 7 days of your
-                                                purchase and receive a full refund.</p>
+                                            <p>if you are not fully satisfied, request to cancel within 7 days of your purchase and receive a full refund.</p>
                                         </div>{% endcomment %}
                                     </td>
 
                                     <td class="bg-lightblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img
-                                                    src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}"
-                                                    alt=""></div>
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
                                             <h4>Forex Academy</h4>
                                             <div class="pr-my">${{ paid_membership.price }}
                                             </div>
                                             <p>(One time payment)</p>
-                                            <a href="{% url 'memberships:membership_select' %}"
-                                               class="btn btn_default ">Subscribe Now</a></div>
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
                                     </td>
 
                                     <td class="bg-darkblue">
                                         <div class="card-subs">
-                                            <div class="img-holder"><img
-                                                    src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}"
-                                                    alt=""></div>
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}" alt=""></div>
                                             <h4>Signal Services </h4>
                                             <div class="pr-my"><span><b>${{ monthly_signal.price }}</b>/mo</span>
                                             </div>
@@ -60,27 +50,24 @@
                                     </td>
 
                                     {% if copy_trade %}
-                                        <td class="bg-lightblue">
-                                            <div class="card-subs">
-                                                <div class="img-holder"><img
-                                                        src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}"
-                                                        alt=""></div>
-                                                <h4>Copy Trading </h4>
-                                                <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
+                                    <td class="bg-lightblue">
+                                        <div class="card-subs">
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}" alt=""></div>
+                                            <h4>Copy Trading </h4>
+                                            <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
 
-                                                </div>
+                                            </div>
 
-                                                <a href="{% url 'copy_trade:copy_trade_form' %}" target="_blank"
-                                                   class="btn btn_default ">Subscribe
+                                            <a href="{% url 'copy_trade:copy_trade_form' %}" class="btn btn_default ">Subscribe
                                                     Now</a></div>
-                                        </td>
+                                    </td>
                                     {% endif %}
 
                                 </tr>
-                                </tbody>
-                            </table>
-                            <table class="table table-content">
-                                <tbody>
+                            </tbody>
+                        </table>
+                        <table class="table table-content">
+                            <tbody>
                                 <tr>
                                     <td>Number of Guaranteed Trading Alerts Weekly</td>
                                     <td><span class="txtb">none</span></td>
@@ -142,8 +129,7 @@
                                             <div class="pr-my"><span><b>${{ paid_membership.price }}</b></span>
                                             </div>
 
-                                            <a href="{% url 'memberships:membership_select' %}"
-                                               class="btn btn_default ">Subscribe Now</a></div>
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
                                     </td>
                                     <td>
                                         <div class="card-subs">
@@ -155,26 +141,24 @@
                                     </td>
 
                                     {% if copy_trade %}
-                                        <td>
-                                            <div class="card-subs">
-                                                <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
-                                                </div>
+                                    <td>
+                                        <div class="card-subs">
+                                            <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
+                                            </div>
 
-                                                <a href="{% url 'copy_trade:copy_trade_form' %}" target="_blank"
-                                                   class="btn btn_default ">Subscribe
+                                            <a href="{% url 'copy_trade:copy_trade_form' %}" class="btn btn_default ">Subscribe
                                                     Now</a></div>
-                                        </td>
+                                    </td>
                                     {% endif %}
                                 </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
             </div>
+
         </div>
-    </section>
-    <!--Section Footer Start-->
-{% endblock content %} {% block script %}
-{% endblock script %}
+    </div>
+</section>
+<!--Section Footer Start-->
+{% endblock content %} {% block script %} {% endblock script %}
