@@ -140,7 +140,6 @@ label {
     -webkit-transition: box-shadow 150ms ease;
     transition: box-shadow 150ms ease;
     /* my style*/
-    width: 80%;
     min-width:90% !important;
 }
 

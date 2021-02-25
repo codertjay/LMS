@@ -6,22 +6,24 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.views.generic.base import View
 
-from Learning_platform.settings import EMAIL_HOST_USER
+from Learning_platform.settings import EMAIL_HOST_USER_SENDGRID
 from home_page.mixins import InstructorAndLoginRequiredMixin
 from .forms import CopyTradeInfoForm
 from .models import CopyTradeInfo
 
 
 # send created mail mail to the user
-def copy_trade_created_message(email, name):
-    html_message = render_to_string('EmailTemplates/copy_trade_created.html', {'email': email, 'name': name})
+def copy_trade_created_message(email=None, name=None):
+    print(email,email)
+    email_user = email
+    html_message = render_to_string('EmailTemplates/copy_trade_created.html',
+                                    {'email': email_user, 'name': name})
     plain_message = strip_tags(html_message)
     send_mail(
         f"AssasinFx Copy Trade ( Created ) ",
-        plain_message, EMAIL_HOST_USER, recipient_list=[email, EMAIL_HOST_USER]
-        , html_message=html_message
+        plain_message, EMAIL_HOST_USER_SENDGRID, recipient_list=[email_user,EMAIL_HOST_USER_SENDGRID]
+        , html_message=html_message,fail_silently=True
     )
-
     return None
 
 
@@ -36,6 +38,7 @@ class CopyTradeFormView(View):
         if form.is_valid():
             print(form.cleaned_data)
             form.save()
+            print('the email ',form.cleaned_data.get('email'))
             copy_trade_created_message(email=form.cleaned_data.get('email'), name=form.cleaned_data.get('name'))
             messages.success(request, 'You have successfully filled the form, a message has being sent to your mail')
             return redirect('home:home')
