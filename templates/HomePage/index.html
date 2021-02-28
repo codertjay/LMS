@@ -293,35 +293,6 @@
         </div>
         <div class="row " id="signal_payment">
 
-<<<<<<< HEAD
-                {% if monthly_signal %}
-                    <div class="col-lg-6 ">
-                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
-                            <h2>Monthly Signals</h2>
-                            <ul>
-                                <li><span><i class="far fa-check "></i></span>5 - 15 Number of Guaranteed Trading Alerts Weekly</li>
-                                <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                                <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                                <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                                <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                                <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                                <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                                <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                    Report
-                                </li>
-                            </ul>
-                            <div class="price-box ">
-                                <div class="pr-total ">
-                                    <p><span class="d-price ">${{ monthly_signal.discount }}</span>/mo</p>
-                                </div>
-                                <div class="pr-total ">
-                                    <p><span>${{ monthly_signal.price }}</span>/mo</p>
-                                    <!--<span>(10% Discount for yearly)</span>--></div>
-                            </div>
-                            <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}"
-                               class="btn btn-primary w-100 ">Buy Now</a></div>
-=======
             {% if monthly_signal %}
             <div class="col-lg-6 ">
                 <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
@@ -345,7 +316,6 @@
                         <div class="pr-total ">
                             <p><span>${{ monthly_signal.price }}</span>/mo</p>
                             <!--<span>(10% Discount for yearly)</span>--></div>
->>>>>>> 7b59d6b968c30ead69fae5433df37a40bcd91393
                     </div>
                     <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}" class="btn btn-primary w-100 ">Buy Now</a></div>
             </div>
@@ -384,36 +354,6 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
-                {% if quarterly_signal %}
-                    <div class="col-lg-6 ">
-                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
-                            <h2>Quarterly Signals</h2>
-                            <ul>
-                                <li><span><i class="far fa-check "></i></span>5 - 15 Number of Guaranteed Trading Alerts Weekly</li>
-                                <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                                <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                                <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                                <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                                <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                                <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                                <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                    Report
-                                </li>
-                            </ul>
-                            <div class="price-box ">
-                                <div class="pr-total ">
-                                    <p><span class="d-price ">${{ quarterly_signal.discount }}</span>/mo</p>
-                                </div>
-                                <div class="pr-total ">
-                                    <p><span>${{ quarterly_signal.price }}</span>/mo</p>
-                                    <!--<span>(10% Discount for yearly)</span>-->
-                                </div>
-                            </div>
-                            <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}"
-                               class="btn btn-primary w-100 ">Buy Now</a>
-=======
             {% if quarterly_signal %}
             <div class="col-lg-6 ">
                 <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
@@ -438,7 +378,6 @@
                         <div class="pr-total ">
                             <p><span>${{ quarterly_signal.price }}</span>/mo</p>
                             <!--<span>(10% Discount for yearly)</span>-->
->>>>>>> 7b59d6b968c30ead69fae5433df37a40bcd91393
                         </div>
                     </div>
                     <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}" class="btn btn-primary w-100 ">Buy Now</a>
@@ -468,70 +407,14 @@
                         <div class="pr-total ">
                             <p><span class="d-price ">${{ copy_trade.discount }}</span>/mo</p>
                         </div>
-<<<<<<< HEAD
-                        <h2>Copy Trading</h2>
-                        <ul>
-                            <li><span><i class="far fa-check "></i></span>5 - 15 Number of Guaranteed Trading Alerts Weekly</li>
-                            <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100
-                            </li>
-                            <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                            <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                            <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                            <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                            <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                            <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                Report
-                            </li>
-                        </ul>
-                        <div class="price-box ">
-                            <div class="pr-total ">
-                                <p><span class="d-price ">${{ copy_trade.discount }}</span>/mo</p>
-                            </div>
-                            <div class="pr-total ">
-                                <p><span>${{ copy_trade.price }}</span>/mo</p>
-                                <!--<span>(10% Discount for yearly)</span>-->
-                            </div>
-=======
                         <div class="pr-total ">
                             <p><span>${{ copy_trade.price }}</span>/mo</p>
                             <!--<span>(10% Discount for yearly)</span>-->
->>>>>>> 7b59d6b968c30ead69fae5433df37a40bcd91393
                         </div>
                     </div>
                     <a href="{% url 'copy_trade:copy_trade_form' %}" class="btn btn-primary w-100 ">Buy
                             Now</a>
                 </div>
-<<<<<<< HEAD
-            {% endif %}
-                {% if yearly_signal %}
-                    <div class="col-lg-6 ">
-                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
-                            <div class="icon-box "><img src="{% static 'HomePage/images/icon1.png' %}" alt=" "></div>
-                            <h2>Yearly Signals</h2>
-                            <ul>
-                                <li><span><i class="far fa-check "></i></span>5 - 15 Number of Guaranteed Trading Alerts Weekly</li>
-                                <li><span><i class="far fa-check "></i></span>Signals currencies, US30 and Nas 100</li>
-                                <li><span><i class="fal fa-check "></i></span>Average 9,000 pips per week</li>
-                                <li><span><i class="fal fa-check "></i></span>5 - 15 Signals per week</li>
-                                <li><span><i class="far fa-check "></i></span>Month-to-Month Income Generation</li>
-                                <li><span><i class="far fa-check "></i></span>Entry, Stop Loss and Take Profit</li>
-                                <li><span><i class="far fa-check "></i></span>Signal Precision 80 - 90%</li>
-                                <li><span><i class="far fa-check "></i></span>Monthly Complete Market Overview / Profit
-                                    Report
-                                </li>
-                            </ul>
-                            <div class="price-box ">
-                                <div class="pr-total ">
-                                    <p><span class="d-price ">${{ yearly_signal.discount }}</span>/mo</p>
-                                </div>
-                                <div class="pr-total ">
-                                    <p><span>${{ yearly_signal.price }}</span>/mo</p>
-                                    <!--<span>(10% Discount for yearly)</span>-->
-                                </div>
-                            </div>
-                            <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %} "
-                               class="btn btn-primary w-100 ">Buy Now</a>
-=======
             </div>
             {% endif %} {% if yearly_signal %}
             <div class="col-lg-6 ">
@@ -557,7 +440,6 @@
                         <div class="pr-total ">
                             <p><span>${{ yearly_signal.price }}</span>/mo</p>
                             <!--<span>(10% Discount for yearly)</span>-->
->>>>>>> 7b59d6b968c30ead69fae5433df37a40bcd91393
                         </div>
                     </div>
                     <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %} " class="btn btn-primary w-100 ">Buy Now</a>
