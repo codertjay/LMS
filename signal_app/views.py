@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.messages.context_processors import messages
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
@@ -22,7 +22,9 @@ class SignalPaymentView(LoginRequiredMixin, View):
         form = UserUpdateForm(request.FILES or None, instance=request.user)
         signal = SignalType.objects.filter(signal_choice=signal_choice).first()
         user_signal_sub = UserSignalSubscription.objects.filter(user=request.user).first()
+        
         if signal:
+            print(signal)
             """In here i am checking if the user have a current signal if he/she has i would redirect
              the him/her to the signal page"""
             if user_signal_sub:
@@ -34,7 +36,7 @@ class SignalPaymentView(LoginRequiredMixin, View):
                         }))
 
         else:
-            messages.error(request, 'This signal does not exist')
+            
             return redirect('home:home')
         return render(request, 'HomePage/signal/signal_detail.html', {'signal': signal, 'form': form})
 

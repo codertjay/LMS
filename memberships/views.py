@@ -13,6 +13,7 @@ from memberships.models import Membership, Subscription
 from memberships.utils import get_user_membership, get_user_subscription, get_selected_membership, \
     membership_created_message
 from signal_app.models import UserSignalSubscription
+from home_page.models import ComingSoon
 
 
 @login_required
@@ -71,6 +72,10 @@ def payment_view(request):
     selected_membership = get_selected_membership(request)
     publish_key = settings.STRIPE_PUBLISHABLE_KEY
     # print('The selected', selected_membership)
+    coming_soon = ComingSoon.objects.first()
+    if coming_soon:
+        if coming_soon.coming_soon == True:
+            return redirect('home:coming_soon')
     if request.method == 'POST':
         try:
             token = request.POST['stripeToken']

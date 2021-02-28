@@ -6,7 +6,8 @@ body, html {
 }
 */
 
-*, label {
+*,
+label {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-size: 16px;
     font-variant: normal;
@@ -47,7 +48,10 @@ button:hover {
     background-color: #43458b;
 }
 
+
 /* comment the form to fix bug*/
+
+
 /*form {
   padding: 30px;
   height: 120px;
@@ -69,6 +73,7 @@ label {
     padding: 4px 0;
     color: #fa755a;
 }
+
 
 /*
 .form-row {
@@ -100,9 +105,7 @@ label {
     padding: 20px 30px;
     border-radius: 0 0 4px 4px;
     box-sizing: border-box;
-    box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
-    0 15px 35px rgba(50, 50, 93, 0.15),
-    0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1), 0 15px 35px rgba(50, 50, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
     -webkit-transition: all 500ms ease-in-out;
     transition: all 500ms ease-in-out;
     transform: translateY(0);
@@ -121,10 +124,12 @@ label {
     color: #32325d;
 }
 
+
 /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
  * how you can use CSS to style your Element's container.
  */
+
 .StripeElement {
     background-color: white;
     height: 40px;
@@ -135,12 +140,11 @@ label {
     -webkit-transition: box-shadow 150ms ease;
     transition: box-shadow 150ms ease;
     /* my style*/
-    min-width: 690px;
-
+    min-width:90% !important;
 }
-input{
 
-}
+input {}
+
 .StripeElement--focus {
     box-shadow: 0 1px 3px 0 #cfd7df;
 }

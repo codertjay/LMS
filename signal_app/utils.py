@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-EMAIL_HOST_USER = settings.EMAIL_HOST_USER
+EMAIL_HOST_USER = settings.EMAIL_HOST_USER_SENDGRID
 
 
 # send created mail mail to the user

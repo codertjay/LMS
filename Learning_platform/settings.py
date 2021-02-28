@@ -13,10 +13,11 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
-if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', '.localhost', 'localhost', '104.248.230.206']
-else:
-    ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+SENDGRID_SANDBOX_MODE_IN_DEBUG=False
+
+# ALLOWED_HOSTS = ['127.0.0.1', '.localhost', 'localhost', '104.248.230.206','assassinfx.com','www.assassinfx.com']
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -96,14 +97,14 @@ if DEBUG:
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('POSTGRESDB_NAME', default=''),
-            'USER': config('POSTGRESDB_USER', default=''),
-            'PASSWORD': config('POSTGRESDB_PASSWORD', default=''),
-            'HOST': config('POSTGRESDB_HOST', default=''),
-            'PORT': '',
-        }
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': config('POSTGRESDB_NAME', default=''),
+                'USER': config('POSTGRESDB_USER', default=''),
+                'PASSWORD': config('POSTGRESDB_PASSWORD', default=''),
+                'HOST': config('POSTGRESDB_HOST', default=''),
+                'PORT': '',
+            }
     }
 
 # Password validation
@@ -159,20 +160,20 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_UNIQUE_USERNAME = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = False
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 200
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_BLACKLIST = []
 
-if DEBUG:
-    STRIPE_PUBLISHABLE_KEY = 'pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ'
-    STRIPE_SECRET_KEY = 'sk_test_51I7JYzAS6n0shLOq6XZJdgF0ihJh4ZanPMqWMELlomYfJ3vZXQwq4kWj4fsXhsOsWE1DQm0AgIV2pD7yZcKEyKG9005LDdWKEU'
+# if DEBUG:
+#    STRIPE_PUBLISHABLE_KEY = 'pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ'
+#    STRIPE_SECRET_KEY = 'sk_test_51I7JYzAS6n0shLOq6XZJdgF0ihJh4ZanPMqWMELlomYfJ3vZXQwq4kWj4fsXhsOsWE1DQm0AgIV2pD7yZcKEyKG9005LDdWKEU'
 
-else:
+# else:
     # live keys
-    STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', default='')
-    STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', default='')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
 
 # Django allauth
 AUTHENTICATION_BACKENDS = [
@@ -183,14 +184,18 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 # for sending email
+EMAIL_HOST_USER_SENDGRID='ninjaassassin@assassinfx.com'
+EMAIL_BACKEND ="sendgrid_backend.SendgridBackend"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+SENDGRID_API_KEY = config('SENDGRID_API_KEY')
+
 EMAIL_HOST = config('EMAIL_HOST', default='localhost')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
-DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER_SENDGRID
+
 #  handling errors for demo
 handler404 = 'home_page.views.view_404'
 handler500 = 'home_page.views.view_500'

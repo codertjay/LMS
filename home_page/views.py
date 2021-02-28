@@ -11,7 +11,7 @@ from copy_trading.models import CopyTrading
 from courses.models import Course
 from home_page.forms import SubscribeForm, TestimonialForm
 from home_page.mixins import InstructorAndLoginRequiredMixin
-from home_page.models import Testimonial
+from home_page.models import Testimonial,ComingSoon
 from memberships.models import Membership
 
 
@@ -48,6 +48,13 @@ def view_400(request,  exception=None):
 def view_500(request, exception=None):
     return render(request, 'HomePage/errors/500.html', status=500)
 
+def coming_soon(request):
+    coming_soon = ComingSoon.objects.first()
+    if coming_soon:
+        if coming_soon.coming_soon == True:
+            return render(request,'HomePage/soon.html' )
+    else:
+        return redirect('home:home')
 
 class HomePageView(View):
 
@@ -64,7 +71,7 @@ class HomePageView(View):
 class TermsAndConditionView(View):
 
     def get(self, *args, **kwargs):
-        return render(self.request, 'HomePage/terms.html')
+        return render(self.request,'HomePage/terms.html' )
 
 
 class PricingView(View):

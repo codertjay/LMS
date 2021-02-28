@@ -1,247 +1,221 @@
-{% extends 'HomePage/home_base.html' %}
-{% load crispy_forms_filters %}
-{% load static %}
+{% extends 'HomePage/home_base.html' %} {% load crispy_forms_filters %} {% load static %} {% block style %}
+<!-- Icons font CSS-->
+<link href="{% static  'HomePage/copy_trade_form/vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'HomePage/copy_trade_form/vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+<!-- Font special for pages-->
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-{% block style %}
-    <!-- Icons font CSS-->
-    <link href="{% static  'HomePage/copy_trade_form/vendor/mdi-font/css/material-design-iconic-font.min.css' %}"
-          rel="stylesheet" media="all">
-    <link href="{% static 'HomePage/copy_trade_form/vendor/font-awesome-4.7/css/font-awesome.min.css' %}"
-          rel="stylesheet" media="all">
-    <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
+<!-- Vendor CSS-->
+<link href="{% static 'HomePage/copy_trade_form/vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+<link href="{% static 'HomePage/copy_trade_form/vendor/datepicker/daterangepicker.css' %}" rel="stylesheet" media="all">
 
-    <!-- Vendor CSS-->
-    <link href="{% static 'HomePage/copy_trade_form/vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'HomePage/copy_trade_form/vendor/datepicker/daterangepicker.css' %}" rel="stylesheet"
-          media="all">
+<!-- Main CSS-->
+<link href="{% static 'HomePage/copy_trade_form/css/main.css' %}" rel="stylesheet" media="all">
+<style>
 
-    <!-- Main CSS-->
-    <link href="{% static 'HomePage/copy_trade_form/css/main.css' %}" rel="stylesheet" media="all">
-    <style>
-    </style>
-{% endblock %}
+</style>
+{% endblock %} {% block title %} {% endblock %} {% block content %}
 
-{% block title %}
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" style="background-color:">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Copy Trade Form</h2>
+                <p>
+                    Thanks for your interest in Copy Trading with Ninja's EA. Before you are redirected to registration, please fill in the below details. Once submitted please click Submit. You will then be redirected to <a href="https://ninja.assassinfx.com">this page</a>                    where you can register. An email will be sent within 12 hours with your personal link.
+                    <br> If I doubt of what Slippage is, please refer to <a href="https://ninja.assassinfx.com">this
+                        link</a> where you’ll find the explanation.
+                </p>
+                <form action="." method="post">
+                    {% csrf_token %}
 
-{% endblock %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="label">Name</label> {{ form.name }}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="label">Discord Username</label> {{ form.discord_username }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="label">Email</label> {{ form.email }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="label">Account Type</label> {{ form.account_type }}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="label">Account Number</label> {{ form.account_number }}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="label">Account Password</label> {{ form.account_password }}
+                        </div>
 
-{% block content %}
+                        <div class="col-md-12">
+                            <label class="label">Broker</label> {{ form.broker }}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="label">Broker Server</label> {{ form.Broker_server }}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="label">Risk (click <a href="https://ninja.assassinfx.com">here</a> to see options)</label> {{ form.risk }}
+                        </div>
+                        <div class="col-md-12">
+                            <h3 class="text-muted text-center py-4 lead">Choice of Symbols</h3>
+                        </div>
 
-    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins" style="background-color:">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">Copy Trade Form</h2>
-                    <p>
-                        Thanks for your interest in Copy Trading with Ninja's EA. Before you are redirected to
-                        registration, please fill in the below details. Once submitted please click Submit. You will
-                        then be redirected to <a href="http://ninja.asssssinfx.com">this page</a> where you can
-                        register. An
-                        email will be sent
-                        within 12 hours with your personal link.
-                        <br>
-                        If I doubt of what Slippage is, please refer to <a href="http://ninja.assassinfx.com">this
-                        link</a> where
-                        you’ll find
-                        the explanation.
-                    </p>
-                    <form action="." method="post">
-                        {% csrf_token %}
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="label">Name</label>
-                                {{ form.name }}
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Discord Username</label>
-                                {{ form.discord_username }}
-                            </div>
-                            <div class="col-md-6">
-                                <label class="label">Email</label>
-                                {{ form.email }}
-                            </div>
-                            <div class="col-md-6">
-                                <label class="label">Account Type</label>
-                                {{ form.account_type }}
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Account Number</label>
-                                {{ form.account_number }}
-                            </div>
-
-                            <div class="col-md-12">
-                                <label class="label">Broker</label>
-                                {{ form.broker }}
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Broker Server</label>
-                                {{ form.Broker_server }}
-                            </div>
-                            <div class="col-md-12">
-                                <h3 class="text-muted text-center py-4 lead">Choice of Symbols</h3>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="">
-                                    <label class="label pt-3">Slippage</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
+                        <div class="col-6">
+                            <div class="">
+                                <label class="label pt-3">Slippage</label>
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45">Yes
                                             <input type="radio" checked="checked" value="Yes" name="slippage">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container">No
+                                    <label class="radio-container">No
                                             <input type="radio" value="No" name="slippage">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="">
-                                    <div class="label pt-3">Forex Pairs</div>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
+                        </div>
+                        <div class="col-6">
+                            <div class="">
+                                <div class="label pt-3">Forex Pairs</div>
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45">Yes
                                             <input type="radio" checked="checked" value="Yes" name="forex_pairs">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container">No
+                                    <label class="radio-container">No
                                             <input type="radio" value="No" name="forex_pairs">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="">
-                                    <label class="label pt-3">Indices</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
+                        </div>
+                        <div class="col-6">
+                            <div class="">
+                                <label class="label pt-3">Indices</label>
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45">Yes
                                             <input type="radio" checked="checked" value="Yes" name="indices">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container">No
+                                    <label class="radio-container">No
                                             <input type="radio" value="No" name="indices">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="">
-                                    <label class="label pt-3">Metals</label>
-                                    <div class="p-t-10 ">
-                                        <label class="radio-container m-r-45">Yes
+                        </div>
+                        <div class="col-6">
+                            <div class="">
+                                <label class="label pt-3">Metals</label>
+                                <div class="p-t-10 ">
+                                    <label class="radio-container m-r-45">Yes
                                             <input type="radio" checked="checked" value="Yes" name="metals">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container">No
+                                    <label class="radio-container">No
                                             <input type="radio" value="No" name="metals">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
 
 
-                        </div>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% comment %}
+
+<form method="POST">
+    <div class="row row-space">
+        <div class="col-2">
+            <div class="">
+                <label class="label">first name</label>
+                <input class="input--style-4" type="text" name="first_name">
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <label class="label">last name</label>
+                <input class="input--style-4" type="text" name="last_name">
+            </div>
+        </div>
+    </div>
+    <div class="row row-space">
+        <div class="col-2">
+            <div class="input-group">
+                <label class="label">Birthday</label>
+                <div class="input-group-icon">
+                    <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <label class="label">Gender</label>
+                <div class="p-t-10">
+                    <label class="radio-container m-r-45">Male
+                                            <input type="radio" checked="checked" name="gender">
+                                            <span class="checkmark"></span>
+                                        </label>
+                    <label class="radio-container">Female
+                                            <input type="radio" name="gender">
+                                            <span class="checkmark"></span>
+                                        </label>
                 </div>
             </div>
         </div>
     </div>
-    {% comment %}
-
-                    <form method="POST">
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="">
-                                    <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" name="first_name">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" name="last_name">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Birthday</label>
-                                    <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
-                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Gender</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">Female
-                                            <input type="radio" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Email</label>
-                                    <input class="input--style-4" type="email" name="email">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="text" name="phone">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <label class="label">Subject</label>
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="subject">
+    <div class="row row-space">
+        <div class="col-2">
+            <div class="input-group">
+                <label class="label">Email</label>
+                <input class="input--style-4" type="email" name="email">
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <label class="label">Phone Number</label>
+                <input class="input--style-4" type="text" name="phone">
+            </div>
+        </div>
+    </div>
+    <div class="input-group">
+        <label class="label">Subject</label>
+        <div class="rs-select2 js-select-simple select--no-search">
+            <select name="subject">
                                     <option disabled="disabled" selected="selected">Choose option</option>
                                     <option>Subject 1</option>
                                     <option>Subject 2</option>
                                     <option>Subject 3</option>
                                 </select>
-                                <div class="select-dropdown"></div>
-                            </div>
-                        </div>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
-                        </div>
-                    </form>
-{% endcomment %}
+            <div class="select-dropdown"></div>
+        </div>
+    </div>
+    <div class="p-t-15">
+        <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+    </div>
+</form>
+{% endcomment %} {% endblock %} {% block script %}
 
-{% endblock %}
+<!-- Jquery JS-->
+<script src="{% static 'HomePage/copy_trade_form/vendor/jquery/jquery.min.js' %}"></script>
+<!-- Vendor JS-->
+<script src="{% static 'HomePage/copy_trade_form/vendor/select2/select2.min.js' %}"></script>
+<script src="{% static 'HomePage/copy_trade_form/vendor/datepicker/moment.min.js' %}"></script>
+<script src="{% static 'HomePage/copy_trade_form/vendor/datepicker/daterangepicker.js' %}"></script>
 
-{% block script %}
-
-    <!-- Jquery JS-->
-    <script src="{% static 'HomePage/copy_trade_form/vendor/jquery/jquery.min.js' %}"></script>
-    <!-- Vendor JS-->
-    <script src="{% static 'HomePage/copy_trade_form/vendor/select2/select2.min.js' %}"></script>
-    <script src="{% static 'HomePage/copy_trade_form/vendor/datepicker/moment.min.js' %}"></script>
-    <script src="{% static 'HomePage/copy_trade_form/vendor/datepicker/daterangepicker.js' %}"></script>
-
-    <!-- Main JS-->
-    <script src="{% static 'HomePage/copy_trade_form/js/global.js' %}"></script>
+<!-- Main JS-->
+<script src="{% static 'HomePage/copy_trade_form/js/global.js' %}"></script>
 
 {% endblock %}
