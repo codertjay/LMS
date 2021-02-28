@@ -1,3 +1,9 @@
+@media(min-width: 250px) {
+    .terms {
+        height: 3700px;
+    }
+}
+
 @media(min-width: 320px) {
     .terms {
         height: 3000px;
