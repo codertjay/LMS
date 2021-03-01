@@ -1102,6 +1102,13 @@ footer {
     margin-top: -109px;
 }
 
+.f-logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .footer-logo {
     font-family: 'Mont-Bold';
     display: block;
