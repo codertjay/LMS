@@ -1,4 +1,16 @@
+@media(min-width: 200px) {
+    .terms {
+        height: 4300px;
+    }
+}
+
 @media(min-width: 250px) {
+    .terms {
+        height: 4100px;
+    }
+}
+
+@media(min-width: 280px) {
     .terms {
         height: 3700px;
     }
