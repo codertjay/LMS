@@ -1,3 +1,15 @@
+@media(min-width: 320px) {
+    .terms {
+        height: 3000px;
+    }
+}
+
+@media(min-width: 800px) {
+    .terms {
+        height: 1300px;
+    }
+}
+
 @media(min-width:1600px) {
     .img-inno img {
         width: 760px;
