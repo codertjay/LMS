@@ -1,12 +1,13 @@
 @media(min-width: 320px) {
     .terms {
-        height: 3000px;
+        height: 100%;
+        margin: 50px 0;
     }
 }
 
 @media(min-width: 800px) {
     .terms {
-        height: 1300px;
+        height: 100%;
     }
 }
 
