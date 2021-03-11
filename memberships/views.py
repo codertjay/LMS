@@ -98,10 +98,13 @@ def payment_view(request):
                 cancel_at_period_end=True
             )
             print('this is the subscription_id ', subscription.id)
-            return redirect(reverse('memberships:update_transactions',
-                                    kwargs={
-                                        'subscription_id': subscription.id
-                                    }))
+            if subscription.status == 'active':
+                return redirect(reverse('memberships:update_transactions',
+                                        kwargs={
+                                            'subscription_id': subscription.id
+                                        }))
+            else:
+                messages.warning(request, 'Your payment was incomplete please try using another card')
         except stripe.error.CardError as e:
             messages.info(request, 'Your card has being declined')
         except stripe.error.APIConnectionError as e:

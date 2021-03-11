@@ -56,5 +56,8 @@
 
 {% block script %}
     <!-- script for the stripe form -->
+    <script>
+        var stripe = Stripe ('{{ stripe_public_key }}');
+    </script>
     <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
 {% endblock %}

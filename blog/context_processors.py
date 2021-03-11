@@ -4,6 +4,9 @@ from signal_app.models import SignalType
 from .models import Post
 from memberships.models import Membership
 from home_page.models import ComingSoon
+from django.conf import settings
+
+stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
 
 def monthly_signal():
     monthly_signal_qs = SignalType.objects.filter(signal_choice='Monthly')
@@ -56,6 +59,7 @@ def add_variable_to_context(try_content=None):
             'paid_membership': paid_membership,
           
             # copy trading
+            'stripe_public_key': stripe_public_key,
             'copy_trade': copy_trading,
             'site_name': 'https://assassinfx.com/',
             }

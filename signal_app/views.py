@@ -22,7 +22,7 @@ class SignalPaymentView(LoginRequiredMixin, View):
         form = UserUpdateForm(request.FILES or None, instance=request.user)
         signal = SignalType.objects.filter(signal_choice=signal_choice).first()
         user_signal_sub = UserSignalSubscription.objects.filter(user=request.user).first()
-        
+
         if signal:
             print(signal)
             """In here i am checking if the user have a current signal if he/she has i would redirect
@@ -36,7 +36,6 @@ class SignalPaymentView(LoginRequiredMixin, View):
                         }))
 
         else:
-            
             return redirect('home:home')
         return render(request, 'HomePage/signal/signal_detail.html', {'signal': signal, 'form': form})
 
@@ -64,23 +63,28 @@ class SignalPaymentView(LoginRequiredMixin, View):
                         subscription = stripe.Subscription.create(
                             customer=user_membership.stripe_customer_id,
                             items=[{'price': signal.stripe_plan_id}, ])
-                        if subscription.id:
-                            stripe.Subscription.modify(
-                                subscription.id,
-                                cancel_at_period_end=True
-                            )
-                        return redirect(reverse('signal:signal_payment_done', kwargs={
-                            'subscription_id': subscription.id, 'signal': signal
-                        }))
+                        print(subscription.status)
+
+                        if subscription.status == 'active':
+                            if subscription.id:
+                                stripe.Subscription.modify(
+                                    subscription.id,
+                                    cancel_at_period_end=True
+                                )
+                                messages.success(request, 'Your payment was successful')
+                                return redirect(reverse('signal:signal_payment_done', kwargs={
+                                    'subscription_id': subscription.id, 'signal': signal
+                                }))
+                        else:
+                            messages.warning(request, 'Your payment was incomplete please try using another card')
                 except stripe.error.CardError as e:
-                    messages.info(request, 'Your card has being declined')
+                    messages.warning(request, 'Your card has being declined')
                 except stripe.error.APIConnectionError as e:
-                    messages.info(request, 'Network communication with Stripe failed')
+                    messages.warning(request, 'Network communication with Stripe failed')
                 except stripe.error.StripeError as e:
-                    messages.info(request, 'There was an error we are working on it')
+                    messages.warning(request, 'There was an error we are working on it')
                 except Exception as e:
-                    messages.info(request, 'There error was', e)
-        messages.info(request, 'There was an error ')
+                    messages.warning(request, 'The error was', e)
         return redirect('home:home')
 
 
@@ -90,15 +94,19 @@ def signal_payment_done(request, subscription_id, signal):
     # checking the stripe subscription id if it exists
     # stripe_id = stripe.Charge.retrieve(subscription_id)
     stripe_id = stripe.Subscription.retrieve(subscription_id)
-    if signal_ and stripe_id.id == subscription_id:
-        if signal_ and stripe_id.id == subscription_id:
-            sub, created = UserSignalSubscription.objects.get_or_create(signal_type=signal_, user=request.user)
-            if sub.stripe_subscription_id == '' or sub.stripe_subscription_id is None or sub.expiring_date < datetime.now() or sub.active == False:
-                sub.stripe_subscription_id = subscription_id
-                sub.active = True
-                sub.save()
-            context = {'signal': signal_}
-            return render(request, 'HomePage/signal/signal_payment_done.html', context)
+    check_sub_id = UserSignalSubscription.objects.filter(stripe_subscription_id=stripe_id.id)
+    if check_sub_id.count() > 1:
+        UserSignalSubscription.objects.filter(user=request.user).first().delete()
+        messages.warning(request, 'You just attempt theft')
+        return redirect('home:home')
+    if signal_ and stripe_id.id == subscription_id and stripe_id.status == 'active':
+        sub, created = UserSignalSubscription.objects.get_or_create(signal_type=signal_, user=request.user)
+        if sub.stripe_subscription_id == '' or sub.stripe_subscription_id is None or sub.expiring_date < datetime.now() or sub.active == False:
+            sub.stripe_subscription_id = subscription_id
+            sub.active = True
+            sub.save()
+        context = {'signal': signal_}
+        return render(request, 'HomePage/signal/signal_payment_done.html', context)
 
     else:
         messages.error(request, 'There was an error ')

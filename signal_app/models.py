@@ -75,8 +75,8 @@ checking for expired signals
         print(checking)
         for signal in signal_qs:
             if signal.active:
-                print(""" this are the expired signals """, signal.user)
-                if signal.expiring_date < datetime.now() or signal.expiring_date is None or signal.expiring_date == '':
+                if signal.expiring_date < datetime.now():
+                    print('checking ')
                     signal.stripe_subscription_id = ''
                     signal.active = False
                     signal.save()
