@@ -39,11 +39,12 @@ def add_variable_to_context(try_content=None):
     latest_posts = Post.objects.all()
     older_posts = Post.objects.all().order_by('id')
     if Post.objects.count() > 6:
-        latest_posts = Post.objects.all()[3]
+        latest_posts = Post.objects.all()[:3]
     if Post.objects.count() > 6:
-        older_posts = Post.objects.all().order_by('id')[3]
-
-
+        try:
+            older_posts = Post.objects.all().order_by('id')[:3]
+        except:
+            older_posts = Post.objects.all()[:3]
     copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()
     paid_membership = Membership.objects.get_membership('Paid')  
