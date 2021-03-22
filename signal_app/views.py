@@ -71,10 +71,7 @@ class SignalPaymentView(LoginRequiredMixin, View):
                         print(subscription)
                         if subscription.status == 'active':
                             if subscription.id:
-                                stripe.Subscription.modify(
-                                    subscription.id,
-                                    cancel_at_period_end=True
-                                )
+                                
                                 messages.success(
                                     request, 'Your payment was successful')
                                 return redirect(reverse('signal:signal_payment_done', kwargs={
