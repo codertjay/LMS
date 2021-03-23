@@ -120,10 +120,12 @@ def cancel_signal_subscription(request):
         messages.info(request, "You dont have an active signal")
         return HttpResponseRedirect(request.META.get('HTTP_REFER'))
     try:
-        sub = stripe.Subscription.delete(user_signal_sub.stripe_subscription_id)
-        print('sub after dlelete ',sub.response)
+        sub = stripe.Subscription.retrieve(user_signal_sub.stripe_subscription_id)
+        print('the user signal subscription ',user_signal_sub)
+        sub.delete()
         user_signal_sub.delete()
+        messages.info(request, 'Successfully cancelled signal subscription  ')
     except:
         print('there was an error ')
-    messages.info(request, 'Successfully cancelled signal subscription  ')
+        messages.info(request, 'There was an error performing your request ')
     return redirect('memberships:profile')

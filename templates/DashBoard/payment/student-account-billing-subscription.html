@@ -21,65 +21,69 @@ Subscription
             </ol>
 
             <h1 class="h2">Subscription</h1>
-            {% if user_subscription != None %}
             <div class="card">
-                <div class="list-group list-group-fit">
-                    <div class="list-group-item">
-                        <div class="form-group row mb-0">
-                            <label class="col-form-label form-label col-sm-3">Your current plan</label>
-                            <div class="col-sm-9 d-flex align-items-center">
-                                <div class="flex">{{ membership_type }}, &dollar;{{ membership_price }} per
-                                    month
+                
+                {% if user_subscription != None %}
+                <div class="card">
+                    <div class="list-group list-group-fit">
+                        <div class="list-group-item">
+                            <div class="form-group row mb-0">
+                                <label class="col-form-label form-label col-sm-3">Your current plan</label>
+                                <div class="col-sm-9 d-flex align-items-center">
+                                    <div class="flex">{{ membership_type }}, &dollar;{{ membership_price }} per
+                                        month
+                                    </div>
+                                    <a href="{% url 'memberships:membership_select' %}" class="text-secondary">Change
+                                        plan</a>
                                 </div>
-                                <a href="{% url 'memberships:membership_select' %}" class="text-secondary">Change
-                                    plan</a>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="list-group-item">
-                        <div class="form-group row mb-0">
-                            <label class="col-form-label form-label col-sm-3">Billing cycle</label>
-                            <div class="col-sm-9">
-                                <div class="mb-1"> {% if user_subscription.active != False %}
-                                    <p>Created date:
-                                        {{ user_subscription.get_created_date }}</p>
-                                    <p>Expiring date:
-                                        {{ user_subscription.get_next_billing_date }}</p>
-                                    <a href="{% url 'memberships:cancel' %}">Cancel subscription </a>
-                                    <p class="text-danger lead"><strong>Note:</strong> if you cancel Your
-                                        subscription you would be
-                                        converted to free access only </p>
+                        <div class="list-group-item">
+                            <div class="form-group row mb-0">
+                                <label class="col-form-label form-label col-sm-3">Billing cycle</label>
+                                <div class="col-sm-9">
+                                    <div class="mb-1"> {% if user_subscription.active != False %}
+                                        <p>Created date:
+                                            {{ user_subscription.get_created_date }}</p>
+                                        <p>Expiring date:
+                                            {{ user_subscription.get_next_billing_date }}</p>
+                                        <a href="{% url 'memberships:cancel' %}">Cancel subscription </a>
+                                        <p class="text-danger lead"><strong>Note:</strong> if you cancel Your
+                                            subscription you would be
+                                            converted to free access only </p>
+                                    </div>
+
+                                    {% endif %}
+
                                 </div>
-
-                                {% endif %}
-
                             </div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
-            {% else %}
-            <div class="card">
-                <div class="card-content">
-                    <h4>You dont have an active subscription</h4>
+                {% else %}
+                <div class="card">
+                    <div class="card-content">
+                        <h4>You dont have an active subscription</h4>
+                    </div>
                 </div>
-            </div>
-            {% endif %}
+                {% endif %}
 
-            {% if user_signal_sub %}
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="text-center font-italic text-primary text-decoration-underline">Signal
-                    </h3>
-                    <h5>Created Date : <small>{{ user_signal_sub.created_date }}</small></h5>
-                    <h5>Expiring Date: <small>{{ user_signal_sub.expiring_date }}</small></h5>
-                    <a href="{% url 'signal:cancel_signal_subscription' %}">Cancel Signal subscription </a>
+                {% if user_signal_sub %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-center font-italic text-primary text-decoration-underline">Signal
+                        </h3>
+                        <h5>Created Date : <small>{{ user_signal_sub.created_date }}</small></h5>
+                        <h5>Expiring Date: <small>{{ user_signal_sub.expiring_date }}</small></h5>
+                        <a href="{% url 'signal:cancel_signal_subscription' %}">Cancel Signal subscription </a>
+                    </div>
                 </div>
-            </div>
 
-            {% endif %}
+                {% endif %}
+
+            </div>
 
         </div>
     </div>

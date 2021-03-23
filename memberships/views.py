@@ -20,7 +20,8 @@ from home_page.models import ComingSoon
 def profile_view(request):
     user_membership = get_user_membership(request)
     user_subscription = get_user_subscription(request)
-    user_signal_sub = UserSignalSubscription.objects.get_user_signal_sub(user=request.user)
+    user_signal_sub = UserSignalSubscription.objects.get_user_signal_sub(
+        user=request.user)
     context = {
         'user_membership': user_membership,
         'user_subscription': user_subscription,
@@ -38,7 +39,8 @@ class MemberShipSelectView(LoginRequiredMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         current_membership = get_user_membership(self.request)
-        context['current_membership'] = str(current_membership.membership.membership_type)
+        context['current_membership'] = str(
+            current_membership.membership.membership_type)
         # print(current_membership)
         return context
 
@@ -59,7 +61,8 @@ class MemberShipSelectView(LoginRequiredMixin, ListView):
         """
         if user_membership.membership == selected_membership:
             if user_subscription != None:
-                messages.info(request, 'You already have this selected membership')
+                messages.info(
+                    request, 'You already have this selected membership')
             return HttpResponseRedirect(request.META.get('HTTP_REFER'))
         # assign to the session
         request.session['selected_membership_type'] = selected_membership.membership_type
@@ -78,7 +81,8 @@ def payment_view(request):
     if request.method == 'POST':
         try:
             token = request.POST['stripeToken']
-            customer = stripe.Customer.retrieve(user_membership.stripe_customer_id)
+            customer = stripe.Customer.retrieve(
+                user_membership.stripe_customer_id)
             customer.source = token  # 4242424242424242 for testing
             customer.save()
 
@@ -96,7 +100,8 @@ def payment_view(request):
                                             'subscription_id': subscription.id
                                         }))
             else:
-                messages.warning(request, 'Your payment was incomplete please try using another card')
+                messages.warning(
+                    request, 'Your payment was incomplete please try using another card')
         except stripe.error.CardError as e:
             messages.info(request, 'Your card has being declined')
         except stripe.error.APIConnectionError as e:
@@ -149,16 +154,20 @@ def cancel_subscription(request):
     if user_sub.active == False:
         messages.info(request, "You dont have an active membership")
         return HttpResponseRedirect(request.META.get('HTTP_REFER'))
-
-    sub = stripe.Subscription.retrieve(user_sub.stripe_subscription_id)
-    sub.delete()
-    user_sub.active = False
-    user_sub.save()
+    try:
+        sub = stripe.Subscription.retrieve(user_sub.stripe_subscription_id)
+        sub.delete()
+        user_sub.active = False
+        user_sub.save()
+    except:
+        messages.info(request, 'There was an error performing your request ')
+        
     free_membership = Membership.objects.filter(membership_type='Free').first()
     user_membership = get_user_membership(request)
     user_membership.membership = free_membership
     user_membership.save()
-    messages.info(request, 'Successfully cancelled paid  membership subscription. ')
+    messages.info(
+        request, 'Successfully cancelled paid  membership subscription. ')
     return redirect('memberships:membership_select')
 
 
