@@ -12,7 +12,7 @@ urls.handler403 = views.view_403
 urls.handler400 = views.view_400
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin-assassin-fx-url/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('memberships/', include('memberships.urls')),
     path('courses/', include('courses.urls')),

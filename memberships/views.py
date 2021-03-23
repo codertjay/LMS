@@ -71,7 +71,6 @@ def payment_view(request):
     user_membership = get_user_membership(request)
     selected_membership = get_selected_membership(request)
     publish_key = settings.STRIPE_PUBLISHABLE_KEY
-    # print('The selected', selected_membership)
     coming_soon = ComingSoon.objects.first()
     if coming_soon:
         if coming_soon.coming_soon == True:
@@ -79,10 +78,6 @@ def payment_view(request):
     if request.method == 'POST':
         try:
             token = request.POST['stripeToken']
-            # print('this is the token', token)
-            # print('this is the user_membership customer id ', user_membership.stripe_customer_id)
-            # print('this is the strip plan id ', selected_membership.stripe_plan_id)
-
             customer = stripe.Customer.retrieve(user_membership.stripe_customer_id)
             customer.source = token  # 4242424242424242 for testing
             customer.save()
@@ -93,7 +88,7 @@ def payment_view(request):
                     {'price': selected_membership.stripe_plan_id},
                 ]
             )
-            
+
             print('this is the subscription_id ', subscription.id)
             if subscription.status == 'active':
                 return redirect(reverse('memberships:update_transactions',
@@ -163,8 +158,7 @@ def cancel_subscription(request):
     user_membership = get_user_membership(request)
     user_membership.membership = free_membership
     user_membership.save()
-    # Todo: send email to the user
-    messages.info(request, 'Successfully cancelled membership. We have sent an email ')
+    messages.info(request, 'Successfully cancelled paid  membership subscription. ')
     return redirect('memberships:membership_select')
 
 
@@ -191,9 +185,6 @@ def student_membership_invoice(request):
             'created_at': user_subscription.get_created_date,
             'recent_course': recent_course,
         }
-        # print('user_membership', user_membership.membership.membership_type)
-        # print('user_membership', user_membership.membership.membership_type)
-        # print('user_subscription', user_subscription)
     else:
         context = {
             'user_membership': user_membership,

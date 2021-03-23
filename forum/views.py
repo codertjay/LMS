@@ -36,13 +36,12 @@ class ForumQuestionCreateView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         form = ForumQuestionForm()
-        forum = ForumQuestion.objects.all()
+        forum = ForumQuestion.objects.all()[:4]
         return render(self.request, 'DashBoard/forum/student-forum-ask.html', {'form': form, 'forum': forum})
 
     def post(self, *args, **kwargs):
         form = ForumQuestionForm(self.request.POST)
         print(self.request.POST)
-        # print('form:', form.errors)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = self.request.user
@@ -52,7 +51,7 @@ class ForumQuestionCreateView(LoginRequiredMixin, View):
 
         elif not form.is_valid():
             messages.error(self.request, 'invalid form data')
-        return redirect('for')
+        return redirect('forum:forum_create')
 
 
 class ForumQuestionDetailView(LoginRequiredMixin, DetailView):
@@ -65,7 +64,7 @@ class ForumQuestionDetailView(LoginRequiredMixin, DetailView):
         instance = context['object']
         instance.view_count += 1
         instance.save()
-        forumquestion_list = ForumQuestion.objects.all()
+        forumquestion_list = ForumQuestion.objects.all()[:10]
         context['form'] = ForumAnswerForm()
         context['forumquestion_list'] = forumquestion_list
         return context
@@ -79,9 +78,7 @@ def forum_answer_create_view(request, pk=None):
         instance = None
     if request.method == 'POST':
         form = ForumAnswerForm(request.POST)
-        # print('The form data :', form)
         if form.is_valid():
-            # print(form.cleaned_data)
             form_data = form.save(commit=False)
             form_data.user = request.user
             form_data.forum_question = instance
@@ -137,7 +134,6 @@ def forum_update_view(request, id=None):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            # print('updating the post', request.POST, '\n', instance.user)
             messages.success(request, 'The form is  valid')
             return HttpResponseRedirect(instance.get_absolute_url())
     else:

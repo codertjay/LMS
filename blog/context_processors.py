@@ -47,7 +47,7 @@ def add_variable_to_context(try_content=None):
             older_posts = Post.objects.all()[:3]
     copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()
-    paid_membership = Membership.objects.get_membership('Paid')  
+    paid_membership = Membership.objects.get_membership('Paid')
     print('this is the top_forums hhh', top_forums)
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
@@ -58,7 +58,7 @@ def add_variable_to_context(try_content=None):
             'yearly_signal': yearly_signal,
             'top_forums': top_forums,
             'paid_membership': paid_membership,
-          
+
             # copy trading
             'stripe_public_key': stripe_public_key,
             'copy_trade': copy_trading,
