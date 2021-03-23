@@ -18,7 +18,7 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['assassinfx.com','www.assassinfx.com']
+    ALLOWED_HOSTS = ['assassinfx.com','www.assassinfx.com','104.248.230.206']
 
 # Application definition
 
