@@ -19,9 +19,8 @@ Subscription
                 <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
                 <li class="breadcrumb-item active"><a href="{% url 'users:profile_edit' %}">Edit Account</a></li>
             </ol>
-
+  
             <h1 class="h2">Subscription</h1>
-            <div class="card">
                 
                 {% if user_subscription != None %}
                 <div class="card">
@@ -48,7 +47,7 @@ Subscription
                                             {{ user_subscription.get_created_date }}</p>
                                         <p>Expiring date:
                                             {{ user_subscription.get_next_billing_date }}</p>
-                                        <a href="{% url 'memberships:cancel' %}">Cancel subscription </a>
+                                        <a href="{% url 'memberships:cancel' %}">Cancel Academy Subscription </a>
                                         <p class="text-danger lead"><strong>Note:</strong> if you cancel Your
                                             subscription you would be
                                             converted to free access only </p>
@@ -77,16 +76,14 @@ Subscription
                         </h3>
                         <h5>Created Date : <small>{{ user_signal_sub.created_date }}</small></h5>
                         <h5>Expiring Date: <small>{{ user_signal_sub.expiring_date }}</small></h5>
-                        <a href="{% url 'signal:cancel_signal_subscription' %}">Cancel Signal subscription </a>
+                        <a href="{% url 'signal:cancel_signal_subscription' %}">Cancel Signal Subscription </a>
                     </div>
                 </div>
 
                 {% endif %}
 
-            </div>
 
         </div>
-    </div>
 
     {% comment %} beginning the page nav{% endcomment %}
     {% include 'DashBoard/payment/membership-page-nav.html' %}

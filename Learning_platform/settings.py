@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'forum',
     'signal_app',
     'copy_trading',
+    '_coupon',
 
     'upload_validator',
     'pagedown',

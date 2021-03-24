@@ -18,6 +18,7 @@ urlpatterns = [
     path('courses/', include('courses.urls')),
     path('blog/', include('blog.urls')),
     path('forum/', include('forum.urls')),
+    path('_coupon/', include('_coupon.urls')),
     path('', include('home_page.urls')),
     path('', include('users.urls')),
     path('signal/', include('signal_app.urls')),

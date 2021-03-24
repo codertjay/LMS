@@ -1,90 +1,123 @@
-{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} signal {% endblock %} {% block style %}
+{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %}
+signal {% endblock %} {% block style %}
 
-    <link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}"> {% endblock %} {% block content %}
-    <!--Select Links End-->
-    <section class="pricing-table">
-        <div id="smartwizard">
-            <ul class="step-links">
-                <li><a href="#step-2"><span><small>1</small><i class="far fa-check"></i></span>Payment Checkout</a></li>
-                <li><a href="#"><span><small>2</small><i class="far fa-check"></i></span>Payment Confirmation</a>
-                </li>
-            </ul>
-            <div class="container mx-auto pr-wrapper">
-                <div id="step-2" class="">
-                    <div class="wrapper-step">
-                        <div class="row">
-                            <div class="col-lg-8">
-
-                                <script src="https://js.stripe.com/v3/"></script>
-                                <form action="." method="post" id="payment-form">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="Signal" value="{{ signal.signal_choice }}"
-                                           id="id_signal">
-                                    <h3 class="heading3">Personal Details</h3>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">First Name</label>
-                                                <input type="text" name="first_name" id="id_first_name"
-                                                       value="{{ request.user.first_name }}" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label for="">Last Name</label>
-                                                <input type="text" name="last_name" id="id_last_name"
-                                                       value="{{ request.user.last_name }}" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-center h1_size">Card details</h1>
-                                    <div class="form-row">
-                                        <div id="card-element">
-                                            <!-- A Stripe Element will be inserted here. -->
-                                        </div>
-                                        <!-- Used to display form errors. -->
-                                        <div id="card-errors" role="alert"></div>
-                                        <button>Submit Payment</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="order-box">
-                                    <h3 class="heading3">Order Summary</h3>
-                                    <div class="order-c">
-                                        <h3>Email</h3>
-                                        <p>{{ request.user.email }}</p>
-                                    </div>
-                                    <div class="order-c">
-                                        <h3>Plan</h3>
-
-                                        <p><span
-                                                style="text-decoration: line-through;">${{ signal.discount }}</span>/{{ signal.signal_choice }}
-                                            |
-                                            <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</p>
-                                    </div>
-                                    <div class="total ">
-                                        <p><strong>Total</strong>
-                                            <span> <b
-                                                    style="color: #444;text-decoration: line-through;">${{ signal.discount }}</b>/mo | <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}" />
+{% endblock %} {% block content %}
+<!--Select Links End-->
+<section class="pricing-table">
+  <div id="smartwizard">
+    <ul class="step-links">
+      <li>
+        <a href="#step-2"
+          ><span><small>1</small><i class="far fa-check"></i></span>Payment
+          Checkout</a
+        >
+      </li>
+      <li>
+        <a href="#"
+          ><span><small>2</small><i class="far fa-check"></i></span>Payment
+          Confirmation</a
+        >
+      </li>
+    </ul>
+    <div class="container mx-auto pr-wrapper">
+      <div id="step-2" class="">
+        <div class="wrapper-step">
+          <div class="row">
+            <div class="col-lg-8">
+              <script src="https://js.stripe.com/v3/"></script>
+              <form action="." method="post" id="payment-form">
+                {% csrf_token %}
+                <input
+                  type="hidden"
+                  name="Signal"
+                  value="{{ signal.signal_choice }}"
+                  id="id_signal"
+                />
+                <h3 class="heading3">Personal Details</h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="">First Name</label>
+                      <input
+                        type="text"
+                        name="first_name"
+                        id="id_first_name"
+                        value="{{ request.user.first_name }}"
+                        class="form-control"
+                      />
                     </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="">Last Name</label>
+                      <input
+                        type="text"
+                        name="last_name"
+                        id="id_last_name"
+                        value="{{ request.user.last_name }}"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <!--Section Footer Start-->
-{% endblock content %}
-{% block script %}
-    <!-- script for the stripe form -->
+                <h1 class="text-center h1_size">Card details</h1>
+                <div class="form-row">
+                  <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                  </div>
+                  <!-- Used to display form errors. -->
+                  <div id="card-errors" role="alert"></div>
 
-    <script>
-        var stripe = Stripe ('{{ stripe_public_key }}');
-    </script>
-    <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
+                  <h5 class="lead">Apply Coupon</h5>
+                  <label for="id_coupon"></label>
+                  <input type="text" id="id_coupon" name="coupon" class="form-control"  style="max-width:50%" />
+
+                  <button>Submit Payment</button>
+                </div>
+              </form>
+            </div>
+            <div class="col-lg-4">
+              <div class="order-box">
+                <h3 class="heading3">Order Summary</h3>
+                <div class="order-c">
+                  <h3>Email</h3>
+                  <p>{{ request.user.email }}</p>
+                </div>
+                <div class="order-c">
+                  <h3>Plan</h3>
+
+                  <p>
+                    <span style="text-decoration: line-through"
+                      >${{ signal.discount }}</span
+                    >/{{ signal.signal_choice }} | <b>${{ signal.price }}</b>/{{ signal.signal_choice }}
+                  </p>
+                </div>
+                <div class="total">
+                  <p>
+                    <strong>Total</strong>
+                    <span>
+                      <b style="color: #444; text-decoration: line-through"
+                        >${{ signal.discount }}</b
+                      >/mo | <b>${{ signal.price }}</b>/{{ signal.signal_choice}}</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Section Footer Start-->
+{% endblock content %} {% block script %}
+<!-- script for the stripe form -->
+
+<script>
+  var stripe = Stripe("{{ stripe_public_key }}");
+</script>
+<script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
 
 {% endblock script %}

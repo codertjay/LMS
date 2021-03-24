@@ -14,6 +14,7 @@ from memberships.utils import get_user_membership, get_user_subscription, get_se
     membership_created_message
 from signal_app.models import UserSignalSubscription
 from home_page.models import ComingSoon
+from _coupon.models import Coupon
 
 
 @login_required
@@ -81,17 +82,30 @@ def payment_view(request):
     if request.method == 'POST':
         try:
             token = request.POST['stripeToken']
+            coupon = request.POST['coupon']
             customer = stripe.Customer.retrieve(
                 user_membership.stripe_customer_id)
             customer.source = token  # 4242424242424242 for testing
             customer.save()
+            if coupon:
+                coupon_type = Coupon.objects.get_coupon_by_coupon_model(
+                    coupon_slug=coupon, subscription_type='Academy')
 
-            subscription = stripe.Subscription.create(
-                customer=user_membership.stripe_customer_id,
-                items=[
-                    {'price': selected_membership.stripe_plan_id},
-                ]
-            )
+                if coupon_type:
+                    subscription = stripe.Subscription.create(
+                        customer=user_membership.stripe_customer_id,
+                        items=[
+                            {'price': selected_membership.stripe_plan_id},
+                        ],
+                        coupon=coupon_type.slug,
+                    )
+            else:
+                subscription = stripe.Subscription.create(
+                    customer=user_membership.stripe_customer_id,
+                    items=[
+                        {'price': selected_membership.stripe_plan_id},
+                    ]
+                )
 
             print('this is the subscription_id ', subscription.id)
             if subscription.status == 'active':
@@ -138,7 +152,7 @@ def update_transactions(request, subscription_id):
     membership_created_message(user_membership, sub)
     try:
         del request.session['selected_membership_type']
-        messages.info(request, f'Successfully created {selected_membership}')
+        messages.info(request, f'Your Payment was successful ')
     except Exception as a:
         print(f"""
 ======================================
@@ -161,13 +175,13 @@ def cancel_subscription(request):
         user_sub.save()
     except:
         messages.info(request, 'There was an error performing your request ')
-        
+
     free_membership = Membership.objects.filter(membership_type='Free').first()
     user_membership = get_user_membership(request)
     user_membership.membership = free_membership
     user_membership.save()
     messages.info(
-        request, 'Successfully cancelled paid  membership subscription. ')
+        request, 'Successfully cancelled Academy  subscription. ')
     return redirect('memberships:membership_select')
 
 
