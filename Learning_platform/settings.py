@@ -18,7 +18,7 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['assassinfx.com','www.assassinfx.com','104.248.230.206']
+    ALLOWED_HOSTS = ['assassinfx.com', 'www.assassinfx.com', '104.248.230.206']
 
 # Application definition
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'pagedown',
     'import_export',
     'crispy_forms',
+    'extensions',
 
     'allauth',
     'allauth.account',
@@ -71,8 +72,7 @@ ROOT_URLCONF = 'Learning_platform.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

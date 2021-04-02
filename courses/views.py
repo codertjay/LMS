@@ -30,8 +30,8 @@ def get_course_membership_type(course_allowed_mem_types):
 
 class CourseListView(LoginRequiredMixin, ListView):
     model = Course
-    template_name = 'DashBoard/student/student-browse-courses.html'
-    # template_name = 'courses/course_list.html'
+    # template_name = 'DashBoard/student/student-browse-courses.html'
+    template_name = 'StudentDashboard/fixed-student-courses.html'
     paginate_by = 10
 
     def get_queryset(self):
@@ -73,8 +73,8 @@ class StudentCourseListView(LoginRequiredMixin, View):
 
 class CourseDetailView(LoginRequiredMixin, DetailView):
     model = Course
-    # template_name = 'courses/course_detail.html'
-    template_name = 'DashBoard/student/student-view-course.html'
+    template_name = 'StudentDashboard/fixed-student-take-course.html'
+    # template_name = 'DashBoard/student/student-view-course.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -233,3 +233,13 @@ class LessonDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return redirect('courses:list')
+
+
+
+
+def demo_check(request):
+    return render(request, 'StudentDashboard/student_dashboard_base.html')
+
+def demo_check_2(request):
+    return render(request, 'StudentDashboard/fixed-student-take-course.html')
+    

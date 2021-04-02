@@ -30,6 +30,13 @@ def video_clip_duration(video_path):
     return duration
 
 
+class CourseManager(models.Manager):
+
+    def related_courses(self):
+        course_list = self.filter(title=self.title)[:4]
+        return course_list
+
+
 class Course(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     slug = models.SlugField(unique=True)
@@ -41,6 +48,10 @@ class Course(models.Model):
     tag = models.CharField(choices=CourseTag, max_length=15, default='Intermediate')
     view_count = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
+    objects = CourseManager()
+
+    def get_absolute_url(self):
+        return reverse('courses:detail', kwargs={'slug': self.slug})
 
     class Meta:
         ordering = ['-id']

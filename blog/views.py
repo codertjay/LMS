@@ -15,7 +15,6 @@ from .models import Post
 from .utils import get_read_time
 
 
-# Create your views here.
 
 
 class BloglistView(ListView):

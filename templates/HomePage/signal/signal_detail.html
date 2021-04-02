@@ -25,7 +25,7 @@ signal {% endblock %} {% block style %}
         <div class="wrapper-step">
           <div class="row">
             <div class="col-lg-8">
-              <script src="https://js.stripe.com/v3/"></script>
+              
               <form action="." method="post" id="payment-form">
                 {% csrf_token %}
                 <input
@@ -73,6 +73,8 @@ signal {% endblock %} {% block style %}
                   <label for="id_coupon"></label>
                   <input type="text" id="id_coupon" name="coupon" class="form-control"  style="max-width:50%" />
 
+                  <button id="apple-pay-button"></button>
+
                   <button>Submit Payment</button>
                 </div>
               </form>
@@ -115,8 +117,15 @@ signal {% endblock %} {% block style %}
 {% endblock content %} {% block script %}
 <!-- script for the stripe form -->
 
+{% comment %} for apple pay button  {% endcomment %}
+{% comment %} <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script  type="text/javascript" src="https://js.stripe.com/v3/"></script> {% endcomment %}
+<script  type="text/javascript" src="https://js.stripe.com/"></script>
+
+
 <script>
   var stripe = Stripe("{{ stripe_public_key }}");
+  var stripe_v2 = Stripe.setPublishableKey("{{ stripe_public_key }}");
 </script>
 <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
 
