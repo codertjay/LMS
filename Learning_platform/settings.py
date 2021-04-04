@@ -16,11 +16,15 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 if DEBUG:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ["*"]
 else:
-    ALLOWED_HOSTS = ['assassinfx.com', 'www.assassinfx.com', '104.248.230.206']
-
-# Application definition
+    ALLOWED_HOSTS = [
+        'assassinfx.com',
+        'www.assassinfx.com',
+        '104.248.230.206',
+        'academy.assassinfx.com',
+        'academy.localhost:8000'
+    ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -31,6 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+]
+
+LocalInstalledApps = [
     'users',
     'courses',
     'memberships',
@@ -40,12 +47,16 @@ INSTALLED_APPS = [
     'signal_app',
     'copy_trading',
     '_coupon',
+    'extensions',
+]
 
+ExternalInstalledApps = [
     'upload_validator',
     'pagedown',
     'import_export',
     'crispy_forms',
-    'extensions',
+    # django hosts
+    'django_hosts',
 
     'allauth',
     'allauth.account',
@@ -53,21 +64,30 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
-
     'django_cleanup.apps.CleanupConfig',
 ]
 
+INSTALLED_APPS += ExternalInstalledApps
+INSTALLED_APPS += LocalInstalledApps
+
 MIDDLEWARE = [
+    # for django host
+    'django_hosts.middleware.HostsRequestMiddleware',
+
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
 
-ROOT_URLCONF = 'Learning_platform.urls'
+    # for django host
+    'django_hosts.middleware.HostsResponseMiddleware',
+]
 
 TEMPLATES = [
     {
@@ -81,7 +101,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'blog.context_processors.add_variable_to_context',
-
             ],
         },
     },
@@ -204,8 +223,20 @@ handler404 = 'home_page.views.view_404'
 handler500 = 'home_page.views.view_500'
 handler403 = 'home_page.views.view_403'
 handler400 = 'home_page.views.view_400'
-ADMINS = (
-    ('codertjay', 'begintjay@email.com'),
-)
-MANAGERS = ADMINS
-SITE_URL = "https://assassinfx.com/"
+
+# django host
+DEFAULT_HOST = 'www'
+ROOT_HOSTCONF = 'Learning_platform.hosts'
+ROOT_URLCONF = 'Learning_platform.urls'
+
+if DEBUG:
+    PARENT_HOST = 'localhost:8000'
+    DEFAULT_REDIRECT_URL = "http://localhost:8000"
+    SESSION_COOKIE_DOMAIN = 'academy.localhost:8000'
+
+else:
+    PARENT_HOST = 'assassinfx.com'
+    DEFAULT_REDIRECT_URL = "https://assassinfx.com"
+    SESSION_COOKIE_DOMAIN = '.assassinfx.com'
+
+

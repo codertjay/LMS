@@ -31,10 +31,7 @@ def video_clip_duration(video_path):
 
 
 class CourseManager(models.Manager):
-
-    def related_courses(self):
-        course_list = self.filter(title=self.title)[:4]
-        return course_list
+    pass
 
 
 class Course(models.Model):
@@ -66,6 +63,16 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def course_tag(self):
+        return CourseTag
+
+    @property
+    def related_courses(self):
+        course_list = Course.objects.filter(title=self.title)[:4]
+        print('the course list', course_list)
+        return course_list
 
     def get_absolute_url(self):
         return reverse('courses:detail', kwargs={'slug': self.slug})

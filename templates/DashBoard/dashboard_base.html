@@ -1,4 +1,6 @@
 {% load static %}
+{% load hosts %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -81,7 +83,7 @@
                         </a>
 
                         <!-- Search -->
-                        <form class="search-form d-none d-md-flex" action="{% url 'courses:list' %}" method="get">
+                        <form class="search-form d-none d-md-flex" action="{% host_url 'course_list' host 'www' %}" method="get">
                             <input type="text" class="form-control" name="search" placeholder="Search">
                             <button class="btn" type="button"><i class="fa fa-search font-size-24pt"></i></button>
                         </form>

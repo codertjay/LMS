@@ -2,7 +2,10 @@
   <dictionary name="ThankGod Afenikhena">
     <words>
       <w>assasin</w>
+      <w>assassinfx</w>
       <w>forumquestion</w>
+      <w>hostconf</w>
+      <w>hostsconf</w>
     </words>
   </dictionary>
 </component>

@@ -20,9 +20,41 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item"
-                            src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0"
-                            allowfullscreen=""></iframe>
+                    {% if lesson %}
+                        <video id="player" playsinline controls data-poster="{{ course.imageURL }}" width="500"
+                               height="500">
+                            <source src="{{ lesson.videoURL }}" type="video/mp4"/>
+                        </video>
+                    {% elif course.lesson_set.count == 0 %}
+                        <video controls poster="{{ course.imageURL }}" width="500" height="500"
+                               data-toggle="popover" title="Popover Header"
+                               data-content="Some content inside the popover">
+                        </video>
+                        <div class="card">
+                            <div class="card-content">
+                                <h3 class="text-center text-capitalize">This course has no lesson </h3>
+                            </div>
+
+
+                        </div>
+                    {% else %}
+                        <video controls poster="{{ course.imageURL }}" width="500" height="500"
+                               data-toggle="popover" title="Popover Header"
+                               data-content="Some content inside the popover">
+                            Sorry your dont have access to video please upgrade memberships
+                        </video>
+                        <div class="card">
+                            <div class="card-content">
+                                <h3 class="text-center text-capitalize"> please upgrade membership to view this
+                                    course </h3>
+                                <p class="text-center  text-capitalize">
+                                    click <a href="{% url 'memberships:membership_select' %}">here</a> to upgrade
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
                 </div>
             </div>
 

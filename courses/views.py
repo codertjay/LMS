@@ -11,7 +11,7 @@ from django.views.generic import ListView, DetailView, DeleteView
 from django.views.generic.base import View
 
 from courses.forms import CourseCreateEditForm, LessonCreateEditForm
-from courses.models import Course, Lesson
+from courses.models import Course, Lesson, CourseTag
 from home_page.mixins import InstructorAndLoginRequiredMixin
 from memberships.models import UserMembership, Membership
 from memberships.utils import cancel_user_subscription
@@ -36,17 +36,30 @@ class CourseListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('search')
+        course_tag = self.request.GET.get('course_tag')
         course = Course.objects.all()
-        if query:
+        if query and not course_tag:
             object_list = course.filter(
                 Q(slug__icontains=query) |
                 Q(title__icontains=query) |
                 Q(description__icontains=query) |
                 Q(tag__icontains=query)
             ).distinct()
+        elif course_tag:
+            object_list = course.filter(
+                Q(slug__icontains=query) |
+                Q(title__icontains=query) |
+                Q(description__icontains=course_tag) |
+                Q(tag__icontains=course_tag)
+            ).distinct()
         else:
             object_list = Course.objects.all()
         return object_list
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseListView, self).get_context_data(**kwargs)
+        context['course_tag'] = CourseTag
+        return context
 
 
 class StudentCourseListView(LoginRequiredMixin, View):
@@ -74,6 +87,7 @@ class StudentCourseListView(LoginRequiredMixin, View):
 class CourseDetailView(LoginRequiredMixin, DetailView):
     model = Course
     template_name = 'StudentDashboard/fixed-student-take-course.html'
+
     # template_name = 'DashBoard/student/student-view-course.html'
 
     def get_context_data(self, **kwargs):
@@ -235,11 +249,9 @@ class LessonDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
         return redirect('courses:list')
 
 
-
-
 def demo_check(request):
     return render(request, 'StudentDashboard/student_dashboard_base.html')
 
+
 def demo_check_2(request):
     return render(request, 'StudentDashboard/fixed-student-take-course.html')
-    
