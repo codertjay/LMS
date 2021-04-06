@@ -1,12 +1,13 @@
-from copy_trading.models import CopyTrading
-from forum.models import ForumQuestion
-from signal_app.models import SignalType
-from .models import Post
-from memberships.models import Membership
-from home_page.models import ComingSoon
 from django.conf import settings
 
+from copy_trading.models import CopyTrading
+from forum.models import ForumQuestion
+from memberships.models import Membership
+from signal_app.models import SignalType
+from .models import Post
+
 stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
+
 
 def monthly_signal():
     monthly_signal_qs = SignalType.objects.filter(signal_choice='Monthly')
@@ -47,8 +48,11 @@ def add_variable_to_context(try_content=None):
             older_posts = Post.objects.all()[:3]
     copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()
-    paid_membership = Membership.objects.get_membership('Paid')
-    
+    Beginner_membership = Membership.objects.get_membership('Beginner')
+    Intermediate_membership = Membership.objects.get_membership('Intermediate')
+    Advanced_membership = Membership.objects.get_membership('Advanced')
+
+
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
             'instagram_url': 'https://instagram.com/ninjaassassinfx/',
@@ -57,7 +61,9 @@ def add_variable_to_context(try_content=None):
             'quarterly_signal': quarterly_signal,
             'yearly_signal': yearly_signal,
             'top_forums': top_forums,
-            'paid_membership': paid_membership,
+            'Beginner_membership': Beginner_membership,
+            'Intermediate_membership': Intermediate_membership,
+            'Advanced_membership': Advanced_membership,
 
             # copy trading
             'stripe_public_key': stripe_public_key,

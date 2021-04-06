@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-from memberships.models import Membership, Subscription, UserMembership
+from memberships.models import Membership, UserMembership
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER_SENDGRID
 
@@ -18,13 +18,6 @@ def get_user_membership(request):
     return None
 
 
-def get_user_subscription(request):
-    user_subscription_qs = Subscription.objects.filter(
-        user_membership=get_user_membership(request))
-    if user_subscription_qs.exists():
-        current_subscription = user_subscription_qs.first()
-        return current_subscription
-    return None
 
 
 def get_selected_membership(request):

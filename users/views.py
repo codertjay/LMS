@@ -12,7 +12,7 @@ from django.views import View
 
 from courses.models import RecentCourses, Course
 from forum.models import ForumQuestion
-from memberships.views import get_user_subscription, get_user_membership
+from memberships.utils import  get_user_membership
 from signal_app.models import UserSignalSubscription, deactivate_signals
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
@@ -25,20 +25,18 @@ class StudentDashBoardView(LoginRequiredMixin, View):
     def get(self, request):
         recent_course_qs = RecentCourses.objects.filter(user=request.user)
         user_membership = get_user_membership(request)
-        user_subscription = get_user_subscription(request)
+        # user_subscription = get_user_subscription(request)
         forum_question = ForumQuestion.objects.filter(user=request.user)
         if recent_course_qs:
             recent_course = recent_course_qs.first()
         else:
             recent_course = None
 
-        print('user_membership', user_membership.membership.membership_type)
-        print('user_subscription', user_subscription)
         context = {
             'active': True,
             'RecentCourse': recent_course,
             'user_membership': user_membership,
-            'user_subscription': user_subscription,
+            # 'user_subscription': user_subscription,
             'forum_requestion': forum_question,
         }
         return render(request, 'DashBoard/student/student-dashboard.html', context)
@@ -81,7 +79,40 @@ class InstructorDashBoardView(LoginRequiredMixin, View):
         return redirect('dashboard:instructor_dashboard')
 
 
-@login_required
+def contactAdminView(request):
+    form = ContactAdminForm(request.POST)
+    contact = Contact(
+        contact_name=form['contact_name'].value(),
+        contact_email=form['contact_email'].value(),
+        contact_subject=form['contact_subject'].value(),
+        contact_message=form['contact_message'].value()
+    )
+    if form.is_valid():
+        contact.save()
+        template = get_template('EmailTemplates/contact_admin.txt')
+        context = {
+            'contact_name': contact.contact_name,
+            'contact_email': contact.contact_email,
+            'contact_subject': contact.contact_subject,
+            'contact_message': contact.contact_message
+        }
+        content = template.render(context)
+        if context:
+            send_mail(
+                contact.contact_subject,
+                content,
+                contact.contact_email,
+                [EMAIL_HOST_USER],
+                fail_silently=True,
+            )
+            messages.success(request, 'Your message has being sent we would be in touch with you later ')
+            return redirect('home:subscribe')
+    print('there was an error sending your message')
+    messages.warning(request, 'There was an error please try again later ')
+    return redirect('home:home')
+
+
+@login_required()
 def public_profile_view(request, username):
     user_qs = User.objects.filter(username=username)
     if user_qs:
@@ -96,7 +127,7 @@ def public_profile_view(request, username):
             'recent_course_qs': recent_course_qs,
             'user_course': user_course,
         }
-        return render(request, 'DashBoard/profile/profile-page.html', context)
+        return render(request, 'Dashboard/profile/profile-page.html', context)
     messages.info(request, 'This user profile page does not exist')
     return HttpResponseRedirect(request.META.get('HTTP_REFER'))
 
@@ -139,36 +170,3 @@ class UserProfileUpdate(LoginRequiredMixin, View):
         else:
             messages.warning(self.request, f'There was an error please filled the form correctly')
         return redirect('users:profile_edit')
-
-
-def contactAdminView(request):
-    form = ContactAdminForm(request.POST)
-    contact = Contact(
-        contact_name=form['contact_name'].value(),
-        contact_email=form['contact_email'].value(),
-        contact_subject=form['contact_subject'].value(),
-        contact_message=form['contact_message'].value()
-    )
-    if form.is_valid():
-        contact.save()
-        template = get_template('EmailTemplates/contact_admin.txt')
-        context = {
-            'contact_name': contact.contact_name,
-            'contact_email': contact.contact_email,
-            'contact_subject': contact.contact_subject,
-            'contact_message': contact.contact_message
-        }
-        content = template.render(context)
-        if context:
-            send_mail(
-                contact.contact_subject,
-                content,
-                contact.contact_email,
-                [EMAIL_HOST_USER],
-                fail_silently=True,
-            )
-            messages.success(request, 'Your message has being sent we would be in touch with you later ')
-            return redirect('home:subscribe')
-    print('there was an error sending your message')
-    messages.warning(request, 'There was an error please try again later ')
-    return redirect('home:home')

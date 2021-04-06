@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import CourseListView, CourseDetailView, LessonDetailView, StudentCourseListView, CourseCreateView, \
+
+from .views import CourseCreateView, \
     LessonCreateView, course_update_view, CourseDeleteView, lesson_update_view, LessonDeleteView
 
 app_name = 'courses'
@@ -15,11 +16,3 @@ AdminUrlPatterns = [
 
 ]
 urlpatterns += AdminUrlPatterns
-
-# this url is being used in the academy hosts
-StudentUrlPatterns = [
-    path('', CourseListView.as_view(), name='course_list'),
-    path('student_course/', StudentCourseListView.as_view(), name='student_course_list'),
-    path('#/<str:slug>/', CourseDetailView.as_view(), name='course_detail'),
-    path('<str:course_slug>/<str:lesson_slug>/', LessonDetailView.as_view(), name='lesson_detail'),
-]

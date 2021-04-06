@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.utils.datetime_safe import datetime
 from django.views.generic.base import View
 
-from memberships.views import get_user_membership
+from memberships.utils import get_user_membership
 from users.forms import UserUpdateForm
 from .models import SignalType, UserSignalSubscription
 from _coupon.models import Coupon

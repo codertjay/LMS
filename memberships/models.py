@@ -4,11 +4,13 @@ from django.db.models.signals import post_save
 import stripe
 from datetime import datetime
 from django.db.models import Model
+import stripe
 
 # Create your models here.
 MembershipType = (
-    ('Free', 'Free'),
-    ('Paid', 'Paid'),
+    ('Beginner ', 'Beginner '),
+    ('Intermediate ', 'Intermediate '),
+    ('Advanced ', 'Advanced '),
 )
 
 User = settings.AUTH_USER_MODEL
@@ -18,7 +20,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class MembershipManager(models.Manager):
     def get_membership(self, keyword):
-        membership = self.filter(membership_type=keyword).first()
+        membership = self.filter(slug=keyword).first()
         if membership:
             return membership
         return None
@@ -26,51 +28,51 @@ class MembershipManager(models.Manager):
 
 class Membership(models.Model):
     slug = models.SlugField()
-    membership_type = models.CharField(choices=MembershipType, default='Free', max_length=30)
-    discount = models.IntegerField()
-    price = models.IntegerField(default=0)
+    membership_type = models.CharField(choices=MembershipType, max_length=30, default='Free')
     stripe_plan_id = models.CharField(max_length=40)
     objects = MembershipManager()
 
     def __str__(self):
         return self.membership_type
 
+    @property
+    def price(self):
+        try:
+            response = stripe.Price.retrieve(self.stripe_plan_id)
+            price = response['unit_amount'] / 100
+            return price
+        except:
+            return 0
+
+    @property
+    def discount(self):
+        try:
+            response = stripe.Price.retrieve(self.stripe_plan_id)
+            price = response['unit_amount'] / 80
+            return price
+        except:
+            return 0
+
+
+class UserMembershipsManager(models.Manager):
+
+    def get_user_memberships(self, user):
+        user_membership_qs = self.filter(user=user)
+        if user_membership_qs.exists():
+            user_membership = user_membership_qs.first()
+            return user_membership
+        return None
+
 
 class UserMembership(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     stripe_customer_id = models.CharField(max_length=40)
-    membership = models.ForeignKey(Membership, on_delete=models.SET_NULL, null=True)
+    memberships = models.ManyToManyField(Membership)
+    objects = UserMembershipsManager()
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username } -- memberships"
 
-
-class Subscription(models.Model):
-    user_membership = models.ForeignKey(UserMembership, on_delete=models.CASCADE)
-    stripe_subscription_id = models.CharField(max_length=40)
-    active = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.user_membership.user.username
-
-    @property
-    def get_created_date(self):
-        try:
-            subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
-            date = datetime.fromtimestamp(subscription.created)
-        except:
-            date = None
-        return date
-
-    # this the the expiring date
-    @property
-    def get_next_billing_date(self):
-        try:
-            subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
-            date = datetime.fromtimestamp(subscription.current_period_end)
-        except:
-            date = None
-        return date
 
 def post_save_user_membership_create(sender, instance, created, *args, **kwargs):
     if created:
@@ -79,7 +81,6 @@ def post_save_user_membership_create(sender, instance, created, *args, **kwargs)
     if user_membership.stripe_customer_id is None or user_membership.stripe_customer_id == '':
         new_customer_id = stripe.Customer.create(email=instance.email)
         user_membership.stripe_customer_id = new_customer_id['id']
-        user_membership.membership = Membership.objects.get_membership('Free')
         user_membership.save()
 
 

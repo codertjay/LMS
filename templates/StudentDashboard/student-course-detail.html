@@ -1,4 +1,5 @@
 {% extends 'StudentDashboard/student_dashboard_base.html' %}
+{% load hosts %}
 
 {% block title %}
     Course Detail {{ course.title }}
@@ -66,8 +67,9 @@
                                  class="rounded-circle">
                         </div>
                         <div class="media-body">
-                            <div class="card-title mb-0"><a href="{% url 'users:profile' course.user.username %}"
-                                                            class="text-body"><strong>{{ course.user.first_name }}
+                            <div class="card-title mb-0"><a
+                                    href="{% host_url 'users:profile' username=course.user.username host 'www' %}"
+                                    class="text-body"><strong>{{ course.user.first_name }}
                                 - {{ course.user.last_name }}</strong></a></div>
                             <p class="text-muted mb-0">Instructor</p>
                         </div>
@@ -117,7 +119,7 @@
                                     <div class="text-muted">{{ forloop.counter }}</div>
                                 </div>
                                 <div class="media-body">
-                                    <a href="{% url 'courses:detail' item.course.slug %}">{{ item.title }}</a>
+                                    <a href="{% url 'course_detail' item.course.slug   host 'academy' %}">{{ item.title }}</a>
                                 </div>
                                 <div class="media-right">
                                     <small class="text-muted">{{ item.duration }}</small>
@@ -150,7 +152,7 @@
                                 <div class="d-flex align-items-center">
                                     <div>
                                         <a class="text-body mb-1"
-                                           href="{{ item.get_absolute_url }}"><strong>{{ item.tag }}</strong></a><br>
+                                           href="{% host_url 'course_detail' item.slug host 'academy' %}"><strong>{{ item.tag }}</strong></a><br>
                                         <div class="d-flex align-items-center">
                                                     <span class="text-blue mr-1">
                                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -165,7 +167,7 @@
                                                             </g>
                                                         </svg>
                                                     </span>
-                                            <a href="{{ item.get_absolute_url }}"
+                                            <a href="{% host_url 'course_detail' item.slug host 'academy' %}"
                                                class="small">{{ item.title|capfirst }}</a>
                                         </div>
                                     </div>

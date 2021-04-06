@@ -1,4 +1,5 @@
 {% extends 'DashBoard/dashboard_base.html' %}
+{% load hosts %}
 
 
 
@@ -19,7 +20,7 @@
             <div class="col-lg container-fluid page__container">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-                    <li class="breadcrumb-item active"><a href="{% url 'users:profile_edit' %}">Edit Account</a></li>
+                    <li class="breadcrumb-item active"><a href="{% url 'users:profile_edit'  %}">Edit Account</a></li>
                 </ol>
 
                 <div id="invoice">

@@ -3,6 +3,8 @@ from pathlib import Path
 from decouple import config, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -15,16 +17,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-if DEBUG:
-    ALLOWED_HOSTS = ["*"]
-else:
-    ALLOWED_HOSTS = [
-        'assassinfx.com',
-        'www.assassinfx.com',
-        '104.248.230.206',
-        'academy.assassinfx.com',
-        'academy.localhost:8000'
-    ]
+
+ALLOWED_HOSTS = [".assassinfx.com"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -48,6 +42,7 @@ LocalInstalledApps = [
     'copy_trading',
     '_coupon',
     'extensions',
+    'academy_dashboard',
 ]
 
 ExternalInstalledApps = [
@@ -74,12 +69,10 @@ MIDDLEWARE = [
     # for django host
     'django_hosts.middleware.HostsRequestMiddleware',
 
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -171,7 +164,8 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'courses/static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = '/accounts/login'
+LOGIN_URL = "http://www.assassinfx.com:8000/accounts/login/"
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SIGNUP_REDIRECT_URL = '/courses/'
@@ -191,7 +185,6 @@ ACCOUNT_USERNAME_BLACKLIST = []
 if DEBUG:
     STRIPE_PUBLISHABLE_KEY = 'pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ'
     STRIPE_SECRET_KEY = 'sk_test_51I7JYzAS6n0shLOq6XZJdgF0ihJh4ZanPMqWMELlomYfJ3vZXQwq4kWj4fsXhsOsWE1DQm0AgIV2pD7yZcKEyKG9005LDdWKEU'
-
 else:
     # live keys
     STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', default='')
@@ -204,9 +197,13 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-# EMAIL_HOST_USER_SENDGRID = 'begintjay@gmail.com'
+
 # for sending email
-EMAIL_HOST_USER_SENDGRID = 'ninjaassassin@assassinfx.com'
+if DEBUG:
+    EMAIL_HOST_USER_SENDGRID = 'begintjay@gmail.com'
+else:
+    EMAIL_HOST_USER_SENDGRID = 'ninjaassassin@assassinfx.com'
+
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
 SENDGRID_API_KEY = config('SENDGRID_API_KEY')
@@ -230,13 +227,16 @@ ROOT_HOSTCONF = 'Learning_platform.hosts'
 ROOT_URLCONF = 'Learning_platform.urls'
 
 if DEBUG:
-    PARENT_HOST = 'localhost:8000'
-    DEFAULT_REDIRECT_URL = "http://localhost:8000"
-    SESSION_COOKIE_DOMAIN = 'academy.localhost:8000'
-
+    PARENT_HOST = 'assassinfx.com:8000'
+    DEFAULT_REDIRECT_URL = "http://assassinfx.com:8000"
+    DOMAIN_NAME = 'assassinfx.com'
 else:
     PARENT_HOST = 'assassinfx.com'
     DEFAULT_REDIRECT_URL = "https://assassinfx.com"
-    SESSION_COOKIE_DOMAIN = '.assassinfx.com'
+    DOMAIN_NAME = 'assassinfx.com'
 
-
+CSRF_USE_SESSIONS = True
+CSRF_COOKIE_DOMAIN = '.' + DOMAIN_NAME
+CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", ]
+SESSION_COOKIE_DOMAIN = ".assassinfx.com"
+SESSION_COOKIE_NAME = 'sessionid'

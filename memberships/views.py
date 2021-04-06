@@ -8,26 +8,33 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView
 
-from courses.models import RecentCourses
-from memberships.models import Membership, Subscription
-from memberships.utils import get_user_membership, get_user_subscription, get_selected_membership, \
-    membership_created_message
-from signal_app.models import UserSignalSubscription
-from home_page.models import ComingSoon
 from _coupon.models import Coupon
+from home_page.models import ComingSoon
+from signal_app.models import UserSignalSubscription
+from .models import Membership, UserMembership
+from .utils import get_user_membership, get_selected_membership, membership_created_message
+
+
+def get_user_membership(request):
+    user_membership_qs = UserMembership.objects.filter(user=request.user)
+    if user_membership_qs.exists():
+        current_membership = user_membership_qs.first()
+        return current_membership
+    return None
 
 
 @login_required
-def profile_view(request):
-    user_membership = get_user_membership(request)
-    user_subscription = get_user_subscription(request)
+def user_subscriptions_view(request):
+    user_membership = UserMembership.objects.get_user_memberships(request.user)
     user_signal_sub = UserSignalSubscription.objects.get_user_signal_sub(
         user=request.user)
+
+    print(user_membership)
+    if user_membership:
+        user_memberships = user_membership.memberships.all()
     context = {
         'user_membership': user_membership,
-        'user_subscription': user_subscription,
-        'membership_type': user_membership.membership.membership_type,
-        'membership_price': user_membership.membership.price,
+        'user_memberships': user_memberships,
         'user_signal_sub': user_signal_sub,
     }
     return render(request, 'DashBoard/payment/student-account-billing-subscription.html', context)
@@ -40,16 +47,13 @@ class MemberShipSelectView(LoginRequiredMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         current_membership = get_user_membership(self.request)
-        context['current_membership'] = str(
-            current_membership.membership.membership_type)
-        # print(current_membership)
+        context['current_memberships'] = current_membership.memberships.all()
         return context
 
     def post(self, request, *args, **kwargs):
         selected_membership_type = request.POST.get('membership_type')
-        # print(selected_membership_type)
-        user_membership = get_user_membership(request)
-        user_subscription = get_user_subscription(request)
+        user_membership = UserMembership.objects.get_user_memberships(request.user)
+
         selected_membership_qs = Membership.objects.filter(
             membership_type=selected_membership_type
         )
@@ -57,14 +61,17 @@ class MemberShipSelectView(LoginRequiredMixin, ListView):
             selected_membership = selected_membership_qs.first()
         """
         ====================================
-        VALIDATION
+        VALIDATION 424242424242424
         ===================================
         """
-        if user_membership.membership == selected_membership:
-            if user_subscription != None:
+        try:
+            if selected_membership in user_membership.memberships.all():
+                print('passed this place')
                 messages.info(
                     request, 'You already have this selected membership')
-            return HttpResponseRedirect(request.META.get('HTTP_REFER'))
+                return HttpResponseRedirect(request.META.get('HTTP_REFER'))
+        except:
+            pass
         # assign to the session
         request.session['selected_membership_type'] = selected_membership.membership_type
         return HttpResponseRedirect(reverse('memberships:payment'))
@@ -72,10 +79,14 @@ class MemberShipSelectView(LoginRequiredMixin, ListView):
 
 @login_required
 def payment_view(request):
-    user_membership = get_user_membership(request)
+    user_membership = UserMembership.objects.get_user_memberships(request.user)
+
     selected_membership = get_selected_membership(request)
     publish_key = settings.STRIPE_PUBLISHABLE_KEY
     coming_soon = ComingSoon.objects.first()
+
+    print('passed here 1')
+
     if coming_soon:
         if coming_soon.coming_soon == True:
             return redirect('home:coming_soon')
@@ -109,6 +120,7 @@ def payment_view(request):
 
             print('this is the subscription_id ', subscription.id)
             if subscription.status == 'active':
+                print('passed here 2')
                 return redirect(reverse('memberships:update_transactions',
                                         kwargs={
                                             'subscription_id': subscription.id
@@ -138,18 +150,15 @@ Error  {a}
 
 @login_required
 def update_transactions(request, subscription_id):
-    user_membership = get_user_membership(request)
+    print('passed here 3')
+
+    user_membership = UserMembership.objects.get_user_memberships(request.user)
     selected_membership = get_selected_membership(request)
-    user_membership.membership = selected_membership
+    user_membership.memberships.add(selected_membership)
     user_membership.save()
-    sub, created = Subscription.objects.get_or_create(
-        user_membership=user_membership)
-    # print('this is the subscription id', subscription_id)
-    sub.stripe_subscription_id = subscription_id
-    sub.active = True
-    sub.save()
+
     # sending message to the user that he has successfully a created membership
-    membership_created_message(user_membership, sub)
+    membership_created_message(user_membership, user_membership)
     try:
         del request.session['selected_membership_type']
         messages.info(request, f'Your Payment was successful ')
@@ -160,60 +169,3 @@ Error  {a}
 ======================================
                 """)
     return redirect('memberships:profile')
-
-
-@login_required
-def cancel_subscription(request):
-    user_sub = get_user_subscription(request)
-    if user_sub.active == False:
-        messages.info(request, "You dont have an active membership")
-        return HttpResponseRedirect(request.META.get('HTTP_REFER'))
-    try:
-        sub = stripe.Subscription.retrieve(user_sub.stripe_subscription_id)
-        sub.delete()
-        user_sub.active = False
-        user_sub.save()
-    except:
-        messages.info(request, 'There was an error performing your request ')
-
-    free_membership = Membership.objects.filter(membership_type='Free').first()
-    user_membership = get_user_membership(request)
-    user_membership.membership = free_membership
-    user_membership.save()
-    messages.info(
-        request, 'Successfully cancelled Academy  subscription. ')
-    return redirect('memberships:membership_select')
-
-
-@login_required
-def student_membership_invoice(request):
-    user_membership = get_user_membership(request)
-    user_subscription = get_user_subscription(request)
-
-    recent_course_qs = RecentCourses.objects.filter(user=request.user)
-    user_membership = get_user_membership(request)
-    user_subscription = get_user_subscription(request)
-
-    if recent_course_qs:
-        recent_course = recent_course_qs.first()
-    else:
-        recent_course = None
-    if user_subscription:
-        context = {
-            'user_membership': user_membership,
-            'user_subscription': user_subscription,
-            'membership_type': user_membership.membership.membership_type,
-            'membership_price': user_membership.membership.price,
-            'next_billing_date': user_subscription.get_next_billing_date,
-            'created_at': user_subscription.get_created_date,
-            'recent_course': recent_course,
-        }
-    else:
-        context = {
-            'user_membership': user_membership,
-            'user_subscription': user_subscription,
-            'membership_type': user_membership.membership.membership_type,
-            'membership_price': user_membership.membership.price,
-            'recent_course': recent_course,
-        }
-    return render(request, 'DashBoard/payment/student-invoice.html', context)

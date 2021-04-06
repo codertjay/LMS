@@ -15,13 +15,29 @@ signal_choices = (
 
 class SignalType(models.Model):
     signal_choice = models.CharField(max_length=20, choices=signal_choices)
-    discount = models.FloatField()
-    price = models.FloatField()
     stripe_plan_id = models.CharField(max_length=40)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.signal_choice
+
+    @property
+    def price(self):
+        try:
+            response = stripe.Price.retrieve(self.stripe_plan_id)
+            price = response['unit_amount'] / 100
+            return price
+        except:
+            return 0
+
+    @property
+    def discount(self):
+        try:
+            response = stripe.Price.retrieve(self.stripe_plan_id)
+            price = response['unit_amount'] / 80
+            return price
+        except:
+            return 0
 
 
 class UserSignalSubscriptionManager(models.Manager):
@@ -90,8 +106,6 @@ Error  {a}
     return None
 
 
-# calling function that deactivate expired signals
-deactivate_signals()
 
 
 # a django signal that automatically send message to the user that has registered on a signal

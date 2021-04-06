@@ -1,3 +1,4 @@
+{% load hosts %}
 <div id="page-nav" class="col-lg-auto page-nav">
     <div data-perfect-scrollbar>
         <div class="page-section pt-lg-32pt">
@@ -10,7 +11,7 @@
                     <a href="{% url 'memberships:membership_select' %}" class="nav-link">Upgrade Academy</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'users:profile_edit' %}" class="nav-link">Edit Account</a>
+                    <a href="{% url 'users:profile_edit'  %}" class="nav-link">Edit Account</a>
                 </li>
             </ul>
         </div>

@@ -40,7 +40,10 @@ button {
   float: left;
   margin-left: 12px;
   margin-top: 28px;
-  width: 100%;
+}
+
+#submit-button{
+    width: 100%;
 }
 
 button:hover {

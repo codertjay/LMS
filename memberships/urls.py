@@ -1,16 +1,14 @@
 from django.urls import path
-from .views import (MemberShipSelectView,
-                    payment_view,
-                    update_transactions,
-                    profile_view, cancel_subscription,student_membership_invoice)
+# from .views import (MemberShipSelectView, payment_view,  update_transactions, user_subscriptions_view,cancel_subscription,student_membership_invoice)
+from .views import user_subscriptions_view, MemberShipSelectView, payment_view, update_transactions
 
 app_name = 'memberships'
 urlpatterns = [
     path('', MemberShipSelectView.as_view(), name='membership_select'),
+    path('profile/', user_subscriptions_view, name='profile'),
     path('payment/', payment_view, name='payment'),
     path('update_transactions/<str:subscription_id>/',
          update_transactions, name='update_transactions'),
-    path('profile/', profile_view, name='profile'),
-    path('cancel/', cancel_subscription, name='cancel'),
-    path('invoice/', student_membership_invoice, name='invoice'),
+    # path('cancel/', cancel_subscription, name='cancel'),
+    # path('invoice/', student_membership_invoice, name='invoice'),
 ]
