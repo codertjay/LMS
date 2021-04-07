@@ -1,4 +1,5 @@
 {% extends 'DashBoard/dashboard_base.html' %}
+{% load hosts %}
 {% load crispy_forms_filters %}
 {% load static %}
 {% block styles %}
@@ -108,7 +109,8 @@
                                                     <i class="fa fa-edit "></i>
                                                 </a>
                                                 <div class="card-title">
-                                                    <a href="{{ lesson_item.get_absolute_url }}"><h3
+             <a href="{% host_url 'lesson_detail' course_slug=lesson_item.course.slug lesson_slug=lesson_item.slug host 'academy' %}"
+                                                       target="_blank"><h3
                                                             class="text-capitalize text-primary"> {{ lesson_item.title }}</h3>
                                                     </a>
                                                 </div>

@@ -19,7 +19,6 @@ class CourseCreateEditForm(forms.ModelForm):
         fields = ['title'
             , 'image'
             , 'allowed_memberships'
-            , 'tag'
             , 'description'
                   ]
 

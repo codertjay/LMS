@@ -1,4 +1,5 @@
 {% extends 'DashBoard/dashboard_base.html' %}
+{% load hosts %}
 {% load crispy_forms_filters %}
 
 {% block title %}
@@ -30,7 +31,7 @@
     <div class="container-fluid ">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'courses:list' %}">Courses</a></li>
+            <li class="breadcrumb-item"><a href="{% host_url 'course_list' host 'academy' %}">Courses</a></li>
             <li class="breadcrumb-item active">Create Article</li>
         </ol>
         <div class="media align-items-center mb-headings text-center">

@@ -410,10 +410,11 @@
                                     </div>
                                     <form method="post" action="{% url 'memberships:membership_select' %}">
                                         {% csrf_token %}
-                                            <button type="submit" class="btn btn-primary w-100">Buy Now
-                                            </button>
+
                                         <input type="hidden" name="membership_type"
                                                value="{{ Beginner_membership.membership_type }}">
+                                      <button type="submit" class="btn btn-primary w-100">Buy Now
+                                            </button>
                                     </form>
                                 {% endif %}
 

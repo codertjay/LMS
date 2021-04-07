@@ -235,8 +235,9 @@ else:
     DEFAULT_REDIRECT_URL = "https://assassinfx.com"
     DOMAIN_NAME = 'assassinfx.com'
 
-CSRF_USE_SESSIONS = True
-CSRF_COOKIE_DOMAIN = '.' + DOMAIN_NAME
 CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", ]
 SESSION_COOKIE_DOMAIN = ".assassinfx.com"
+CSRF_COOKIE_DOMAIN = '.' + DOMAIN_NAME
+
+CSRF_USE_SESSIONS = True
 SESSION_COOKIE_NAME = 'sessionid'

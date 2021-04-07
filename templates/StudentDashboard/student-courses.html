@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="page__heading d-flex align-items-center justify-content-between">
-        <h1 class="m-0">Courses   {{ request.user }}</h1>
+        <h1 class="m-0">Courses   </h1>
     </div>
 
     <section>
@@ -22,8 +22,8 @@
                         <select id="custom-select" name="course_tag" class="form-control custom-select"
                                 style="width: 200px;">
                             <option selected="">All categories</option>
-                            {% for item in course_tag %}
-                                <option value="{{ item|first }}">{{ item|first }}</option>
+                            {% for item in memberships %}
+                                <option value="{{ item.membership_type }}">{{ item.membership_type }}</option>
                             {% endfor %}
                         </select>
                     </div>

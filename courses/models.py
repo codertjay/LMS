@@ -9,13 +9,7 @@ from moviepy.editor import VideoFileClip
 
 from memberships.models import Membership
 from django.contrib.auth.models import User
-
-CourseTag = (
-    ('Beginner', 'Beginner'),
-    ('Intermediate', 'Intermediate'),
-    ('Advance', 'Advance')
-)
-
+from django_hosts.resolvers import reverse as host_reverse
 
 def convert(n):
     return str(timedelta(seconds=n))
@@ -30,25 +24,32 @@ def video_clip_duration(video_path):
     return duration
 
 
+Courselanguage = (
+    ('ENGLISH', 'ENGLISH'),
+    ('SPANISH', 'SPANISH'),
+)
+
+
+
 class CourseManager(models.Manager):
     pass
 
 
 class Course(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+    course_language = models.CharField(choices=Courselanguage, max_length=20, default="English")
     slug = models.SlugField(unique=True)
     title = models.CharField(max_length=120)
     description = models.TextField()
     allowed_memberships = models.ManyToManyField(Membership)
     image = models.ImageField()
     rating = models.IntegerField(default=5)
-    tag = models.CharField(choices=CourseTag, max_length=15, default='Intermediate')
     view_count = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     objects = CourseManager()
 
     def get_absolute_url(self):
-        return reverse('courses:detail', kwargs={'slug': self.slug})
+        return host_reverse('course_detail', args=(self.slug,), host='academy',)
 
     class Meta:
         ordering = ['-id']
@@ -73,9 +74,6 @@ class Course(models.Model):
         course_list = Course.objects.filter(title=self.title)[:4]
         print('the course list', course_list)
         return course_list
-
-    def get_absolute_url(self):
-        return reverse('courses:detail', kwargs={'slug': self.slug})
 
     @property
     def lessons(self):

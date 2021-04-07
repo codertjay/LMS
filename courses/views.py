@@ -1,21 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, DeleteView
+from django.views.generic import DeleteView
 from django.views.generic.base import View
 
 from courses.forms import CourseCreateEditForm, LessonCreateEditForm
-from courses.models import Course, Lesson, CourseTag
+from courses.models import Course, Lesson
 from home_page.mixins import InstructorAndLoginRequiredMixin
-from memberships.models import UserMembership, Membership
-from memberships.utils import cancel_user_subscription
-from users.models import Profile
 
 
 def get_course_membership_type(course_allowed_mem_types):

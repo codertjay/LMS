@@ -1,4 +1,5 @@
 {% extends 'DashBoard/dashboard_base.html' %}
+{% load hosts %}
 {% load crispy_forms_filters %}
 {% load static %}
 
@@ -69,7 +70,8 @@
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="card-title h6 mb-0">
-                                                        <a href="{{ item.get_absolute_url }}"  style="color: white">{{ item.title }}</a>
+                                                        <a href="{% host_url 'course_detail' slug=item.slug host 'academy' %}"
+                                                           target="_blank"  style="color: white">{{ item.title }}</a>
                                                     </h5>
                                                     <small class="text-light">{{ item.timestamp }}</small>
                                                 </div>

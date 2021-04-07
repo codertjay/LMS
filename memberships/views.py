@@ -52,6 +52,7 @@ class MemberShipSelectView(LoginRequiredMixin, ListView):
 
     def post(self, request, *args, **kwargs):
         selected_membership_type = request.POST.get('membership_type')
+        print('the selected memberships', selected_membership_type)
         user_membership = UserMembership.objects.get_user_memberships(request.user)
 
         selected_membership_qs = Membership.objects.filter(
@@ -69,7 +70,8 @@ class MemberShipSelectView(LoginRequiredMixin, ListView):
                 print('passed this place')
                 messages.info(
                     request, 'You already have this selected membership')
-                return HttpResponseRedirect(request.META.get('HTTP_REFER'))
+                # return HttpResponseRedirect(request.META.get('HTTP_REFER'))
+                return redirect('memberships:profile')
         except:
             pass
         # assign to the session

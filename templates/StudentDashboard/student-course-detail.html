@@ -49,7 +49,8 @@
                                 <h3 class="text-center text-capitalize"> please upgrade membership to view this
                                     course </h3>
                                 <p class="text-center  text-capitalize">
-                                    click <a href="{% url 'memberships:membership_select' %}">here</a> to upgrade
+                                    click <a href="{% host_url 'memberships:membership_select' host 'www' %}">here</a>
+                                    to upgrade
                                 </p>
                             </div>
                         </div>
@@ -119,7 +120,7 @@
                                     <div class="text-muted">{{ forloop.counter }}</div>
                                 </div>
                                 <div class="media-body">
-                                    <a href="{% url 'course_detail' item.course.slug   host 'academy' %}">{{ item.title }}</a>
+                                    <a href="{% host_url 'course_detail' slug=item.course.slug host 'academy' %}">{{ item.title }}</a>
                                 </div>
                                 <div class="media-right">
                                     <small class="text-muted">{{ item.duration }}</small>
@@ -152,7 +153,12 @@
                                 <div class="d-flex align-items-center">
                                     <div>
                                         <a class="text-body mb-1"
-                                           href="{% host_url 'course_detail' item.slug host 'academy' %}"><strong>{{ item.tag }}</strong></a><br>
+                                           href="{% host_url 'course_detail' item.slug host 'academy' %}">
+                                            {% for memb in item.allowed_memberships.all %}
+                                                <strong>{{ memb.membership_type }}</strong>
+                                            {% endfor %}
+
+                                        </a><br>
                                         <div class="d-flex align-items-center">
                                                     <span class="text-blue mr-1">
                                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1"

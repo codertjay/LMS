@@ -1,4 +1,5 @@
 {% extends 'DashBoard/dashboard_base.html' %}
+{% load hosts %}
 {% load static %}
 
 {% block title %}
@@ -39,7 +40,9 @@
                                                 </a>
                                                 <div class="media-body">
                                                     <a class="text-body js-lists-values-course text-primary"
-                                                       href="{{ item.get_absolute_url }}"><strong>{{ item.title }}</strong></a><br>
+                                                       href="{% host_url 'course_detail' slug=item.slug host 'academy' %}"
+                                                       target="_blank"><strong>
+                                                        {{ item.title }}</strong></a><br>
                                                 </div>
                                             </div>
                                         </td>
