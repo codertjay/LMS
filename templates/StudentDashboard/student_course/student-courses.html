@@ -3,29 +3,25 @@
 
 {% block content %}
     <div class="page__heading d-flex align-items-center justify-content-between">
-        <h1 class="m-0">Courses   </h1>
+        <h1 class="m-0">Courses </h1>
     </div>
 
     <section>
-        <form action="{% host_url 'course_list' host 'academy' %}" class="" method="post">
-            {% csrf_token %}
+        <form action="{% host_url 'course_list' host 'academy' %}" class="">
             <div class="d-lg-flex">
                 <div class="search-form mb-3 mr-3-lg search-form--light">
                     <input type="text" name="search" class="form-control" placeholder="Search courses"
                            id="searchSample02">
-                    <button class="btn" type="button"><i class="material-icons">search</i></button>
+                    <button class="btn btn-primary" type="submit"><i class="material-icons">search</i></button>
                 </div>
 
                 <div class="form-inline  mb-3 ml-auto">
                     <div class="form-group mr-3">
                         <label for="custom-select" class="form-label mr-1">Category</label>
-                        <select id="custom-select" name="course_tag" class="form-control custom-select"
-                                style="width: 200px;">
-                            <option selected="">All categories</option>
-                            {% for item in memberships %}
-                                <option value="{{ item.membership_type }}">{{ item.membership_type }}</option>
-                            {% endfor %}
-                        </select>
+                        {% for item in memberships %}
+                            <a href="{% host_url 'course_type' course_type=item.membership_type host 'academy' %}"
+                               class="btn btn-primary py-2">{{ item.membership_type }}</a>
+                        {% endfor %}
                     </div>
 
                 </div>
@@ -60,7 +56,9 @@
                                         Apply
                                     {% endif %}
                                     </span>
-                                    <span class="pull-right float-right text-info  pt-1 ">View Count {{ course.view_count }} </span>
+                                    <span class="pull-right float-right text-info  pt-1 "><span class="material-icons">
+                                                remove_red_eye
+                                                </span> {{ course.view_count }} </span>
                                 </a>
 
                             </div>

@@ -5,6 +5,7 @@ from django.urls import reverse
 # Create your models here.
 from django.utils.safestring import mark_safe
 from markdown_deux import markdown
+from django_hosts.resolvers import reverse as host_reverse
 
 User = settings.AUTH_USER_MODEL
 
@@ -34,7 +35,8 @@ class ForumQuestion(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('forum:forum_detail', kwargs={'pk': self.pk})
+        # return reverse('forum:forum_detail', kwargs={'pk': self.pk})
+        return host_reverse('forum_detail', args=(self.pk,), host='academy', )
 
     @property
     def forum_answers(self):

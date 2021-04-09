@@ -1,0 +1,50 @@
+{% extends 'StudentDashboard/student_dashboard_base.html' %}
+{% load crispy_forms_filters %}
+
+
+{% block styles %}
+
+{% endblock %}
+
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="row m-0">
+        <div class="col-lg container-fluid ">
+
+
+            <div class="card pb-3">
+                <div class="card-title pt-5 mt-5 p-4">
+                    <h1 class="h2">Are you sure you want to delete ? <br><span
+                            class="font-italic font-size-16pt">{{ object.title }}</span></h1>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-evenly">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                        <a href="{% url 'forum:forum_update'  object.id %}">
+                            <button class="btn btn-primary">
+                                Update
+                            </button>
+                        </a>
+                        <a href="{% url 'forum:forum_detail'  object.id %}">
+                            <button class="btn btn-info"> View</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

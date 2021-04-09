@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', models.TextField()),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('forum_question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='forum.forumquestion')),
+                ('forum_question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='academy_forum.forumquestion')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

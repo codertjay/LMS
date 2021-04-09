@@ -1,0 +1,169 @@
+{% extends 'StudentDashboard/student_dashboard_base.html' %}
+{% load hosts %}
+{% load static %}
+
+
+
+{% block title %}
+    Forum
+{% endblock title %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="d-flex align-items-center mb-4">
+                <h1 class="h2 flex mr-3 mb-0">Forum</h1>
+                <a href="{% host_url 'forum_create' host 'academy' %}" class="btn btn-success">Ask a Question</a>
+            </div>
+
+            <!-- Search -->
+            <div class="flex search-form form-control-rounded search-form--light mb-2"
+                 style="min-width: 300px;">
+                <form class="search-form  d-md-flex" action="{% host_url 'forum_list' host 'academy' %}" method="get">
+                    <input type="text" class="form-control" name="search" placeholder="Search" style="width: 500px">
+                    <button class="btn" type="submit"><i class="fa fa-search font-size-24pt"></i></button>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <h4 class="card-title">General</h4>
+                            <p class="card-subtitle">All forum questions </p>
+                        </div>
+                        <div class="media-right">
+                            <a href="{% host_url 'forum_create' host 'academy' %}" class="btn btn-white btn-sm"><i
+                                    class="text-info fa fa-plus-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <ul class="list-group list-group-fit">
+
+                    {% for item in object_list %}
+                        <li class="list-group-item forum-thread">
+                            <div class="media align-items-center">
+                                <div class="media-left">
+                                    <div class="forum-icon-wrapper">
+                                        <a href="{{ item.get_absolute_url }}" class="forum-thread-icon">
+                                            <i class="fa fa-info-circle fa-2x"></i>
+                                        </a>
+                                        <a href="{{ item.get_absolute_url }}" class="forum-thread-user">
+                                            <img src="  {{ item.user.profile.profilePicsImageURL }}" alt=""
+                                                 width="20"
+                                                 class="rounded-circle">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ item.get_absolute_url }}" class="text-body"><strong>
+                                            {{ item.user.first_name }} {{ item.user.last_name }}
+                                        </strong></a>
+                                        <small class="ml-auto text-muted">{{ item.timestamp|timesince }}</small>
+                                    </div>
+                                    <a class="text-black-70" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+
+                </ul>
+            </div>
+
+
+            <ul class="pagination justify-content-center pagination-sm">
+                <div class="d-flex justify-content-center">
+                    <nav aria-label="...">
+                        {% if is_paginated %}
+
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item pr-2 fa-2x ">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                                           tabindex="-1"
+                                           aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled  pr-2  fa-2x">
+                                        <span class="page-link"><i class="fa fa-chevron-left"></i></span>
+                                    </li>
+                                {% endif %}
+                                {% for i in paginator.page_range %}
+
+                                    {% if page_obj.number == i %}
+                                        <li class="page-item active " aria-current="page">
+                                            <span class="page-link">{{ i }} </span>
+                                        </li>
+                                    {% else %}
+                                        <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                    <li class="page-item pl-2  fa-2x">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                                                class="fa fa-chevron-right"></i></a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled pl-2  fa-2x">
+                                        <span class="page-link"><i class="fa fa-chevron-right"></i></span>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    </nav>
+
+                </div>
+
+            </ul>
+
+
+        </div>
+        <div class="col-md-4">
+
+            <h4>Top Streaks</h4>
+            <p class="text-black-70">Top forums.</p>
+            <div class="mb-4" style="max-height: 500px;overflow-y:scroll;">
+                {% if top_forums %}
+
+                    {% for item in top_forums %}
+
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="{{ item.get_absolute_url }}"
+                               class="avatar avatar-sm mr-3">
+                                <img src="{{ item.user.profile.profilePicsImageURL }}" alt="course"
+                                     class="avatar-img rounded-circle">
+                            </a>
+                            <a href="{{ item.get_absolute_url }}"
+                               class="flex mr-2 text-body"><strong>
+                                {{ item.user.first_name }} {{ item.user.last_name }}
+                                <br>
+                                {{ item.title }}
+                            </strong></a>
+                            <span class="text-black-70 mr-2">{{ item.view_count }}</span>
+                            <i class="text-muted  font-size-16pt fa fa-eye"></i>
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

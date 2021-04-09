@@ -37,7 +37,7 @@ LocalInstalledApps = [
     'memberships',
     'blog',
     'home_page',
-    'forum',
+    'academy_forum',
     'signal_app',
     'copy_trading',
     '_coupon',
@@ -226,18 +226,17 @@ DEFAULT_HOST = 'www'
 ROOT_HOSTCONF = 'Learning_platform.hosts'
 ROOT_URLCONF = 'Learning_platform.urls'
 
+DOMAIN_NAME = 'assassinfx.com'
 if DEBUG:
-    PARENT_HOST = 'assassinfx.com:8000'
-    DEFAULT_REDIRECT_URL = "http://assassinfx.com:8000"
-    DOMAIN_NAME = 'assassinfx.com'
+    PARENT_HOST = f'{DOMAIN_NAME}:8000'
+    DEFAULT_REDIRECT_URL = f"http://{DOMAIN_NAME}:8000"
 else:
-    PARENT_HOST = 'assassinfx.com'
-    DEFAULT_REDIRECT_URL = "https://assassinfx.com"
-    DOMAIN_NAME = 'assassinfx.com'
+    PARENT_HOST = DOMAIN_NAME
+    DEFAULT_REDIRECT_URL = f"https://{DOMAIN_NAME}"
 
 CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", ]
-SESSION_COOKIE_DOMAIN = ".assassinfx.com"
+SESSION_COOKIE_DOMAIN = f".{DOMAIN_NAME}"
 CSRF_COOKIE_DOMAIN = '.' + DOMAIN_NAME
 
 CSRF_USE_SESSIONS = True
-SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_NAME = 'assassinfxsessionid'

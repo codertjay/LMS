@@ -23,7 +23,7 @@ urlpatterns = [
     path('memberships/', include('memberships.urls')),
     path('courses/', include('courses.urls')),
     path('blog/', include('blog.urls')),
-    path('forum/', include('forum.urls')),
+    # path('academy_forum/', include('academy_forum.urls')),
     path('_coupon/', include('_coupon.urls')),
     path('', include('home_page.urls')),
     path('', include('users.urls')),

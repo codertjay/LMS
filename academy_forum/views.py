@@ -16,7 +16,7 @@ from .models import ForumQuestion
 
 class ForumListView(LoginRequiredMixin, ListView):
     model = ForumQuestion
-    template_name = 'DashBoard/forum/student-forum.html'
+    template_name = 'StudentDashboard/forum/student-forum.html'
     paginate_by = 10
 
     def get_queryset(self):
@@ -37,7 +37,8 @@ class ForumQuestionCreateView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         form = ForumQuestionForm()
         forum = ForumQuestion.objects.all()[:4]
-        return render(self.request, 'DashBoard/forum/student-forum-ask.html', {'form': form, 'forum': forum})
+        return render(self.request, 'StudentDashboard/forum/student-forum-ask.html',
+                      {'form': form, 'academy_forum': forum})
 
     def post(self, *args, **kwargs):
         form = ForumQuestionForm(self.request.POST)
@@ -55,7 +56,7 @@ class ForumQuestionCreateView(LoginRequiredMixin, View):
 
 
 class ForumQuestionDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'DashBoard/forum/student-forum-detail.html'
+    template_name = 'StudentDashboard/forum/student-forum-detail.html'
     model = ForumQuestion
     context_object_name = 'forum_question'
 
@@ -97,7 +98,7 @@ def forum_answer_create_view(request, pk=None):
 
 class ForumQuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = ForumQuestion
-    template_name = 'DashBoard/forum/forum-update.html'
+    template_name = 'StudentDashboard/forum/forum-update.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -115,7 +116,7 @@ class ForumQuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
 
 class ForumQuestionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = ForumQuestion
-    template_name = 'DashBoard/forum/forum-delete.html'
+    template_name = 'StudentDashboard/forum/forum-delete.html'
     success_url = reverse_lazy('forum:forum_list')
 
     def test_func(self):
@@ -139,4 +140,4 @@ def forum_update_view(request, id=None):
     else:
         messages.warning(request, 'The form isn\'t valid')
     context = {'form': form, 'object': instance}
-    return render(request, 'DashBoard/forum/forum-update.html', context)
+    return render(request, 'StudentDashboard/forum/forum-update.html', context)

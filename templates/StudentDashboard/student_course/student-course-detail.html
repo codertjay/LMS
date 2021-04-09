@@ -42,11 +42,16 @@
                         <video controls poster="{{ course.imageURL }}" width="500" height="500"
                                data-toggle="popover" title="Popover Header"
                                data-content="Some content inside the popover">
-                            Sorry your dont have access to video please upgrade memberships
                         </video>
                         <div class="card">
                             <div class="card-content">
-                                <h3 class="text-center text-capitalize"> please upgrade membership to view this
+                                <h3 class="text-center text-capitalize">
+                                    Sorry your don't have access to view
+                                    {% for item in course.allowed_memberships.all %}
+                                        {{ item }},
+                                    {% endfor %}
+                                    course's.
+                                    please upgrade membership to view this
                                     course </h3>
                                 <p class="text-center  text-capitalize">
                                     click <a href="{% host_url 'memberships:membership_select' host 'www' %}">here</a>
@@ -75,9 +80,16 @@
                             <p class="text-muted mb-0">Instructor</p>
                         </div>
                         <div class="media-right">
-                            <a href="" class="btn btn-facebook btn-sm"><i class="fab fa-facebook"></i></a>
-                            <a href="" class="btn btn-twitter btn-sm"><i class="fab fa-twitter"></i></a>
-                            <a href="" class="btn btn-light btn-sm"><i class="fab fa-github"></i></a>
+                            {% comment %} <a href="{{ facebook_url }}" class="btn btn-facebook btn-sm"><span class="material-icons">
+                                            facebook
+                                            </span></a>
+                            <a href="{{ twitter_url }}" class="btn btn-twitter btn-sm"><span class="material-icons">
+                                            twitter
+                                            </span></a>
+                            <a href="{{ discord_url }}" class="btn btn-twitter btn-sm"><span class="material-icons">
+                                            discord
+                                            </span></a>{% endcomment %}
+
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,74 @@
+{% extends 'StudentDashboard/student_dashboard_base.html' %}
+{% load hosts %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Ask question(Forum)
+{% endblock %}
+{% block styles %}
+
+{% endblock %}
+{% block content %}
+
+    <div class="row m-0">
+        <div class="col-lg container-fluid page__container">
+
+            <h1 class="h2">Ask Question</h1>
+
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="card  my_shadow" {% comment %}style="box-shadow: 10px 10px 5px #888888;"{% endcomment %}>
+                    <div class="card-body">
+                        {{ form|crispy }}
+                    </div>
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-uppercase mb-0">Most recent questions</h5>
+                    </div>
+                    <div class="" style="height:300px ;overflow-y: scroll">
+                        <ul class="list-group list-group-fit">
+                            {% for item in forum %}
+                                <li class="list-group-item forum-thread">
+                                    <div class="media align-items-center">
+                                        <div class="media-left">
+                                            <div class="forum-icon-wrapper">
+                                                <a href="{{ item.get_absolute_url }}" class="forum-thread-icon">
+                                                    <i class="fa fa-info-circle fa-2x"></i>
+                                                </a>
+                                                <a href="#" class="forum-thread-user">
+                                                    <img src="{{ item.user.profile.profilePicsImageURL }}" alt=""
+                                                         width="20"
+                                                         class="rounded-circle">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="d-flex align-items-center">
+                                                <a href="{% host_url 'users:profile' item.user.username host 'www' %}"
+                                                   class="text-body"><strong>{{ item.user.first_name }}
+                                                    {{ item.user.last_name }}</strong></a>
+                                                <small class="ml-auto text-muted">{{ item.timestamp }}</small>
+                                            </div>
+                                            <a class="text-black-70"
+                                               href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

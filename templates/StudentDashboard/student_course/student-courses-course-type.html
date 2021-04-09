@@ -1,0 +1,119 @@
+{% extends 'StudentDashboard/student_dashboard_base.html' %}
+{% load hosts %}
+
+{% block content %}
+    <div class="page__heading d-flex align-items-center justify-content-between">
+        <h1 class="m-0">Courses {{ course_type }} </h1>
+    </div>
+
+    <section>
+        <form action="{% host_url 'course_type' course_type host 'academy' %}" class="">
+            <div class="d-lg-flex">
+                <div class="search-form mb-3 mr-3-lg search-form--light">
+                    <input type="text" name="search" class="form-control" placeholder="Search courses"
+                           id="searchSample02">
+                    <button class="btn btn-info" type="submit"><i class="material-icons">search</i></button>
+                </div>
+
+                <div class="  mb-3 ml-auto">
+                    <div class="form-group mr-3">
+                        <label for="custom-select" class="form-label mr-1">Category</label>
+                        {% for item in memberships %}
+                            <a href="{% host_url 'course_type' item.slug host 'academy' %}"
+                               class="btn btn-primary py-2 ">{{ item.membership_type }}</a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </section>
+
+    <section>
+        <div class="row">
+            {% for course in object_list %}
+                <div class="col-md-3">
+                    <div class="card card__course">
+                        <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
+                            <a class="card-header__title  justify-content-center align-self-center d-flex flex-column"
+                               href="{% host_url 'course_detail' course.slug host 'academy' %}">
+                                <span><img src="{{ course.imageURL }}" class="mb-1" style="width:34px;"
+                                           alt="logo"></span>
+                                <span class="course__title">{{ course.tag }}</span>
+                                <span class="course__subtitle">{{ course.title }}</span>
+                            </a>
+                        </div>
+                        <div class="p-3">
+
+                            <div class="d-flex align-items-center">
+
+                                <a class="text-center" href="{% host_url 'course_detail' course.slug host 'academy' %}">
+
+                   {% comment %} <span class=" badge badge-primary " style="font-size: larger">
+                                    {% if course in request.user.profile.applied_courses.all %}
+                                        Continue
+                                    {% else %}
+                                        Apply
+                                    {% endif %}
+                                    </span>{% endcomment %}
+                                    <span class="pull-right float-right text-info  pt-1 "><span class="material-icons">
+                                                remove_red_eye </span> {{ course.view_count }} </span>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <ul class="pagination justify-content-center pagination-sm">
+                <div class="d-flex justify-content-center">
+                    <nav aria-label="...">
+                        {% if is_paginated %}
+
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item pr-2 fa-2x ">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                                           tabindex="-1"
+                                           aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled  pr-2  fa-2x">
+                                        <span class="page-link"><i class="fa fa-chevron-left"></i></span>
+                                    </li>
+                                {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                                <li class="page-item active " aria-current="page">
+                                    <span class="page-link">{{ i }} </span>
+                                </li>
+                            {% else %}
+                                <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endif %} {% endfor %} {% if page_obj.has_next %}
+                                <li class="page-item pl-2  fa-2x">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                                            class="fa fa-chevron-right"></i></a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled pl-2  fa-2x">
+                                    <span class="page-link"><i class="fa fa-chevron-right"></i></span>
+                                </li>
+
+                            {% endif %}
+                            </ul>
+                        {% endif %}
+                    </nav>
+
+                </div>
+
+            </ul>
+        </div>
+    </section>
+
+
+
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from copy_trading.models import CopyTrading
-from forum.models import ForumQuestion
+from academy_forum.models import ForumQuestion
 from memberships.models import Membership
 from signal_app.models import SignalType
 from .models import Post

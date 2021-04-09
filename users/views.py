@@ -11,7 +11,7 @@ from django.template.loader import get_template
 from django.views import View
 
 from courses.models import RecentCourses, Course
-from forum.models import ForumQuestion
+from academy_forum.models import ForumQuestion
 from memberships.utils import  get_user_membership
 from signal_app.models import UserSignalSubscription, deactivate_signals
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
