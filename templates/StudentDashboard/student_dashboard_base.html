@@ -115,11 +115,10 @@
 <div class="mdk-header-layout js-mdk-header-layout">
     <!-- Header -->
 
-    <div
-            id="header"
-            class="mdk-header bg-dark js-mdk-header m-0"
-            data-fixed
-            data-effects="waterfall">
+    <div id="header"
+         class="mdk-header bg-dark js-mdk-header m-0"
+         data-fixed
+         data-effects="waterfall">
         <div class="mdk-header__content">
             <div
                     class="navbar navbar-expand-sm navbar-main navbar-dark bg-primary pl-md-0 pr-0"
@@ -222,9 +221,8 @@
     <div class="mdk-header-layout__content page">
         <div class="page__header page__header-nav mb-0">
             <div class="container page__container">
-                <div
-                        class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex"
-                        id="secondaryNavbar">
+                <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex"
+                     id="secondaryNavbar">
                     <ul class="nav navbar-nav">
                         <li class="nav-item">
                             <a href="{% host_url 'home:home' host 'www' %}" class="nav-link">AssassinFx</a>
@@ -252,16 +250,24 @@
 
                     </ul>
                 </div>
-
-
-                {% block content %}
-
-                {% endblock content %}
-
-
             </div>
+
         </div>
 
+        {% block banner %}
+
+        {% endblock %}
+
+        <div class="container page__container">
+            {% block content %}
+
+            {% endblock content %}
+
+
+        </div>
+
+        {% block mailing_list %}
+        {% endblock %}
 
     </div>
     <!-- // END Header Layout Content -->

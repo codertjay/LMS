@@ -50,6 +50,11 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
         query = self.request.GET.get('search', None)
         course = Course.objects.all()
         course_type = self.kwargs['course_type']
+        user_membership = get_object_or_404(UserMembership, user=self.request.user)
+
+        check_user = user_membership.memberships.filter(slug=course_type)
+        if not check_user:
+            return redirect('/')
         if course_type:
             print('checking here', course_type)
             object_list = course.filter(allowed_memberships__slug=course_type)
@@ -59,6 +64,7 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
                     Q(title__icontains=query) |
                     Q(description__icontains=query)
                 ).distinct()
+
         else:
             messages.info(self.request, 'This url does not exist  ')
             return redirect('/')
@@ -69,7 +75,6 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
         context['memberships'] = Membership.objects.all()
         context['course_type'] = self.kwargs['course_type']
         return context
-
 
 
 class CourseDetailView(LoginRequiredMixin, DetailView):

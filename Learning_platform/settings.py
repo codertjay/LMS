@@ -18,7 +18,10 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
-ALLOWED_HOSTS = [".assassinfx.com"]
+if DEBUG:
+    ALLOWED_HOSTS = ["*", ]
+else:
+    ALLOWED_HOSTS = [".assassinfx.com", ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -164,7 +167,11 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'courses/static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+if DEBUG:
+    LOGIN_URL = "/accounts/login/"
+
 LOGIN_URL = "http://www.assassinfx.com:8000/accounts/login/"
+
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -220,6 +227,12 @@ handler404 = 'home_page.views.view_404'
 handler500 = 'home_page.views.view_500'
 handler403 = 'home_page.views.view_403'
 handler400 = 'home_page.views.view_400'
+
+# ROOT_HOSTCONF = 'Learning_platform.hosts'
+# ROOT_URLCONF = 'Learning_platform.urls'
+# DEFAULT_HOST = '64ed76cf292d'
+# DOMAIN_NAME = '.ngrok.io'
+# PARENT_HOST = DOMAIN_NAME
 
 # django host
 DEFAULT_HOST = 'www'

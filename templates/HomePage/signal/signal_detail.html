@@ -72,11 +72,14 @@
                                         <h5 class="lead">Apply Coupon</h5>
                                         <label for="id_coupon"></label>
                                         <input type="text" id="id_coupon" name="coupon" class="form-control"
-                                               style="max-width:50%"/>
+                                               style="max-width:50%;height: 40px"/>
 
-                                        <button id="apple-pay-button"></button>
 
-                                        <button  id="submit-button">Make Payment</button>
+                                        <div id="payment-request-button">
+                                            <!-- A Stripe Element will be inserted here. -->
+                                        </div>
+
+                                        <button id="submit-button">Make Payment</button>
                                     </div>
                                 </form>
                             </div>
@@ -89,20 +92,18 @@
                                     </div>
                                     <div class="order-c">
                                         <h3>Plan</h3>
-
                                         <p>
-                    <span style="text-decoration: line-through"
-                    >${{ signal.discount }}</span
-                    >/{{ signal.signal_choice }} | <b>${{ signal.price }}</b>/{{ signal.signal_choice }}
+                                            <span style="text-decoration: line-through">${{ signal.discount }}</span>/{{ signal.signal_choice }}
+                                            |
+                                            <b>${{ signal.price }}</b>
+                                            /{{ signal.signal_choice }}
                                         </p>
                                     </div>
                                     <div class="total">
                                         <p>
                                             <strong>Total</strong>
                                             <span>
-                      <b style="color: #444; text-decoration: line-through"
-                      >${{ signal.discount }}</b
-                      >/mo | <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</span
+                      <b style="color: #444; text-decoration: line-through">${{ signal.discount }}</b>/mo | <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</span
                                             >
                                         </p>
                                     </div>
@@ -118,16 +119,21 @@
 {% endblock content %} {% block script %}
     <!-- script for the stripe form -->
 
-    {% comment %} for apple pay button  {% endcomment %}
-{#     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>#}
-<script  type="text/javascript" src="https://js.stripe.com/v3/"></script>
-{#    <script type="text/javascript" src="https://js.stripe.com/"></script>#}
-
-
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <script>
         var stripe = Stripe ("{{ stripe_public_key }}");
-        {#var stripe_v2 = Stripe.setPublishableKey ("{{ stripe_public_key }}");#}
     </script>
     <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
+    <script src="{% static 'stripe_assets/js/stripe_payment_button.js' %}"></script>
+
 
 {% endblock script %}
+
+{% comment %}
+ stripe apple pay button
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script>
+        Stripe.setPublishableKey ('pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ');
+    </script>
+    <script src="{% static 'stripe_assets/js/apple_pay.js' %}"></script>
+{% endcomment %}

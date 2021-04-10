@@ -219,94 +219,48 @@
                                             </li>
                                         {% endif %} {% endif %} {% endif %}
                             </ul>
-                            <div class="sidebar-heading">Student</div>
+                            <div class="sidebar-heading">Academy</div>
                             <ul class="sidebar-menu sm-active-button-bg">
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% host_url 'course_list' host 'academy' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-search"></i> search
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-search"></i> Academy
                                     </a>
                                 </li>
-
-                            </ul>
-                            <!-- Account menu -->
-                            <div class="sidebar-heading">Account</div>
-                            <ul class="sidebar-menu">
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button sidebar-js-collapse" data-toggle="collapse"
-                                       href="#account_menu">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-user"></i> Account
-                                        <span class="ml-auto fa fa-arrows-h sidebar-menu-toggle-icon "><span><i
-                                                class="fa fa-arrows-h"></i></span> </span>
-                                    </a>
-                                    <ul class="sidebar-submenu sm-indent collapse" id="account_menu">
-                                        {% if not request.user.is_authenticated %}
-
-
-                                            <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="{% url 'account_login' %}">
-                                                    <span class="sidebar-menu-text">Login</span>
-                                                </a>
-                                            </li>
-
-                                            <li class="sidebar-menu-item">
-                                                <a class="sidebar-menu-button" href="{% url 'account_signup' %}">
-                                                    <span class="sidebar-menu-text">Sign Up</span>
-                                                </a>
-                                            </li>
-                                        {% endif %}
-
-
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button"
-                                               href="{% url 'users:profile_edit' %}">
-                                                <span class="sidebar-menu-text">Edit Account</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button"
-                                               href="{% url 'memberships:membership_select' %}">
-                                                <span class="sidebar-menu-text">Upgrade Academy</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="{% url 'memberships:profile' %}">
-                                                <span class="sidebar-menu-text">Payment Information</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li>
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#messages_menu">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-comment"></i> Forum
-                                        <span class="ml-auto fa fa-arrows-h sidebar-menu-toggle-icon "><span><i
-                                                class="fa fa-arrows-h"></i></span> </span>
-                                    </a>
-                                    <ul class="sidebar-submenu sm-indent collapse" id="messages_menu">
-                                        <a class="sidebar-menu-button"
-                                           href="{% host_url 'forum_create' host 'academy' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left far fa-question-circle"></i>
-                                            Ask Question
+                                <div class="sidebar-heading">Account</div>
+                                {% if not request.user.is_authenticated %}
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="{% url 'account_login' %}">
+                                            <span class="sidebar-menu-text">Login</span>
                                         </a>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button"
-                                               href="{% host_url 'forum_list' host 'academy' %}">
-                                                    <span class="sidebar-menu-text "> <i
-                                                            class="sidebar-menu-icon sidebar-menu-icon--left   fa fa-hands-helping"></i>   Answer questions</span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    </li>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="{% url 'account_signup' %}">
+                                            <span class="sidebar-menu-text">Sign Up</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="{% url 'users:profile_edit' %}">
+                                        <span class="sidebar-menu-text">Edit Account</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button" href="{% url 'memberships:membership_select' %}">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-subscript"></i>
+                                        Upgrade Academy
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button" href="{% url 'memberships:profile' %}">
+                                        <span class="sidebar-menu-text">Subscription</span>
+                                    </a>
                                 </li>
                             </ul>
 
                             <div class="sidebar-heading"></div>
                             <ul class="sidebar-menu sm-active-button-bg">
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="{% url 'memberships:membership_select' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-subscript"></i>
-                                        Subscription
-                                    </a>
-                                </li>
                                 {% if request.user.is_authenticated %}
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button" href="{% url 'account_logout' %}">

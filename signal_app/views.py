@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.utils.datetime_safe import datetime
 from django.views.generic.base import View
 
+from memberships.models import UserMembership
 from memberships.utils import get_user_membership
 from users.forms import UserUpdateForm
 from .models import SignalType, UserSignalSubscription
@@ -37,8 +38,12 @@ class SignalPaymentView(LoginRequiredMixin, View):
                             'signal': user_signal_sub.signal_type
                         }))
 
-        else:
-            return redirect('home:home')
+        stripe.PaymentIntent.create(
+            amount=signal.price * 100,
+            currency="usd",
+            payment_method_types=["card"],
+            customer=UserMembership.objects.get_user_memberships(request.user).stripe_customer_id
+        )
         return render(request, 'HomePage/signal/signal_detail.html', {'signal': signal, 'form': form})
 
     def post(self, request, *args, **kwargs):
