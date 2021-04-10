@@ -152,13 +152,10 @@ Error  {a}
 
 @login_required
 def update_transactions(request, subscription_id):
-    print('passed here 3')
-
     user_membership = UserMembership.objects.get_user_memberships(request.user)
     selected_membership = get_selected_membership(request)
     user_membership.memberships.add(selected_membership)
     user_membership.save()
-
     # sending message to the user that he has successfully a created membership
     membership_created_message(user_membership, user_membership)
     try:
@@ -170,4 +167,15 @@ def update_transactions(request, subscription_id):
 Error  {a}
 ======================================
                 """)
+    return redirect('memberships:profile')
+
+
+@login_required
+def cancel_membership(request, slug):
+    user_membership = UserMembership.objects.get_user_memberships(request.user)
+    membership_type = Membership.objects.get_membership(slug=slug)
+    if user_membership:
+        if membership_type:
+            user_membership.memberships.remove(membership_type)
+            user_membership.save()
     return redirect('memberships:profile')

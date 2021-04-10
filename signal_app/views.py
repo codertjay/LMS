@@ -159,3 +159,26 @@ def cancel_signal_subscription(request):
         print('there was an error ')
         messages.info(request, 'There was an error performing your request ')
     return redirect('memberships:profile')
+
+
+@login_required
+def instructor_cancel_signal_subscription(request, username):
+    if request.user.is_superuser:
+        user = User.objects.filter(username=username)
+        if user:
+            user_signal_sub = UserSignalSubscription.objects.get_user_signal_sub(
+                request.user)
+            if user_signal_sub.active == False:
+                messages.info(request, "You dont have an active signal")
+                return HttpResponseRedirect(request.META.get('HTTP_REFER'))
+            try:
+                sub = stripe.Subscription.retrieve(
+                    user_signal_sub.stripe_subscription_id)
+                print('the user signal subscription ', user_signal_sub)
+                sub.delete()
+                user_signal_sub.delete()
+                messages.info(request, 'Successfully cancelled signal subscription  ')
+            except:
+                print('there was an error ')
+                messages.info(request, 'There was an error performing your request ')
+    return redirect('users:instructor_dashboard')

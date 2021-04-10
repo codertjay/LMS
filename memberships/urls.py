@@ -1,6 +1,6 @@
 from django.urls import path
-# from .views import (MemberShipSelectView, payment_view,  update_transactions, user_subscriptions_view,cancel_subscription,student_membership_invoice)
-from .views import user_subscriptions_view, MemberShipSelectView, payment_view, update_transactions
+
+from .views import user_subscriptions_view, MemberShipSelectView, payment_view, update_transactions,cancel_membership
 
 app_name = 'memberships'
 urlpatterns = [
@@ -9,6 +9,9 @@ urlpatterns = [
     path('payment/', payment_view, name='payment'),
     path('update_transactions/<str:subscription_id>/',
          update_transactions, name='update_transactions'),
+    path('update_transactions/<str:slug>/',
+         cancel_membership, name='cancel_membership'),
+
     # path('cancel/', cancel_subscription, name='cancel'),
     # path('invoice/', student_membership_invoice, name='invoice'),
 ]

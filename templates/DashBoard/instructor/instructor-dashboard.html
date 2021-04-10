@@ -123,6 +123,9 @@
                                                 <h5>Created: {{ item.created_date }}</h5>
                                                 <h5>Expiring Date: {{ item.expiring_date }}</h5>
                                                 <h5>Signal Type: {{ item.signal_type.signal_choice }}</h5>
+                                                <h5>Cancel Signal <a
+                                                        href="{% url 'signal:instructor_cancel_signal' item.user.username %}">Cancel</a>
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>
