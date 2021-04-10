@@ -43,9 +43,9 @@ class SignalType(models.Model):
 class UserSignalSubscriptionManager(models.Manager):
 
     def get_user_signal_sub(self, user):
-        user_signal_sub = self.filter(user=user).first()
+        user_signal_sub = self.filter(user=user)
         if user_signal_sub:
-            return user_signal_sub
+            return user_signal_sub.first()
         else:
             return None
 
@@ -104,8 +104,6 @@ Error  {a}
 ======================================
         """)
     return None
-
-
 
 
 # a django signal that automatically send message to the user that has registered on a signal

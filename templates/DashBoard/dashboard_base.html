@@ -219,14 +219,14 @@
                                             </li>
                                         {% endif %} {% endif %} {% endif %}
                             </ul>
-                            <div class="sidebar-heading">Academy</div>
+                            <div class="sidebar-heading pt-2 pb-2">Academy</div>
                             <ul class="sidebar-menu sm-active-button-bg">
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% host_url 'course_list' host 'academy' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-search"></i> Academy
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-school"></i> Academy
                                     </a>
                                 </li>
-                                <div class="sidebar-heading">Account</div>
+                                <div class="sidebar-heading pt-2 pb-2">Account</div>
                                 {% if not request.user.is_authenticated %}
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button" href="{% url 'account_login' %}">
@@ -243,18 +243,19 @@
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
                                        href="{% url 'users:profile_edit' %}">
-                                        <span class="sidebar-menu-text">Edit Account</span>
+                                     <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-user-edit"></i>Edit
+                                        Account
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% url 'memberships:membership_select' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-subscript"></i>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-arrow-circle-up"></i>
                                         Upgrade Academy
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% url 'memberships:profile' %}">
-                                        <span class="sidebar-menu-text">Subscription</span>
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-subscript"></i>  Subscription
                                     </a>
                                 </li>
                             </ul>
