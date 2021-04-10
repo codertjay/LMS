@@ -9,7 +9,7 @@ urlpatterns = [
     path('payment/', payment_view, name='payment'),
     path('update_transactions/<str:subscription_id>/',
          update_transactions, name='update_transactions'),
-    path('update_transactions/<str:slug>/',
+    path('cancel_subscription/<str:slug>/',
          cancel_membership, name='cancel_membership'),
 
     # path('cancel/', cancel_subscription, name='cancel'),

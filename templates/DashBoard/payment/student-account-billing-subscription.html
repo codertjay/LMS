@@ -37,8 +37,10 @@
                                                 <div class="card-content p-5">
                                                     <h3>{{ item.membership_type }} with access
                                                         to {{ item.membership_type }} courses</h3>
-                                                    <h4>Cancel Subscription <a
-                                                            href="{% url 'memberships:cancel_membership' item.slug %}"></a>
+                                                    <h4>Cancel <a
+                                                            href="{% url 'memberships:cancel_membership' item.slug %}">
+                                                        {{ item.membership_tyoe }}
+                                                        Subscription</a>
                                                     </h4>
                                                 </div>
                                             </div>

@@ -173,9 +173,15 @@ Error  {a}
 @login_required
 def cancel_membership(request, slug):
     user_membership = UserMembership.objects.get_user_memberships(request.user)
-    membership_type = Membership.objects.get_membership(slug=slug)
+    membership_type = Membership.objects.get_membership(keyword=slug)
+    print('the membership type', membership_type)
     if user_membership:
+        print('the user_membership', user_membership)
+        print('pass 2')
         if membership_type:
             user_membership.memberships.remove(membership_type)
             user_membership.save()
+            messages.info(request, "Successfully canceled subscription")
+    else:
+        messages.error(request, "There was an error performing your request")
     return redirect('memberships:profile')

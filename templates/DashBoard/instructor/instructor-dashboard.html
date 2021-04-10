@@ -33,7 +33,7 @@
                                     <tr>
                                         <td>
                                             <div class="media align-items-center">
-                                                <a href="{% url 'courses:detail' item.slug %}"
+                                                <a href="{% host_url 'course_detail' slug=item.slug host 'academy' %}"
                                                    class="avatar avatar-4by3 avatar-sm mr-3">
                                                     <img src="{{ item.imageURL }}"
                                                          alt="course" class="avatar-img rounded">
@@ -89,7 +89,7 @@
                                                    class="text-body"><i class="fa fa-pencil-square-o"></i> <strong>
 
                                                 </strong></a>
-                                                <a href="{% url 'courses:detail' item.slug %}"
+                                                <a href="{% host_url 'course_detail' slug=item.slug host 'academy' %}"
                                                    class="text-body"><strong>
                                                     {{ item.title }}
                                                 </strong></a>

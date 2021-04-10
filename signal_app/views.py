@@ -38,12 +38,12 @@ class SignalPaymentView(LoginRequiredMixin, View):
                             'signal': user_signal_sub.signal_type
                         }))
 
-        stripe.PaymentIntent.create(
-            amount=signal.price * 100,
-            currency="usd",
-            payment_method_types=["card"],
-            customer=UserMembership.objects.get_user_memberships(request.user).stripe_customer_id
-        )
+        # stripe.PaymentIntent.create(
+        #     amount=signal.price * 100,
+        #     currency="usd",
+        #     payment_method_types=["card"],
+        #     customer=UserMembership.objects.get_user_memberships(request.user).stripe_customer_id
+        # )
         return render(request, 'HomePage/signal/signal_detail.html', {'signal': signal, 'form': form})
 
     def post(self, request, *args, **kwargs):
