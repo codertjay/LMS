@@ -239,6 +239,7 @@ DEFAULT_HOST = 'www'
 ROOT_HOSTCONF = 'Learning_platform.hosts'
 ROOT_URLCONF = 'Learning_platform.urls'
 
+
 DOMAIN_NAME = 'assassinfx.com'
 if DEBUG:
     PARENT_HOST = f'{DOMAIN_NAME}:8000'
