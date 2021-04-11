@@ -228,24 +228,24 @@ handler500 = 'home_page.views.view_500'
 handler403 = 'home_page.views.view_403'
 handler400 = 'home_page.views.view_400'
 
-ROOT_HOSTCONF = 'Learning_platform.hosts'
-ROOT_URLCONF = 'Learning_platform.urls'
-DEFAULT_HOST = 'www'
-DOMAIN_NAME = '.ngrok.io'
-PARENT_HOST = DOMAIN_NAME
-
-# django host
-# DEFAULT_HOST = 'www'
 # ROOT_HOSTCONF = 'Learning_platform.hosts'
 # ROOT_URLCONF = 'Learning_platform.urls'
-#
-# DOMAIN_NAME = 'assassinfx.com'
-# if DEBUG:
-#     PARENT_HOST = f'{DOMAIN_NAME}:8000'
-#     DEFAULT_REDIRECT_URL = f"http://{DOMAIN_NAME}:8000"
-# else:
-#     PARENT_HOST = DOMAIN_NAME
-#     DEFAULT_REDIRECT_URL = f"https://{DOMAIN_NAME}"
+# DEFAULT_HOST = 'www'
+# DOMAIN_NAME = '.ngrok.io'
+# PARENT_HOST = DOMAIN_NAME
+
+# django host
+DEFAULT_HOST = 'www'
+ROOT_HOSTCONF = 'Learning_platform.hosts'
+ROOT_URLCONF = 'Learning_platform.urls'
+
+DOMAIN_NAME = 'assassinfx.com'
+if DEBUG:
+    PARENT_HOST = f'{DOMAIN_NAME}:8000'
+    DEFAULT_REDIRECT_URL = f"http://{DOMAIN_NAME}:8000"
+else:
+    PARENT_HOST = DOMAIN_NAME
+    DEFAULT_REDIRECT_URL = f"https://{DOMAIN_NAME}"
 
 CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", ]
 SESSION_COOKIE_DOMAIN = f".{DOMAIN_NAME}"
