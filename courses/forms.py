@@ -18,14 +18,9 @@ class CourseCreateEditForm(forms.ModelForm):
         model = Course
         fields = ['title'
             , 'image'
+            , 'course_language'
             , 'allowed_memberships'
-            , 'description'
-                  ]
-
-    # def save(self, commit=True):
-    #     instance = forms.ModelForm.save(self,False)
-    #     old_save_m2m = self.save_m2m
-    #     # fet the unsaved
+            , 'description']
 
 
 class LessonCreateEditForm(forms.ModelForm):

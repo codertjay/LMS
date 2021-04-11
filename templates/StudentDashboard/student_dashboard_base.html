@@ -16,15 +16,9 @@
 
     <!-- Prevent the demo from appearing in search engines -->
     <meta name="robots" content="noindex"/>
-    {% comment %}
 
     <!-- Font Awesome Icons -->
-    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.rtl.css' %}"
-          rel="stylesheet">
     <link type="text/css" href="{% static 'HomePage/css/all.css' %}" rel="stylesheet">
-{% endcomment %}
-
 
     <!-- Perfect Scrollbar -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -323,46 +317,45 @@
 </div>
 {% comment %} end head layout{% endcomment %}
 
-    <div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="start" data-position="left"
-         data-domfactory-upgraded="mdk-drawer">
-        <div class="mdk-drawer__scrim" style=""></div>
-        <div class="mdk-drawer__content" style="">
-            <div class="sidebar sidebar-light sidebar-left bg-white ps ps--active-y" data-perfect-scrollbar="">
-                <div class="sidebar-block p-0 m-0">
-                    <div class="d-flex align-items-center sidebar-p-a border-bottom bg-light">
-                        <a href="#" class="flex d-flex align-items-center text-body text-underline-0">
+<div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="start" data-position="left"
+     data-domfactory-upgraded="mdk-drawer">
+    <div class="mdk-drawer__scrim" style=""></div>
+    <div class="mdk-drawer__content" style="">
+        <div class="sidebar sidebar-light sidebar-left bg-white ps ps--active-y" data-perfect-scrollbar="">
+            <div class="sidebar-block p-0 m-0">
+                <div class="d-flex align-items-center sidebar-p-a border-bottom bg-light">
+                    <a href="#" class="flex d-flex align-items-center text-body text-underline-0">
                             <span class="avatar avatar-sm mr-2">
                                 <span class="avatar-title rounded-circle bg-soft-secondary text-muted">{{ request.user.username|first }}</span>
                             </span>
-                            <span class="flex d-flex flex-column">
+                        <span class="flex d-flex flex-column">
                                 <strong>{{ request.user.first_name }}{{ request.user.last_name }} </strong>
                                 <small class="text-muted text-uppercase">Instructor</small>
                             </span>
-                        </a>
-                        <div class="dropdown ml-auto">
-                            <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i
-                                    class="material-icons">more_vert</i></a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item"
-                                   href="{% host_url 'course_list' host 'academy' %}">Dashboard</a>
-                                <a class="dropdown-item"
-                                   href="{% host_url 'users:profile' username=request.user.username host 'www' %}">My
-                                    profile</a>
-                                <a class="dropdown-item" href="{% host_url 'users:profile_edit' host 'www' %}">Edit
-                                    account</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" rel="nofollow" data-method="delete"
-                                   href="{% host_url 'account_logout' host 'www' %}">Logout</a>
-                            </div>
+                    </a>
+                    <div class="dropdown ml-auto">
+                        <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i
+                                class="material-icons">more_vert</i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item"
+                               href="{% host_url 'course_list' host 'academy' %}">Dashboard</a>
+                            <a class="dropdown-item"
+                               href="{% host_url 'users:profile' username=request.user.username host 'www' %}">My
+                                profile</a>
+                            <a class="dropdown-item" href="{% host_url 'users:profile_edit' host 'www' %}">Edit
+                                account</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" rel="nofollow" data-method="delete"
+                               href="{% host_url 'account_logout' host 'www' %}">Logout</a>
                         </div>
                     </div>
                 </div>
-
-
             </div>
+
+
         </div>
     </div>
-
+</div>
 
 
 <!-- jQuery -->

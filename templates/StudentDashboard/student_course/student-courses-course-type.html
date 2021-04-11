@@ -17,10 +17,10 @@
 
                 <div class="  mb-3 ml-auto">
                     <div class="form-group mr-3">
-                        <label for="custom-select" class="form-label mr-1">Category</label>
-                        {% for item in memberships %}
-                            <a href="{% host_url 'course_type' item.slug host 'academy' %}"
-                               class="btn btn-primary py-2 ">{{ item.membership_type }}</a>
+                        <label for="custom-select" class="form-label mr-1">Language</label>
+                        {% for item in course_language %}
+                            <a href="{% host_url 'course_list' host 'academy' %}?course_language={{ item|first }}"
+                               class="btn btn-primary px-2">{{ item|first }}</a>
                         {% endfor %}
                     </div>
 
@@ -61,7 +61,8 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="row">
+        <div class="row align-content-center justify-content-center">
+
             <ul class="pagination justify-content-center pagination-sm">
                 <div class="d-flex justify-content-center">
                     <nav aria-label="...">
@@ -103,6 +104,7 @@
                 </div>
 
             </ul>
+
         </div>
     </section>
 

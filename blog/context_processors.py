@@ -5,6 +5,7 @@ from academy_forum.models import ForumQuestion
 from memberships.models import Membership
 from signal_app.models import SignalType
 from .models import Post
+from courses.models import Courselanguage
 
 stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
 
@@ -51,8 +52,7 @@ def add_variable_to_context(try_content=None):
     Beginner_membership = Membership.objects.get_membership('Beginner')
     Intermediate_membership = Membership.objects.get_membership('Intermediate')
     Advanced_membership = Membership.objects.get_membership('Advanced')
-
-
+    course_language = Courselanguage
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
             'instagram_url': 'https://instagram.com/ninjaassassinfx/',
@@ -68,5 +68,6 @@ def add_variable_to_context(try_content=None):
             # copy trading
             'stripe_public_key': stripe_public_key,
             'copy_trade': copy_trading,
+            'course_language': course_language,
             'site_name': 'https://assassinfx.com/',
             }

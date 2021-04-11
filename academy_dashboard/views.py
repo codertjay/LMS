@@ -15,12 +15,13 @@ from memberships.models import UserMembership, Membership
 class CourseListView(LoginRequiredMixin, ListView):
     model = Course
     template_name = 'StudentDashboard/student_course/student-courses.html'
-    paginate_by = 10
+    paginate_by = 15
 
     def get_queryset(self):
-        query = self.request.GET.get('search')
+        query = self.request.GET.get('search', None)
         course = Course.objects.all()
-        course_type = self.request.GET.get('course_type')
+        course_type = self.request.GET.get('course_type', None)
+        course_language = self.request.GET.get('course_language', None)
         if query:
             object_list = course.filter(
                 Q(slug__icontains=query) |
@@ -30,6 +31,9 @@ class CourseListView(LoginRequiredMixin, ListView):
         elif course_type:
             print('checking here')
             object_list = course.filter(allowed_memberships__membership_type=course_type)
+        elif course_language:
+            print('this is the course language', course_language)
+            object_list = course.filter(course_language=course_language)
         else:
             object_list = Course.objects.all()
         return object_list
@@ -45,16 +49,15 @@ class CourseListView(LoginRequiredMixin, ListView):
 class StudentCourseTypeView(LoginRequiredMixin, ListView):
     model = Course
     template_name = 'StudentDashboard/student_course/student-courses-course-type.html'
-    paginate_by = 10
+    paginate_by = 15
     course_type = None
-    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get('search', None)
         course = Course.objects.all()
         course_type = self.kwargs['course_type']
         user_membership = get_object_or_404(UserMembership, user=self.request.user)
-
+        course_language = self.request.GET.get('course_language', None)
         check_user = user_membership.memberships.filter(slug=course_type)
         if not check_user:
             messages.info(self.request, 'You dont have access to view this course')
@@ -67,7 +70,9 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
                     Q(title__icontains=query) |
                     Q(description__icontains=query)
                 ).distinct()
-
+        if course_language:
+            print('this is the course language', course_language)
+            object_list = course.filter(course_language=course_language)
         else:
             messages.info(self.request, 'This url does not exist  ')
         return object_list
