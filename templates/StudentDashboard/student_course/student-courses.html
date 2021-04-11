@@ -3,7 +3,7 @@
 
 {% block banner %}
     <div class="home-banner text-white mb-4"
-         style="background-image: https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+         style="background-image:'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&dpr=1px&w=500';">
         <div class="container page__container">
             <h1 class="display-4 bold aos-init aos-animate" data-aos="fade-up" data-aos-duration="800">Everything you
                 need to LEARN</h1>
@@ -37,7 +37,7 @@
             <div class="d-lg-flex">
                 <div class="search-form mb-3 mr-3-lg search-form--light" style="width: 50% !important;">
                     <input type="text" name="search" class="form-control" placeholder="Search courses"
-                           id="searchSample02" style="height: 40px;background-color:rgba(153,141,155,0.49)">
+                           id="searchSample02" style="height: 40px;background-color:rgb(255,255,255)">
                     <button class="btn btn-primary" type="submit"><i class="material-icons">search</i></button>
                 </div>
 
@@ -66,8 +66,16 @@
                                href="{% host_url 'course_detail' course.slug host 'academy' %}">
                                 <span><img src="{{ course.imageURL }}" class="mb-1" style="width:34px;"
                                            alt="logo"></span>
-                                <span class="course__title">{{ course.tag }}</span>
-                                <span class="course__subtitle">{{ course.title }}</span>
+                                {% for item in course.allowed_memberships.all %}
+                                    <span class="course__title">{{ item.slug }}</span>
+                                {% endfor %}
+
+                                {% if course_type.allowed_memberships.count > 1 %}
+                                {% elif course_type.allowed_memberships.count == 1 %}
+                                    {% if course_type.allowed_memberships.first in user_membership %}
+                                        <span class="course__subtitle">{{ course.title }}</span>
+                                    {% endif %}
+                                {% endif %}
                             </a>
                         </div>
                         <div class="p-3">
@@ -75,13 +83,6 @@
                             <div class="d-flex align-items-center">
 
                                 <a class="text-center" href="{% host_url 'course_detail' course.slug host 'academy' %}">
-                                    {% comment %} <span class=" badge badge-primary " style="font-size: larger">
-                                    {% if course in request.user.profile.applied_courses.all %}
-                                        Continue
-                                    {% else %}
-                                        Apply
-                                    {% endif %}
-                                    </span>{% endcomment %}
                                     <span class="pull-right float-right text-info  pt-1 "><span class="material-icons">
                                                 remove_red_eye
                                                 </span> {{ course.view_count }} </span>

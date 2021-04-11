@@ -11,7 +11,4 @@ urlpatterns = [
          update_transactions, name='update_transactions'),
     path('cancel_subscription/<str:slug>/',
          cancel_membership, name='cancel_membership'),
-
-    # path('cancel/', cancel_subscription, name='cancel'),
-    # path('invoice/', student_membership_invoice, name='invoice'),
 ]

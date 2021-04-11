@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 # from django.views.generic.base import View
 from django.views.generic.base import View
+from django_hosts.resolvers import reverse as host_reverse
 
 from courses.models import Course, Lesson
 from memberships.models import UserMembership, Membership
@@ -36,6 +37,8 @@ class CourseListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(CourseListView, self).get_context_data(**kwargs)
         context['memberships'] = Membership.objects.all()
+        user_membership = UserMembership.objects.get_user_memberships(self.request.user)
+        context['user_membership'] = user_membership.memberships.all()
         return context
 
 
@@ -54,7 +57,7 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
 
         check_user = user_membership.memberships.filter(slug=course_type)
         if not check_user:
-            return redirect('/')
+            messages.info(self.request, 'You dont have access to view this course')
         if course_type:
             print('checking here', course_type)
             object_list = course.filter(allowed_memberships__slug=course_type)
@@ -67,14 +70,29 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
 
         else:
             messages.info(self.request, 'This url does not exist  ')
-            return redirect('/')
         return object_list
 
     def get_context_data(self, **kwargs):
         context = super(StudentCourseTypeView, self).get_context_data(**kwargs)
+        course_type = self.kwargs['course_type']
         context['memberships'] = Membership.objects.all()
-        context['course_type'] = self.kwargs['course_type']
+        context['course_type'] = course_type
+        user_membership = UserMembership.objects.get_user_memberships(self.request.user)
+        context['user_membership'] = user_membership.memberships.all()
         return context
+
+    def get(self, *args, **kwargs):
+        course_type = self.kwargs['course_type']
+        course_membership = Membership.objects.get_membership(course_type)
+        user_membership = UserMembership.objects.get_user_memberships(user=self.request.user)
+        if user_membership:
+            print('the user membership ', user_membership)
+            if course_membership in user_membership.memberships.all():
+                return super(StudentCourseTypeView, self).get(*args, **kwargs)
+        if course_membership:
+            messages.info(self.request,
+                          f'You dont have access to view {course_type} courses please select {course_type} and make payment ')
+        return redirect(host_reverse('memberships:membership_select', host='www'))
 
 
 class CourseDetailView(LoginRequiredMixin, DetailView):
@@ -97,6 +115,25 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         print('the user course_allowed_mem_type', course_allowed_mem_types)
         return context
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        print('the object ', self.object.allowed_memberships.all())
+        course_allowed_memberships = self.object.allowed_memberships.all()
+        user_membership = get_object_or_404(UserMembership, user=self.request.user)
+        user_membership_type = user_membership.memberships.all()
+        context = self.get_context_data(object=self.object)
+        if course_allowed_memberships:
+            for item in course_allowed_memberships:
+                if item in user_membership_type:
+                    return self.render_to_response(context)
+                elif item not in user_membership_type:
+                    messages.info(self.request,
+                                  f'You dont have access to view {item.slug} '
+                                  f'courses please select {item.slug} and make payment ')
+                    return redirect(host_reverse('memberships:membership_select', host='www'))
+
+        return redirect(host_reverse('course_list', host='academy'))
+
 
 class LessonDetailView(LoginRequiredMixin, View):
 
@@ -106,36 +143,11 @@ class LessonDetailView(LoginRequiredMixin, View):
         user_membership = get_object_or_404(UserMembership, user=request.user)
         user_membership_type = user_membership.memberships.all()
         course_allowed_mem_types = course.allowed_memberships.all()
-        print('the user membership type', user_membership_type)
-        print('the user course_allowed_mem_type', course_allowed_mem_types)
         for item in course_allowed_mem_types:
             if item in user_membership_type:
                 context = {'lesson': lesson, 'course': course, }
                 return render(request, 'StudentDashboard/student_course/student-course-detail.html', context)
-
-        context = {'lesson': None, 'course': course, }
-        messages.info(request, 'You dont have access to this course')
-        return render(request, 'StudentDashboard/student_course/student-course-detail.html', context)
-
-# @login_required
-# def student_course_list_view(request, course_type):
-#     course = Course.objects.all().filter(allowed_memberships__slug=course_type)
-#     search = request.GET.get('search')
-#     context = {
-#         'course_type': course_type,
-#         'object_list': course,
-#         'memberships': Membership.objects.all()
-#     }
-#     if search:
-#         course_qs = course.filter(
-#             Q(slug=search) |
-#             Q(title=search) |
-#             Q(description=search)
-#         )
-#         context = {
-#             'course_type': course_type,
-#             'object_list': course_qs,
-#             'memberships': Membership.objects.all(),
-#         }
-#         return render(request, 'StudentDashboard/student-courses-course-type.html', context)
-#     return render(request, 'StudentDashboard/student-courses-course-type.html', context)
+        messages.info(self.request,
+                      f'You dont have access to view {course_allowed_mem_types.first()} '
+                      f'courses please select {course_allowed_mem_types.first()} and make payment ')
+        return redirect(host_reverse('memberships:membership_select', host='www'))

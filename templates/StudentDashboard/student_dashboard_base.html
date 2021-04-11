@@ -16,12 +16,14 @@
 
     <!-- Prevent the demo from appearing in search engines -->
     <meta name="robots" content="noindex"/>
-    <!-- Font Awesome Icons -->
+    {% comment %}
 
+    <!-- Font Awesome Icons -->
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.rtl.css' %}"
           rel="stylesheet">
     <link type="text/css" href="{% static 'HomePage/css/all.css' %}" rel="stylesheet">
+{% endcomment %}
 
 
     <!-- Perfect Scrollbar -->
@@ -62,50 +64,7 @@
           href="{% static 'StudentDashboard/assets/css/vendor-ion-rangeslider.rtl.css' %}"
           rel="stylesheet"/>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115115077-3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
 
-        function gtag () {
-            dataLayer.push (arguments);
-        }
-
-        gtag ("js" , new Date ());
-
-        gtag ("config" , "UA-115115077-3");
-    </script>
-
-    <!-- Facebook Pixel Code -->
-    <script>
-        !(function (f , b , e , v , n , t , s) {
-            if (f.fbq) return;
-            n = f.fbq = function () {
-                n.callMethod
-                    ? n.callMethod.apply (n , arguments)
-                    : n.queue.push (arguments);
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = "2.0";
-            n.queue = [];
-            t = b.createElement (e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName (e)[0];
-            s.parentNode.insertBefore (t , s);
-        }) (
-            window ,
-            document ,
-            "script" ,
-            "https://connect.facebook.net/en_US/fbevents.js"
-        );
-        fbq ("init" , "257843818545228");
-        fbq ("track" , "PageView");
-    </script>
     <noscript><img
             height="1"
             width="1"
@@ -278,6 +237,7 @@
     </div>
     <!-- // END Header Layout Content -->
 
+
     <div class="bg-dark text-white" id="footer">
         <div class="container page__container">
             <div class="row">
@@ -304,16 +264,14 @@
                             <h5>Student</h5>
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="">
-                                    <a href="#">Courses</a>
+                                    <a href="{% host_url 'course_list' host 'academy' %}">Courses</a>
+                                </li>
+
+                                <li class="">
+                                    <a href="{% host_url 'users:profile' username=request.user.username host 'www' %}">Profile</a>
                                 </li>
                                 <li class="">
-                                    <a href="#">Take Course</a>
-                                </li>
-                                <li class="">
-                                    <a href="#">Profile</a>
-                                </li>
-                                <li class="">
-                                    <a href="#">Edit Account</a>
+                                    <a href="{% host_url 'users:profile_edit' host 'www' %}">Edit Account</a>
                                 </li>
                             </ul>
                         </div>
@@ -321,16 +279,7 @@
                             <h5>Instructor</h5>
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="">
-                                    <a href="#">Dashboard</a>
-                                </li>
-                                <li class="">
-                                    <a href="#">Edit Course</a>
-                                </li>
-                                <li class="">
-                                    <a href="#">Instructor Profile</a>
-                                </li>
-                                <li class="">
-                                    <a href="#">Quizzes</a>
+                                    <a href="{% host_url 'memberships:profile' host 'www' %}">Dashboard</a>
                                 </li>
                             </ul>
                         </div>
@@ -338,22 +287,17 @@
                             <h5>Account</h5>
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="">
-                                    <a href="#">Login</a>
+                                    <a href="{% host_url 'account_logout' host 'www' %}">Logout</a>
                                 </li>
+
                                 <li class="">
-                                    <a href="#">Sign up</a>
+                                    <a href="{% host_url 'users:profile_edit' host 'www' %}">Edit Account</a>
                                 </li>
-                                <li class="">
-                                    <a href="#">Edit Account</a>
-                                </li>
-                                <li class="">
-                                    <a href="#">Payout</a>
-                                </li>
+
                             </ul>
                         </div>
                         <div class="col-sm-6 col-md-3">
                             <h5>Contact us</h5>
-                            <p class="text-light">Street Name, Suite 12<br> Dublin, Ireland</p>
 
                             <div class="d-flex ">
 
@@ -377,6 +321,48 @@
     </div>
 
 </div>
+{% comment %} end head layout{% endcomment %}
+
+    <div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="start" data-position="left"
+         data-domfactory-upgraded="mdk-drawer">
+        <div class="mdk-drawer__scrim" style=""></div>
+        <div class="mdk-drawer__content" style="">
+            <div class="sidebar sidebar-light sidebar-left bg-white ps ps--active-y" data-perfect-scrollbar="">
+                <div class="sidebar-block p-0 m-0">
+                    <div class="d-flex align-items-center sidebar-p-a border-bottom bg-light">
+                        <a href="#" class="flex d-flex align-items-center text-body text-underline-0">
+                            <span class="avatar avatar-sm mr-2">
+                                <span class="avatar-title rounded-circle bg-soft-secondary text-muted">{{ request.user.username|first }}</span>
+                            </span>
+                            <span class="flex d-flex flex-column">
+                                <strong>{{ request.user.first_name }}{{ request.user.last_name }} </strong>
+                                <small class="text-muted text-uppercase">Instructor</small>
+                            </span>
+                        </a>
+                        <div class="dropdown ml-auto">
+                            <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i
+                                    class="material-icons">more_vert</i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item"
+                                   href="{% host_url 'course_list' host 'academy' %}">Dashboard</a>
+                                <a class="dropdown-item"
+                                   href="{% host_url 'users:profile' username=request.user.username host 'www' %}">My
+                                    profile</a>
+                                <a class="dropdown-item" href="{% host_url 'users:profile_edit' host 'www' %}">Edit
+                                    account</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" rel="nofollow" data-method="delete"
+                                   href="{% host_url 'account_logout' host 'www' %}">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
 
 
 <!-- jQuery -->
@@ -391,14 +377,11 @@
 
 <!-- DOM Factory -->
 <script src="{% static 'StudentDashboard/assets/vendor/dom-factory.js' %}"></script>
-
 <!-- MDK -->
 <script src="{% static 'StudentDashboard/assets/vendor/material-design-kit.js' %}"></script>
-
 <!-- Range Slider -->
 <script src="{% static 'StudentDashboard/assets/vendor/ion.rangeSlider.min.js' %}"></script>
 <script src="{% static 'StudentDashboard/assets/js/ion-rangeslider.js' %}"></script>
-
 <!-- App -->
 <script src="{% static 'StudentDashboard/assets/js/toggle-check-all.js' %}"></script>
 <script src="{% static 'StudentDashboard/assets/js/check-selected-row.js' %}"></script>
@@ -406,7 +389,5 @@
 <script src="{% static 'StudentDashboard/assets/js/sidebar-mini.js' %}"></script>
 <script src="{% static 'StudentDashboard/assets/js/app.js' %}"></script>
 
-<!-- App Settings (safe to remove) -->
-<script src="{% static 'StudentDashboard/assets/js/app-settings.js' %}"></script>
 </body>
 </html>

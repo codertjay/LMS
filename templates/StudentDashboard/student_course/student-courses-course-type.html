@@ -51,13 +51,6 @@
 
                                 <a class="text-center" href="{% host_url 'course_detail' course.slug host 'academy' %}">
 
-                   {% comment %} <span class=" badge badge-primary " style="font-size: larger">
-                                    {% if course in request.user.profile.applied_courses.all %}
-                                        Continue
-                                    {% else %}
-                                        Apply
-                                    {% endif %}
-                                    </span>{% endcomment %}
                                     <span class="pull-right float-right text-info  pt-1 "><span class="material-icons">
                                                 remove_red_eye </span> {{ course.view_count }} </span>
                                 </a>
