@@ -1,4 +1,5 @@
 {% extends 'DashBoard/dashboard_base.html' %}
+{% load hosts %}
 {% load static %}
 
 {% block styles %}
@@ -37,11 +38,16 @@
                                                 <div class="card-content p-5">
                                                     <h3>{{ item.membership_type }} with access
                                                         to {{ item.membership_type }} courses</h3>
-                                                    <h4>Cancel <a
-                                                            href="{% url 'memberships:cancel_membership' item.slug %}">
+                                                    <h4 class="text-dark"><a
+                                                            href="{% host_url 'course_type' course_type=item.slug host 'academy' %}">View
+                                                        Course</a></h4>
+                                                    <h5 class="text-danger">Cancel <a
+                                                            href="{% url 'memberships:cancel_membership' item.slug %}"
+                                                            class="text-danger">
                                                         {{ item.membership_tyoe }}
                                                         Subscription</a>
-                                                    </h4>
+                                                    </h5>
+
                                                 </div>
                                             </div>
                                         {% endfor %}
