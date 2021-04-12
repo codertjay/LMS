@@ -11,6 +11,7 @@ MembershipType = (
     ('Beginner ', 'Beginner '),
     ('Intermediate ', 'Intermediate '),
     ('Advanced ', 'Advanced '),
+    ('Ninja’s US30 Trading Strategy Course', 'Ninja’s US30 Trading Strategy Course'),
 )
 
 User = settings.AUTH_USER_MODEL
@@ -28,7 +29,7 @@ class MembershipManager(models.Manager):
 
 class Membership(models.Model):
     slug = models.SlugField()
-    membership_type = models.CharField(choices=MembershipType, max_length=30, default='Free')
+    membership_type = models.CharField(choices=MembershipType, max_length=100, default='Free')
     stripe_plan_id = models.CharField(max_length=40)
     objects = MembershipManager()
 

@@ -517,6 +517,53 @@
                 {% endif %}
 
 
+                {% if Ninja_membership %}
+                    <div class="col-lg-6 ">
+                        <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
+                            <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" "></div>
+                            <h2>Ninja’s US30 Trading Strategy Course</h2>
+                            <ul>
+                                <li><span><i class="fal fa-check "></i></span>Learn from profitable traders</li>
+                                <li><span><i class="fal fa-check "></i></span>Where to check News and how to use it as
+                                    confluence for your trades
+                                </li>
+                                <li><span><i class="far fa-check "></i></span>Broker information</li>
+                                <li><span><i class="fal fa-check"></i></span>Multiple languages spoken to cater for all
+                                    bilinguals
+                                </li>
+                                <li><span><i class="fal fa-check "></i></span>How to chart up with our members trade
+                                    ideas from experienced traders
+                                </li>
+                                <li><span><i class="far fa-check "></i></span>A friendly environment to learn</li>
+                                <li><span><i class="far fa-check "></i></span>Comprehensive Market Research & In-Depth
+                                    Analaysis
+                                </li>
+
+                            </ul>
+                            <div class="price-box ">
+                                {% if Ninja_membership %}
+                                    <div class="pr-total ">
+                                        <p><span class="d-price ">${{ Ninja_membership.discount }}</span>/mo</p>
+                                    </div>
+                                    <div class="pr-total ">
+                                        <p><span>${{ Ninja_membership.price }}</span></p>
+                                        <!--<span>(10% Discount for yearly)</span>--></div>
+                                    </div>
+                                    <form method="post" action="{% url 'memberships:membership_select' %}">
+                                        {% csrf_token %}
+
+                                            <button type="submit" class="btn btn-primary w-100">Buy Now
+                                            </button>
+                                        <input type="hidden" name="membership_type"
+                                               value="{{ Ninja_membership.membership_type }}">
+                                    </form>
+                                {% endif %}
+
+                        </div>
+                    </div>
+                {% endif %}
+
+
                 {% if monthly_signal %}
                     <div class="col-lg-6 ">
                         <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
