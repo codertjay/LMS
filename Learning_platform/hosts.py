@@ -7,3 +7,4 @@ host_patterns = patterns(
     host('', settings.ROOT_URLCONF, name=''),
     host(r'academy', 'Learning_platform.hostsconf.urls', name='academy'),
 )
+
