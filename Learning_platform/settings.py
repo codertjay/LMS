@@ -168,10 +168,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'courses/static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if DEBUG:
-    LOGIN_URL = "/accounts/login/"
-
-LOGIN_URL = "http://www.assassinfx.com:8000/accounts/login/"
-
+    LOGIN_URL = "http://www.assassinfx.com/accounts/login/"
+else:
+    LOGIN_URL = "http://www.assassinfx.com/accounts/login/"
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -238,7 +237,6 @@ handler400 = 'home_page.views.view_400'
 DEFAULT_HOST = 'www'
 ROOT_HOSTCONF = 'Learning_platform.hosts'
 ROOT_URLCONF = 'Learning_platform.urls'
-
 
 DOMAIN_NAME = 'assassinfx.com'
 if DEBUG:
