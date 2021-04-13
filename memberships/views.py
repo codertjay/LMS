@@ -181,6 +181,13 @@ def cancel_membership(request, slug):
         if membership_type:
             user_membership.memberships.remove(membership_type)
             user_membership.save()
+            response = stripe.Subscription.list(customer=user_membership.stripe_customer_id,
+                                                price=membership_type.stripe_plan_id)
+            sub_id = response['data'][0]['id']
+            sub = stripe.Subscription.retrieve(sub_id)
+            sub.delete()
+            print('tjis is the sub')
+            print('this is the response', response)
             messages.info(request, "Successfully canceled subscription")
     else:
         messages.error(request, "There was an error performing your request")
