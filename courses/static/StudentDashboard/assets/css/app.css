@@ -12281,7 +12281,7 @@ html {
     height: 200px;
     display: block;
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../images/home_banner.jpeg);
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../images/home_banner.jpg);
     background-size: cover;
     min-height: 250px;
     height: 50vh
@@ -12298,7 +12298,7 @@ html {
 
 [dir=ltr] .home-banner2 {
     position: relative;
-    background: linear-gradient(#000, rgba(0, 0, 0, .6)), url(../images/home_banner2.jpeg);
+    background: linear-gradient(#000, rgba(0, 0, 0, .6)), url(../images/home_banner2.jpg);
     background-size: cover;
     min-height: 250px;
     height: 80vh

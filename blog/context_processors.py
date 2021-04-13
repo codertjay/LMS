@@ -52,6 +52,7 @@ def add_variable_to_context(try_content=None):
     Beginner_membership = Membership.objects.get_membership('Beginner')
     Intermediate_membership = Membership.objects.get_membership('Intermediate')
     Advanced_membership = Membership.objects.get_membership('Advanced')
+    Ninja_membership = Membership.objects.get_membership('Ninjas-US30-Trading-Strategy-Course')
     course_language = Courselanguage
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
@@ -64,6 +65,7 @@ def add_variable_to_context(try_content=None):
             'Beginner_membership': Beginner_membership,
             'Intermediate_membership': Intermediate_membership,
             'Advanced_membership': Advanced_membership,
+            'Ninja_membership': Ninja_membership,
 
             # copy trading
             'stripe_public_key': stripe_public_key,

@@ -2,7 +2,7 @@ from django.urls import path
 
 from blog.views import BlogCreateView
 from .views import PricingView, TermsAndConditionView, HomePageView, subscribe_view, TestimonialCreateView, \
-    TestimonialUpdateView,TestimonialDeleteView,coming_soon
+    TestimonialUpdateView, TestimonialDeleteView, coming_soon
 
 app_name = 'home'
 urlpatterns = [
@@ -10,7 +10,7 @@ urlpatterns = [
     path('create_post/', BlogCreateView.as_view(), name='create_post'),
     path('terms/', TermsAndConditionView.as_view(), name='terms_and_condition'),
     path('coming_soon/', coming_soon, name='coming_soon'),
-    
+
     path('subscribe/', subscribe_view, name='subscribe'),
     path('testimonial_create/', TestimonialCreateView.as_view(), name='testimonial_create'),
     path('testimonial/<int:pk>/update/', TestimonialUpdateView.as_view(), name='testimonial_update'),

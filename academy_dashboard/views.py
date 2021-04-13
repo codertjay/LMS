@@ -21,6 +21,8 @@ class CourseListView(LoginRequiredMixin, ListView):
         query = self.request.GET.get('search', None)
         course = Course.objects.all()
         course_type = self.request.GET.get('course_type', None)
+        if course_type == "Ninja’s US30 Trading Strategy Course":
+            course_type = "Ninjas-US30-Trading-Strategy-Course"
         course_language = self.request.GET.get('course_language', None)
         if query:
             object_list = course.filter(
@@ -56,9 +58,12 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
         query = self.request.GET.get('search', None)
         course = Course.objects.all()
         course_type = self.kwargs['course_type']
+        if course_type == "Ninja’s US30 Trading Strategy Course":
+            course_type = "Ninjas-US30-Trading-Strategy-Course"
         user_membership = get_object_or_404(UserMembership, user=self.request.user)
         course_language = self.request.GET.get('course_language', None)
         check_user = user_membership.memberships.filter(slug=course_type)
+
         if not check_user:
             messages.info(self.request, 'You dont have access to view this course')
         if course_type:

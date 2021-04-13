@@ -11,7 +11,7 @@ from copy_trading.models import CopyTrading
 from courses.models import Course
 from home_page.forms import SubscribeForm, TestimonialForm
 from home_page.mixins import InstructorAndLoginRequiredMixin
-from home_page.models import Testimonial,ComingSoon
+from home_page.models import Testimonial, ComingSoon
 from memberships.models import Membership
 
 
@@ -33,28 +33,30 @@ def paidMembership():
     return enterprise
 
 
-def view_404(request,  exception=None):
+def view_404(request, exception=None):
     return render(request, 'HomePage/errors/404.html', status=404)
 
 
-def view_403(request,  exception=None):
+def view_403(request, exception=None):
     return render(request, 'HomePage/errors/403.html', status=403)
 
 
-def view_400(request,  exception=None):
+def view_400(request, exception=None):
     return render(request, 'HomePage/errors/400.html', status=400)
 
 
 def view_500(request, exception=None):
     return render(request, 'HomePage/errors/500.html', status=500)
 
+
 def coming_soon(request):
     coming_soon = ComingSoon.objects.first()
     if coming_soon:
         if coming_soon.coming_soon == True:
-            return render(request,'HomePage/soon.html' )
+            return render(request, 'HomePage/soon.html')
     else:
         return redirect('home:home')
+
 
 class HomePageView(View):
 
@@ -71,7 +73,7 @@ class HomePageView(View):
 class TermsAndConditionView(View):
 
     def get(self, *args, **kwargs):
-        return render(self.request,'HomePage/terms.html' )
+        return render(self.request, 'HomePage/terms.html')
 
 
 class PricingView(View):
@@ -97,7 +99,7 @@ class TestimonialCreateView(InstructorAndLoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super(TestimonialCreateView, self).get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
-        context['page_content'] ="Create"
+        context['page_content'] = "Create"
         return context
 
 
@@ -110,9 +112,8 @@ class TestimonialUpdateView(InstructorAndLoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(TestimonialUpdateView, self).get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
-        context['page_content'] ="Update"
-        
-        
+        context['page_content'] = "Update"
+
         return context
 
 
@@ -126,3 +127,5 @@ class TestimonialDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
         context = super(TestimonialDeleteView, self).get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
         return context
+
+
