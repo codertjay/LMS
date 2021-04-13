@@ -13,17 +13,16 @@
     <title>{% block title %} {% endblock title %}</title>
 
 
-
 </head>
 
 <body style="font-family:{% static 'HomePage/fonts/best_stories/BestStories.otf' %} ">
-    <!--HEADER START-->
-    <div class="wrapper">
-        <header>
-            <div class="container">
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="{% url 'home:home' %}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="157" height="50" viewBox="0 0 157 75">
+<!--HEADER START-->
+<div class="wrapper">
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="{% url 'home:home' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="157" height="50" viewBox="0 0 157 75">
                         <defs>
                             <style>
                                 @font-face {
@@ -45,21 +44,27 @@
                             </g>
                         </g>
                     </svg>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fal fa-bars"></i></button>
-                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><i class="fal fa-bars"></i></button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
 
-                            <li><a href="{% url 'home:price' %}">Pricing</a></li>
-                            <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
-                            <li><a href="{% url 'home:terms_and_condition' %}">Terms</a></li>
-                            <li>
-                                <a id="google_translate_element"></a>
-                            </li>
-                            <!-- -->
+                        <li><a href="{% url 'home:price' %}">Pricing</a></li>
+                        <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
+                        <li><a href="{% url 'home:terms_and_condition' %}">Terms</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'memberships:profile' %}">Profile</a></li>
 
-                            <!-- <li class="dropdown language">
+                        {% endif %}
+                        <li>
+                            <a id="google_translate_element"></a>
+                        </li>
+                        <!-- -->
+
+                        <!-- <li class="dropdown language">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="flag"><img src="{% static 'HomePage/images/flag.png' %}" alt=""> </span> EN
                                     <i class="far fa-chevron-down"></i> </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink"><a href="#"><span id="google_translate_element" class="flag"><img
@@ -69,13 +74,14 @@
                                     <a href="#"><span class="flag"><img src="{% static 'HomePage/images/spain.svg' %}"
                                                                     alt=""> </span>ESP</a></div>
                             </li> -->
-                        </ul>
-                    </div>
-                    {% if request.user.is_authenticated %}
-                    <div class="user-mian ml-auto"><a href="{% url 'account_logout' %}" data-toggle="modal" data-target="#logout_modal"><span>
+                    </ul>
+                </div>
+                {% if request.user.is_authenticated %}
+                    <div class="user-mian ml-auto"><a href="{% url 'account_logout' %}" data-toggle="modal"
+                                                      data-target="#logout_modal"><span>
                         <img src="{% static 'HomePage/images/av.png' %}" alt=""></span> Member Logout</a>
                     </div>
-                    {% else %}
+                {% else %}
                     <div class="user-mian ml-auto"><a href="#" data-toggle="modal" data-target="#login_modal"><span>
                         <img src="{% static 'HomePage/images/av.png' %}" alt=""></span> Member Login</a>
                     </div>
@@ -83,13 +89,13 @@
                     <img src="{% static 'HomePage/images/av.png' %}" alt=""></span> Signup</a>
                     </div>
 
-                    {% endif %}
+                {% endif %}
 
-                </nav>
-            </div>
-        </header>
-        <!--HEADER END-->
-        {% if messages %} {% for message in messages %}
+            </nav>
+        </div>
+    </header>
+    <!--HEADER END-->
+    {% if messages %} {% for message in messages %}
         <div class="alert {% if messages.tags == 'info' or message.tags == 'success' %}
             alert-primary {% else %} alert-{{ message.tags }}   {% endif %}
             p-4 alert-dismissible fade show " role="alert" style="">
@@ -98,15 +104,16 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        {% endfor %} {% endif %} {% block content %} {% endblock content %}
-        <!--Section Footer Start-->
-        <footer>
-            <div class="container">
-                <div class="row align-items-center ">
-                    <div class="col-lg-3">
-                        <div class="f-logo" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <a href="#" class="footer-logo">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="157" height="50" viewBox="0 0 157 75">
+    {% endfor %} {% endif %} {% block content %} {% endblock content %}
+    <!--Section Footer Start-->
+    <footer>
+        <div class="container">
+            <div class="row align-items-center ">
+                <div class="col-lg-3">
+                    <div class="f-logo"
+                         style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <a href="#" class="footer-logo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="157" height="50" viewBox="0 0 157 75">
                                 <defs>
                                     <style>
 
@@ -121,183 +128,196 @@
                                     </g>
                                 </g>
                             </svg>
-                            </a>
-                            <p style="color: #fff; font-size: 15px;"> &copy; 2021</p>
-                        </div>
+                        </a>
+                        <p style="color: #fff; font-size: 15px;"> &copy; 2021</p>
+                    </div>
 
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="footer-links">
-                            <ul class="q-links">
-                                <li><a href="{% url 'home:home' %}">Home</a></li>
-                                <li><a href="{% url 'home:home' %}#service">Our Services</a></li>
-                                <li><a href="{% url 'home:price' %}">Pricing</a></li>
-                                <li><a href="{% url 'home:terms_and_condition' %}">Terms and Conditions</a></li>
-                            </ul>
-                            <ul class="social-footer">
-                                <li>
-                                    <a href="{{ tiktok_url }}" target="_blank"><img style="color: white; " height="15" src="{% static 'HomePage/svg/tiktok-brands.svg' %}" alt="">
-                                    </a>
-                                </li>
-                                <li><a href="{{ instagram_url }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </footer>
-    </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body mb-0 p-0">
-                    <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                        <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447" allowfullscreen="" data-gtm-yt-inspected-2340190_699="true" data-gtm-yt-inspected-2340190_908="true"></iframe>
+                <div class="col-lg-9">
+                    <div class="footer-links">
+                        <ul class="q-links">
+                            <li><a href="{% url 'home:home' %}">Home</a></li>
+                            <li><a href="{% url 'home:home' %}#service">Our Services</a></li>
+                            <li><a href="{% url 'home:price' %}">Pricing</a></li>
+                            <li><a href="{% url 'home:terms_and_condition' %}">Terms and Conditions</a></li>
+                        </ul>
+                        <ul class="social-footer">
+                            <li>
+                                <a href="{{ tiktok_url }}" target="_blank"><img style="color: white; " height="15"
+                                                                                src="{% static 'HomePage/svg/tiktok-brands.svg' %}"
+                                                                                alt="">
+                                </a>
+                            </li>
+                            <li><a href="{{ instagram_url }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </footer>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body mb-0 p-0">
+                <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                    <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447"
+                            allowfullscreen="" data-gtm-yt-inspected-2340190_699="true"
+                            data-gtm-yt-inspected-2340190_908="true"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="modal login-modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="login_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="limiter">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+</div>
+<div class="modal login-modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="login_modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="limiter">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                    <div class="container-login100" style="background-image: url('{% static " HomePage/images/bg-01.jpg " %}');">
-                        <div class="wrap-login100">
-                            <form class="login100-form  login-tab" autocomplete="on" action="{% url 'account_login' %}" method="POST">
-                                {% csrf_token %}
-                                <span class="d-block text-center "> <img src="{% static 'HomePage/images/logo-white.svg' %}"
+                <div class="container-login100"
+                     style="background-image: url('{% static " HomePage/images/bg-01.jpg " %}');">
+                    <div class="wrap-login100">
+                        <form class="login100-form  login-tab" autocomplete="on" action="{% url 'account_login' %}"
+                              method="POST">
+                            {% csrf_token %}
+                            <span class="d-block text-center "> <img src="{% static 'HomePage/images/logo-white.svg' %}"
                                                                      alt=""> </span>
-                                <h3 class="login100-form-title "> Log in</h3>
-                                <div class="wrap-input100 validate-input" data-validate="Enter email">
-                                    <input class="input100" type="email" id='id_login' name="login" placeholder="Email">
-                                    <span class="focus-input100" data-placeholder="&#xf007;"></span></div>
-                                <div class="wrap-input100 validate-input" data-validate="Enter password">
-                                    <input class="input100" type="password" name="password" id="id_password" placeholder="Password">
-                                    <span class="focus-input100" data-placeholder="&#xf023;"></span></div>
-                                <div class="contact100-form-checkbox">
-                                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                                    <label class="label-checkbox100" for="ckb1"> Remember me </label>
-                                </div>
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn mb-3" type="submit"> Login</button>
-                                </div>
-                                <div class="text-center p-t-90"><a class="txt1" href="#" id="forgot"> Forgot Password? </a>
-                                </div>
-                                <div class="ext-link ">
-                                    <a href="{% url 'memberships:membership_select' %}">Not registered yet? Subscribe to our
+                            <h3 class="login100-form-title "> Log in</h3>
+                            <div class="wrap-input100 validate-input" data-validate="Enter email">
+                                <input class="input100" type="email" id='id_login' name="login" placeholder="Email">
+                                <span class="focus-input100" data-placeholder="&#xf007;"></span></div>
+                            <div class="wrap-input100 validate-input" data-validate="Enter password">
+                                <input class="input100" type="password" name="password" id="id_password"
+                                       placeholder="Password">
+                                <span class="focus-input100" data-placeholder="&#xf023;"></span></div>
+                            <div class="contact100-form-checkbox">
+                                <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                                <label class="label-checkbox100" for="ckb1"> Remember me </label>
+                            </div>
+                            <div class="container-login100-form-btn">
+                                <button class="login100-form-btn mb-3" type="submit"> Login</button>
+                            </div>
+                            <div class="text-center p-t-90"><a class="txt1" href="#" id="forgot"> Forgot Password? </a>
+                            </div>
+                            <div class="ext-link ">
+                                <a href="{% url 'memberships:membership_select' %}">Not registered yet? Subscribe to our
                                     services </a>
-                                </div>
-                            </form>
+                            </div>
+                        </form>
 
 
-                            <form class=" forgot" method="post" action="{% url 'account_reset_password' %}" style="display: none;">
-                                {% csrf_token %}
+                        <form class=" forgot" method="post" action="{% url 'account_reset_password' %}"
+                              style="display: none;">
+                            {% csrf_token %}
 
-                                <span class="d-block text-center "> <img
+                            <span class="d-block text-center "> <img
                                     src="{% static 'HomePage/images/logo-white.svg' %}"
                                     alt=""> </span>
 
-                                <h3 class="login100-form-title ">Forgot Password</h3>
+                            <h3 class="login100-form-title ">Forgot Password</h3>
 
-                                <div class="wrap-input100 validate-input" data-validate="Enter username">
-                                    <input class="input100" type="email" name="email" placeholder="Email">
-                                    <span class="focus-input100" data-placeholder="&#xf007;"></span></div>
+                            <div class="wrap-input100 validate-input" data-validate="Enter username">
+                                <input class="input100" type="email" name="email" placeholder="Email">
+                                <span class="focus-input100" data-placeholder="&#xf007;"></span></div>
 
-                                <div class="container-login100-form-btn">
-                                    <button class=" mb-3" type="submit" style="width: 200px; height: 40px; border-radius: 5px;
+                            <div class="container-login100-form-btn">
+                                <button class=" mb-3" type="submit" style="width: 200px; height: 40px; border-radius: 5px;
                                         background: #fff; outline: none; border: 1px solid #fff;
                                          color: #000">
                                     Submit
                                 </button>
-                                </div>
-                                <div class="text-center p-t-90"><a class="txt1" href="#" id="login">Login
+                            </div>
+                            <div class="text-center p-t-90"><a class="txt1" href="#" id="login">Login
                             </a></div>
-                                <div class="ext-link ">
-                                    <a href="{% url 'memberships:membership_select' %}">Not registered yet? Subscribe to our
+                            <div class="ext-link ">
+                                <a href="{% url 'memberships:membership_select' %}">Not registered yet? Subscribe to our
                                     services </a>
-                                </div>
-                            </form>
+                            </div>
+                        </form>
 
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal login-modal fade" id="logout_modal" tabindex="-1" role="dialog" aria-labelledby="logout_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="limiter">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+</div>
+<div class="modal login-modal fade" id="logout_modal" tabindex="-1" role="dialog" aria-labelledby="logout_modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="limiter">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                    <div class="container-login100" style="background-image: url('{% static " HomePage/images/bg-01.jpg " %}');">
-                        <div class="wrap-login100">
-                            <form class="login100-form  login-tab" autocomplete="on" action="{% url 'account_logout' %}" method="POST">
-                                {% csrf_token %}
-                                <span class="d-block text-center "> <img src="{% static 'HomePage/images/logo-white.svg' %}"
+                <div class="container-login100"
+                     style="background-image: url('{% static " HomePage/images/bg-01.jpg " %}');">
+                    <div class="wrap-login100">
+                        <form class="login100-form  login-tab" autocomplete="on" action="{% url 'account_logout' %}"
+                              method="POST">
+                            {% csrf_token %}
+                            <span class="d-block text-center "> <img src="{% static 'HomePage/images/logo-white.svg' %}"
                                                                      alt=""> </span>
-                                <h3 class="login100-form-title "> Log out</h3>
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn mb-3" type="submit"> Logout</button>
-                                </div>
-                            </form>
+                            <h3 class="login100-form-title "> Log out</h3>
+                            <div class="container-login100-form-btn">
+                                <button class="login100-form-btn mb-3" type="submit"> Logout</button>
+                            </div>
+                        </form>
 
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!--Section Footer End-->
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{% static 'HomePage/js/jquery-3.3.1.slim.min.js' %}"></script>
-    <script src="{% static 'HomePage/js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'HomePage/js/popper.min.js' %}"></script>
-    <script src="{% static 'HomePage/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'HomePage/js/jquery.smartWizard.min.js' %}"></script>
-    <script src="{% static 'HomePage/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'HomePage/js/wow.min.js' %}"></script>
-    <script src="{% static 'HomePage/js/script.js' %}"></script>
-    <script src="{% static 'HomePage/js/login-form.js' %}"></script>
-    <script>
-        $('#forgot').click(function() {
-            $('.forgot').css({
-                display: 'block',
-            });
-            $('.login-tab').css({
-                display: 'none',
-            })
+<!--Section Footer End-->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'HomePage/js/jquery-3.3.1.slim.min.js' %}"></script>
+<script src="{% static 'HomePage/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'HomePage/js/popper.min.js' %}"></script>
+<script src="{% static 'HomePage/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'HomePage/js/jquery.smartWizard.min.js' %}"></script>
+<script src="{% static 'HomePage/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'HomePage/js/wow.min.js' %}"></script>
+<script src="{% static 'HomePage/js/script.js' %}"></script>
+<script src="{% static 'HomePage/js/login-form.js' %}"></script>
+<script>
+    $ ('#forgot').click (function () {
+        $ ('.forgot').css ({
+            display: 'block' ,
         });
-        $('#login').click(function() {
-            $('.forgot').css({
-                display: 'none',
-            });
-            $('.login-tab').css({
-                display: 'block',
-            })
+        $ ('.login-tab').css ({
+            display: 'none' ,
+        })
+    });
+    $ ('#login').click (function () {
+        $ ('.forgot').css ({
+            display: 'none' ,
         });
-    </script>
-    {% block script %} {% endblock script %}
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en'
-            }, 'google_translate_element');
-        }
-    </script>
+        $ ('.login-tab').css ({
+            display: 'block' ,
+        })
+    });
+</script>
+{% block script %} {% endblock script %}
+<script type="text/javascript">
+    function googleTranslateElementInit () {
+        new google.translate.TranslateElement ({
+            pageLanguage: 'en'
+        } , 'google_translate_element');
+    }
+</script>
 
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-    </script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
 </body>
 
 </html>
