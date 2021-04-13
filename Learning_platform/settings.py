@@ -173,6 +173,7 @@ if DEBUG:
 LOGIN_URL = "http://www.assassinfx.com:8000/accounts/login/"
 
 
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SIGNUP_REDIRECT_URL = '/courses/'
