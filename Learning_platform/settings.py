@@ -205,7 +205,7 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 # for sending email
-if not DEBUG:
+if DEBUG:
     EMAIL_HOST_USER_SENDGRID = 'begintjay@gmail.com'
 else:
     EMAIL_HOST_USER_SENDGRID = 'ninjaassassin@assassinfx.com'
@@ -239,17 +239,19 @@ ROOT_HOSTCONF = 'Learning_platform.hosts'
 ROOT_URLCONF = 'Learning_platform.urls'
 
 DOMAIN_NAME = 'assassinfx.com'
-if not DEBUG:
+if DEBUG:
     PARENT_HOST = f'{DOMAIN_NAME}:8000'
     DEFAULT_REDIRECT_URL = f"http://{DOMAIN_NAME}:8000"
 else:
     PARENT_HOST = DOMAIN_NAME
     DEFAULT_REDIRECT_URL = f"https://{DOMAIN_NAME}"
 
+CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", f"academy.{DOMAIN_NAME}", f"www.{DOMAIN_NAME}"]
 SESSION_COOKIE_DOMAIN = f".{DOMAIN_NAME}"
+
 SESSION_COOKIE_NAME = 'assassinfxsessionid'
 
-CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", f"academy.{DOMAIN_NAME}", f"www.{DOMAIN_NAME}"]
 CSRF_COOKIE_DOMAIN = '.' + DOMAIN_NAME
+
 # CSRF_USE_SESSIONS = True
 
