@@ -205,7 +205,7 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 # for sending email
-if DEBUG:
+if not DEBUG:
     EMAIL_HOST_USER_SENDGRID = 'begintjay@gmail.com'
 else:
     EMAIL_HOST_USER_SENDGRID = 'ninjaassassin@assassinfx.com'
@@ -239,7 +239,7 @@ ROOT_HOSTCONF = 'Learning_platform.hosts'
 ROOT_URLCONF = 'Learning_platform.urls'
 
 DOMAIN_NAME = 'assassinfx.com'
-if DEBUG:
+if not DEBUG:
     PARENT_HOST = f'{DOMAIN_NAME}:8000'
     DEFAULT_REDIRECT_URL = f"http://{DOMAIN_NAME}:8000"
 else:
