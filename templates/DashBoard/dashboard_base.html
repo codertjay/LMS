@@ -109,7 +109,7 @@
                                 <img src="{{ request.user.profile.profilePicsImageURL }}" alt="Avatar"
                                      class="rounded-circle" width="50" style="max-height: 50px"></a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="{% url 'users:profile'  request.user.username %}">
+                                <a class="dropdown-item" href="{% url 'users:profile_edit'   %}">
                                     <i class="fa fa-edit"></i> Edit Account
                                 </a>
                                 <a class="dropdown-item"

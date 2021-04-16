@@ -403,7 +403,7 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-menu-item active">
+                    <li class="sidebar-menu-item ">
                         <a class="sidebar-menu-button" href="{% host_url 'users:profile_edit' host 'www' %}">
                                 <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -420,6 +420,17 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-menu-item ">
+                        <a class="sidebar-menu-button" href="{% host_url 'forum_list' host 'academy' %}">
+                            <span class="sidebar-menu-text">Forum</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item ">
+                        <a class="sidebar-menu-button" href="{% host_url 'forum_create' host 'academy' %}">
+                            <span class="sidebar-menu-text">Ask Question</span>
+                        </a>
+                    </li>
 
                 </ul>
 

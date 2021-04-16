@@ -12,6 +12,7 @@ from django.views.generic.base import View
 
 from .forms import ForumAnswerForm, ForumQuestionForm
 from .models import ForumQuestion
+from django_hosts.resolvers import reverse as host_reverse
 
 
 class ForumListView(LoginRequiredMixin, ListView):
@@ -117,13 +118,15 @@ class ForumQuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
 class ForumQuestionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = ForumQuestion
     template_name = 'StudentDashboard/forum/forum-delete.html'
-    success_url = reverse_lazy('forum:forum_list')
 
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.user or self.request.user.is_superuser:
             return True
         return False
+
+    def get_success_url(self):
+        return host_reverse('forum_list', host='academy', )
 
 
 @login_required

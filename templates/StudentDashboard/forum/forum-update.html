@@ -21,7 +21,7 @@
 
             <form action="" method="post">
                 {% csrf_token %}
-                <div class="card  my_shadow" {% comment %}style="box-shadow: 10px 10px 5px #888888;"{% endcomment %}>
+                <div class="card  my_shadow" >
                     <div class="card-body">
                         {{ form|crispy }}
                     </div>

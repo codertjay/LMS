@@ -35,7 +35,6 @@ class ForumQuestion(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        # return reverse('forum:forum_detail', kwargs={'pk': self.pk})
         return host_reverse('forum_detail', args=(self.pk,), host='academy', )
 
     @property
