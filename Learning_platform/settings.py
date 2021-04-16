@@ -233,6 +233,7 @@ handler400 = 'home_page.views.view_400'
 # DOMAIN_NAME = '.ngrok.io'
 # PARENT_HOST = DOMAIN_NAME
 
+
 # django host
 DEFAULT_HOST = 'www'
 ROOT_HOSTCONF = 'Learning_platform.hosts'
