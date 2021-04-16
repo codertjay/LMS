@@ -11,7 +11,7 @@ MembershipType = (
     ('Beginner ', 'Beginner '),
     ('Intermediate ', 'Intermediate '),
     ('Advanced ', 'Advanced '),
-    ('Ninja’s US30 Trading Strategy Course', 'Ninja’s US30 Trading Strategy Course'),
+    ('Ninja’s US30 Course', 'Ninja’s US30 Course'),
 )
 
 User = settings.AUTH_USER_MODEL

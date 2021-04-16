@@ -380,24 +380,24 @@
                         <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
                             <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" "></div>
                             <h2>Beginner Academy</h2>
-                                              <ul>
-                        <li><span><i class="fal fa-check "></i></span>Learn from profitable traders</li>
-                        <li><span><i class="fal fa-check "></i></span>Where to check News and how to use it as confluence for your trades
-                        </li>
-                        <li><span><i class="far fa-check "></i></span>Broker information</li>
-                        <li><span><i class="fal fa-check"></i></span>Multiple languages spoken to cater for all bilinguals
-                        </li>
-                        <li><span><i class="fal fa-check "></i></span>How to chart up with our members trade ideas from experienced traders
-                        </li>
-                        <li><span><i class="far fa-check "></i></span>A friendly environment to learn</li>
-                        <li><span><i class="far fa-check "></i></span>Comprehensive Market Research & In-Depth Analaysis
-                        </li>
+                            <ul>
+                                <li><span><i class="fal fa-check "></i></span>Why trade forex?</li>
+                                <li><span><i class="fal fa-check "></i></span>When to trade forex</li>
+                                <li><span><i class="fal fa-check "></i></span>Trading Terminology</li>
+                                <li><span><i class="fal fa-check "></i></span>How to trade with leverage</li>
+                                <li><span><i class="fal fa-check "></i></span>What is a PIP?</li>
+                                <li><span><i class="fal fa-check "></i></span>Types of forex orders</li>
+                                <li><span><i class="fal fa-check "></i></span>Basic technical analysis, charting,
+                                    Support and Resistance
+                                </li>
+                                <li><span><i class="fal fa-check "></i></span>Fibonacci</li>
+                                <li><span><i class="fal fa-check "></i></span>MORE</li>
 
-                    </ul>
+                            </ul>
                             <div class="price-box ">
                                 {% if Beginner_membership %}
                                     <div class="pr-total ">
-                                        <p><span class="d-price ">${{ Beginner_membership.discount }}</span>/mo</p>
+                                        <p><span class="d-price ">${{ Beginner_membership.discount }}</span></p>
                                     </div>
                                     <div class="pr-total ">
                                         <p><span>${{ Beginner_membership.price }}</span></p>
@@ -408,8 +408,8 @@
 
                                         <input type="hidden" name="membership_type"
                                                value="{{ Beginner_membership.membership_type }}">
-                                      <button type="submit" class="btn btn-primary w-100">Buy Now
-                                            </button>
+                                        <button type="submit" class="btn btn-primary w-100">Buy Now
+                                        </button>
                                     </form>
                                 {% endif %}
 
@@ -422,24 +422,26 @@
                         <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
                             <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" "></div>
                             <h2>Intermediate Academy</h2>
-                                               <ul>
-                        <li><span><i class="fal fa-check "></i></span>Learn from profitable traders</li>
-                        <li><span><i class="fal fa-check "></i></span>Where to check News and how to use it as confluence for your trades
-                        </li>
-                        <li><span><i class="far fa-check "></i></span>Broker information</li>
-                        <li><span><i class="fal fa-check"></i></span>Multiple languages spoken to cater for all bilinguals
-                        </li>
-                        <li><span><i class="fal fa-check "></i></span>How to chart up with our members trade ideas from experienced traders
-                        </li>
-                        <li><span><i class="far fa-check "></i></span>A friendly environment to learn</li>
-                        <li><span><i class="far fa-check "></i></span>Comprehensive Market Research & In-Depth Analaysis
-                        </li>
-
-                    </ul>
+                            <ul>
+                                <li><span><i class="fal fa-check "></i></span>Chart formations patterns</li>
+                                <li><span><i class="fal fa-check "></i></span>Head and Shoulders</li>
+                                <li><span><i class="fal fa-check "></i></span>Inverse Head and Shoulders</li>
+                                <li><span><i class="fal fa-check "></i></span>Bull and Bear flags</li>
+                                <li><span><i class="fal fa-check "></i></span>Bullish and Bearish Pennant</li>
+                                <li><span><i class="fal fa-check "></i></span>Ascending and Descending triangles</li>
+                                <li><span><i class="fal fa-check "></i></span>Falling wedge</li>
+                                <li><span><i class="fal fa-check "></i></span>Box ranges</li>
+                                <li><span><i class="fal fa-check "></i></span>Cup and Handles</li>
+                                <li><span><i class="fal fa-check "></i></span>Rising wedges</li>
+                                <li><span><i class="fal fa-check "></i></span>Indicators and Scripts</li>
+                                <li><span><i class="fal fa-check "></i></span>Account history</li>
+                                <li><span><i class="fal fa-check "></i></span>Market Watch</li>
+                                <li><span><i class="fal fa-check "></i></span> AND MORE</li>
+                            </ul>
                             <div class="price-box ">
                                 {% if Intermediate_membership %}
                                     <div class="pr-total ">
-                                        <p><span class="d-price ">${{ Intermediate_membership.discount }}</span>/mo</p>
+                                        <p><span class="d-price ">${{ Intermediate_membership.discount }}</span></p>
                                     </div>
                                     <div class="pr-total ">
                                         <p><span>${{ Intermediate_membership.price }}</span></p>
@@ -449,8 +451,8 @@
                                     <form method="post" action="{% url 'memberships:membership_select' %}">
                                         {% csrf_token %}
 
-                                            <button type="submit" class="btn btn-primary w-100">Buy Now
-                                            </button>
+                                        <button type="submit" class="btn btn-primary w-100">Buy Now
+                                        </button>
                                         <input type="hidden" name="membership_type"
                                                value="{{ Intermediate_membership.membership_type }}">
                                     </form>
@@ -466,24 +468,25 @@
                         <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
                             <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" "></div>
                             <h2>Advanced Academy</h2>
-                                                <ul>
-                        <li><span><i class="fal fa-check "></i></span>Learn from profitable traders</li>
-                        <li><span><i class="fal fa-check "></i></span>Where to check News and how to use it as confluence for your trades
-                        </li>
-                        <li><span><i class="far fa-check "></i></span>Broker information</li>
-                        <li><span><i class="fal fa-check"></i></span>Multiple languages spoken to cater for all bilinguals
-                        </li>
-                        <li><span><i class="fal fa-check "></i></span>How to chart up with our members trade ideas from experienced traders
-                        </li>
-                        <li><span><i class="far fa-check "></i></span>A friendly environment to learn</li>
-                        <li><span><i class="far fa-check "></i></span>Comprehensive Market Research & In-Depth Analaysis
-                        </li>
-
-                    </ul>
+                            <ul>
+                                <li><span><i class="fal fa-check "></i></span>Identifying Institutional Tactics</li>
+                                <li><span><i class="fal fa-check "></i></span>Trade According to Game Theory</li>
+                                <li><span><i class="fal fa-check "></i></span>Stock market trading</li>
+                                <li><span><i class="fal fa-check "></i></span>Risk & Position Management</li>
+                                <li><span><i class="fal fa-check "></i></span>Intraday Trading</li>
+                                <li><span><i class="fal fa-check "></i></span>Analyzing Economic Data</li>
+                                <li><span><i class="fal fa-check "></i></span>Trading Small Caps</li>
+                                <li><span><i class="fal fa-check "></i></span>The 20:20 method</li>
+                                <li><span><i class="fal fa-check "></i></span>Advanced Stock Trading Strategies</li>
+                                <li><span><i class="fal fa-check "></i></span>Trading IPOs</li>
+                                <li><span><i class="fal fa-check "></i></span>Swing Trading</li>
+                                <li><span><i class="fal fa-check "></i></span>Pivot Points</li>
+                                <li><span><i class="fal fa-check "></i></span>VWAP Strategies</li>
+                            </ul>
                             <div class="price-box ">
                                 {% if Advanced_membership %}
                                     <div class="pr-total ">
-                                        <p><span class="d-price ">${{ Advanced_membership.discount }}</span>/mo</p>
+                                        <p><span class="d-price ">${{ Advanced_membership.discount }}</span></p>
                                     </div>
                                     <div class="pr-total ">
                                         <p><span>${{ Advanced_membership.price }}</span></p>
@@ -492,8 +495,8 @@
                                     <form method="post" action="{% url 'memberships:membership_select' %}">
                                         {% csrf_token %}
 
-                                            <button type="submit" class="btn btn-primary w-100">Buy Now
-                                            </button>
+                                        <button type="submit" class="btn btn-primary w-100">Buy Now
+                                        </button>
                                         <input type="hidden" name="membership_type"
                                                value="{{ Advanced_membership.membership_type }}">
                                     </form>
@@ -509,24 +512,28 @@
                         <div class="card-box wow fadeInUp " data-wow-duration="0.7s " data-wow-delay="0.5s ">
                             <div class="icon-box "><img src="{% static 'HomePage/images/stock.png' %}" alt=" "></div>
                             <h2>Ninja’s US30 Trading Strategy Course</h2>
-                                                <ul>
-                        <li><span><i class="fal fa-check "></i></span>Learn from profitable traders</li>
-                        <li><span><i class="fal fa-check "></i></span>Where to check News and how to use it as confluence for your trades
-                        </li>
-                        <li><span><i class="far fa-check "></i></span>Broker information</li>
-                        <li><span><i class="fal fa-check"></i></span>Multiple languages spoken to cater for all bilinguals
-                        </li>
-                        <li><span><i class="fal fa-check "></i></span>How to chart up with our members trade ideas from experienced traders
-                        </li>
-                        <li><span><i class="far fa-check "></i></span>A friendly environment to learn</li>
-                        <li><span><i class="far fa-check "></i></span>Comprehensive Market Research & In-Depth Analaysis
-                        </li>
+                            <ul>
+                                <li><span><i class="fal fa-check "></i></span>Learn from profitable traders</li>
+                                <li><span><i class="fal fa-check "></i></span>Where to check News and how to use it as
+                                    confluence for your trades
+                                </li>
+                                <li><span><i class="far fa-check "></i></span>Broker information</li>
+                                <li><span><i class="fal fa-check"></i></span>Multiple languages spoken to cater for all
+                                    bilinguals
+                                </li>
+                                <li><span><i class="fal fa-check "></i></span>How to chart up with our members trade
+                                    ideas from experienced traders
+                                </li>
+                                <li><span><i class="far fa-check "></i></span>A friendly environment to learn</li>
+                                <li><span><i class="far fa-check "></i></span>Comprehensive Market Research & In-Depth
+                                    Analaysis
+                                </li>
 
-                    </ul>
+                            </ul>
                             <div class="price-box ">
                                 {% if Ninja_membership %}
                                     <div class="pr-total ">
-                                        <p><span class="d-price ">${{ Ninja_membership.discount }}</span>/mo</p>
+                                        <p><span class="d-price ">${{ Ninja_membership.discount }}</span></p>
                                     </div>
                                     <div class="pr-total ">
                                         <p><span>${{ Ninja_membership.price }}</span></p>
@@ -535,8 +542,8 @@
                                     <form method="post" action="{% url 'memberships:membership_select' %}">
                                         {% csrf_token %}
 
-                                            <button type="submit" class="btn btn-primary w-100">Buy Now
-                                            </button>
+                                        <button type="submit" class="btn btn-primary w-100">Buy Now
+                                        </button>
                                         <input type="hidden" name="membership_type"
                                                value="{{ Ninja_membership.membership_type }}">
                                     </form>

@@ -52,7 +52,7 @@ def add_variable_to_context(try_content=None):
     Beginner_membership = Membership.objects.get_membership('Beginner')
     Intermediate_membership = Membership.objects.get_membership('Intermediate')
     Advanced_membership = Membership.objects.get_membership('Advanced')
-    Ninja_membership = Membership.objects.get_membership('Ninjas-US30-Trading-Strategy-Course')
+    Ninja_membership = Membership.objects.get_membership('Ninjas-US30-Course')
     course_language = Courselanguage
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
