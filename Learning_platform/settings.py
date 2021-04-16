@@ -247,7 +247,8 @@ else:
     PARENT_HOST = DOMAIN_NAME
     DEFAULT_REDIRECT_URL = f"https://{DOMAIN_NAME}"
 
-CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", f"academy.{DOMAIN_NAME}", f"www.{DOMAIN_NAME}"]
+CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", f"academy.{DOMAIN_NAME}", f"www.{DOMAIN_NAME}",
+                        'academy.assassinfx.com']
 SESSION_COOKIE_DOMAIN = f".{DOMAIN_NAME}"
 
 SESSION_COOKIE_NAME = 'assassinfxsessionid'
@@ -255,4 +256,3 @@ SESSION_COOKIE_NAME = 'assassinfxsessionid'
 CSRF_COOKIE_DOMAIN = '.' + DOMAIN_NAME
 
 # CSRF_USE_SESSIONS = True
-
