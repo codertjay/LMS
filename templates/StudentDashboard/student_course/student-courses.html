@@ -1,167 +1,138 @@
-{% extends 'StudentDashboard/student_dashboard_base.html' %}
-{% load hosts %}
-
-{% block banner %}
-    <div class="home-banner text-white mb-4">
-        <div class="container page__container">
-            <h1 class="display-4 bold aos-init aos-animate" data-aos="fade-up" data-aos-duration="800">Everything you
-                need to LEARN</h1>
-            <p class="lead mb-5 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">To Become a good forex
-                trader</p>
-            <div data-aos="fade-down" data-aos-duration="400" data-aos-delay="400" data-offset="-100"
-                 class="aos-init aos-animate">
-                {% for item in memberships %}
-                    <a href="{% host_url 'course_type' course_type=item.slug host 'academy' %}"
-                       class="btn
+{% extends 'StudentDashboard/student_dashboard_base.html' %} {% load hosts %} {% block banner %}
+<div class="home-banner text-white mb-4">
+    <div class="container page__container">
+        <h1 class="display-4 bold aos-init aos-animate" data-aos="fade-up" data-aos-duration="800">Everything you need to LEARN</h1>
+        <p class="lead mb-5 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">To Become a good forex trader
+        </p>
+        <div data-aos="fade-down" data-aos-duration="400" data-aos-delay="400" data-offset="-100" class="aos-init aos-animate">
+            {% for item in memberships %}
+            <a href="{% host_url 'course_type' course_type=item.slug host 'academy' %}" class="btn
                         {% if item.slug == 'Beginner' %} btn-primary
                         {% elif item.slug == 'Intermediate' %} btn-warning
                         {% else %}
                         btn-danger
                          {% endif %}
-                       py-2">{{ item.membership_type }}</a>
-                {% endfor %}
+                       py-2">{{ item.membership_type }}</a> {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %} {% block content %}
+<div class="page__heading d-flex align-items-center justify-content-between">
+    <h1 class="m-0"></h1>
+</div>
+
+<section>
+    <form action="{% host_url 'course_list' host 'academy' %}" class="">
+        <div class="d-lg-flex">
+            <div class="search-form mb-3 mr-3-lg search-form--light" style="width: 50% !important;">
+                <input type="text" name="search" class="form-control" placeholder="Search courses" id="searchSample02" style="height: 40px;background-color:rgb(255,255,255)">
+                <button class="btn btn-primary" type="submit"><i class="material-icons">search</i></button>
+            </div>
+
+            <div class="form-inline  mb-3 ml-auto">
+                <div class="form-group mr-3">
+                    <label for="custom-select" class="form-label mr-1">Language</label> {% for item in course_language %}
+                    <a href="{% host_url 'course_list' host 'academy' %}?course_language={{ item|first }}" class="btn btn-primary px-2">{{ item|first }}</a> {% endfor %}
+                </div>
 
             </div>
         </div>
-    </div>
-{% endblock %}
 
-{% block content %}
-    <div class="page__heading d-flex align-items-center justify-content-between">
-        <h1 class="m-0"></h1>
-    </div>
+    </form>
+</section>
 
-    <section>
-        <form action="{% host_url 'course_list' host 'academy' %}" class="">
-            <div class="d-lg-flex">
-                <div class="search-form mb-3 mr-3-lg search-form--light" style="width: 50% !important;">
-                    <input type="text" name="search" class="form-control" placeholder="Search courses"
-                           id="searchSample02" style="height: 40px;background-color:rgb(255,255,255)">
-                    <button class="btn btn-primary" type="submit"><i class="material-icons">search</i></button>
+<section>
+    <div class="row">
+        {% for course in object_list %}
+        <div class="col-md-3">
+            <div class="card card__course">
+                <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
+                    <a class="card-header__title  justify-content-center align-self-center d-flex flex-column" href="{% host_url 'course_detail' course.slug host 'academy' %}">
+                        <span><img src="{{ course.imageURL }}" class="mb-1" style="width:34px;"
+                                           alt="logo"></span> {% for item in course.allowed_memberships.all %}
+                        <span class="course__title">{{ item.slug }}</span> {% endfor %} {% for item in course.allowed_memberships.all %} {% if item in user_membership %}
+                        <span class="course__subtitle">{{ course.title }}</span> {% elif item not in user_membership %}
+                        <span class="material-icons">lock</span> {% endif %} {% endfor %}
+                    </a>
                 </div>
+                <div class="p-3">
 
-                <div class="form-inline  mb-3 ml-auto">
-                    <div class="form-group mr-3">
-                        <label for="custom-select" class="form-label mr-1">Language</label>
-                        {% for item in course_language %}
-                            <a href="{% host_url 'course_list' host 'academy' %}?course_language={{ item|first }}"
-                               class="btn btn-primary px-2">{{ item|first }}</a>
-                        {% endfor %}
-                    </div>
+                    <div class="d-flex align-items-center">
 
-                </div>
-            </div>
-
-        </form>
-    </section>
-
-    <section>
-        <div class="row">
-            {% for course in object_list %}
-                <div class="col-md-3">
-                    <div class="card card__course">
-                        <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
-                            <a class="card-header__title  justify-content-center align-self-center d-flex flex-column"
-                               href="{% host_url 'course_detail' course.slug host 'academy' %}">
-                                <span><img src="{{ course.imageURL }}" class="mb-1" style="width:34px;"
-                                           alt="logo"></span>
-                                {% for item in course.allowed_memberships.all %}
-                                    <span class="course__title">{{ item.slug }}</span>
-                                {% endfor %}
-
-                                {% for item in course.allowed_memberships.all %}
-                                    {% if item in user_membership %}
-                                        <span class="course__subtitle">{{ course.title }}</span>
-                                    {% elif item not in user_membership %}
-                                        <span class="material-icons">lock</span>
-                                    {% endif %}
-                                {% endfor %}
-                            </a>
-                        </div>
-                        <div class="p-3">
-
-                            <div class="d-flex align-items-center">
-
-                                <a class="text-center" href="{% host_url 'course_detail' course.slug host 'academy' %}">
-                                    <span class="pull-right float-right text-info  pt-1 "><span class="material-icons">
+                        <a class="text-center" href="{% host_url 'course_detail' course.slug host 'academy' %}">
+                            <span class="pull-right float-right text-info  pt-1 "><span class="material-icons">
                                                 remove_red_eye
                                                 </span> {{ course.view_count }} </span>
-                                </a>
+                        </a>
 
-                            </div>
-                        </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="row align-content-center justify-content-center">
-            <ul class="pagination justify-content-center pagination-sm">
-                <div class="d-flex justify-content-center">
-                    <nav aria-label="...">
-                        {% if is_paginated %}
-
-                            <ul class="pagination">
-                                {% if page_obj.has_previous %}
-                                    <li class="page-item pr-2 fa-2x ">
-                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
-                                           tabindex="-1"
-                                           aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item disabled  pr-2  fa-2x">
-                                        <span class="page-link"><i class="fa fa-chevron-left"></i></span>
-                                    </li>
-                                {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
-                                <li class="page-item active " aria-current="page">
-                                    <span class="page-link">{{ i }} </span>
-                                </li>
-                            {% else %}
-                                <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                                </li>
-                            {% endif %} {% endfor %} {% if page_obj.has_next %}
-                                <li class="page-item pl-2  fa-2x">
-                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
-                                            class="fa fa-chevron-right"></i></a>
-                                </li>
-                            {% else %}
-                                <li class="page-item disabled pl-2  fa-2x">
-                                    <span class="page-link"><i class="fa fa-chevron-right"></i></span>
-                                </li>
-
-                            {% endif %}
-                            </ul>
-                        {% endif %}
-                    </nav>
-                </div>
-
-            </ul>
-        </div>
-    </section>
-
-{% endblock %}
-
-
-
-{% block mailing_list %}
-
-    <div class="bg-soft-primary card-body mb-4" id="subscribe">
-        <div class="row p-4">
-            <div class="col-md-6 offset-md-3">
-                <div class="mb-4">
-
-                    <h4 class="text-center text-primary bold mb-1">Sign up and get notifications </h4>
-                    <p class="text-center text-muted">No spam. Only releases, updates and discounts</p>
-                </div>
-                <div class="d-flex">
-                    <form action="{% host_url 'home:subscribe' host 'www' %}" method="post" class="d-flex">
-                        {% csrf_token %}
-                        <input type="email" class="form-control" name="email" placeholder="Your email address">
-                        <button href="#" class="btn btn-secondary ml-2 aos-init aos-animate" data-aos="flip-left"
-                                data-aos-duration="800" data-aos-delay="150" type="submit">SUBSCRIBE
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
+    <div class="row align-content-center justify-content-center">
+        <ul class="pagination justify-content-center pagination-sm">
+            <div class="d-flex justify-content-center">
+                <nav aria-label="...">
+                    {% if is_paginated %}
+
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                        <li class="page-item pr-2 fa-2x ">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled  pr-2  fa-2x">
+                            <span class="page-link"><i class="fa fa-chevron-left"></i></span>
+                        </li>
+                        {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                        <li class="page-item active " aria-current="page">
+                            <span class="page-link">{{ i }} </span>
+                        </li>
+                        {% else %}
+                        <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                        {% endif %} {% endfor %} {% if page_obj.has_next %}
+                        <li class="page-item pl-2  fa-2x">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                                            class="fa fa-chevron-right"></i></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled pl-2  fa-2x">
+                            <span class="page-link"><i class="fa fa-chevron-right"></i></span>
+                        </li>
+
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </nav>
+            </div>
+
+        </ul>
+    </div>
+</section>
+
+{% endblock %} {% block mailing_list %}
+
+<div class="bg-soft-primary card-body mb-4" id="subscribe">
+    <div class="row p-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="mb-4">
+
+                <h4 class="text-center text-primary bold mb-1">Sign up and get notifications </h4>
+                <p class="text-center text-muted">No spam. Only releases, updates and discounts</p>
+            </div>
+            <div class="d-flex">
+                <form action="{% host_url 'home:subscribe' host 'www' %}" method="post" class="d-flex">
+                    {% csrf_token %}
+                    <input type="email" class="form-control" name="email" placeholder="Your email address">
+                    <button href="#" class="btn btn-secondary ml-2 aos-init aos-animate" data-aos="flip-left" data-aos-duration="800" data-aos-delay="150" type="submit">SUBSCRIBE
+                        </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
