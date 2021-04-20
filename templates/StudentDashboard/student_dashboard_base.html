@@ -87,7 +87,7 @@
 
 </head>
 
-<body class="">
+<body>
     <div class="preloader"></div>
 
     <!-- Header Layout -->
@@ -96,7 +96,7 @@
 
         <div id="header" class="mdk-header bg-dark js-mdk-header m-0" data-fixed data-effects="waterfall">
             <div class="mdk-header__content">
-                <div class="navbar navbar-expand-sm navbar-main navbar-dark bg-dark pl-md-0 pr-0" id="navbar" data-primary>
+                <div style="background-color: #fff;" class="navbar navbar-expand-sm navbar-main  pl-md-0 pr-0" id="navbar" data-primary>
                     <div class="container">
                         <!-- Navbar toggler -->
                         <button class="navbar-toggler navbar-toggler-custom d-lg-none d-flex mr-navbar" type="button" data-toggle="sidebar">
@@ -105,19 +105,19 @@
 
                         <div class="d-flex sidebar-account flex-shrink-0 mr-auto mr-lg-0">
                             <a href="#" class="flex d-flex align-items-center text-underline-0">
-                                <span class="mr-1 text-white">
+                                <span class="mr-1" style="color: #00b9ce;">
                     <!-- LOGO -->
                    
                   </span>
                                 <span class="flex d-flex flex-column text-white">
-                    <strong class="sidebar-brand">AssassinFx</strong>
+                    <strong class="sidebar-brand" style="color: #00b9ce;">AssassinFx</strong>
                   </span>
                             </a>
                         </div>
 
                         <ul class="ml-auto nav navbar-nav mr-2 d-none d-lg-flex">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Get Help</a>
+                                <a href="#" class="nav-link" style="color: #292929;">Get Help</a>
                             </li>
                         </ul>
 
@@ -130,10 +130,10 @@
 
 
                         <div class="dropdown">
-                            <a href="#account_menu" class="dropdown-toggle navbar-toggler navbar-toggler-dashboard border-left d-flex align-items-center ml-navbar" data-toggle="dropdown">
+                            <a href="#account_menu" class="dropdown-toggle navbar-toggler navbar-toggler-dashboard border-left d-flex align-items-center ml-navbar" data-toggle="dropdown" style="color: #00B9CE;">
                                 <img src="{{ request.user.profile.profilePicsImageURL }}" class="rounded-circle" width="32" alt="Frontted">
                                 <span class="ml-1 d-flex-inline">
-                                    <span class="text-light">{{ request.user.first_name }} {{ request.user.last_name }}.</span>
+                                    <span class="" style="color: #292929;">{{ request.user.first_name }} {{ request.user.last_name }}</span>
                                 </span>
                             </a>
                             <div id="company_menu" class="dropdown-menu dropdown-menu-right navbar-company-menu">
@@ -209,14 +209,13 @@
 
         </div>
         <!-- // END Header Layout Content -->
-        <div class="bg-dark text-white" id="footer">
+        <div class=" text-white" id="footer" style="background: rgb(10, 10, 10);">
             <div class="container page__container">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="" class="brand d-flex align-items-center mb-4">
-                            <span class="mr-2">
+                        <a href="" class="brand d-flex align-items-center mb-10"><span class="mr-2">
                                     <!-- LOGO -->
-                                   <h4>AssassinFx</h4>
+                                   <h4 style="color: #00b9ce;">AssassinFx</h4>
                                 </span>
 
                         </a>
@@ -264,13 +263,10 @@
 
                                 <div class="d-flex ">
 
-                                    <a href="" class="btn btn-facebook btn-rounded-social d-flex align-items-center justify-content-center mr-2"><i
-                                        class="fab fa-facebook"></i></a>
-                                    <a href="" class="btn btn-twitter btn-rounded-social d-flex align-items-center justify-content-center mr-2"><i
-                                        class="fab fa-twitter"></i></a>
-                                    <a href="" class="btn btn-secondary btn-rounded-social d-flex align-items-center justify-content-center mr-2"><i
-                                        class="fab fa-github"></i></a>
-
+                                    <a href="{{ instagram_url }}" target="_blank" style="border: none; background-color: #f00" class="btn btn-instagram btn-rounded-social d-flex align-items-center justify-content-center mr-2"><i
+                                        class="fab fa-instagram" style="color: #fff"></i></a>
+                                    <a class="btn btn-instagram btn-rounded-social d-flex align-items-center justify-content-center mr-2" style="background-color: #fff;" href="{{ tiktok_url }}" target="_blank"><img style="color: white; " height="15" src="{% static 'HomePage/svg/tiktok-brands.svg' %}" alt="">
+                                    </a>
                                 </div>
                             </div>
                         </div>

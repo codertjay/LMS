@@ -1,178 +1,153 @@
-{% extends 'StudentDashboard/student_dashboard_base.html' %}
-{% load hosts %}
+{% extends 'StudentDashboard/student_dashboard_base.html' %} {% load hosts %} {% block title %} Course Detail {{ course.title }} {% endblock %} {% block content %}
+<div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+    <div>
+        <h1 class="m-lg-0">{{ course.title|capfirst }}</h1>
+        <div class="d-inline-flex align-items-center">
+            <i class="material-icons icon-16pt mr-1 text-muted">access_time</i> {{ course.course_duration }} <small class="text-muted ml-1 mr-1"> </small>hrs
+            </small>
+            </small>/min /sec </small>
+        </div>
+    </div>
 
-{% block title %}
-    Course Detail {{ course.title }}
-{% endblock %}
-{% block content %}
-    <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
-        <div>
-            <h1 class="m-lg-0">{{ course.title|capfirst }}</h1>
-            <div class="d-inline-flex align-items-center">
-                <i class="material-icons icon-16pt mr-1 text-muted">access_time</i> {{ course.course_duration }} <small
-                    class="text-muted ml-1 mr-1"> </small>hrs
-                </small>
-                </small>/min /sec </small>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="embed-responsive embed-responsive-16by9">
+                {% if lesson %}
+                <video id="player" playsinline controls data-poster="{{ course.imageURL }}" width="500" height="500">
+                            <source src="{{ lesson.videoURL }}" type="video/mp4"/>
+                        </video> {% elif course.lesson_set.count == 0 %}
+                <video controls poster="{{ course.imageURL }}" width="500" height="500" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">
+                        </video>
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="text-center text-capitalize">This course has no lesson </h3>
+                    </div>
+
+
+                </div>
+                {% else %}
+                <video controls poster="{{ course.imageURL }}" width="500" height="500" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">
+                        </video>
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="text-center text-capitalize">
+                            Sorry your don't have access to view {% for item in course.allowed_memberships.all %} {{ item }}, {% endfor %} course's. please upgrade membership to view this course </h3>
+                        <p class="text-center  text-capitalize">
+                            click <a href="{% host_url 'memberships:membership_select' host 'www' %}">here</a> to upgrade
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="media align-items-center">
+                    <div class="media-left" style="display: inline-block;">
+                        <img style="border-radius: 50%; display: block;" src="{{ course.imageURL }}" alt="AssassinFx" width="50px">
+                    </div>
+                    <div class="media-body">
+                        <div class="card-title mb-0"><a href="{% host_url 'users:profile' username=course.user.username host 'www' %}" class="text-body"><strong>{{ course.user.first_name }}
+                                - {{ course.user.last_name }}</strong></a></div>
+                        <p class="text-muted mb-0">Instructor</p>
+                    </div>
+                    <div class="media-right">
+                        {% comment %} <a href="{{ facebook_url }}" class="btn btn-facebook btn-sm"><span class="material-icons">
+                                            facebook
+                                            </span></a>
+                        <a href="{{ twitter_url }}" class="btn btn-twitter btn-sm"><span class="material-icons">
+                                            twitter
+                                            </span></a>
+                        <a href="{{ discord_url }}" class="btn btn-twitter btn-sm"><span class="material-icons">
+                                            discord
+                                            </span></a>{% endcomment %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ course.user.profile.about }}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header card-header-large bg-light d-flex align-items-center">
+                <div class="flex">
+                    <h4 class="card-header__title">Course Description</h4>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <p>{{ course.description }}</p>
+
             </div>
         </div>
 
     </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="embed-responsive embed-responsive-16by9">
-                    {% if lesson %}
-                        <video id="player" playsinline controls data-poster="{{ course.imageURL }}" width="500"
-                               height="500">
-                            <source src="{{ lesson.videoURL }}" type="video/mp4"/>
-                        </video>
-                    {% elif course.lesson_set.count == 0 %}
-                        <video controls poster="{{ course.imageURL }}" width="500" height="500"
-                               data-toggle="popover" title="Popover Header"
-                               data-content="Some content inside the popover">
-                        </video>
-                        <div class="card">
-                            <div class="card-content">
-                                <h3 class="text-center text-capitalize">This course has no lesson </h3>
-                            </div>
 
 
-                        </div>
-                    {% else %}
-                        <video controls poster="{{ course.imageURL }}" width="500" height="500"
-                               data-toggle="popover" title="Popover Header"
-                               data-content="Some content inside the popover">
-                        </video>
-                        <div class="card">
-                            <div class="card-content">
-                                <h3 class="text-center text-capitalize">
-                                    Sorry your don't have access to view
-                                    {% for item in course.allowed_memberships.all %}
-                                        {{ item }},
-                                    {% endfor %}
-                                    course's.
-                                    please upgrade membership to view this
-                                    course </h3>
-                                <p class="text-center  text-capitalize">
-                                    click <a href="{% host_url 'memberships:membership_select' host 'www' %}">here</a>
-                                    to upgrade
-                                </p>
-                            </div>
-                        </div>
-                    {% endif %}
+    <div class="col-md-4">
 
-
+        <!-- Lessons -->
+        <div class="card">
+            <div class="card-header card-header-large bg-light d-flex align-items-center">
+                <div class="flex">
+                    <h4 class="card-header__title">Course Lessons</h4>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <div class="media align-items-center">
+            <ul class="list-group list-group-fit">
+                {% for item in course.lessons %}
+                <li style="background: #00b9ce; " class="list-group-item  {% if item == lesson %}active{% endif %} ">
+                    <div class="media">
                         <div class="media-left">
-                            <img src="{{ course.imageURL }}" alt="About Adrian" width="40"
-                                 class="rounded-circle">
+                            <div class="text-muted" style="color: #292929;">{{ forloop.counter }}</div>
                         </div>
                         <div class="media-body">
-                            <div class="card-title mb-0"><a
-                                    href="{% host_url 'users:profile' username=course.user.username host 'www' %}"
-                                    class="text-body"><strong>{{ course.user.first_name }}
-                                - {{ course.user.last_name }}</strong></a></div>
-                            <p class="text-muted mb-0">Instructor</p>
+                            <a style="text-decoration-color: none; color: #fff;" href="{% host_url 'course_detail' slug=item.course.slug host 'academy' %}">{{ item.title }}</a>
                         </div>
                         <div class="media-right">
-                            {% comment %} <a href="{{ facebook_url }}" class="btn btn-facebook btn-sm"><span class="material-icons">
-                                            facebook
-                                            </span></a>
-                            <a href="{{ twitter_url }}" class="btn btn-twitter btn-sm"><span class="material-icons">
-                                            twitter
-                                            </span></a>
-                            <a href="{{ discord_url }}" class="btn btn-twitter btn-sm"><span class="material-icons">
-                                            discord
-                                            </span></a>{% endcomment %}
-
+                            <small class="text-muted">{{ item.duration }}</small>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    {{ course.user.profile.about }}
-                </div>
-            </div>
+                </li>
+                {% endfor %}
 
-            <div class="card">
-                <div class="card-header card-header-large bg-light d-flex align-items-center">
-                    <div class="flex">
-                        <h4 class="card-header__title">Course Description</h4>
-                    </div>
-                </div>
-                <div class="card-body">
 
-                    <p>{{ course.description }}</p>
-
-                </div>
-            </div>
-
+            </ul>
         </div>
 
 
-        <div class="col-md-4">
-
-            <!-- Lessons -->
-            <div class="card">
-                <div class="card-header card-header-large bg-light d-flex align-items-center">
-                    <div class="flex">
-                        <h4 class="card-header__title">Course Lessons</h4>
-                    </div>
+        <div class="card ">
+            <div class="card-header card-header-large bg-light d-flex align-items-center">
+                <div class="flex">
+                    <h4 class="card-header__title">Related Courses</h4>
                 </div>
-
-                <ul class="list-group list-group-fit">
-                    {% for item in  course.lessons %}
-                        <li class="list-group-item  {% if item == lesson %}active{% endif %} ">
-                            <div class="media">
-                                <div class="media-left">
-                                    <div class="text-muted">{{ forloop.counter }}</div>
-                                </div>
-                                <div class="media-body">
-                                    <a href="{% host_url 'course_detail' slug=item.course.slug host 'academy' %}">{{ item.title }}</a>
-                                </div>
-                                <div class="media-right">
-                                    <small class="text-muted">{{ item.duration }}</small>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-
-
-                </ul>
             </div>
-
-
-            <div class="card ">
-                <div class="card-header card-header-large bg-light d-flex align-items-center">
-                    <div class="flex">
-                        <h4 class="card-header__title">Related Courses</h4>
+            <div class="card-body">
+                {% for item in course.related_courses %}
+                <div class="card card__course clear-shadow border">
+                    <div class=" d-flex justify-content-center">
+                        <a class="" href="#">
+                            <img src="{{ item.imageURL }}" style="width:100%" alt="...">
+                        </a>
                     </div>
-                </div>
-                <div class="card-body">
-                    {% for item in course.related_courses %}
-                        <div class="card card__course clear-shadow border">
-                            <div class=" d-flex justify-content-center">
-                                <a class="" href="#">
-                                    <img src="{{ item.imageURL }}"
-                                         style="width:100%" alt="...">
-                                </a>
-                            </div>
-                            <div class="p-3">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <a class="text-body mb-1"
-                                           href="{% host_url 'course_detail' item.slug host 'academy' %}">
+                    <div class="p-3">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <a class="text-body mb-1" href="{% host_url 'course_detail' item.slug host 'academy' %}">
                                             {% for memb in item.allowed_memberships.all %}
                                                 <strong>{{ memb.membership_type }}</strong>
                                             {% endfor %}
 
                                         </a><br>
-                                        <div class="d-flex align-items-center">
-                                                    <span class="text-blue mr-1">
+                                <div class="d-flex align-items-center">
+                                    <span class="text-blue mr-1">
                                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
                                                              xmlns:xlink="http://www.w3.org/1999/xlink"
                                                              viewBox="0 0 40 40" width="16" height="16"
@@ -185,18 +160,17 @@
                                                             </g>
                                                         </svg>
                                                     </span>
-                                            <a href="{% host_url 'course_detail' item.slug host 'academy' %}"
-                                               class="small">{{ item.title|capfirst }}</a>
-                                        </div>
-                                    </div>
+                                    <a href="{% host_url 'course_detail' item.slug host 'academy' %}" class="small">{{ item.title|capfirst }}</a>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-
+                    </div>
                 </div>
-            </div>
+                {% endfor %}
 
+            </div>
         </div>
+
     </div>
+</div>
 {% endblock content %}

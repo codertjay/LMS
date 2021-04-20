@@ -8928,7 +8928,7 @@ html {
 }
 
 [dir=ltr] .rounded-circle {
-    border-radius: 50% !important
+    border-radius: 50%
 }
 
 [dir=ltr] .rounded-pill {
@@ -12081,10 +12081,6 @@ html {
 
 [dir=ltr] .text-body {
     color: #353535 !important
-}
-
-[dir=ltr] .text-muted {
-    color: rgba(0, 0, 0, .54) !important
 }
 
 [dir=ltr] .text-black-50 {
