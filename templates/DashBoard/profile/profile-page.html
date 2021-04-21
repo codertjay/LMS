@@ -1,167 +1,152 @@
-{% extends 'DashBoard/dashboard_base.html' %}
-{% load hosts %}
-{% load static %} {% block title %} Public profile {% endblock %}
-{% block styles %} {% endblock %} {% block profile_page %} active {% endblock %} {% block content %}
-    <div data-push data-responsive-width="992px" class="mdk-drawer-layout js-mdk-drawer-layout"
-         style="padding: 0px !important;margin: 0px !important;">
-        <div class="mdk-drawer-layout__content page" style="padding: 0px !important;margin: 0px !important;">
+{% extends 'DashBoard/dashboard_base.html' %} {% load hosts %} {% load static %} {% block title %} Public profile {% endblock %} {% block styles %} {% endblock %} {% block profile_page %} active {% endblock %} {% block content %}
+<div data-push data-responsive-width="992px" class="mdk-drawer-layout js-mdk-drawer-layout" style="padding: 0px !important;margin: 0px !important;">
+    <div class="mdk-drawer-layout__content page" style="padding: 0px !important;margin: 0px !important;">
 
-            <div class="bg-primary mdk-box js-mdk-box mb-0" style="height: 192px;"
-                 data-effects="parallax-background blend-background"
-                 style="padding-top: 0px !important;margin-top: 0px !important;">
-                <div class="mdk-box__bg">
-                    <div class="mdk-box__bg-front" style="background-image:  {% if user.profile.backgroundImageURL %}
+        <div class="bg-primary mdk-box js-mdk-box mb-0" style="height: 192px;" data-effects="parallax-background blend-background" style="padding-top: 0px !important;margin-top: 0px !important;">
+            <div class="mdk-box__bg">
+                <div class="mdk-box__bg-front" style="background-image:  {% if user.profile.backgroundImageURL %}
                         url({{ user.profile.backgroundImageURL }});
                     {% else %}
                         url({% static 'dashboard/dashboard_base/assets/images/1280_rsz_aman-dhakal-205796-unsplash.jpg' %})
                     {% endif %}; background-position: center;"></div>
-                </div>
             </div>
-            <div class="container-fluid page__container d-flex align-items-end position-relative mb-4">
-                <div class="avatar avatar-xxl position-absolute bottom-0 left-0 right-0">
-                    {% if request.user == user %}
-                        <a href="{% url 'users:profile_edit' %}">
-                            <img src="{{ user.profile.profilePicsImageURL }}" alt="avatar"
-                                 class="avatar-img rounded-circle border-3"></a>
-                    {% else %}
-                        <img src="{{ user.profile.profilePicsImageURL }}" alt="avatar"
-                             class="avatar-img rounded-circle border-3"> {% endif %}
+        </div>
+        <div class="container-fluid page__container d-flex align-items-end position-relative mb-4">
+            <div class="avatar avatar-xxl position-absolute bottom-0 left-0 right-0">
+                {% if request.user == user %}
+                <a href="{% url 'users:profile_edit' %}">
+                    <img src="{{ user.profile.profilePicsImageURL }}" alt="avatar" class="avatar-img rounded-circle border-3"></a>
+                {% else %}
+                <img src="{{ user.profile.profilePicsImageURL }}" alt="avatar" class="avatar-img rounded-circle border-3"> {% endif %}
 
-                </div>
-                <ul class="nav nav-tabs-links flex" style="margin-left: 265px;">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active">Profile</a>
-                    </li>
-                </ul>
             </div>
+            <ul class="nav nav-tabs-links flex" style="margin-left: 265px;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">Profile</a>
+                </li>
+            </ul>
+        </div>
 
-            <div class="container-fluid  mb-3">
-                <div class="row">
-                    <div class="col">
-                        <div class="">
-                            <h4 class="align-items-center  mb-1 text-dark">{{ user.first_name }}
-                                - {{ user.last_name }}</h4>
-                            <div class=" d-flex text-muted" style="font-size: 20px; justify-content: center;">
+        <div class="container-fluid  mb-3">
+            <div class="row">
+                <div class="col">
+                    <div class="">
+                        <h4 style="text-align: center;" class="align-items-center  mb-1 text-dark">{{ user.first_name }} - {{ user.last_name }}</h4>
+                        <div class=" d-flex text-muted" style="font-size: 20px; justify-content: center;">
                             <span class=" pt-4 " style="color: #292929"> <i class="fa fa-user  pl-3"
                                                                             style="color: #00b9ce; padding: 0 5px;"></i>
                                     {{ user.profile.user_type }}
                                     Date joined <i class="fa fa-clock-o "
                                                    style="color: #00b9ce; padding: 0 5px;"></i>{{ user.profile.timestamp }}</span>
-                            </div>
-                        </div>
-                        <br>
-                        <h3 class="text-dark mt-5 text-center text-decoration-underline">About me</h3>
-                        <div class="d-flex justify-content-lg-center">
-                            <p class="text-black-70" style="width: 60%;">{{ user.profile.about }}.</p>
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-                <ul class="nav nav-pills">
-                    <li>
-                        <a data-toggle="pill" href="#forum_question" class="active">
-                            <h3 class=" text-decoration-underline ml-5" style="padding-left: 20px">
-                                Forum Question's </h3>
-                        </a>
-                    </li>
-                    {% if user_course %}
-                        <li>
-                            <a data-toggle="pill" href="#created_course">
-                                <h3 class=" text-decoration-underline" style="padding-left: 40px">
-                                    Created Course
-                                </h3>
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-
-                <div class="tab-content">
-                    <div id="forum_question" class="tab-pane fade  active show">
-                        <div class="row">
-                            <h2 class="lead">Forum Questions</h2>
-                            {% for item in user_forums %}
-                                <div class="col-md-8 col-sm-10 ml-2 ">
-                                    <div class="card  ">
-                                        <div class="card-body">
-                                            <div class="card-body d-flex mb-1">
-                                                <div class="avatar avatar-sm mr-3">
-                                                    <a href="{% comment %}{% host_url 'forum_detail' item.id host 'academy' %}{% endcomment %}"> <img
-                                                            src="{{ user.profile.profilePicsImageURL }}" alt="Avatar"
-                                                            class="avatar-img rounded-circle"></a>
-                                                </div>
-                                                <div class="flex">
-                                                    <div class="d-flex align-items-center mb-1">
-                                                        <strong class="text-15pt">{{ item.user.first_name }}</strong>
-                                                        <small class="ml-auto text-muted">{{ item.timestamp|timesince }} </small>
-                                                    </div>
-                                                    <div>
-                                                        <a href="{% comment %}{% host_url 'forum_detail' item.id host 'acedemy' %}{% endcomment %}">
-                                                            <div>{{ item.get_markdown|truncatewords:10 }}
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {% if item.forum_answers %} {% for item_answer in item.forum_answers %}
-                                                <div class="card ml-3 p-2 ">
-                                                    <div class="d-flex justify-content-between align-content-between">
-                                                        <div class="card-image">
-                                                            <a href="{% url 'users:profile' item_answer.user.username %}">
-                                                                <img src="{{ item_answer.user.profile.profilePicsImageURL }}"
-                                                                     alt="{{ item_answer.user.username }}" width="50"
-                                                                     style="border-radius: 50%"></a>
-                                                        </div>
-                                                        <div class="card-body text-dark p-3">
-                                                            <p>{{ item_answer.get_markdown|truncatewords:20 }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class=" text-info">
-                                                        {{ item_answer.user.first_name }} {{ item_answer.user.last_name }}
-                                                    </div>
-                                                </div>
-                                            {% endfor %} {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
                         </div>
                     </div>
-
-
-                    <div id="created_course" class="tab-pane fade">
-                        <div class="row">
-                            {% if user_course %}
-                                <h3 class="text-capitalize">Created Course</h3>
-                                {% for item in user_course %}
-                                    <div class="col-md-4 ">
-                                        <div class="card " style="width: 400px">
-                                            <div class="card-image">
-                                                <a href="{{ item.get_absolute_url }}"> <img src="{{ item.imageURL }}"
-                                                                                            alt=""
-                                                                                            style="object-fit: contain; height: 200px;width: 100%;"></a>
-                                            </div>
-                                            <div class="card-content" style="padding: 20px;">
-                                                <p class="lead "> {{ item.description|truncatewords:10 }}</p>
-                                                <a href="{{ item.get_absolute_url }}">
-                                                    <h4 class="text-capitalize">{{ item.title }}</h4>
-                                                </a>
-                                            </div>
-                                            <div class="card-footer">
-                                                <i class="fa fa-clock-o"></i>{{ item.timestamp|timesince }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endfor %} {% endif %}
-                        </div>
+                    <br>
+                    <h3 class="text-dark mt-5 text-center text-decoration-underline">About me</h3>
+                    <div class="d-flex justify-content-lg-center">
+                        <p class="text-black-70" style="width: 60%;">{{ user.profile.about }}.</p>
                     </div>
+
                 </div>
 
 
             </div>
+
+            <ul class="nav nav-pills">
+                <li>
+                    <a data-toggle="pill" href="#forum_question" class="active">
+                        <h3 class=" text-decoration-underline ml-5" style="padding-left: 20px">
+                            Forum Question's </h3>
+                    </a>
+                </li>
+                {% if user_course %}
+                <li>
+                    <a data-toggle="pill" href="#created_course">
+                        <h3 class=" text-decoration-underline" style="padding-left: 40px">
+                            Created Course
+                        </h3>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <div class="tab-content">
+                <div id="forum_question" class="tab-pane fade  active show">
+                    <div class="row">
+                        <h2 class="lead">Forum Questions</h2>
+                        {% for item in user_forums %}
+                        <div class="col-md-8 col-sm-10 ml-2 ">
+                            <div class="card  ">
+                                <div class="card-body">
+                                    <div class="card-body d-flex mb-1">
+                                        <div class="avatar avatar-sm mr-3">
+                                            <a href="{% comment %}{% host_url 'forum_detail' item.id host 'academy' %}{% endcomment %}"> <img src="{{ user.profile.profilePicsImageURL }}" alt="Avatar" class="avatar-img rounded-circle"></a>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="d-flex align-items-center mb-1">
+                                                <strong class="text-15pt">{{ item.user.first_name }}</strong>
+                                                <small class="ml-auto text-muted">{{ item.timestamp|timesince }} </small>
+                                            </div>
+                                            <div>
+                                                <a href="{% comment %}{% host_url 'forum_detail' item.id host 'acedemy' %}{% endcomment %}">
+                                                    <div>{{ item.get_markdown|truncatewords:10 }}
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% if item.forum_answers %} {% for item_answer in item.forum_answers %}
+                                    <div class="card ml-3 p-2 ">
+                                        <div class="d-flex justify-content-between align-content-between">
+                                            <div class="card-image">
+                                                <a href="{% url 'users:profile' item_answer.user.username %}">
+                                                    <img src="{{ item_answer.user.profile.profilePicsImageURL }}" alt="{{ item_answer.user.username }}" width="50" style="border-radius: 50%"></a>
+                                            </div>
+                                            <div class="card-body text-dark p-3">
+                                                <p>{{ item_answer.get_markdown|truncatewords:20 }}</p>
+                                            </div>
+                                        </div>
+                                        <div class=" text-info">
+                                            {{ item_answer.user.first_name }} {{ item_answer.user.last_name }}
+                                        </div>
+                                    </div>
+                                    {% endfor %} {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                <div id="created_course" class="tab-pane fade">
+                    <div class="row">
+                        {% if user_course %}
+                        <h3 class="text-capitalize">Created Course</h3>
+                        {% for item in user_course %}
+                        <div class="col-md-4 ">
+                            <div class="card " style="width: 400px">
+                                <div class="card-image">
+                                    <a href="{{ item.get_absolute_url }}"> <img src="{{ item.imageURL }}" alt="" style="object-fit: contain; height: 200px;width: 100%;"></a>
+                                </div>
+                                <div class="card-content" style="padding: 20px;">
+                                    <p class="lead "> {{ item.description|truncatewords:10 }}</p>
+                                    <a href="{{ item.get_absolute_url }}">
+                                        <h4 class="text-capitalize">{{ item.title }}</h4>
+                                    </a>
+                                </div>
+                                <div class="card-footer">
+                                    <i class="fa fa-clock-o"></i>{{ item.timestamp|timesince }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %} {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
+</div>
 {% endblock %} {% block script %} {% endblock %}

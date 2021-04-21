@@ -1,15 +1,15 @@
 {% extends 'StudentDashboard/student_dashboard_base.html' %} {% load hosts %} {% load static %} {% block banner %}
 <div class="home-banner text-white mb-4" style="overflow: hidden;">
-    <video autoplay loop muted style="width: 100%; height: 100%; object-fit: cover; display: inline-block;">
+    <video autoplay loop muted style="width: 100%; height: 100%; object-fit: cover; display: inline-block; ">
         <source src="{% static 'StudentDashboard/assets/images/4_6035048389459053179.mp4' %}" type="video/mp4"/>
     </video>
 
 </div>
 <div class="container page__container">
     </p>
-    <div style="display: flex; align-items: center; justify-content: center;" data-aos="fade-down" data-aos-duration="400" data-aos-delay="400" data-offset="-100" class="aos-init aos-animate">
+    <div class="buttonh" data-aos="fade-down" data-aos-duration="400" data-aos-delay="400" data-offset="-100" class="aos-init aos-animate">
         {% for item in memberships %}
-        <a href="{% host_url 'course_type' course_type=item.slug host 'academy' %}" style="margin: 0 5px; border: 2px solid #00b9ce; background: none; color: #292929" class="btn btnhover
+        <a href="{% host_url 'course_type' course_type=item.slug host 'academy' %}" style="margin: 0 2px; border: 2px solid #00b9ce; padding: 5px; border-radius: 5px;  background: none; color: #292929" class="
                         {% if item.slug == 'Beginner' %} btn-dark
                         {% elif item.slug == 'Intermediate' %} btn-dark
                         {% else %}
@@ -29,7 +29,7 @@
         <div class="d-lg-flex">
             <div class="search-form mb-3 mr-3-lg search-form--light col-sm-11 col-md-8 col-lg-6">
                 <input type="text" name="search" class="form-control" placeholder="Search courses" id="searchSample02" style="height: 40px;background-color:rgb(255,255,255)">
-                <button class="btn btn-primary" type="submit"><i class="material-icons">search</i></button>
+                <button style="border-radius: 5px; outline: none; background: none; border: 1px solid #00b9ce; color: #333; " class="" type="submit"><i class="material-icons">search</i></button>
             </div>
 
             <div class="form-inline  mb-3 ml-auto" style='display: flex; align-items: center; justify-content: center;'>
@@ -126,7 +126,7 @@
                 <h4 class="text-center  bold mb-1" style="color: #00B9CE;">Sign up and get notifications </h4>
                 <p class="text-center text-muted">No spam. Only releases, updates and discounts</p>
             </div>
-            <div class="d-flex">
+            <div style="display: flex; align-items: center; justify-content: center">
                 <form action="{% host_url 'home:subscribe' host 'www' %}" method="post" class="d-flex">
                     {% csrf_token %}
                     <input type="email" class="form-control" name="email" placeholder="Your email address">

@@ -1,5 +1,4 @@
-{% load static %}
-{% load hosts %}
+{% load static %} {% load hosts %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -15,22 +14,19 @@
 
 
     <!-- Perfect Scrollbar -->
-    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/vendor/perfect-scrollbar.css' %}"
-          rel="stylesheet">
+    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/vendor/perfect-scrollbar.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'stripe_assets/css/bootstrap.min.css' %}" rel="stylesheet">
 
 
     <!-- Material Design Icons -->
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/material-icons.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/material-icons.rtl.css' %}"
-          rel="stylesheet">
+    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/material-icons.rtl.css' %}" rel="stylesheet">
 
 
     <!-- Font Awesome Icons -->
 
     <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.css' %}" rel="stylesheet">
-    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.rtl.css' %}"
-          rel="stylesheet">
+    <link type="text/css" href="{% static 'dashboard/dashboard_base/assets/css/fontawesome.rtl.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'HomePage/css/all.css' %}" rel="stylesheet">
 
     <!-- App CSS -->
@@ -42,11 +38,11 @@
             color: white !important;
             box-shadow: 10px 10px 5px rgba(0, 0, 0, .075) !important;
         }
-
+        
         .card {
             box-shadow: 10px 10px 5px rgba(0, 0, 0, .075) !important;
         }
-
+        
         .bg-primary {
             background-color: #0bc2ef !important;
         }
@@ -56,178 +52,162 @@
 </head>
 
 <body class=" layout-fluid" style="font-family: Mont-Book;">
-<div class="preloader">
-    <div class="sk-double-bounce">
-        <div class="sk-child sk-double-bounce1"></div>
-        <div class="sk-child sk-double-bounce2"></div>
-    </div>
-</div>
-
-<!-- Header Layout -->
-<div class="mdk-header-layout js-mdk-header-layout">
-
-    <!-- Header -->
-
-    <div id="header" data-fixed class="mdk-header js-mdk-header mb-0">
-        <div class="mdk-header__content">
-
-            <!-- Navbar -->
-            <nav id="default-navbar" class="navbar navbar-expand navbar-dark bg-primary m-0">
-                <div class="container-fluid">
-                    <!-- Toggle sidebar -->
-                    <button class="navbar-toggler d-block" data-toggle="sidebar" type="button">
-                        <span class="material-icons">menu</span>
-                    </button>
-
-                    <!-- Brand -->
-                    <a href="{% url 'home:home' %}" class="navbar-brand">
-                        <img src="{% static 'dashboard/dashboard_base/assets/images/logo/white.svg' %}" class="mr-2"
-                             alt="AssasinFx"/>
-                        <span class="d-none d-xs-md-block"><h2 class="text-light">AssasinFx</h2></span>
-                    </a>
-
-                    <!-- Search -->
-                    <form class="search-form d-none d-md-flex" action="{% host_url 'course_list' host 'academy' %}"
-                          method="get">
-                        <input type="text" class="form-control" name="search" placeholder="Search">
-                        <button class="btn" type="button"><i class="fa fa-search font-size-24pt"></i></button>
-                    </form>
-                    <!-- // END Search -->
-
-                    <!-- // END Search -->
-
-                    <div class="flex"></div>
-
-
-                    <!-- Menu -->
-                    <ul class="nav navbar-nav flex-nowrap">
-
-
-                        <!-- User dropdown -->
-                        <li class="nav-item dropdown ml-1 ml-md-3">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                                <img src="{{ request.user.profile.profilePicsImageURL }}" alt="Avatar"
-                                     class="rounded-circle" width="50" style="max-height: 50px"></a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="{% url 'users:profile_edit'   %}">
-                                    <i class="fa fa-edit"></i> Edit Account
-                                </a>
-                                <a class="dropdown-item"
-                                   href="{% url 'users:profile' request.user.username %}">
-                                    <i class="fa fa-person-sign"></i> View Profile
-                                </a>
-                                <a class="dropdown-item" href="{% url 'account_logout' %}">
-                                    <i class="fa fa-lock"></i> Logout
-                                </a>
-                            </div>
-                        </li>
-                        <!-- // END User dropdown -->
-
-
-                    </ul>
-                    <!-- // END Menu -->
-                </div>
-            </nav>
-            <!-- // END Navbar -->
-
+    <div class="preloader">
+        <div class="sk-double-bounce">
+            <div class="sk-child sk-double-bounce1"></div>
+            <div class="sk-child sk-double-bounce2"></div>
         </div>
     </div>
 
+    <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
 
-    <!-- // END Header -->
+        <!-- Header -->
 
-    <!-- Header Layout Content -->
-    <div class="mdk-header-layout__content" style="background-color: #f8f4f4">
+        <div id="header" data-fixed class="mdk-header js-mdk-header mb-0">
+            <div class="mdk-header__content">
 
-        <div data-push data-responsive-width="992px" class="mdk-drawer-layout js-mdk-drawer-layout">
-            <div class="mdk-drawer-layout__content page ">
-                {% if messages %} {% for message in messages %}
+                <!-- Navbar -->
+                <nav id="default-navbar" class="navbar navbar-expand navbar-dark bg-primary m-0">
+                    <div class="container-fluid">
+                        <!-- Toggle sidebar -->
+                        <button class="navbar-toggler d-block" data-toggle="sidebar" type="button">
+                        <span class="material-icons">menu</span>
+                    </button>
+
+                        <!-- Brand -->
+                        <a href="{% url 'home:home' %}" class="navbar-brand">
+                            <img src="{% static 'dashboard/dashboard_base/assets/images/logo/white.svg' %}" class="mr-2" alt="AssasinFx" />
+                            <span class="d-none d-xs-md-block"><h2 class="text-light">AssasinFx</h2></span>
+                        </a>
+
+                        <!-- Search -->
+                        <form class="search-form d-none d-md-flex" action="{% host_url 'course_list' host 'academy' %}" method="get">
+                            <input type="text" class="form-control" name="search" placeholder="Search">
+                            <button class="btn" type="button"><i class="fa fa-search font-size-24pt"></i></button>
+                        </form>
+                        <!-- // END Search -->
+
+                        <!-- // END Search -->
+
+                        <div class="flex"></div>
+
+
+                        <!-- Menu -->
+                        <ul class="nav navbar-nav flex-nowrap">
+
+
+                            <!-- User dropdown -->
+                            <li class="nav-item dropdown ml-1 ml-md-3">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                    <img src="{{ request.user.profile.profilePicsImageURL }}" alt="Avatar" class="rounded-circle" width="50" style="max-height: 50px"></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="{% url 'users:profile_edit'   %}">
+                                        <i class="fa fa-edit"></i> Edit Account
+                                    </a>
+                                    <a class="dropdown-item" href="{% url 'users:profile' request.user.username %}">
+                                        <i class="fa fa-person-sign"></i> View Profile
+                                    </a>
+                                    <a class="dropdown-item" href="{% url 'account_logout' %}">
+                                        <i class="fa fa-lock"></i> Logout
+                                    </a>
+                                </div>
+                            </li>
+                            <!-- // END User dropdown -->
+
+
+                        </ul>
+                        <!-- // END Menu -->
+                    </div>
+                </nav>
+                <!-- // END Navbar -->
+
+            </div>
+        </div>
+
+
+        <!-- // END Header -->
+
+        <!-- Header Layout Content -->
+        <div class="mdk-header-layout__content" style="background-color: #f8f4f4">
+
+            <div data-push data-responsive-width="992px" class="mdk-drawer-layout js-mdk-drawer-layout">
+                <div class="mdk-drawer-layout__content page ">
+                    {% if messages %} {% for message in messages %}
                     <div class="alert alert-{{ message.tags }} alert-dismissible fade show p-3" role="alert">
                         {{ message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                {% endfor %} {% endif %} {% block content %} {% endblock content %}
-            </div>
+                    {% endfor %} {% endif %} {% block content %} {% endblock content %}
+                </div>
 
 
-            <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
-                <div class="mdk-drawer__content ">
-                    <div class="sidebar sidebar-left sidebar-dark bg-dark o-hidden" data-perfect-scrollbar>
-                        <div class="sidebar-p-y">
-                            <div class="sidebar-heading">APPLICATIONS</div>
-                            <ul class="sidebar-menu sm-active-button-bg">
-                                {% if request.user.is_authenticated %}
+                <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
+                    <div class="mdk-drawer__content ">
+                        <div class="sidebar sidebar-left sidebar-dark bg-dark o-hidden" data-perfect-scrollbar>
+                            <div class="sidebar-p-y">
+                                <div class="sidebar-heading">APPLICATIONS</div>
+                                <ul class="sidebar-menu sm-active-button-bg">
+                                    {% if request.user.is_authenticated %}
 
                                     <li class="sidebar-menu-item  {% block profile_page %}  {% endblock %}  ">
-                                        <a class="sidebar-menu-button"
-                                           href="{% url 'users:profile' request.user.username %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fa fa-person-carry"></i>
-                                            Profile
+                                        <a class="sidebar-menu-button" href="{% url 'users:profile' request.user.username %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fa fa-person-carry"></i> Profile
                                         </a>
                                     </li>
 
-                                    {% if request.user.profile.user_type == 'Instructor' %}
-                                        {% if request.user.is_superuser %}
-                                            <li class="sidebar-menu-item ">
+                                    {% if request.user.profile.user_type == 'Instructor' %} {% if request.user.is_superuser %}
+                                    <li class="sidebar-menu-item ">
 
-                                                <a class="sidebar-menu-button"
-                                                   href="{% url 'users:instructor_dashboard' %}">
-                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-chalkboard-teacher"></i>
-                                                    Instructor Dashboard
-                                                </a>
+                                        <a class="sidebar-menu-button" href="{% url 'users:instructor_dashboard' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-chalkboard-teacher"></i> Instructor Dashboard
+                                        </a>
 
-                                                <a class="sidebar-menu-button"
-                                                   href="{% url 'copy_trade:copy_trade_dashboard' %}">
-                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left  fas  fa-copy"></i>
-                                                    Copy Trade
-                                                </a>
-                                                <a class="sidebar-menu-button" href="{% url 'coupon:coupon' %}">
-                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left  fas  fa-copy"></i>Coupon
-                                                </a>
+                                        <a class="sidebar-menu-button" href="{% url 'copy_trade:copy_trade_dashboard' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fas  fa-copy"></i> Copy Trade
+                                        </a>
+                                        <a class="sidebar-menu-button" href="{% url 'coupon:coupon' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fas  fa-copy"></i>Coupon
+                                        </a>
 
 
-                                            </li>
-                                            <li class="sidebar-menu-item ">
+                                    </li>
+                                    <li class="sidebar-menu-item ">
 
-                                                <a class="sidebar-menu-button" href="{% url 'blog:blog_create' %}">
-                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-newspaper"></i>
-                                                    Create Article
-                                                </a>
-                                            </li>
-                                            <li class="sidebar-menu-item ">
+                                        <a class="sidebar-menu-button" href="{% url 'blog:blog_create' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-newspaper"></i> Create Article
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item ">
 
-                                                <a class="sidebar-menu-button"
-                                                   href="{% url 'home:testimonial_create' %}">
-                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-hands-heart"></i>
-                                                    Add Testimonial
-                                                </a>
-                                            </li>
+                                        <a class="sidebar-menu-button" href="{% url 'home:testimonial_create' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-hands-heart"></i> Add Testimonial
+                                        </a>
+                                    </li>
 
-                                            <li class="sidebar-menu-item ">
-                                                <a class="sidebar-menu-button" href="{% url 'courses:create_course' %}">
-                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-video-slash  "></i>
-                                                    Create Course
-                                                </a>
-                                            </li>
-                                            <li class="sidebar-menu-item ">
-                                                <a class="sidebar-menu-button" href="{% url 'courses:create_lesson' %}">
-                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-folder-plus   "></i>
-                                                    Add Lesson
-                                                </a>
-                                            </li>
-                                        {% endif %} {% endif %} {% endif %}
-                            </ul>
-                            <div class="sidebar-heading pt-2 pb-2">Academy</div>
-                            <ul class="sidebar-menu sm-active-button-bg">
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="{% host_url 'course_list' host 'academy' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-school"></i> Academy
-                                    </a>
-                                </li>
-                                <div class="sidebar-heading pt-2 pb-2">Account</div>
-                                {% if not request.user.is_authenticated %}
+                                    <li class="sidebar-menu-item ">
+                                        <a class="sidebar-menu-button" href="{% url 'courses:create_course' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left  fas fa-video-slash  "></i> Create Course
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item ">
+                                        <a class="sidebar-menu-button" href="{% url 'courses:create_lesson' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-folder-plus   "></i> Add Lesson
+                                        </a>
+                                    </li>
+                                    {% endif %} {% endif %} {% endif %}
+                                </ul>
+                                <div class="sidebar-heading pt-2 pb-2">Academy</div>
+                                <ul class="sidebar-menu sm-active-button-bg">
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="{% host_url 'course_list' host 'academy' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-school"></i> Academy
+                                        </a>
+                                    </li>
+                                    <div class="sidebar-heading pt-2 pb-2">Account</div>
+                                    {% if not request.user.is_authenticated %}
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button" href="{% url 'account_login' %}">
                                             <span class="sidebar-menu-text">Login</span>
@@ -238,87 +218,83 @@
                                             <span class="sidebar-menu-text">Sign Up</span>
                                         </a>
                                     </li>
-                                {% endif %}
+                                    {% endif %}
 
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button"
-                                       href="{% url 'users:profile_edit' %}">
-                                     <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-user-edit"></i>Edit
-                                        Account
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="{% url 'memberships:membership_select' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-arrow-circle-up"></i>
-                                        Upgrade Academy
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="{% url 'memberships:profile' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-subscript"></i>  Subscription
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="sidebar-heading"></div>
-                            <ul class="sidebar-menu sm-active-button-bg">
-                                {% if request.user.is_authenticated %}
                                     <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button" href="{% url 'account_logout' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-lock-open"></i>
-                                            Logout
+                                        <a class="sidebar-menu-button" href="{% url 'users:profile_edit' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-user-edit"></i>Edit Account
                                         </a>
                                     </li>
-                                {% endif %}
-                            </ul>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="{% url 'memberships:membership_select' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fas fa-arrow-circle-up"></i> Upgrade Academy
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="{% url 'memberships:profile' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-subscript"></i> Subscription
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="sidebar-heading"></div>
+                                <ul class="sidebar-menu sm-active-button-bg">
+                                    {% if request.user.is_authenticated %}
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button" href="{% url 'account_logout' %}">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-lock-open"></i> Logout
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
+
         </div>
-
-
     </div>
-</div>
 
 
-<!-- jQuery -->
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/jquery.min.js' %}"></script>
+    <!-- jQuery -->
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/jquery.min.js' %}"></script>
 
-<!-- Bootstrap -->
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/popper.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/popper.min.js' %}"></script>
 
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/bootstrap.min.js' %}"></script>
-<script src="{% static 'stripe_assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'stripe_assets/js/bootstrap.min.js' %}"></script>
 
-<!-- Perfect Scrollbar -->
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/perfect-scrollbar.min.js' %}"></script>
-
-
-<!-- MDK -->
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/dom-factory.js' %}"></script>
-<script src="{% static 'dashboard/dashboard_base/assets/vendor/material-design-kit.js' %}"></script>
+    <!-- Perfect Scrollbar -->
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/perfect-scrollbar.min.js' %}"></script>
 
 
-<!-- App JS -->
-<script src="{% static 'dashboard/dashboard_base/assets/js/app.js' %}"></script>
+    <!-- MDK -->
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/dom-factory.js' %}"></script>
+    <script src="{% static 'dashboard/dashboard_base/assets/vendor/material-design-kit.js' %}"></script>
 
 
-<!-- Highlight.js -->
-<script src="{% static 'dashboard/dashboard_base/assets/js/hljs.js' %}"></script>
+    <!-- App JS -->
+    <script src="{% static 'dashboard/dashboard_base/assets/js/app.js' %}"></script>
 
-{% block script %} {% endblock script %}
-<script type="text/javascript">
-    function googleTranslateElementInit () {
-        new google.translate.TranslateElement ({
-            pageLanguage: 'en'
-        } , 'google_translate_element');
-    }
-</script>
 
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-</script>
+    <!-- Highlight.js -->
+    <script src="{% static 'dashboard/dashboard_base/assets/js/hljs.js' %}"></script>
+
+    {% block script %} {% endblock script %}
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en'
+            }, 'google_translate_element');
+        }
+    </script>
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
 </body>
 
 </html>

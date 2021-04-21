@@ -16,6 +16,7 @@
 
     <!-- Font Awesome Icons -->
     <link type="text/css" href="{% static 'HomePage/css/all.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'HomePage/css/style.css' %}">
 
     <!-- Perfect Scrollbar -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -87,7 +88,7 @@
 
 </head>
 
-<body>
+<body style="font-family:{% static 'HomePage/fonts/best_stories/BestStories.otf' %} ">
     <div class="preloader"></div>
 
     <!-- Header Layout -->
@@ -110,7 +111,30 @@
                    
                   </span>
                                 <span class="flex d-flex flex-column text-white">
-                    <strong class="sidebar-brand" style="color: #00b9ce;">AssassinFx</strong>
+                    <strong class="sidebar-brand" style="color: #00b9ce;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="157" height="50" viewBox="0 0 157 75">
+                            <defs>
+                                <style>
+                                    @font-face {
+                                        src: url("{% static 'HomePage/fonts/best_stories/BestStories.otf' %}");
+                                        font-family: font1;
+                                    }
+
+                                    .cls-1 {
+                                        font-family: handwritting;
+                                    }
+                                </style>
+                            </defs>
+                            <g id="Group_2" data-name="Group 2" transform="translate(-465 -289)">
+                                <g id="Group_1" data-name="Group 1">
+                                    <text id="AssassinFx_" data-name="AssassinFx " class="cls-1"
+                                        transform="translate(466 331)">
+                                        <tspan x="0" y="0" class="l1">AssassinFx</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                        </svg>
+                    </strong>
                   </span>
                             </a>
                         </div>
@@ -167,9 +191,7 @@
                 <div class="container page__container">
                     <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="{% host_url 'home:home' host 'www' %}" class="nav-link">AssassinFx</a>
-                            </li>
+
                             <li class="nav-item">
                                 <a href="{% host_url 'course_list' host 'academy' %}" class="nav-link">Courses</a>
                             </li>
@@ -213,11 +235,29 @@
             <div class="container page__container">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="" class="brand d-flex align-items-center mb-10"><span class="mr-2">
-                                    <!-- LOGO -->
-                                   <h4 style="color: #00b9ce;">AssassinFx</h4>
-                                </span>
+                        <a href="" class="brand d-flex align-items-center mb-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="157" height="50" viewBox="0 0 157 75">
+                                <defs>
+                                    <style>
+                                        @font-face {
+                                            src: url("{% static 'HomePage/fonts/best_stories/BestStories.otf' %}");
+                                            font-family: font1;
+                                        }
 
+                                        .cls-1 {
+                                            font-family: handwritting;
+                                        }
+                                    </style>
+                                </defs>
+                                <g id="Group_2" data-name="Group 2" transform="translate(-465 -289)">
+                                    <g id="Group_1" data-name="Group 1">
+                                        <text id="AssassinFx_" data-name="AssassinFx " class="cls-1"
+                                            transform="translate(466 331)">
+                                            <tspan x="0" y="0" class="l1">AssassinFx</tspan>
+                                        </text>
+                                    </g>
+                                </g>
+                            </svg>
                         </a>
                     </div>
                     <div class="col-md-9">

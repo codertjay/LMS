@@ -9007,6 +9007,12 @@ html {
     }
 }
 
+[dir=ltr] .buttonh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (min-width: 768px) {
     [dir=ltr] .d-md-none {
         display: none !important
