@@ -52,12 +52,13 @@
                         <ul class="navbar-nav ml-auto">
                             <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
                             <li><a href="{% host_url 'course_list' host 'academy' %}">Academy Portal</a></li>
-                            <li><a href="{% url 'home:price' %}">Pricing</a></li>
-                            <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
-                            <li><a href="{% url 'home:terms_and_condition' %}">Terms</a></li>
                             {% if request.user.is_authenticated %}
                             <li><a href="{% url 'memberships:profile' %}">My Subscription</a></li>
                             {% endif %}
+                            <li><a href="{% url 'home:price' %}">Pricing</a></li>
+                            <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
+                            <li><a href="{% url 'home:terms_and_condition' %}">Terms</a></li>
+
                             <li>
                                 <a id="google_translate_element"></a>
                             </li>
