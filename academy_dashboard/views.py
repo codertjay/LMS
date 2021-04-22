@@ -9,6 +9,7 @@ from django.views.generic.base import View
 from django_hosts.resolvers import reverse as host_reverse
 
 from courses.models import Course, Lesson
+from home_page.forms import SubscribeForm
 from memberships.models import UserMembership, Membership
 
 
@@ -46,6 +47,16 @@ class CourseListView(LoginRequiredMixin, ListView):
         user_membership = UserMembership.objects.get_user_memberships(self.request.user)
         context['user_membership'] = user_membership.memberships.all()
         return context
+
+
+def academy_subscribe_view(request):
+    form = SubscribeForm(request.POST)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'You have successfully subscribed')
+    return redirect(host_reverse('course_list', host='academy'))
+
+
 
 
 class StudentCourseTypeView(LoginRequiredMixin, ListView):

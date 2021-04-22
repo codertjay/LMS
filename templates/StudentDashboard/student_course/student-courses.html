@@ -1,140 +1,171 @@
 {% extends 'StudentDashboard/student_dashboard_base.html' %} {% load hosts %} {% load static %} {% block banner %}
-<div class="home-banner text-white mb-4" style="overflow: hidden;">
-    <video autoplay loop muted style="width: 100%; height: 100%; object-fit: cover; display: inline-block; ">
-        <source src="{% static 'StudentDashboard/assets/images/4_6035048389459053179.mp4' %}" type="video/mp4"/>
-    </video>
-
-</div>
-<div class="container page__container">
-    </p>
-    <div class="buttonh" data-aos="fade-down" data-aos-duration="400" data-aos-delay="400" data-offset="-100" class="aos-init aos-animate">
-        {% for item in memberships %}
-        <a href="{% host_url 'course_type' course_type=item.slug host 'academy' %}" style="margin: 0 2px; border: 2px solid #00b9ce; padding: 5px; border-radius: 5px;  background: none; color: #292929" class="
-                        {% if item.slug == 'Beginner' %} btn-dark
-                        {% elif item.slug == 'Intermediate' %} btn-dark
-                        {% else %}
-                        btn-dark
-                         {% endif %}
-                       py-2">{{ item.membership_type }}</a> {% endfor %}
+    <div class="home-banner text-white mb-4" style="overflow: hidden;">
+        <video autoplay loop muted style="width: 100%; height: 100%; object-fit: cover; display: inline-block; ">
+            <source src="{% static 'StudentDashboard/assets/images/4_6035048389459053179.mp4' %}" type="video/mp4"/>
+        </video>
 
     </div>
-</div>
-{% endblock %} {% block content %}
-<div class="page__heading d-flex align-items-center justify-content-between">
-    <h1 class="m-0"></h1>
-</div>
+    <div class="container page__container">
+        </p>
+        <div class="buttonh" data-aos="fade-down" data-aos-duration="400" data-aos-delay="400" data-offset="-100"
+             class="aos-init aos-animate">
 
-<section>
-    <form action="{% host_url 'course_list' host 'academy' %}" class="">
-        <div class="d-lg-flex">
-            <div class="search-form mb-3 mr-3-lg search-form--light col-sm-11 col-md-8 col-lg-6">
-                <input type="text" name="search" class="form-control" placeholder="Search courses" id="searchSample02" style="height: 40px;background-color:rgb(255,255,255)">
-                <button style="border-radius: 5px; outline: none; background: none; border: 1px solid #00b9ce; color: #333; " class="" type="submit"><i class="material-icons">search</i></button>
-            </div>
+            {% if Beginner_membership %}
+                <a href="{% host_url 'course_type' course_type=Beginner_membership.slug host 'academy' %}"
+                   style="margin: 0 2px; border: 2px solid #00b9ce; padding: 5px; border-radius: 5px;  background: none; color: #292929"
+                   class="btn-dark py-2">{{ Beginner_membership.membership_type }}</a>
+            {% endif %}
 
-            <div class="form-inline  mb-3 ml-auto" style='display: flex; align-items: center; justify-content: center;'>
-                <div class="form-group mr-3">
-                    <label for="custom-select" class="form-label mr-1" style="margin: 0 2px;">Language</label> {% for item in course_language %}
-                    <a style="border: none; background: #00b9ce; color: #eee; font-weight: 300; box-shadow: 0, 0, 5, rgb(0,0,0,.1); margin: 0 2px;" href="{% host_url 'course_list' host 'academy' %}?course_language={{ item|first }}" class="btn  px-1">{{ item|first }}</a>                    {% endfor%}
-                </div>
+            {% if Intermediate_membership %}
+                <a href="{% host_url 'course_type' course_type=Intermediate_membership.slug host 'academy' %}"
+                   style="margin: 0 2px; border: 2px solid #00b9ce; padding: 5px; border-radius: 5px;  background: none; color: #292929"
+                   class="btn-dark py-2">{{ Intermediate_membership.membership_type }}</a>
+            {% endif %}
 
-            </div>
+            {% if  Advanced_membership %}
+                <a href="{% host_url 'course_type' course_type=Advanced_membership.slug host 'academy' %}"
+                   style="margin: 0 2px; border: 2px solid #00b9ce; padding: 5px; border-radius: 5px;  background: none; color: #292929"
+                   class="btn-dark py-2">{{ Advanced_membership.membership_type }}</a>
+            {% endif %}
+
+            {% if Ninja_membership %}
+                <a href="{% host_url 'course_type' course_type=Ninja_membership.slug host 'academy' %}"
+                   style="margin: 0 2px; border: 2px solid #00b9ce; padding: 5px; border-radius: 5px;  background: none; color: #292929"
+                   class="btn-dark py-2">{{ Ninja_membership.membership_type }}</a>
+            {% endif %}
+
+
+
         </div>
+    </div>
+{% endblock %} {% block content %}
+    <div class="page__heading d-flex align-items-center justify-content-between">
+        <h1 class="m-0"></h1>
+    </div>
 
-    </form>
-</section>
-
-<section>
-    <div class="row">
-        {% for course in object_list %}
-        <div class="col-md-3">
-            <div class="card card__course">
-                <div style="background: rgb(10, 10, 10);" class="card-header card-header-large card-header-dark d-flex justify-content-center">
-                    <a class="card-header__title  justify-content-center align-self-center d-flex flex-column" href="{% host_url 'course_detail' course.slug host 'academy' %}">
-                        <span><img src="{{ course.imageURL }}" class="mb-1" style="width:34px;"
-                                           alt="logo"></span> {% for item in course.allowed_memberships.all %}
-                        <span class="course__title">{{ item.slug }}</span> {% endfor %} {% for item in course.allowed_memberships.all %} {% if item in user_membership %}
-                        <span class="course__subtitle">{{ course.title }}</span> {% elif item not in user_membership %}
-                        <span class="material-icons">lock</span> {% endif %} {% endfor %}
-                    </a>
+    <section>
+        <form action="{% host_url 'course_list' host 'academy' %}" class="">
+            <div class="d-lg-flex">
+                <div class="search-form mb-3 mr-3-lg search-form--light col-sm-11 col-md-8 col-lg-6">
+                    <input type="text" name="search" class="form-control" placeholder="Search courses"
+                           id="searchSample02" style="height: 40px;background-color:rgb(255,255,255)">
+                    <button style="border-radius: 5px; outline: none; background: none; border: 1px solid #00b9ce; color: #333; "
+                            class="" type="submit"><i class="material-icons">search</i></button>
                 </div>
-                <div class="p-3">
 
-                    <div class="d-flex align-items-center">
+                <div class="form-inline  mb-3 ml-auto"
+                     style='display: flex; align-items: center; justify-content: center;'>
+                    <div class="form-group mr-3">
+                        <label for="custom-select" class="form-label mr-1" style="margin: 0 2px;">Language</label>
+                        {% for item in course_language %}
+                            <a style="border: none; background: #00b9ce; color: #eee; font-weight: 300; box-shadow: 0, 0, 5, rgb(0,0,0,.1); margin: 0 2px;"
+                               href="{% host_url 'course_list' host 'academy' %}?course_language={{ item|first }}"
+                               class="btn  px-1">{{ item|first }}</a>                    {% endfor %}
+                    </div>
 
-                        <a class="text-center" href="{% host_url 'course_detail' course.slug host 'academy' %}">
+                </div>
+            </div>
+
+        </form>
+    </section>
+
+    <section>
+        <div class="row">
+            {% for course in object_list %}
+                <div class="col-md-3">
+                    <div class="card card__course">
+                        <div style="background: rgb(10, 10, 10);"
+                             class="card-header card-header-large card-header-dark d-flex justify-content-center">
+                            <a class="card-header__title  justify-content-center align-self-center d-flex flex-column"
+                               href="{% host_url 'course_detail' course.slug host 'academy' %}">
+                        <span><img src="{{ course.imageURL }}" class="mb-1" style="width:34px;"
+                                   alt="logo"></span> {% for item in course.allowed_memberships.all %}
+                                <span class="course__title">{{ item.slug }}</span> {% endfor %}
+                                {% for item in course.allowed_memberships.all %} {% if item in user_membership %}
+                                    <span class="course__subtitle">{{ course.title }}</span>
+                                {% elif item not in user_membership %}
+                                    <span class="material-icons">lock</span> {% endif %} {% endfor %}
+                            </a>
+                        </div>
+                        <div class="p-3">
+
+                            <div class="d-flex align-items-center">
+
+                                <a class="text-center" href="{% host_url 'course_detail' course.slug host 'academy' %}">
                             <span class="pull-right float-right text-info  pt-1 "><span class="material-icons">
                                                 remove_red_eye
                                                 </span> {{ course.view_count }} </span>
-                        </a>
+                                </a>
 
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    <div class="row align-content-center justify-content-center">
-        <ul class="pagination justify-content-center pagination-sm">
-            <div class="d-flex justify-content-center">
-                <nav aria-label="...">
-                    {% if is_paginated %}
+        <div class="row align-content-center justify-content-center">
+            <ul class="pagination justify-content-center pagination-sm">
+                <div class="d-flex justify-content-center">
+                    <nav aria-label="...">
+                        {% if is_paginated %}
 
-                    <ul class="pagination">
-                        {% if page_obj.has_previous %}
-                        <li class="page-item pr-2 fa-2x ">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
-                        </li>
-                        {% else %}
-                        <li class="page-item disabled  pr-2  fa-2x">
-                            <span class="page-link"><i class="fa fa-chevron-left"></i></span>
-                        </li>
-                        {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
-                        <li class="page-item active " aria-current="page">
-                            <span class="page-link">{{ i }} </span>
-                        </li>
-                        {% else %}
-                        <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                        </li>
-                        {% endif %} {% endfor %} {% if page_obj.has_next %}
-                        <li class="page-item pl-2  fa-2x">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item pr-2 fa-2x ">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                                           tabindex="-1" aria-disabled="true"><i class="fa fa-chevron-left"></i></a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled  pr-2  fa-2x">
+                                        <span class="page-link"><i class="fa fa-chevron-left"></i></span>
+                                    </li>
+                                {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                                <li class="page-item active " aria-current="page">
+                                    <span class="page-link">{{ i }} </span>
+                                </li>
+                            {% else %}
+                                <li class=" page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endif %} {% endfor %} {% if page_obj.has_next %}
+                                <li class="page-item pl-2  fa-2x">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
                                             class="fa fa-chevron-right"></i></a>
-                        </li>
-                        {% else %}
-                        <li class="page-item disabled pl-2  fa-2x">
-                            <span class="page-link"><i class="fa fa-chevron-right"></i></span>
-                        </li>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled pl-2  fa-2x">
+                                    <span class="page-link"><i class="fa fa-chevron-right"></i></span>
+                                </li>
 
+                            {% endif %}
+                            </ul>
                         {% endif %}
-                    </ul>
-                    {% endif %}
-                </nav>
-            </div>
+                    </nav>
+                </div>
 
-        </ul>
-    </div>
-</section>
+            </ul>
+        </div>
+    </section>
 
 {% endblock %} {% block mailing_list %}
 
-<div class="bg-soft-primary card-body mb-4" id="subscribe">
-    <div class="row p-4">
-        <div class="col-md-6 offset-md-3">
-            <div class="mb-4">
+    <div class="bg-soft-primary card-body mb-4" id="subscribe">
+        <div class="row p-4">
+            <div class="col-md-6 offset-md-3">
+                <div class="mb-4">
 
-                <h4 class="text-center  bold mb-1" style="color: #00B9CE;">Sign up and get notifications </h4>
-                <p class="text-center text-muted">No spam. Only releases, updates and discounts</p>
-            </div>
-            <div style="display: flex; align-items: center; justify-content: center">
-                <form action="{% host_url 'home:subscribe' host 'www' %}" method="post" class="d-flex">
-                    {% csrf_token %}
-                    <input type="email" class="form-control" name="email" placeholder="Your email address">
-                    <button href="#" class="btn btn-secondary ml-2 aos-init aos-animate" data-aos="flip-left" data-aos-duration="800" data-aos-delay="150" type="submit">SUBSCRIBE
+                    <h4 class="text-center  bold mb-1" style="color: #00B9CE;">Sign up and get notifications </h4>
+                    <p class="text-center text-muted">No spam. Only releases, updates and discounts</p>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center">
+                    <form action="{% host_url 'academy_subscribe_view' host 'academy' %}" method="post" class="d-flex">
+                        {% csrf_token %}
+                        <input type="email" class="form-control" name="email" placeholder="Your email address">
+                        <button href="#" class="btn btn-secondary ml-2 aos-init aos-animate" data-aos="flip-left"
+                                data-aos-duration="800" data-aos-delay="150" type="submit">SUBSCRIBE
                         </button>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
