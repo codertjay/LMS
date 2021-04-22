@@ -12,7 +12,7 @@ from django.views import View
 
 from courses.models import RecentCourses, Course
 from academy_forum.models import ForumQuestion
-from memberships.utils import  get_user_membership
+from memberships.utils import get_user_membership
 from signal_app.models import UserSignalSubscription, deactivate_signals
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
@@ -114,22 +114,24 @@ def contactAdminView(request):
 
 @login_required()
 def public_profile_view(request, username):
-    user_qs = User.objects.filter(username=username)
-    if user_qs:
-        user = user_qs.first()
-        user_forums = ForumQuestion.objects.filter(user=user)
-        recent_course_q = RecentCourses.objects.filter(user=user).first()
-        recent_course_qs = recent_course_q.courses.all()
-        user_course = Course.objects.filter(user=user)
-        context = {
-            'user': user,
-            'user_forums': user_forums,
-            'recent_course_qs': recent_course_qs,
-            'user_course': user_course,
-        }
+    user_qs = User.objects.filter(username=username).first()
+    try:
+        if user_qs:
+            user = user_qs
+            user_forums = ForumQuestion.objects.filter(user=user)
+            recent_course_q = RecentCourses.objects.filter(user=user).first()
+            recent_course_qs = recent_course_q.courses.all()
+            user_course = Course.objects.filter(user=user)
+            context = {
+                'user': user,
+                'user_forums': user_forums,
+                'recent_course_qs': recent_course_qs,
+                'user_course': user_course,
+            }
         return render(request, 'Dashboard/profile/profile-page.html', context)
-    messages.info(request, 'This user profile page does not exist')
-    return HttpResponseRedirect(request.META.get('HTTP_REFER'))
+    except:
+        messages.info(request, 'This user profile page does not exist')
+        return HttpResponseRedirect(request.META.get('HTTP_REFER'))
 
 
 class UserProfileUpdate(LoginRequiredMixin, View):
