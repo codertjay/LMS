@@ -127,6 +127,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     position = models.IntegerField()
     video = models.FileField(upload_to='video')
+    video_response = models.CharField(max_length=300)
     thumbnail = models.ImageField(upload_to='lesson_thumbnail', default='lesson_thumbnail/thumbnail.jpg')
     timestamp = models.DateTimeField(auto_now_add=True)
 

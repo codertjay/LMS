@@ -4,6 +4,7 @@ from decouple import config, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse_lazy
+import vimeo
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -256,3 +257,9 @@ SESSION_COOKIE_NAME = 'assassinfxsessionid'
 CSRF_COOKIE_DOMAIN = '.' + DOMAIN_NAME
 
 # CSRF_USE_SESSIONS = True
+
+VIMEO_AUTHENTICATE = vimeo.VimeoClient(
+    token="9a2f1f3bd634449745680af71052d1e3",
+    key="19c6d96a4a45af44348ef9516002f11f93ec0290",
+    secret="brfCb290lRxOGM0fFAHu1NATjxiDsClBHEVd6Sa1l8Sa1Jpm4PEDmCkC+51T5dRkJtXVT6efhDVp894ZMTUqcgQ5XBYtLxHZHPzNl4+LmFuYFkmk8ThPXzkOucAqXlFN"
+)
