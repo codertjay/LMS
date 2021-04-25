@@ -15,10 +15,9 @@ from memberships.utils import get_user_membership
 from signal_app.models import UserSignalSubscription, deactivate_signals
 from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
+from django.contrib.auth.models import User
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER_SENDGRID
-
-User = settings.AUTH_USER_MODEL
 
 
 class StudentDashBoardView(LoginRequiredMixin, View):
@@ -113,41 +112,41 @@ def contactAdminView(request):
     return redirect('home:home')
 
 
-# @login_required()
-# def public_profile_view(request, username):
-#     user_qs = User.objects.filter(username=username).first()
-#     try:
-#         if user_qs:
-#             # user = user_qs
-#             # user_forums = ForumQuestion.objects.filter(user=user)
-#             # recent_course_q = RecentCourses.objects.filter(user=user).first()
-#             # recent_course_qs = recent_course_q.courses.all()
-#             # user_course = Course.objects.filter(user=user)
-#             context = {
-#                 # 'user': user,
-#                 # 'user_forums': user_forums,
-#                 # 'recent_course_qs': recent_course_qs,
-#                 # 'user_course': user_course,
-#             }
-#         return render(request, 'Dashboard/profile/profile-page.html', context)
-#     except:
-#         messages.info(request, 'This user profile page does not exist')
-#         return HttpResponseRedirect(request.META.get('HTTP_REFER'))
-
-
 @login_required()
 def public_profile_view(request, username):
-    user = User.objects.filter(username=username).first()
-    # if user:
-    #     # user_forum = ForumQuestion.objects.filter(user=user)
-    #     # context = {
-    #     #     'user_forum': user_forum,
-    #     #     'user': user,
-    #     # }
-    #     return render(request, 'Dashboard/profile/profile-page.html', context)
-    return render(request, 'Dashboard/profile/profile-page.html')
-    # else:
-    #     return redirect('home:home')
+    user_qs = User.objects.filter(username=username).first()
+    try:
+        if user_qs:
+            user = user_qs
+            user_forums = ForumQuestion.objects.filter(user=user)
+            recent_course_q = RecentCourses.objects.filter(user=user).first()
+            recent_course_qs = recent_course_q.courses.all()
+            user_course = Course.objects.filter(user=user)
+            context = {
+                'user': user,
+                'user_forums': user_forums,
+                'recent_course_qs': recent_course_qs,
+                'user_course': user_course,
+            }
+        return render(request, 'Dashboard/profile/profile-page.html', context)
+    except:
+        messages.info(request, 'This user profile page does not exist')
+        return HttpResponseRedirect(request.META.get('HTTP_REFER'))
+
+#
+# @login_required()
+# def public_profile_view(request, username):
+#     user = User.objects.filter(username=username).first()
+#     # if user:
+#     #     # user_forum = ForumQuestion.objects.filter(user=user)
+#     #     # context = {
+#     #     #     'user_forum': user_forum,
+#     #     #     'user': user,
+#     #     # }
+#     #     return render(request, 'Dashboard/profile/profile-page.html', context)
+#     return render(request, 'Dashboard/profile/profile-page.html')
+#     # else:
+#     #     return redirect('home:home')
 
 
 class UserProfileUpdate(LoginRequiredMixin, View):
