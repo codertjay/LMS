@@ -221,6 +221,7 @@ def post_save_video(sender, instance, *args, **kwargs):
                         video_uri=instance.video_uri,
                         filename=instance.video.path
                     )
+                    VIMEO_AUTHENTICATE.patch(video_uri, data={'name': instance.title})
                 print('successful', video_uri)
                 instance.video_uri = video_uri
                 instance.video = None

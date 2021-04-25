@@ -128,9 +128,6 @@ class LessonDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
     context_object_name = 'lesson'
     template_name = 'DashBoard/instructor/instructor-course-delete.html'
 
-    def get_success_url(self):
-        return redirect('courses:create_course')
-
     def delete(self, request, *args, **kwargs):
         """
         Call the delete() method on the fetched object and then redirect to the
@@ -139,7 +136,7 @@ class LessonDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         success_url = self.get_success_url()
 
-        print('the delete object',self.object)
+        print('the delete object', self.object)
         self.object.delete()
         video_uri = self.object.video_uri
         try:
@@ -147,4 +144,4 @@ class LessonDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
             print('The video was deleted', video_uri)
         except Exception as a:
             print(a)
-        return HttpResponseRedirect(success_url)
+        return redirect('courses:create_lesson')
