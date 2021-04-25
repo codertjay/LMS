@@ -136,7 +136,7 @@ def contactAdminView(request):
 
 @login_required()
 def public_profile_view(request, username):
-    user = User.objects.filter(username=username).first()
+    # user = User.objects.filter(username=username).first()
     # if user:
     #     # user_forum = ForumQuestion.objects.filter(user=user)
     #     # context = {
