@@ -1,3 +1,5 @@
+from time import sleep
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -6,8 +8,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView
 from django.views.generic.base import View
+from django_hosts.resolvers import reverse as host_reverse
 
-from courses.forms import CourseCreateEditForm, LessonCreateEditForm
+from Learning_platform.settings import VIMEO_AUTHENTICATE
+from courses.forms import CourseCreateEditForm, LessonCreateEditForm, LessonEditForm
 from courses.models import Course, Lesson
 from home_page.mixins import InstructorAndLoginRequiredMixin
 
@@ -20,6 +24,12 @@ def get_course_membership_type(course_allowed_mem_types):
     else:
         membership_type = 'Free'
     return membership_type
+
+
+def check_path_exist(path_exist):
+    if not path_exist:
+        sleep(15)
+        return True
 
 
 class CourseCreateView(InstructorAndLoginRequiredMixin, View):
@@ -78,14 +88,13 @@ class LessonCreateView(InstructorAndLoginRequiredMixin, View):
         return render(self.request, 'DashBoard/instructor/instructor-lesson-add.html', {'form': form, 'course': course})
 
     def post(self, *args, **kwargs):
+        global video_uri
         form = LessonCreateEditForm(self.request.POST, self.request.FILES or None)
-        form.image = self.request.FILES.get('image')
-        form.video = self.request.FILES.get('video')
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = self.request.user
             instance.save()
-            messages.success(self.request, 'Course has being deleted')
+            messages.success(self.request, 'Successfully created Lesson')
             return HttpResponseRedirect(instance.get_absolute_url())
         else:
             messages.error(self.request, 'invalid form data')
@@ -95,8 +104,13 @@ class LessonCreateView(InstructorAndLoginRequiredMixin, View):
 @login_required
 def lesson_update_view(request, slug=None):
     instance = get_object_or_404(Lesson, slug=slug)
-    form = LessonCreateEditForm(request.POST or None, request.FILES or None, instance=instance)
+    form = LessonEditForm(request.POST or None, request.FILES or None, instance=instance)
     course = Course.objects.filter(user=request.user)
+    video_file = request.POST.get('video')
+    if video_file:
+        video_uri = VIMEO_AUTHENTICATE.replace(video_uri=instance.video_uri, filename=video_file)
+        if video_uri:
+            instance.video_uri = video_uri
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
@@ -115,5 +129,22 @@ class LessonDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
     template_name = 'DashBoard/instructor/instructor-course-delete.html'
 
     def get_success_url(self):
-        return redirect('courses:list')
+        return redirect('courses:create_course')
 
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+
+        print('the delete object',self.object)
+        self.object.delete()
+        video_uri = self.object.video_uri
+        try:
+            video_uri = VIMEO_AUTHENTICATE.delete(video_uri)
+            print('The video was deleted', video_uri)
+        except Exception as a:
+            print(a)
+        return HttpResponseRedirect(success_url)

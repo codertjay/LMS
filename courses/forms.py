@@ -27,7 +27,20 @@ class LessonCreateEditForm(forms.ModelForm):
     thumbnail = forms.ImageField(required=True, validators=[FileTypeValidator(
         allowed_types=['image/*']
     )])
+    video = forms.FileField(required=True, validators=[FileTypeValidator(
+        allowed_types=['video/*']
+    )])
 
+    class Meta:
+        model = Lesson
+        fields = [
+            'title', 'thumbnail', 'course', 'position', 'video',
+        ]
+
+class LessonEditForm(forms.ModelForm):
+    thumbnail = forms.ImageField(required=True, validators=[FileTypeValidator(
+        allowed_types=['image/*']
+    )])
     class Meta:
         model = Lesson
         fields = [

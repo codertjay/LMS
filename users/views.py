@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -18,6 +17,8 @@ from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
 from users.models import Profile, Contact
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER_SENDGRID
+
+User = settings.AUTH_USER_MODEL
 
 
 class StudentDashBoardView(LoginRequiredMixin, View):
@@ -137,15 +138,16 @@ def contactAdminView(request):
 @login_required()
 def public_profile_view(request, username):
     user = User.objects.filter(username=username).first()
-    if user:
-        user_forum = ForumQuestion.objects.filter(user=user)
-        context = {
-            'user_forum': user_forum,
-            'user': user,
-        }
-        return render(request, 'Dashboard/profile/profile-page.html', context)
-    else:
-        return redirect('home:home')
+    # if user:
+    #     # user_forum = ForumQuestion.objects.filter(user=user)
+    #     # context = {
+    #     #     'user_forum': user_forum,
+    #     #     'user': user,
+    #     # }
+    #     return render(request, 'Dashboard/profile/profile-page.html', context)
+    return render(request, 'Dashboard/profile/profile-page.html')
+    # else:
+    #     return redirect('home:home')
 
 
 class UserProfileUpdate(LoginRequiredMixin, View):

@@ -1,15 +1,19 @@
+import os
 from datetime import timedelta
+from os import path
+from time import sleep
 
-from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save, pre_save
-from django.urls import reverse
 from django.utils.text import slugify
+from django_hosts.resolvers import reverse as host_reverse
 from moviepy.editor import VideoFileClip
 
+from Learning_platform.settings import VIMEO_AUTHENTICATE
 from memberships.models import Membership
-from django.contrib.auth.models import User
-from django_hosts.resolvers import reverse as host_reverse
+import datetime
+
 
 def convert(n):
     return str(timedelta(seconds=n))
@@ -30,7 +34,6 @@ Courselanguage = (
 )
 
 
-
 class CourseManager(models.Manager):
     pass
 
@@ -49,7 +52,7 @@ class Course(models.Model):
     objects = CourseManager()
 
     def get_absolute_url(self):
-        return host_reverse('course_detail', args=(self.slug,), host='academy',)
+        return host_reverse('course_detail', args=(self.slug,), host='academy', )
 
     class Meta:
         ordering = ['-id']
@@ -66,10 +69,6 @@ class Course(models.Model):
         return self.title
 
     @property
-    def course_tag(self):
-        return CourseTag
-
-    @property
     def related_courses(self):
         course_list = Course.objects.filter(title=self.title)[:4]
         print('the course list', course_list)
@@ -84,8 +83,9 @@ class Course(models.Model):
         duration = 0
         try:
             for item in self.lessons:
-                if item.video:
-                    duration += video_clip_duration(item.video.path)
+                if item.duration:
+                    # duration += video_clip_duration(item.video.path)
+                    duration += VIMEO_AUTHENTICATE.get(item.video_uri).json().get('duration')
                     print('this is the duration of the video', duration)
             print('this is the course duration of the video', duration)
         except:
@@ -126,8 +126,8 @@ class Lesson(models.Model):
     title = models.CharField(max_length=120)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     position = models.IntegerField()
-    video = models.FileField(upload_to='video')
-    video_response = models.CharField(max_length=300)
+    video = models.FileField(blank=True, null=True, upload_to='video', )
+    video_uri = models.CharField(max_length=300)
     thumbnail = models.ImageField(upload_to='lesson_thumbnail', default='lesson_thumbnail/thumbnail.jpg')
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -145,27 +145,40 @@ class Lesson(models.Model):
     @property
     def videoURL(self):
         try:
-            video = self.video.url
+            video_response = VIMEO_AUTHENTICATE.get(self.video_uri)
+            if video_response:
+                video = video_response.json().get('link')
+        except:
+            video = None
+        return video
+
+    @property
+    def video_iframe(self):
+        try:
+            video_response = VIMEO_AUTHENTICATE.get(self.video_uri)
+            print('the video response', video_response)
+            video = video_response.json().get("embed").get("html")
+            print(video)
         except:
             video = None
         return video
 
     @property
     def duration(self):
+        global duration
         try:
             # Todo: change this to url when you try to push the project
-            duration = video_clip_duration(self.video.path)
+            # duration = video_clip_duration(self.videoURL)
+            duration_response = VIMEO_AUTHENTICATE.get(self.video_uri)
+            if duration_response:
+                duration = duration_response.json().get('duration')
         except:
             duration = 0
         print('the duration of the video ', duration)
         return convert(duration)
 
     def get_absolute_url(self):
-        return reverse('courses:lesson_detail',
-                       kwargs={
-                           'course_slug': self.course.slug,
-                           'lesson_slug': self.slug
-                       })
+        return host_reverse('lesson_detail', args=(self.course.slug, self.slug,), host='academy')
 
 
 def create_lesson_slug(instance, new_slug=None):
@@ -185,6 +198,39 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_receiver, sender=Lesson)
+
+
+def post_save_video(sender, instance, *args, **kwargs):
+    if instance.video:
+        video_path = instance.video.path
+        path_exist = path.exists(video_path)
+        print('the path exist', path_exist)
+        print('the path ', video_path)
+        while not path_exist:
+            sleep(15)
+        try:
+            if path_exist:
+                video_uri = None
+                if not instance.video_uri:
+                    video_uri = VIMEO_AUTHENTICATE.upload(
+                        video_path,
+                        data={'download': False, "name": instance.title}
+                    )
+                elif instance.video_uri:
+                    video_uri = VIMEO_AUTHENTICATE.replace(
+                        video_uri=instance.video_uri,
+                        filename=instance.video.path
+                    )
+                print('successful', video_uri)
+                instance.video_uri = video_uri
+                instance.video = None
+                instance.save()
+                os.remove(video_path)
+        except Exception as a:
+            print(a)
+
+
+post_save.connect(post_save_video, sender=Lesson)
 
 
 class CourseMessages(models.Model):
