@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="media-body">
                                     <a style="text-decoration-color: none; color: #fff;"
-                                       href="{% host_url 'course_detail' slug=item.course.slug host 'academy' %}">{{ item.title }}</a>
+                                       href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                                 </div>
                                 <div class="media-right">
                                     <small class="text-muted">{{ item.duration }}</small>

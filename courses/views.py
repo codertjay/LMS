@@ -126,7 +126,7 @@ class LessonDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
     model = Lesson
     success_url = '/'
     context_object_name = 'lesson'
-    template_name = 'DashBoard/instructor/instructor-course-delete.html'
+    template_name = 'DashBoard/instructor/instructor-lesson-delete.html'
 
     def delete(self, request, *args, **kwargs):
         """
