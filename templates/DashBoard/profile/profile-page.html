@@ -1,4 +1,3 @@
-{% comment %}
 {% extends 'DashBoard/dashboard_base.html' %} {% load hosts %} {% load static %} {% block title %} Public
     profile {% endblock %} {% block styles %} {% endblock %} {% block profile_page %} active {% endblock %}
 {% block content %}
@@ -100,7 +99,7 @@
                                                             <small class="ml-auto text-muted">{{ item.timestamp|timesince }} </small>
                                                         </div>
                                                         <div>
-                                                            <a href="{% host_url 'forum_detail' item.id host 'acedemy' %}">
+                                                            <a href="{% host_url 'forum_detail' item.id host 'academy' %}">
                                                                 <div>{{ item.get_markdown|truncatewords:10 }}
                                                                 </div>
                                                             </a>
@@ -167,4 +166,4 @@
             </div>
         </div>
     </div>
-{% endblock %} {% block script %} {% endblock %}{% endcomment %}
+{% endblock %} {% block script %} {% endblock %}
