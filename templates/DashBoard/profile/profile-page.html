@@ -90,9 +90,9 @@
                                             <div class="card-body">
                                                 <div class="card-body d-flex mb-1">
                                                     <div class="avatar avatar-sm mr-3">
-                                                        <a href="{% host_url 'forum_detail' item.id host 'academy' %}">
+                                                    {% comment %}    <a href="{% host_url 'forum_detail' item.id host 'academy' %}">
                                                             <img src="{{ user.profile.profilePicsImageURL }}"
-                                                                 alt="Avatar" class="avatar-img rounded-circle"></a>
+                                                                 alt="Avatar" class="avatar-img rounded-circle"></a>{% endcomment %}
                                                     </div>
                                                     <div class="flex">
                                                         <div class="d-flex align-items-center mb-1">
@@ -100,10 +100,10 @@
                                                             <small class="ml-auto text-muted">{{ item.timestamp|timesince }} </small>
                                                         </div>
                                                         <div>
-                                                            <a href="{% host_url 'forum_detail' item.id host 'academy' %}">
+                                                           {% comment %} <a href="{% host_url 'forum_detail' item.id host 'academy' %}">
                                                                 <div>{{ item.get_markdown|truncatewords:10 }}
                                                                 </div>
-                                                            </a>
+                                                            </a>{% endcomment %}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -167,4 +167,6 @@
             </div>
         </div>
     </div>
-{% endblock %} {% block script %} {% endblock %}
+{% endblock %}
+{% block script %}
+{% endblock %}
