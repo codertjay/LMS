@@ -116,19 +116,19 @@ def contactAdminView(request):
 def public_profile_view(request, username):
     user_qs = User.objects.filter(username=username).first()
     if user_qs:
-        user = user_qs
-        user_forums = ForumQuestion.objects.filter(user=user)
-        recent_course_q = RecentCourses.objects.filter(user=user).first()
-        recent_course_qs = recent_course_q.courses.all()
-        user_course = Course.objects.filter(user=user)
-        context = {
-            'user': user,
-            'user_forums': user_forums,
-            'recent_course_qs': recent_course_qs,
-            'user_course': user_course,
-        }
+        # user = user_qs
+        # user_forums = ForumQuestion.objects.filter(user=user)
+        # recent_course_q = RecentCourses.objects.filter(user=user).first()
+        # recent_course_qs = recent_course_q.courses.all()
+        # user_course = Course.objects.filter(user=user)
+        # context = {
+        #     'user': user,
+        #     'user_forums': user_forums,
+        #     'recent_course_qs': recent_course_qs,
+        #     'user_course': user_course,
+        # }
         # return render(request, 'Dashboard/profile/profile-page.html', context)
-        return render(request, 'Dashboard/profile/profile-page-test.html', context)
+        return render(request, 'Dashboard/profile/profile-page-test.html')
     else:
         messages.info(request, f"{user_qs}")
         return redirect("memberships:profile")
