@@ -21,14 +21,14 @@
                             <tbody>
                                 <tr>
                                     <td class="bg-white">
-                                        {% comment %}
-                                        <div class="gurannte-box"><img src="{% static 'dashboard/dashboard_base/assets/images/gurantee-img.png' %}" alt="">
-                                            <h4>100% No-Risk Guarantee</h4>
-                                            <p>if you are not fully satisfied, request to cancel within 7 days of your purchase and receive a full refund.</p>
-                                        </div>{% endcomment %}
+
+                                        <div class="gurannte-box">
+                                            <h4>Subscriptions</h4>
+                                            <!-- <p></p> -->
+                                        </div>
                                     </td>
 
-                                    <td class="bg-lightblue">
+                                    <!-- <td class="bg-lightblue">
                                         <div class="card-subs">
                                             <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
                                             <h4>Forex Academy</h4>
@@ -36,7 +36,7 @@
                                             </div>
                                             <p>(One time payment)</p>
                                             <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
-                                    </td>
+                                    </td> -->
 
                                     <td class="bg-darkblue">
                                         <div class="card-subs">
@@ -66,71 +66,71 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-content">
+                        <table class="table table-content" style="width: 100%;">
                             <tbody>
                                 <tr>
-                                    <td>Number of Guaranteed Trading Alerts Weekly</td>
-                                    <td><span class="txtb">none</span></td>
+                                    <td></td>
+                                    <!-- <td><span class="txtb">none</span></td> -->
                                     <td><span class="txtb">5</span></td>
                                     <td><span class="txtb">5</span></td>
                                 </tr>
                                 <tr>
                                     <td>Signals currencies, US30 and Nas 100</td>
-                                    <td><span class="txtb">none</span></td>
+                                    <!-- <td><span class="txtb">none</span></td> -->
                                     <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>5 - 15 Signals per week</td>
-                                    <td><span class="txtb">none</span></td>
+                                    <!-- <td><span class="txtb">none</span></td> -->
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Month-to-Month Income Generation</td>
-                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
+                                    <!-- <td><span class="txtb"><i class="fal fa-check"></i></span></td> -->
                                     <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Comprehensive Market Research & In-Depth Analaysis</td>
-                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
+                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
                                     <td><span class="txtb">none</span></td>
                                     <td><span class="txtb">none</span></td>
                                 </tr>
                                 <tr>
                                     <td>Oppurtunity for Long Term {% comment %}w/ 100%+ Return{% endcomment %}</td>
-                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
+                                    <!-- <td><span class="txtb"><i class="fal fa-check"></i></span></td> -->
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Where to check News and how to use it as confluence for your trades</td>
-                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
+                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
                                     <td><span class="txtb">none</span></td>
                                     <td><span class="txtb">none</span></td>
                                 </tr>
                                 <tr>
                                     <td>Premium Education Resources and Weekly Webinar</td>
-                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
+                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
                                     <td><span class="txtb">none</span></td>
                                     <td><span class="txtb">none</span></td>
                                 </tr>
                                 <tr>
                                     <td>Entry, Stop Loss and Take Profit</td>
-                                    <td><span class="txtb">none</span></td>
+                                    <!-- <td><span class="txtb">none</span></td> -->
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr class="pay-option">
                                     <td></td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="card-subs">
                                             <div class="pr-my"><span><b>${{ paid_membership.price }}</b></span>
                                             </div>
 
                                             <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <div class="card-subs">
                                             <div class="pr-my"><span><b>${{ monthly_signal.price }}</b>/mo</span>
@@ -151,6 +151,140 @@
                                     </td>
                                     {% endif %}
                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/><br/><br/>
+                    <div class="table-responsive">
+                        <table class="table table-header">
+                            <tbody>
+                                <tr>
+                                    <td class="bg-white">
+
+                                        <div class="gurannte-box">
+                                            <h4>Academy</h4>
+                                            <!-- <p></p> -->
+                                        </div>
+                                    </td>
+
+                                    <td class="bg-lightblue">
+                                        <div class="card-subs">
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
+                                            <h4>Beginner Academy</h4>
+                                            <div class="pr-my">${{ paid_membership.price }}
+                                            </div>
+                                            <p>(One time payment)</p>
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
+                                    </td>
+                                    <td class="">
+                                        <div class="card-subs">
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
+                                            <h4>Intermediate Academy</h4>
+                                            <div class="pr-my">${{ paid_membership.price }}
+                                            </div>
+                                            <p>(One time payment)</p>
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a>
+                                        </div>
+                                    </td>
+                                    <td class="bg-lightblue">
+                                        <div class="card-subs">
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
+                                            <h4>Advanced Academy</h4>
+                                            <div class="pr-my">${{ paid_membership.price }}
+                                            </div>
+                                            <p>(One time payment)</p>
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-content" style="width: 100%;">
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>Why trade forex?</td>
+                                    <td>Chart formations patterns</td>
+                                    <td>Identifying Institutional Tactics</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>When to trade forex</td>
+                                    <td>Head and Shoulders</td>
+                                    <td>Trade According to Game Theory</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>Trading Terminology</td>
+                                    <td>Inverse Head and Shoulders</td>
+                                    <td>Stock market trading</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>How to trade with leverage</td>
+                                    <td>Bull and Bear flags</td>
+                                    <td>Risk & Position Management</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>What is a PIP?</td>
+                                    <td>Bullish and Bearish Pennant</td>
+                                    <td>Intraday Trading</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>Types of forex orders</td>
+                                    <td>Ascending and Descending triangles</td>
+                                    <td>Analyzing Economic Data</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
+                                    <td>Basic technical analysis, charting, Support and Resistance</td>
+                                    <td>Ascending and Descending triangles</td>
+                                    <td>Analyzing Economic Data</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
+                                    <td>Fibonacci</td>
+                                    <td>Falling wedge</td>
+                                    <td>Trading Small Caps</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <!-- <td><span class="txtb">none</span></td> -->
+                                    <td>AND MORE</td>
+                                    <td>AND MORE</td>
+                                    <td>AND MORE</td>
+                                </tr>
+                                <tr class="pay-option">
+                                    <td></td>
+                                    <td>
+                                        <div class="card-subs">
+                                            <div class="pr-my"><span><b>${{ paid_membership.price }}</b></span>
+                                            </div>
+
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
+                                    </td>
+                                    <td>
+                                        <div class="card-subs">
+                                            <div class="pr-my"><span><b>${{ paid_membership.price }}</b></span>
+                                            </div>
+
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="card-subs">
+                                            <div class="pr-my"><span><b>${{ paid_membership.price }}</b></span>
+                                            </div>
+
+                                            <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a>
+                                        </div>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </div>
