@@ -129,8 +129,13 @@ def public_profile_view(request, username):
         }
         return render(request, 'Dashboard/profile/profile-page.html', context)
     else:
-        messages.info(request,f"{user_qs}")
+        messages.info(request, f"{user_qs}")
         return redirect("memberships:profile")
+
+
+def testing_profile(request, username):
+    user_qs = User.objects.filter(username=username)
+    return render(request, 'DashBoard/profile/profile-page-test.html', {'user': user_qs})
 
 
 class UserProfileUpdate(LoginRequiredMixin, View):
