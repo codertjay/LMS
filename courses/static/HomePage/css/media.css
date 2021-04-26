@@ -596,7 +596,7 @@
         background-color: transparent
     }
     .wrapper-step .table {
-        width: 690px;
+        width: 100%;
     }
     .step-links li a {
         font-size: 12px;
