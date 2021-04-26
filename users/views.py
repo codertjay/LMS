@@ -129,21 +129,11 @@ def public_profile_view(request, username):
             'recent_course_qs': recent_course_qs,
             'user_course': user_course,
         }
-        return render(request, 'Dashboard/public_profile/profile-page.html', context)
+        return render(request, 'Dashboard/profile/profile-page.html', context)
     else:
         messages.info(request, f"{user_qs}")
         return redirect("memberships:profile")
 
-@login_required()
-def test_p(request,username):
-    user_qs = User.objects.filter(username=username).first()
-
-    if user_qs:
-        user = user_qs
-        return render(request, 'Dashboard/profile/profile-page-test.html')
-    else:
-        messages.info(request, f"{user_qs}")
-        return redirect("memberships:profile")
 
 
 class UserProfileUpdate(LoginRequiredMixin, View):
