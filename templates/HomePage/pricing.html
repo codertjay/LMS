@@ -170,57 +170,57 @@
                                     <td class="bg-lightblue">
                                         <div class="card-subs">
 
- {% if Beginner_membership %}
+                                            {% if Beginner_membership %}
                                             <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
                                             <h4>Beginner Academy</h4>
                                             <div class="pr-my">${{ Beginner_membership.price }}
                                             </div>
                                             <p>(One time payment)</p>
-                                             <form method="post" action="{% url 'memberships:membership_select' %}">
-                                             {% csrf_token %}
-                                            <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
-                                            <button type="submit" class="btn btn_default ">Subscribe Now
+                                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
+                                                <button type="submit" class="btn btn_default ">Subscribe Now
                                                             </button>
                                             </form>
-                                            </div>
+                                        </div>
 
-{% endif %}
-                                          
+                                        {% endif %}
+
                                     </td>
                                     <td class="">
                                         <div class="card-subs">
 
-                                         {% if Intermediate_membership %}
+                                            {% if Intermediate_membership %}
                                             <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
                                             <h4>Intermediate Academy</h4>
                                             <div class="pr-my">${{ Intermediate_membership.price }}
                                             </div>
                                             <p>(One time payment)</p>
 
-                                             <form method="post" action="{% url 'memberships:membership_select' %}">
-                                             {% csrf_token %}
-                                    <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
-                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
+                                                <button type="submit" class="btn btn_default ">Subscribe Now
                                                     </button>
-                                        </form>
-                                          {% endif %}
+                                            </form>
+                                            {% endif %}
                                         </div>
                                     </td>
                                     <td class="bg-lightblue">
                                         <div class="card-subs">
-                                        {% if Advanced_membership %}
+                                            {% if Advanced_membership %}
                                             <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
                                             <h4>Advanced Academy</h4>
                                             <div class="pr-my">${{ Advanced_membership.price }}
                                             </div>
                                             <p>(One time payment)</p>
-                                             <form method="post" action="{% url 'memberships:membership_select' %}">
-                                             {% csrf_token %}
-                                    <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
-                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
+                                                <button type="submit" class="btn btn_default ">Subscribe Now
                                                     </button>
-                                        </form>
-                                             {% endif %}
+                                            </form>
+                                            {% endif %}
                                         </div>
                                     </td>
                                 </tr>
@@ -269,7 +269,7 @@
                                     <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
                                     <td>Basic technical analysis, charting, Support and Resistance</td>
                                     <td>Ascending and Descending triangles</td>
-                                    <td>Analyzing Economic Data</td>
+                                    <td>VWAP strategies and 20:20 method</td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -288,51 +288,51 @@
                                 <tr class="pay-option">
                                     <td></td>
                                     <td>
-                                        <div class="card-subs"> 
-                                        
-                                        {% if Beginner_membership %}
+                                        <div class="card-subs">
+
+                                            {% if Beginner_membership %}
 
                                             <div class="pr-my"><span><b>${{ Beginner_membership.price }}</b></span>
                                             </div>
 
                                             <form method="post" action="{% url 'memberships:membership_select' %}">
-                                             {% csrf_token %}
-                                    <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
-                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                                {% csrf_token %}
+                                                <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
+                                                <button type="submit" class="btn btn_default ">Subscribe Now
                                                     </button>
-                                        </form>
+                                            </form>
 
-                                        {% endif %}
+                                            {% endif %}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="card-subs">
 
-                                         {% if Intermediate_membership %}
+                                            {% if Intermediate_membership %}
                                             <div class="pr-my"><span><b>${{ Intermediate_membership.price }}</b></span>
                                             </div>
-  <form method="post" action="{% url 'memberships:membership_select' %}">
-                                             {% csrf_token %}
-                                    <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
-                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
+                                                <button type="submit" class="btn btn_default ">Subscribe Now
                                                     </button>
-                                        </form>
-                                        
-                                        {% endif %}
+                                            </form>
+
+                                            {% endif %}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="card-subs">
-                                          {% if Advanced_membership %}
+                                            {% if Advanced_membership %}
                                             <div class="pr-my"><span><b>${{ Advanced_membership.price }}</b></span>
                                             </div>
- <form method="post" action="{% url 'memberships:membership_select' %}">
-                                             {% csrf_token %}
-                                    <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
-                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
+                                                <button type="submit" class="btn btn_default ">Subscribe Now
                                                     </button>
-                                        </form>
-                                           {% endif %}
+                                            </form>
+                                            {% endif %}
                                         </div>
                                     </td>
                                 </tr>
