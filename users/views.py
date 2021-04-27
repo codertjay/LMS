@@ -129,7 +129,7 @@ def public_profile_view(request, username):
             'recent_course_qs': recent_course_qs,
             'user_course': user_course,
         }
-        return render(request, 'Dashboard/profile/profile-page.html', context)
+        return render(request, 'public-profile.html', context)
     else:
         messages.info(request, f"{user_qs}")
         return redirect("memberships:profile")
