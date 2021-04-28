@@ -140,24 +140,21 @@
                                 <li><a href="{% url 'home:terms_and_condition' %}">Terms and Conditions</a></li>
                             </ul>
                             <ul class="social-footer">
-                                <li>
-                                    <a href="{{ tiktok_url }}" target="_blank"><img style="color: white; " height="15" src="{% static 'HomePage/svg/tik-tok2.svg' %}" alt="">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ instagram_url }}" target="_blank"><img style="width: 30px; height: 30px;" src="{% static 'HomePage/svg/instagram2.svg' %}" /></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.youtube.com/channel/UCwRBWB24FOopxyGjtMz9YOA" data-wow-duration="1s" data-wow-delay="0.5s">
-                                        <img style="width: 30px; height: 30px; color: #fff;" src="{% static 'HomePage/svg/youtube2.svg' %}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://discord.gg/ninjaassassin" target="_blank" data-wow-duration="1s" data-wow-delay="0.5s"><span><img alt=""><img
+
+                                <a href="{{ tiktok_url }}" style="margin: 0 5px;" target="_blank"><img style="color: white; width: 30px; height: 30px;" src="{% static 'HomePage/svg/tik-tok2.svg' %}" alt="">
+                                </a>
+
+                                <a href="{{ instagram_url }}" style="margin: 0 5px;" target="_blank"><img style="width: 30px; height: 30px;" src="{% static 'HomePage/svg/instagram2.svg' %}" /></a>
+
+                                <a href="https://www.youtube.com/channel/UCwRBWB24FOopxyGjtMz9YOA" data-wow-duration="1s" data-wow-delay="0.5s" style="margin: 0 5px;">
+                                    <img style="width: 30px; height: 30px; color: #fff;" src="{% static 'HomePage/svg/youtube2.svg' %}" />
+                                </a>
+
+                                <a href="https://discord.gg/ninjaassassin" style="margin: 0 5px;" target="_blank" data-wow-duration="1s" data-wow-delay="0.5s"><span><img alt=""><img
                                                 style="width: 30px; height: 30px;"
                                                 src="{% static 'HomePage/svg/discord2.svg' %}" /></span>
                                     </a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>
