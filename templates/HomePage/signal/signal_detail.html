@@ -1,15 +1,12 @@
-{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %}
-    signal {% endblock %} {% block style %}
+{% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} signal {% endblock %} {% block style %}
 
-    <link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}"/>
-{% endblock %} {% block content %}
-    <!--Select Links End-->
-    <section class="pricing-table">
-        <div id="smartwizard">
-            <ul class="step-links">
-                <li>
-                    <a href="#step-2"
-                    ><span><small>1</small><i class="far fa-check"></i></span>Payment
+<link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}" /> {% endblock %} {% block content %}
+<!--Select Links End-->
+<section class="pricing-table">
+    <div id="smartwizard">
+        <ul class="step-links">
+            <li>
+                <a href="#step-2"><span><small>1</small><i class="far fa-check"></i></span>Payment
                         Checkout</a
                     >
                 </li>
@@ -93,7 +90,7 @@
                                     <div class="order-c">
                                         <h3>Plan</h3>
                                         <p>
-                                            <span style="text-decoration: line-through">${{ signal.discount }}</span>/{{ signal.signal_choice }}
+                                            {{ signal.signal_choice }}
                                             |
                                             <b>${{ signal.price }}</b>
                                             /{{ signal.signal_choice }}
@@ -103,7 +100,7 @@
                                         <p>
                                             <strong>Total</strong>
                                             <span>
-                      <b style="color: #444; text-decoration: line-through">${{ signal.discount }}</b>/mo | <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</span
+                                <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</span
                                             >
                                         </p>
                                     </div>
