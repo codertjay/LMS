@@ -70,7 +70,7 @@ class SignalPaymentView(LoginRequiredMixin, View):
                         customer.source = token  # 4242424242424242
                         customer.save()
                         # changed plan to price
-                        subscription.status =""
+                        subscription =""
                         if coupon:
                             coupon_type = Coupon.objects.get_coupon_by_coupon_model(
                                 coupon_slug=coupon,
