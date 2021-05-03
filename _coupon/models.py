@@ -47,7 +47,7 @@ class Coupon(models.Model):
 
 
 def create_slug(instance, new_slug=None):
-    slug = instance.coupon_names.translate({ord(c): None for c in string.whitespace})
+    slug = instance.coupon_name.translate({ord(c): None for c in string.whitespace})
     if new_slug is not None:
         slug = new_slug
     qs = Coupon.objects.filter(slug=slug).order_by('-id')
