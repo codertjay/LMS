@@ -108,8 +108,8 @@ class SignalPaymentView(LoginRequiredMixin, View):
                 except stripe.error.StripeError as e:
                     messages.warning(
                         request, 'There was an error we are working on it')
-                except Exception as e:
-                    messages.warning(request, 'The error was', e)
+                # except Exception as e:
+                #     messages.warning(request, 'The error was', e)
         return redirect('home:home')
 
 
