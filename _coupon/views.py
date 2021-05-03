@@ -7,8 +7,9 @@ import stripe
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 
+from home_page.mixins import InstructorAndLoginRequiredMixin
 
-class CouponView(View):
+class CouponView(InstructorAndLoginRequiredMixin,View):
 
     def get(self, request):
         coupon = Coupon.objects.all()
