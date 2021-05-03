@@ -45,8 +45,7 @@
                                             <div class="pr-my"><span><b>${{ monthly_signal.price }}</b>/mo</span>
                                             </div>
 
-                                            <a href="{% url 'home:home' %}#signal_payment" class="btn btn-primary ">Subscribe
-                                                Now</a></div>
+                                            <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}" class="btn btn-primary w-100 ">Buy Now</a>
                                     </td>
 
                                     {% if copy_trade %}
@@ -153,198 +152,198 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <br/><br/><br/>
-                    <div class="table-responsive">
-                        <table class="table table-header" style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td class="bg-white">
+                        </div>
+                        <br/><br/><br/>
+                        <div class="table-responsive">
+                            <table class="table table-header" style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td class="bg-white">
 
-                                        <div class="gurannte-box">
-                                            <h4>Academy</h4>
-                                            <!-- <p></p> -->
-                                        </div>
-                                    </td>
-
-                                    <td class="bg-lightblue">
-                                        <div class="card-subs">
-
-                                            {% if Beginner_membership %}
-                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
-                                            <h4>Beginner Academy</h4>
-                                            <div class="pr-my">${{ Beginner_membership.price }}
+                                            <div class="gurannte-box">
+                                                <h4>Academy</h4>
+                                                <!-- <p></p> -->
                                             </div>
-                                            <p>(One time payment)</p>
-                                            <form method="post" action="{% url 'memberships:membership_select' %}">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
-                                                <button type="submit" class="btn btn_default ">Subscribe Now
+                                        </td>
+
+                                        <td class="bg-lightblue">
+                                            <div class="card-subs">
+
+                                                {% if Beginner_membership %}
+                                                <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
+                                                <h4>Beginner Academy</h4>
+                                                <div class="pr-my">${{ Beginner_membership.price }}
+                                                </div>
+                                                <p>(One time payment)</p>
+                                                <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
+                                                    <button type="submit" class="btn btn_default ">Subscribe Now
                                                             </button>
-                                            </form>
-                                        </div>
-
-                                        {% endif %}
-
-                                    </td>
-                                    <td class="">
-                                        <div class="card-subs">
-
-                                            {% if Intermediate_membership %}
-                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
-                                            <h4>Intermediate Academy</h4>
-                                            <div class="pr-my">${{ Intermediate_membership.price }}
-                                            </div>
-                                            <p>(One time payment)</p>
-
-                                            <form method="post" action="{% url 'memberships:membership_select' %}">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
-                                                <button type="submit" class="btn btn_default ">Subscribe Now
-                                                    </button>
-                                            </form>
-                                            {% endif %}
-                                        </div>
-                                    </td>
-                                    <td class="bg-lightblue">
-                                        <div class="card-subs">
-                                            {% if Advanced_membership %}
-                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
-                                            <h4>Advanced Academy</h4>
-                                            <div class="pr-my">${{ Advanced_membership.price }}
-                                            </div>
-                                            <p>(One time payment)</p>
-                                            <form method="post" action="{% url 'memberships:membership_select' %}">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
-                                                <button type="submit" class="btn btn_default ">Subscribe Now
-                                                    </button>
-                                            </form>
-                                            {% endif %}
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table table-content" style="width: 100%;">
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td>Why trade forex?</td>
-                                    <td>Chart formations patterns</td>
-                                    <td>Identifying Institutional Tactics</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>When to trade forex</td>
-                                    <td>Head and Shoulders</td>
-                                    <td>Trade According to Game Theory</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>Trading Terminology</td>
-                                    <td>Inverse Head and Shoulders</td>
-                                    <td>Stock market trading</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>How to trade with leverage</td>
-                                    <td>Bull and Bear flags</td>
-                                    <td>Risk & Position Management</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>What is a PIP?</td>
-                                    <td>Bullish and Bearish Pennant</td>
-                                    <td>Intraday Trading</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>Types of forex orders</td>
-                                    <td>Ascending and Descending triangles</td>
-                                    <td>Analyzing Economic Data</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
-                                    <td>Basic technical analysis, charting, Support and Resistance</td>
-                                    <td>Ascending and Descending triangles</td>
-                                    <td>VWAP strategies and 20:20 method</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
-                                    <td>Fibonacci</td>
-                                    <td>Falling wedge</td>
-                                    <td>Trading Small Caps</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <!-- <td><span class="txtb">none</span></td> -->
-                                    <td>AND MORE</td>
-                                    <td>AND MORE</td>
-                                    <td>AND MORE</td>
-                                </tr>
-                                <tr class="pay-option">
-                                    <td></td>
-                                    <td>
-                                        <div class="card-subs">
-
-                                            {% if Beginner_membership %}
-
-                                            <div class="pr-my"><span><b>${{ Beginner_membership.price }}</b></span>
+                                                </form>
                                             </div>
 
-                                            <form method="post" action="{% url 'memberships:membership_select' %}">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
-                                                <button type="submit" class="btn btn_default ">Subscribe Now
-                                                    </button>
-                                            </form>
-
                                             {% endif %}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="card-subs">
 
-                                            {% if Intermediate_membership %}
-                                            <div class="pr-my"><span><b>${{ Intermediate_membership.price }}</b></span>
+                                        </td>
+                                        <td class="">
+                                            <div class="card-subs">
+
+                                                {% if Intermediate_membership %}
+                                                <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
+                                                <h4>Intermediate Academy</h4>
+                                                <div class="pr-my">${{ Intermediate_membership.price }}
+                                                </div>
+                                                <p>(One time payment)</p>
+
+                                                <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
+                                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                                    </button>
+                                                </form>
+                                                {% endif %}
                                             </div>
-                                            <form method="post" action="{% url 'memberships:membership_select' %}">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
-                                                <button type="submit" class="btn btn_default ">Subscribe Now
+                                        </td>
+                                        <td class="bg-lightblue">
+                                            <div class="card-subs">
+                                                {% if Advanced_membership %}
+                                                <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/icon1.png' %}" alt=""></div>
+                                                <h4>Advanced Academy</h4>
+                                                <div class="pr-my">${{ Advanced_membership.price }}
+                                                </div>
+                                                <p>(One time payment)</p>
+                                                <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
+                                                    <button type="submit" class="btn btn_default ">Subscribe Now
                                                     </button>
-                                            </form>
-
-                                            {% endif %}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="card-subs">
-                                            {% if Advanced_membership %}
-                                            <div class="pr-my"><span><b>${{ Advanced_membership.price }}</b></span>
+                                                </form>
+                                                {% endif %}
                                             </div>
-                                            <form method="post" action="{% url 'memberships:membership_select' %}">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
-                                                <button type="submit" class="btn btn_default ">Subscribe Now
-                                                    </button>
-                                            </form>
-                                            {% endif %}
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-content" style="width: 100%;">
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>Why trade forex?</td>
+                                        <td>Chart formations patterns</td>
+                                        <td>Identifying Institutional Tactics</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>When to trade forex</td>
+                                        <td>Head and Shoulders</td>
+                                        <td>Trade According to Game Theory</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Trading Terminology</td>
+                                        <td>Inverse Head and Shoulders</td>
+                                        <td>Stock market trading</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>How to trade with leverage</td>
+                                        <td>Bull and Bear flags</td>
+                                        <td>Risk & Position Management</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>What is a PIP?</td>
+                                        <td>Bullish and Bearish Pennant</td>
+                                        <td>Intraday Trading</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Types of forex orders</td>
+                                        <td>Ascending and Descending triangles</td>
+                                        <td>Analyzing Economic Data</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
+                                        <td>Basic technical analysis, charting, Support and Resistance</td>
+                                        <td>Ascending and Descending triangles</td>
+                                        <td>VWAP strategies and 20:20 method</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
+                                        <td>Fibonacci</td>
+                                        <td>Falling wedge</td>
+                                        <td>Trading Small Caps</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <!-- <td><span class="txtb">none</span></td> -->
+                                        <td>AND MORE</td>
+                                        <td>AND MORE</td>
+                                        <td>AND MORE</td>
+                                    </tr>
+                                    <tr class="pay-option">
+                                        <td></td>
+                                        <td>
+                                            <div class="card-subs">
 
-                            </tbody>
-                        </table>
+                                                {% if Beginner_membership %}
+
+                                                <div class="pr-my"><span><b>${{ Beginner_membership.price }}</b></span>
+                                                </div>
+
+                                                <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
+                                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                                    </button>
+                                                </form>
+
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="card-subs">
+
+                                                {% if Intermediate_membership %}
+                                                <div class="pr-my"><span><b>${{ Intermediate_membership.price }}</b></span>
+                                                </div>
+                                                <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
+                                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                                    </button>
+                                                </form>
+
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="card-subs">
+                                                {% if Advanced_membership %}
+                                                <div class="pr-my"><span><b>${{ Advanced_membership.price }}</b></span>
+                                                </div>
+                                                <form method="post" action="{% url 'memberships:membership_select' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
+                                                    <button type="submit" class="btn btn_default ">Subscribe Now
+                                                    </button>
+                                                </form>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
 </section>
 <!--Section Footer Start-->
 {% endblock content %} {% block script %} {% endblock script %}
