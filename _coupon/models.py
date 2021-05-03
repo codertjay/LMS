@@ -2,7 +2,7 @@ from django.db import models
 import stripe
 from django.db.models.signals import pre_save
 from django.template.defaultfilters import slugify
-
+import string
 # Create your models here.
 
 
@@ -47,7 +47,7 @@ class Coupon(models.Model):
 
 
 def create_slug(instance, new_slug=None):
-    slug = slugify(instance.coupon_name)
+    slug = instance.coupon_names.translate({ord(c): None for c in string.whitespace})
     if new_slug is not None:
         slug = new_slug
     qs = Coupon.objects.filter(slug=slug).order_by('-id')
