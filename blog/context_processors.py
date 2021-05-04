@@ -20,7 +20,7 @@ def monthly_signal():
 
 
 def quarterly_signal():
-    quarterly_signal_qs = SignalType.objects.filter(signal_choice='Quarterly')
+    quarterly_signal_qs = SignalType.objects.filter(signal_choice='Quaterly')
     if quarterly_signal_qs:
         quarterly_signal = quarterly_signal_qs.first()
     else:
