@@ -410,6 +410,10 @@ HERO SECTION
 Section Education
 *********************************************/
 
+.content-card p {
+    z-index: 40;
+}
+
 .education {
     background-color: #effbfc;
     padding-bottom: 186px;

@@ -37,18 +37,37 @@
                                             <p>(One time payment)</p>
                                             <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
                                     </td> -->
-
+                                    {% if monthly_signal %}
                                     <td class="bg-darkblue">
                                         <div class="card-subs">
                                             <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}" alt=""></div>
-                                            <h4>Signal Services </h4>
+                                            <h4>Monthly Signal</h4>
                                             <div class="pr-my"><span><b>${{ monthly_signal.price }}</b>/mo</span>
                                             </div>
 
                                             <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}" class="btn btn-primary w-100 ">Buy Now</a>
                                     </td>
+                                    {% endif %} {% if quarterly_signal %}
+                                    <td class="bg-lightblue">
+                                        <div class="card-subs">
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}" alt=""></div>
+                                            <h4>Quarterly Signal</h4>
+                                            <div class="pr-my"><span><b>${{ quarterly_signal.price }}</b>/mo</span>
+                                            </div>
 
-                                    {% if copy_trade %}
+                                            <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}" class="btn btn-primary w-100 ">Buy Now</a>
+                                    </td>
+                                    {% endif %} {% if yearly_signal %}
+                                    <td class="bg-darkblue">
+                                        <div class="card-subs">
+                                            <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/stock.png' %}" alt=""></div>
+                                            <h4>Yearly Signal</h4>
+                                            <div class="pr-my"><span><b>${{ yearly_signal.price }}</b>/mo</span>
+                                            </div>
+
+                                            <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %}" class="btn btn-primary w-100 ">Buy Now</a>
+                                    </td>
+                                    {% endif %} {% if copy_trade %}
                                     <td class="bg-lightblue">
                                         <div class="card-subs">
                                             <div class="img-holder"><img src="{% static 'dashboard/dashboard_base/assets/images/cryto-icon.png' %}" alt=""></div>
@@ -68,56 +87,65 @@
                         <table class="table table-content" style="width:100%;">
                             <tbody style="width: 100%;">
                                 <tr>
-                                    <td></td>
-                                    <!-- <td><span class="txtb">none</span></td> -->
+                                    <td>Number of Guaranteed Trading Alerts Weekly</td>
+                                    <td><span class="txtb">none</span></td>
                                     <td><span class="txtb">5</span></td>
                                     <td><span class="txtb">5</span></td>
+                                    <td><span class="txtb">none</span></td>
                                 </tr>
                                 <tr>
                                     <td>Signals currencies, US30 and Nas 100</td>
-                                    <!-- <td><span class="txtb">none</span></td> -->
+                                    <td><span class="txtb">none</span></td>
                                     <td><span class="txtb"><i class="fal fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>5 - 15 Signals per week</td>
-                                    <!-- <td><span class="txtb">none</span></td> -->
+                                    <td><span class="txtb">none</span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
+                                    <td><span class="txtb">none</span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Month-to-Month Income Generation</td>
-                                    <!-- <td><span class="txtb"><i class="fal fa-check"></i></span></td> -->
+                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="fal fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Comprehensive Market Research & In-Depth Analaysis</td>
-                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb">none</span></td>
                                     <td><span class="txtb">none</span></td>
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Oppurtunity for Long Term {% comment %}w/ 100%+ Return{% endcomment %}</td>
-                                    <!-- <td><span class="txtb"><i class="fal fa-check"></i></span></td> -->
+                                    <td><span class="txtb"><i class="fal fa-check"></i></span></td>
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Where to check News and how to use it as confluence for your trades</td>
-                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb">none</span></td>
                                     <td><span class="txtb">none</span></td>
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Premium Education Resources and Weekly Webinar</td>
-                                    <!-- <td><span class="txtb"><i class="far fa-check"></i></span></td> -->
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb">none</span></td>
                                     <td><span class="txtb">none</span></td>
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
                                 <tr>
                                     <td>Entry, Stop Loss and Take Profit</td>
-                                    <!-- <td><span class="txtb">none</span></td> -->
+                                    <td><span class="txtb">none</span></td>
+                                    <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                     <td><span class="txtb"><i class="far fa-check"></i></span></td>
                                 </tr>
@@ -130,19 +158,39 @@
 
                                             <a href="{% url 'memberships:membership_select' %}" class="btn btn_default ">Subscribe Now</a></div>
                                     </td> -->
+                                    {% if monthly_signal %}
                                     <td>
                                         <div class="card-subs">
                                             <div class="pr-my"><span><b>${{ monthly_signal.price }}</b>/mo</span>
                                             </div>
 
-                                            <a href="{% url 'home:home' %}#signal_payment" class="btn btn-primary ">Subscribe
+                                            <a href="{% url 'signal:signal_payment' monthly_signal.signal_choice %}" class="btn btn-primary ">Subscribe
                                                 Now</a></div>
                                     </td>
-
-                                    {% if copy_trade %}
+                                    {% endif %} {% if quarterly_signal %}
                                     <td>
                                         <div class="card-subs">
-                                            <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/mo</span>
+                                            <div class="pr-my"><span><b>${{ quarterly_signal.price }}</b>/3mo</span>
+                                            </div>
+
+                                            <a href="{% url 'signal:signal_payment' quarterly_signal.signal_choice %}" class="btn btn-primary ">Subscribe
+                                                 Now</a>
+                                        </div>
+                                    </td>
+                                    {% endif %} {% if yearly_signal %}
+                                    <td>
+                                        <div class="card-subs">
+                                            <div class="pr-my"><span><b>${{ yearly_signal.price }}</b>/mo</span>
+                                            </div>
+
+                                            <a href="{% url 'signal:signal_payment' yearly_signal.signal_choice %}" class="btn btn-primary ">Subscribe
+                                                  Now</a>
+                                        </div>
+                                    </td>
+                                    {% endif %} {% if copy_trade %}
+                                    <td>
+                                        <div class="card-subs">
+                                            <div class="pr-my"><span><b>${{ copy_trade.price }}</b>/yr</span>
                                             </div>
 
                                             <a href="{% url 'copy_trade:copy_trade_form' %}" class="btn btn_default ">Subscribe
@@ -339,11 +387,11 @@
                                 </tbody>
                             </table>
                         </div>
+                        </div>
+                        </div>
+
                     </div>
                 </div>
-
-            </div>
-        </div>
 </section>
 <!--Section Footer Start-->
 {% endblock content %} {% block script %} {% endblock script %}
