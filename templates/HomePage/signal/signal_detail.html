@@ -67,14 +67,16 @@
                                         <div id="card-errors" role="alert"></div>
 
                                         <h5 class="lead">Apply Coupon</h5>
-                                        <label for="id_coupon"></label>
-                                        <input type="text" id="id_coupon" name="coupon" class="form-control"
+                                        <label  for="id_coupon"></label>
+                                        <input  type="text" id="id_coupon" name="coupon"
+                                        onchange="myfunc()"
+                                        class="form-control"
                                                style="max-width:50%;height: 40px"/>
 
 
-                                        <div id="payment-request-button">
+                                      {% comment %}  <div id="payment-request-button">
                                             <!-- A Stripe Element will be inserted here. -->
-                                        </div>
+                                        </div> {% endcomment %}
 
                                         <button id="submit-button">Make Payment</button>
                                     </div>
@@ -123,14 +125,27 @@
     <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
     <script src="{% static 'stripe_assets/js/stripe_payment_button.js' %}"></script>
 
+    <script>
+        function myfunc() {
+            let text = document.getElementById("id_coupon");
+            let realtext = text.value;
+            console.log(realtext);
+            console.log(`real text ${realtext}`);
+            //let couponurl = "{{coupon_verify_url}}" + realtext;
+            let couponurl = "http://assassinfx.com:8000/check_coupon/"+realtext;
+            fetch(couponurl)
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                });
 
+        }
+    </script>
 {% endblock script %}
 
 {% comment %}
  stripe apple pay button
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script>
-        Stripe.setPublishableKey ('pk_test_51I7JYzAS6n0shLOqDkhsxVyZT7OjVlrft7uQy8trLzmKf6OoYVFuUrjtJwUvXJcq00MYTcARgbaTHK5XiKUm7ig400bTTOaknZ');
-    </script>
+    
     <script src="{% static 'stripe_assets/js/apple_pay.js' %}"></script>
 {% endcomment %}

@@ -8,7 +8,7 @@ import stripe
 
 signal_choices = (
     ('Monthly', 'Monthly'),
-    ('Quarterly', 'Quarterly'),
+    ('Quaterly', 'Quaterly'),
     ('Yearly', 'Yearly'),
 )
 

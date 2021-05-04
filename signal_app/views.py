@@ -81,26 +81,27 @@ class SignalPaymentView(LoginRequiredMixin, View):
                                     customer=user_membership.stripe_customer_id,
                                     coupon=coupon_type.slug,
                                     items=[{'price': signal.stripe_plan_id}, ])
+                                messages.info(request,f'Successfully applied coupon for {coupon_type} ')
 
                         else:
                             subscription = stripe.Subscription.create(
                                 customer=user_membership.stripe_customer_id,
                                 items=[{'price': signal.stripe_plan_id}, ])
-
-                        if subscription.status == 'active':
-                            if subscription.id:
-                                stripe.Subscription.modify(
-                                    subscription.id,
-                                    cancel_at_period_end=True
-                                )
-                                messages.success(
-                                    request, 'Your payment was successful')
-                                return redirect(reverse('signal:signal_payment_done', kwargs={
-                                    'subscription_id': subscription.id, 'signal': signal
-                                }))
-                        else:
-                            messages.warning(
-                                request, 'Your payment was incomplete please try using another card')
+                        if subscription:
+                            if subscription.status == 'active':
+                                if subscription.id:
+                                    stripe.Subscription.modify(
+                                        subscription.id,
+                                        cancel_at_period_end=True
+                                    )
+                                    messages.success(
+                                        request, 'Your payment was successful')
+                                    return redirect(reverse('signal:signal_payment_done', kwargs={
+                                        'subscription_id': subscription.id, 'signal': signal
+                                    }))
+                            else:
+                                messages.warning(
+                                    request, 'Your payment was incomplete please try using another card')
                 except stripe.error.CardError as e:
                     messages.warning(request, 'Your card has being declined')
                 except stripe.error.APIConnectionError as e:
@@ -109,8 +110,8 @@ class SignalPaymentView(LoginRequiredMixin, View):
                 except stripe.error.StripeError as e:
                     messages.warning(
                         request, 'There was an error we are working on it')
-                # except Exception as e:
-                #     messages.warning(request, 'The error was', e)
+                except Exception as e:
+                    messages.warning(request, 'There is an error the devs are working on it',)
         return redirect('home:home')
 
 

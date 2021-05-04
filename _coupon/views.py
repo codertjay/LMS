@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 
 from home_page.mixins import InstructorAndLoginRequiredMixin
+from django.http import JsonResponse
 
 class CouponView(InstructorAndLoginRequiredMixin,View):
 
@@ -46,3 +47,13 @@ def coupon_create_view(request):
                 messages.info(
                     request, f'{form.errors} ')
     return redirect('coupon:coupon')
+
+
+
+def validate_coupon(request,coupon=None):
+    response = stripe.Coupon.retrieve(coupon)
+    print('the response',response)
+    data = {
+        'response':response
+    }
+    return JsonResponse(data)

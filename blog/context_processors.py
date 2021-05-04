@@ -54,6 +54,10 @@ def add_variable_to_context(try_content=None):
     Advanced_membership = Membership.objects.get_membership('Advanced')
     Ninja_membership = Membership.objects.get_membership('Ninjas-US30-Course')
     course_language = Courselanguage
+    coupon_verify_url = 'http://assassinfx.com/check_coupon/'
+    if settings.DEBUG:
+        coupon_verify_url = 'http://assassinfx.com:8000/check_coupon/'
+    
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
             'instagram_url': 'https://instagram.com/ninjaassassinfx/',
@@ -72,4 +76,5 @@ def add_variable_to_context(try_content=None):
             'copy_trade': copy_trading,
             'course_language': course_language,
             'site_name': 'https://assassinfx.com/',
+            'coupon_verify_url': coupon_verify_url,
             }
