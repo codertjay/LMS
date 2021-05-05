@@ -67,6 +67,7 @@
                                         <div id="card-errors" role="alert"></div>
 
                                         <h5 class="lead">Apply Coupon</h5>
+                                        <div id="coupon_amont"></div>
                                         <label  for="id_coupon"></label>
                                         <input  type="text" id="id_coupon" name="coupon"
                                         class="form-control"
@@ -141,8 +142,9 @@ function doneTyping() {
     let couponurl = "{{coupon_verify_url}}" + realtext;
     
     fetch("http://assassinfx.com:8000/_coupon/check_coupon/year/")
-        .then(res => res.json("coupon_amont")
-        document.getElementById("co")
+        .then(res => 
+            console.log(res))
+        document.getElementById("coupon_amont")
         )
         .then(res => {
             console.log(res);
