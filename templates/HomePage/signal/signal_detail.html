@@ -143,12 +143,12 @@ function doneTyping() {
     
     fetch("http://assassinfx.com:8000/_coupon/check_coupon/year/")
         .then(res => 
-            console.log(res.data)
+            console.log(res.data())
         document.getElementById("coupon_amont")
         )
-        .then(res => {
-            console.log(res);
-        });
+        .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+    });
 
 }
     </script>
