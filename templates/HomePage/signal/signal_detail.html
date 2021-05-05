@@ -142,12 +142,10 @@ function doneTyping() {
     let couponurl = "{{coupon_verify_url}}" + realtext;
     
     fetch("http://assassinfx.com:8000/_coupon/check_coupon/year/")
-        .then(res => 
-            console.log(res.data)
-        document.getElementById("coupon_amont")
-        )
+        .then(res =>  res.json())
         .then(res => {
             console.log(res);
+            document.getElementById("coupon_amont")
         });
 
 }
