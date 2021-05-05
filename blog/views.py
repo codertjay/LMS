@@ -13,7 +13,7 @@ from .forms import CommentForm
 from .forms import PostCreateForm
 from .models import Post
 from .utils import get_read_time
-
+from Learning_platform.settings import newsapi
 
 
 
@@ -139,3 +139,36 @@ class DeletePostView(InstructorAndLoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'HomePage/blog/delete-blog.html'
     success_url = 'blog/'
+
+
+
+def news_blog_list(request):
+    all_articles = newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',)
+    context = {
+        'articles':all_articles.get('articles')
+    }
+
+
+    return render(request,'HomePage/blog/blog_list.html',context)
+
+
+def news_blog_detail(request,source=None):
+    detail = newsapi.get_sources(source)
+    context = {
+        'detail':detail
+    }
+    return render(request,'HomePage/blog/blog_detail.html',context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

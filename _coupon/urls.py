@@ -5,5 +5,5 @@ app_name = 'coupon'
 urlpatterns = [
     path('', CouponView.as_view(), name='coupon'),
     path('coupon_create/',coupon_create_view,name='coupon_create'),
-    path("check_coupon/<str:coupon>", validate_coupon, name="validate_coupon")
+    path("check_coupon/<str:coupon>/", validate_coupon, name="validate_coupon")
 ]

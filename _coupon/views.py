@@ -54,6 +54,6 @@ def validate_coupon(request,coupon=None):
     response = stripe.Coupon.retrieve(coupon)
     print('the response',response)
     data = {
-        'response':response
+        'response':response.get('response')
     }
     return JsonResponse(data)

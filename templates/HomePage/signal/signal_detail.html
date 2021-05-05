@@ -69,7 +69,6 @@
                                         <h5 class="lead">Apply Coupon</h5>
                                         <label  for="id_coupon"></label>
                                         <input  type="text" id="id_coupon" name="coupon"
-                                        onchange="myfunc()"
                                         class="form-control"
                                                style="max-width:50%;height: 40px"/>
 
@@ -123,23 +122,33 @@
         var stripe = Stripe ("{{ stripe_public_key }}");
     </script>
     <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
-    <script src="{% static 'stripe_assets/js/stripe_payment_button.js' %}"></script>
+    {% comment %} <script src="{% static 'stripe_assets/js/stripe_payment_button.js' %}"></script> {% endcomment %}
 
     <script>
-        function myfunc() {
-            let text = document.getElementById("id_coupon");
-            let realtext = text.value;
-            console.log(realtext);
-            console.log(`real text ${realtext}`);
-            //let couponurl = "{{coupon_verify_url}}" + realtext;
-            let couponurl = "http://assassinfx.com:8000/check_coupon/"+realtext;
-            fetch(couponurl)
-                .then(res => res.json())
-                .then(res => {
-                    console.log(res);
-                });
+var typingTimer;
+var doneTypingInterval = 500;
 
-        }
+$("#id_coupon").on("input", function () {
+    window.clearTimeout(typingTimer);
+    typingTimer = window.setTimeout(doneTyping, doneTypingInterval);
+});
+
+function doneTyping() {
+    let text = document.getElementById("id_coupon");
+    let realtext = text.value;
+    console.log(realtext);
+    console.log(`real text ${realtext}`);
+    let couponurl = "{{coupon_verify_url}}" + realtext;
+    
+    fetch("http://assassinfx.com:8000/_coupon/check_coupon/year/")
+        .then(res => res.json("coupon_amont")
+        document.getElementById("co")
+        )
+        .then(res => {
+            console.log(res);
+        });
+
+}
     </script>
 {% endblock script %}
 

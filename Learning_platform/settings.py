@@ -5,6 +5,8 @@ from decouple import config, Csv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse_lazy
 import vimeo
+from newsapi import NewsApiClient
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -258,3 +260,8 @@ VIMEO_AUTHENTICATE = vimeo.VimeoClient(
     key="19c6d96a4a45af44348ef9516002f11f93ec0290",
     secret="brfCb290lRxOGM0fFAHu1NATjxiDsClBHEVd6Sa1l8Sa1Jpm4PEDmCkC+51T5dRkJtXVT6efhDVp894ZMTUqcgQ5XBYtLxHZHPzNl4+LmFuYFkmk8ThPXzkOucAqXlFN"
 )
+newsapi = NewsApiClient(api_key= config('NewApiKey', default=''))
+
+
+
+# top_headlines = newsapi.get_top_headlines(q='bitcoin', sources='bbc-news,the-verge',category='business', language='en')

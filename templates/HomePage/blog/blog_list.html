@@ -7,10 +7,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    {% for item in object_list %}
+{% comment %} {{articles}} {% endcomment %}
+                    {% for item in articles %}
                         <div class="blog_content">
                             <div class="blog-date">
-                                <p>{{ item.timestamp|timesince }} By <a href="#">{{ item.user.first_name }} -
+                                <p>{{ item.publishedAt }} {{item.source.id}} By <a href="#">{{ item.author}} -
                                     {{ item.user.last_name }}</a> {{ item.comments.count }} <a
                                         href="{{ item.get_absolute_url }}#comments_sect"
                                         class="comments-link">Comments</a>
@@ -19,7 +20,7 @@
                             <div class="blog-title text-capitalize"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                             </div>
                             <div class="blog-img">
-                                <a href="{{ item.get_absolute_url }}"><img src="{{ item.imageURL }}" alt=""
+                                <a href="{{ item.url }}"><img src="{{ item.urlToImage }}" alt="" target='_blank'
                                                                            style="max-height: 604px !important;"
                                                                            class="img-fluid w-100"></a>
                             </div>

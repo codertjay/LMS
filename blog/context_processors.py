@@ -54,9 +54,9 @@ def add_variable_to_context(try_content=None):
     Advanced_membership = Membership.objects.get_membership('Advanced')
     Ninja_membership = Membership.objects.get_membership('Ninjas-US30-Course')
     course_language = Courselanguage
-    coupon_verify_url = 'http://assassinfx.com/check_coupon/'
+    coupon_verify_url = 'http://assassinfx.com/_coupon/check_coupon/'
     if settings.DEBUG:
-        coupon_verify_url = 'http://assassinfx.com:8000/check_coupon/'
+        coupon_verify_url = 'http://assassinfx.com:8000/_coupon/check_coupon/'
     
     return {'older_posts': older_posts,
             'latest_posts': latest_posts,
