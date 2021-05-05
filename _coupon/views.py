@@ -53,7 +53,10 @@ def coupon_create_view(request):
 def validate_coupon(request,coupon=None):
     response = stripe.Coupon.retrieve(coupon)
     print('the response',response)
-    data = {
-        'response':response.get('response')
-    }
+    try:
+        data = {
+            'response':response
+        }
+    except:
+        data= "error"
     return JsonResponse(data)
