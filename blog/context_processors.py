@@ -6,6 +6,7 @@ from memberships.models import Membership
 from signal_app.models import SignalType
 from .models import Post
 from courses.models import Courselanguage
+from Learning_platform.settings import newsapi
 
 stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
 
@@ -38,15 +39,9 @@ def yearly_signal():
 
 
 def add_variable_to_context(try_content=None):
-    latest_posts = Post.objects.all()
-    older_posts = Post.objects.all().order_by('id')
-    if Post.objects.count() > 6:
-        latest_posts = Post.objects.all()[:3]
-    if Post.objects.count() > 6:
-        try:
-            older_posts = Post.objects.all().order_by('id')[:3]
-        except:
-            older_posts = Post.objects.all()[:3]
+    latest_posts = newsapi.get_sources(source)
+    older_posts = newsapi.get_sources(source)
+    
     copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()
     Beginner_membership = Membership.objects.get_membership('Beginner')
