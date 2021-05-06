@@ -30,6 +30,7 @@ Markdown==3.3.3
 markdown2==2.3.10
 MarkupPy==1.14
 moviepy==1.0.3
+newsapi-python==0.2.6
 numpy==1.19.5
 oauthlib==3.1.0
 odfpy==1.4.1
@@ -42,8 +43,6 @@ pycparser==2.20
 PyJWT==2.0.0
 python-decouple==3.4
 python-http-client==3.3.2
-python-magic==0.4.18
-python-magic-bin==0.4.14
 python3-openid==3.2.0
 pytz==2020.5
 PyVimeo==1.1.0
