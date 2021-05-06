@@ -102,7 +102,7 @@
                                         <p>
                                             <strong>Total</strong>
                                             <span>
-                                <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</span
+                                <b id="_i">${{ signal.price }}</b>/{{ signal.signal_choice }}</span
                                             >
                                         </p>
                                     </div>
@@ -143,11 +143,15 @@ function doneTyping() {
     
     fetch("http://assassinfx.com:8000/_coupon/check_coupon/year/")
         .then(res =>  res.json())
-        .then(res => {
-            console.log(res);
-            document.getElementById("coupon_amont")
-        });
-
+        .then(data => {
+            let newdata = data;
+            let percentoff = newdata.response.percent_off;
+            let price = signal_price/percentoff;
+            let price_ans = signal_price - price;
+            document.getElementById("_i").innerHTML = price_ans;
+        })
+        
+    
 }
     </script>
 {% endblock script %}
