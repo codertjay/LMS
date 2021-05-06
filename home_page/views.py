@@ -62,10 +62,11 @@ def coming_soon(request):
 class HomePageView(View):
 
     def get(self, *args, **kwargs):
+        all_articles =newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',)
         Free_course = Course.objects.filter(allowed_memberships=freeMembership())
         Paid_course = Course.objects.filter(allowed_memberships=paidMembership())
         context = {
-            'post': newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',),
+            'post': all_articles.get('articles'),
             'testimonial': Testimonial.objects.all(),
         }
         return render(self.request, 'HomePage/index.html', context)
