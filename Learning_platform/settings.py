@@ -78,6 +78,8 @@ MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
@@ -87,7 +89,7 @@ MIDDLEWARE = [
 
     # for django host
     'django_hosts.middleware.HostsResponseMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+ 
 ]
 
 TEMPLATES = [
@@ -263,7 +265,11 @@ VIMEO_AUTHENTICATE = vimeo.VimeoClient(
     secret="brfCb290lRxOGM0fFAHu1NATjxiDsClBHEVd6Sa1l8Sa1Jpm4PEDmCkC+51T5dRkJtXVT6efhDVp894ZMTUqcgQ5XBYtLxHZHPzNl4+LmFuYFkmk8ThPXzkOucAqXlFN"
 )
 newsapi = NewsApiClient(api_key= config('NewApiKey', default=''))
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
-
-# top_headlines = newsapi.get_top_headlines(q='bitcoin', sources='bbc-news,the-verge',category='business', language='en')
+CORS_ALLOWED_ORIGINS = [
+    'http://www.assassinfx.com',
+    'https://www.assassinfx.com',
+    'http://assassinfx.com',
+    'https://assassinfx.com',
+]
