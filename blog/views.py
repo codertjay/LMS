@@ -154,8 +154,8 @@ def news_blog_list(request):
     return render(request,'HomePage/blog/blog_list.html',context)
 
 
-def news_blog_detail(request,source=None):
-    news_data = requests.get(source)
+def news_blog_detail(request,path=None):
+    news_data = requests.get(path +"?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=thumbnail")
     data = news_data.json().get('response').get('content')
 
     context = {

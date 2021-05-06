@@ -14,10 +14,10 @@
                                 <p>{{ item.webPublicationDate }}
                                 </p>
                             </div>
-                            <div class="blog-title text-capitalize"><a href="{% comment %} {% url 'blog:news_blog_detail' item.id %} {% endcomment %}">{{ item.webTitle }}</a>
+                            <div class="blog-title text-capitalize"><a href="{% url 'blog:news_blog_detail' item.apiUrl %}">{{ item.webTitle }}</a>
                             </div>
                             <div class="blog-img">
-                                <a href="{% comment %} {% url 'blog:news_blog_detail' item.id %} {% endcomment %}"><img src="{{ item.fields.thumbnail }}" alt=""
+                                <a href="{% url 'blog:news_blog_detail' item.id %}"><img src="{{ item.fields.thumbnail }}" alt=""
                                                                            style="max-height: 604px !important;"
                                                                            class="img-fluid w-100"></a>
                             </div>
