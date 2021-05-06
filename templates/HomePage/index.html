@@ -674,18 +674,18 @@
                         <div class="owl-item {% if item.first %} active {% else %} {% endif %}" style="width: 510px; margin-right: 10px;">
                             <div class="item">
                                 <div class="card-slide">
-                                    <a href="{{ item.get_absolute_url }}"><img src="{{ item.imageURL }}" alt=""></a>
+                                    <a href="{{ item.url }}" target="_blank"><img src="{{ item.urlToImage }}" alt=""></a>
                                     <div class="date-blog">
                                         <a href="{{ item.get_absolute_url }}">
                                             <h5>{{ item.timestamp }}</h5>
                                         </a>
                                     </div>
                                     <div class="blog-des">
-                                        <a href="{{ item.get_absolute_url }}">
+                                        <a href="{{item.url }}" target="_blank">
                                             <h3>{{ item.title|capfirst }}
                                             </h3>
                                         </a>
-                                        <p>{{ item.get_markdown|truncatechars:1 }}.</p>
+                                        <p>{{ item.description|truncatewords:20 }}.</p>
                                     </div>
                                 </div>
                             </div>
