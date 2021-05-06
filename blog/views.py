@@ -14,7 +14,7 @@ from .forms import PostCreateForm
 from .models import Post
 from .utils import get_read_time
 from Learning_platform.settings import newsapi
-
+import requests
 
 
 class BloglistView(ListView):
@@ -143,9 +143,11 @@ class DeletePostView(InstructorAndLoginRequiredMixin, DeleteView):
 
 
 def news_blog_list(request):
-    all_articles = newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',)
+    news_data = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=thumbnail&q=forex")
+    data = news_data.json().get('response').get('results')
+
     context = {
-        'articles':all_articles.get('articles')
+        'posts':data
     }
 
 
@@ -153,9 +155,11 @@ def news_blog_list(request):
 
 
 def news_blog_detail(request,source=None):
-    detail = newsapi.get_sources(source)
+    news_data = requests.get(source)
+    data = news_data.json().get('response').get('content')
+
     context = {
-        'detail':detail
+        'post':data
     }
     return render(request,'HomePage/blog/blog_detail.html',context)
 

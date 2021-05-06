@@ -75,11 +75,12 @@ INSTALLED_APPS += LocalInstalledApps
 MIDDLEWARE = [
     # for django host
     'django_hosts.middleware.HostsRequestMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
-    'corsheaders.middleware.CorsMiddleware',
+  
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
@@ -265,11 +266,17 @@ VIMEO_AUTHENTICATE = vimeo.VimeoClient(
     secret="brfCb290lRxOGM0fFAHu1NATjxiDsClBHEVd6Sa1l8Sa1Jpm4PEDmCkC+51T5dRkJtXVT6efhDVp894ZMTUqcgQ5XBYtLxHZHPzNl4+LmFuYFkmk8ThPXzkOucAqXlFN"
 )
 newsapi = NewsApiClient(api_key= config('NewApiKey', default=''))
-CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = [
-    'http://www.assassinfx.com',
+CORS_ALLOWED_ORIGINS = (
+    'http://www.assassinfx.com:8000',
     'https://www.assassinfx.com',
-    'http://assassinfx.com',
+    'http://assassinfx.com:8000',
     'https://assassinfx.com',
-]
+)
+
+CORS_ALLOWED_ORIGINS = (
+    'http://www.assassinfx.com:8000',
+    'https://www.assassinfx.com',
+    'http://assassinfx.com:8000',
+    'https://assassinfx.com',
+)

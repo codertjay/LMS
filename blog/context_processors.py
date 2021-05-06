@@ -7,6 +7,7 @@ from signal_app.models import SignalType
 from .models import Post
 from courses.models import Courselanguage
 from Learning_platform.settings import newsapi
+import requests
 
 stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
 
@@ -39,9 +40,11 @@ def yearly_signal():
 
 
 def add_variable_to_context(try_content=None):
-    data = newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',)
-    older_posts = data.get('articles')
-    latest_posts = older_posts
+    news_data = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=thumbnail&q=forex&page-size=10")
+    data = news_data.json().get('response').get('results')
+
+    older_posts =data
+    latest_posts = data
     
     copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()

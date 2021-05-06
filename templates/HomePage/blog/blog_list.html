@@ -7,20 +7,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-{% comment %} {{articles}} {% endcomment %}
-                    {% for item in articles %}
+
+                    {% for item in posts %}
                         <div class="blog_content">
                             <div class="blog-date">
-                                <p>{{ item.publishedAt }} {{item.source.id}} By <a href="#">{{ item.author}} -
-                                    {{ item.user.last_name }}</a> {{ item.comments.count }} <a
-                                        href="{{ item.get_absolute_url }}#comments_sect"
-                                        class="comments-link">Comments</a>
+                                <p>{{ item.webPublicationDate }}
                                 </p>
                             </div>
-                            <div class="blog-title text-capitalize"><a href="{{ item.url }}">{{ item.title }}</a>
+                            <div class="blog-title text-capitalize"><a href="{% comment %} {% url 'blog:news_blog_detail' item.id %} {% endcomment %}">{{ item.webTitle }}</a>
                             </div>
                             <div class="blog-img">
-                                <a href="{{ item.url }}"><img src="{{ item.urlToImage }}" alt="" target='_blank'
+                                <a href="{% comment %} {% url 'blog:news_blog_detail' item.id %} {% endcomment %}"><img src="{{ item.fields.thumbnail }}" alt=""
                                                                            style="max-height: 604px !important;"
                                                                            class="img-fluid w-100"></a>
                             </div>
