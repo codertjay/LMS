@@ -21,20 +21,18 @@
                         <div class="blog-date">
 
                       
-                            <p>{{ post.timestamp|timesince }} ago By <a
-                                    href="#"> {{ post.user.first_name }}
-                                - {{ post.user.last_name }}</a> {{ post.comments.count }}
+                            <p>{{ post.webPublicationDate }}
                              
                             </p>
                         </div>
                         <div class="blog-title">
-                            <h3>{{ post.title }}</h3>
+                            <h3>{{ post.webTitle }}</h3>
                         </div>
                         <ul class="share-post">
                             <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ page_url }}" target="_blank"
                                    class="fb"><span class="icon-share "><i
                                     class="fab fa-facebook-f"></i></span><span>facebbok</span> </a></li>
-                            <li><a href="https://www.twitter.com/home?status={{ post.title }} {{ page_url }}"
+                            <li><a href="https://www.twitter.com/home?status={{ post.webTitle }} {{ page_url }}"
                                    target="_blank" class="tw"><span class="icon-share "><i
                                     class="fab fa-twitter"></i></span><span>twitter</span> </a></li>
 
