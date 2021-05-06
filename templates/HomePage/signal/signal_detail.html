@@ -67,7 +67,7 @@
                                         <div id="card-errors" role="alert"></div>
 
                                         <h5 class="lead">Apply Coupon</h5>
-                                        <div id="coupon_amont"></div>
+                                        <div id="coupon_amount"></div>
                                         <label  for="id_coupon"></label>
                                         <input  type="text" id="id_coupon" name="coupon"
                                         class="form-control"
@@ -102,7 +102,7 @@
                                         <p>
                                             <strong>Total</strong>
                                             <span>
-                                <b>${{ signal.price }}</b>/{{ signal.signal_choice }}</span
+                                <b id="_i">${{ signal.price }}</b>/{{ signal.signal_choice }}</span
                                             >
                                         </p>
                                     </div>
@@ -141,15 +141,31 @@ function doneTyping() {
     console.log(`real text ${realtext}`);
     let couponurl = "{{coupon_verify_url}}" + realtext;
     
-    fetch("http://assassinfx.com:8000/_coupon/check_coupon/year/")
-        .then(res => 
-            console.log(res.data())
-        document.getElementById("coupon_amont")
-        )
-        .catch(function(err) {
-        console.log('Fetch Error :-S', err);
-    });
-
+    fetch(couponurl)
+        .then(res =>  res.json())
+        .then(data => {
+            let newdata = data;
+            if(newdata){
+                console.log(newdata)
+              
+               if(data.percent_off){
+                let percentoff = newdata.percent_off;
+                console.log("the percent off",percentoff)
+                let price = signal_price/percentoff;
+                let price_ans = signal_price - price;
+                if(price_ans){
+                    document.getElementById("coupon_amount").innerHTML ="$"+ price_ans ;
+               } else{
+                     document.getElementById("coupon_amount").innerHTML ="Invalid Coupon"
+                }
+               
+               }
+               
+            }
+        
+        })
+        
+    
 }
     </script>
 {% endblock script %}
@@ -160,3 +176,4 @@ function doneTyping() {
     
     <script src="{% static 'stripe_assets/js/apple_pay.js' %}"></script>
 {% endcomment %}
+

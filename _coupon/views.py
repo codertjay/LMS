@@ -52,10 +52,11 @@ def coupon_create_view(request):
 
 def validate_coupon(request,coupon=None):
     response = stripe.Coupon.retrieve(coupon)
-    print('the response',response)
+    print('the response', response.percent_off)
+    percent_off = response.percent_off
     try:
         data = {
-            'response':response
+            'percent_off': percent_off
         }
     except:
         data= "error"

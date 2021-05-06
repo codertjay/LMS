@@ -52,6 +52,7 @@ LocalInstalledApps = [
 ]
 
 ExternalInstalledApps = [
+    'corsheaders',
     'upload_validator',
     'pagedown',
     'import_export',
@@ -86,6 +87,7 @@ MIDDLEWARE = [
 
     # for django host
     'django_hosts.middleware.HostsResponseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 TEMPLATES = [
@@ -261,7 +263,7 @@ VIMEO_AUTHENTICATE = vimeo.VimeoClient(
     secret="brfCb290lRxOGM0fFAHu1NATjxiDsClBHEVd6Sa1l8Sa1Jpm4PEDmCkC+51T5dRkJtXVT6efhDVp894ZMTUqcgQ5XBYtLxHZHPzNl4+LmFuYFkmk8ThPXzkOucAqXlFN"
 )
 newsapi = NewsApiClient(api_key= config('NewApiKey', default=''))
-
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # top_headlines = newsapi.get_top_headlines(q='bitcoin', sources='bbc-news,the-verge',category='business', language='en')
