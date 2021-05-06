@@ -13,6 +13,7 @@ from home_page.forms import SubscribeForm, TestimonialForm
 from home_page.mixins import InstructorAndLoginRequiredMixin
 from home_page.models import Testimonial, ComingSoon
 from memberships.models import Membership
+from Learning_platform.settings import newsapi
 
 
 def freeMembership():
@@ -64,7 +65,7 @@ class HomePageView(View):
         Free_course = Course.objects.filter(allowed_memberships=freeMembership())
         Paid_course = Course.objects.filter(allowed_memberships=paidMembership())
         context = {
-            'post': Post.objects.all(),
+            'post': newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',),
             'testimonial': Testimonial.objects.all(),
         }
         return render(self.request, 'HomePage/index.html', context)
