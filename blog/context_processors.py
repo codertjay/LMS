@@ -39,8 +39,9 @@ def yearly_signal():
 
 
 def add_variable_to_context(try_content=None):
-    latest_posts = newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',)
-    older_posts = newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',)
+    data = newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',)
+    older_posts = data.get('articles')
+    latest_posts = older_posts
     
     copy_trading = CopyTrading.objects.copy_trade_filter_choice('Monthly')
     top_forums = ForumQuestion.objects.top_forums()
