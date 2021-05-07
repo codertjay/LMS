@@ -176,7 +176,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'courses/static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if DEBUG:
-    LOGIN_URL = "http://www.assassinfx.com/accounts/login/"
+    LOGIN_URL = "http://www.assassinfx.com:8000/accounts/login/"
 else:
     LOGIN_URL = "http://www.assassinfx.com/accounts/login/"
 
@@ -274,9 +274,3 @@ CORS_ALLOWED_ORIGINS = (
     'https://assassinfx.com',
 )
 
-CORS_ALLOWED_ORIGINS = (
-    'http://www.assassinfx.com:8000',
-    'https://www.assassinfx.com',
-    'http://assassinfx.com:8000',
-    'https://assassinfx.com',
-)

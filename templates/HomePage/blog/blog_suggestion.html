@@ -5,7 +5,7 @@
         <ul class="blog-link">
             {% if latest_posts %}
                 {% for item in latest_posts %}
-                    <li><a href="{{ item.get_absolute_url }}" class="text-capitalize">{{ item.title }}</a></li>
+                     <li><a href="{% url 'blog:news_blog_detail' item.id %}" class="text-capitalize">{{ item.webTitle }}</a></li>
                 {% endfor %}
             {% endif %}
 
@@ -15,7 +15,7 @@
 
             {% if older_posts %}
                 {% for item in older_posts %}
-                    <li><a href="{{ item.get_absolute_url }}" class="text-capitalize">{{ item.title }}</a></li>
+                    <li><a href="{% url 'blog:news_blog_detail' item.id %}" class="text-capitalize">{{ item.webTitle }}</a></li>
                 {% endfor %}
             {% endif %}
         </ul>
