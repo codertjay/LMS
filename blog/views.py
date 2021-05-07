@@ -22,19 +22,16 @@ def news_blog_list(request):
     news_data = requests.get("https://content.guardianapis.com/search?show-tags=money%20bitcoin%20forex&page-size=100&api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all")
     data = news_data.json().get('response').get('results')
     articles = Post.objects.published()
-
     context = {
         'posts':data,
         'articles':articles
     }
-
     return render(request,'HomePage/blog/blog_list.html',context)
 
 
 def news_blog_detail(request,path=None):
     news_data = requests.get("https://content.guardianapis.com/"+path +"?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all")
     data = news_data.json().get('response').get('content')
-
     context = {
         'post':data
     }
@@ -157,18 +154,3 @@ def news_blog_detail(request,path=None):
 #     model = Post
 #     template_name = 'HomePage/blog/delete-blog.html'
 #     success_url = 'blog/'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

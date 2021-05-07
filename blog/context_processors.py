@@ -40,10 +40,10 @@ def yearly_signal():
 
 
 def add_variable_to_context(try_content=None):
-    news_data = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=thumbnail&q=forex&page-size=5")
+    news_data = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=thumbnail&q=forex&page-size=5&order-by=oldest")
     data = news_data.json().get('response').get('results')
-    news_data_2 = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=thumbnail&q=bitcoin&page-size=5")
-    data_2 = news_data.json().get('response').get('results')
+    news_data_2 = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=thumbnail&q=cryptocurrency&page-size=5")
+    data_2 = news_data_2.json().get('response').get('results')
 
     older_posts =data
     latest_posts = data_2
