@@ -14,7 +14,7 @@ from home_page.mixins import InstructorAndLoginRequiredMixin
 from home_page.models import Testimonial, ComingSoon
 from memberships.models import Membership
 from Learning_platform.settings import newsapi
-
+import requests
 
 def freeMembership():
     free_qs = Membership.objects.filter(membership_type='Free')
@@ -62,11 +62,13 @@ def coming_soon(request):
 class HomePageView(View):
 
     def get(self, *args, **kwargs):
-        all_articles =newsapi.get_everything(q='bitcoin forex cryptocurrency',language='en',sort_by='relevancy',)
+        news_data = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all&q=forex&page-size=10")
+        all_articles = news_data.json().get('response').get('results')
+
         Free_course = Course.objects.filter(allowed_memberships=freeMembership())
         Paid_course = Course.objects.filter(allowed_memberships=paidMembership())
         context = {
-            'post': all_articles.get('articles'),
+            'post': all_articles,
             'testimonial': Testimonial.objects.all(),
         }
         return render(self.request, 'HomePage/index.html', context)

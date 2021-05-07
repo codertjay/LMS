@@ -143,7 +143,7 @@ class DeletePostView(InstructorAndLoginRequiredMixin, DeleteView):
 
 
 def news_blog_list(request):
-    news_data = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all&q=forex")
+    news_data = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all&q=forex bitcoin cryptocurrency bitcoin")
     data = news_data.json().get('response').get('results')
 
     context = {
@@ -155,7 +155,7 @@ def news_blog_list(request):
 
 
 def news_blog_detail(request,path=None):
-    news_data = requests.get(path +"?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=thumbnail")
+    news_data = requests.get("https://content.guardianapis.com/"+path +"?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all")
     data = news_data.json().get('response').get('content')
 
     context = {
