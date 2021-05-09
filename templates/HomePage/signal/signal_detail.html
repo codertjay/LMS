@@ -1,12 +1,12 @@
 {% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} signal {% endblock %} {% block style %}
 
-    <link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}"/> {% endblock %} {% block content %}
-    <!--Select Links End-->
-    <section class="pricing-table">
-        <div id="smartwizard">
-            <ul class="step-links">
-                <li>
-                    <a href="#step-2"><span><small>1</small><i class="far fa-check"></i></span>Payment
+<link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}" /> {% endblock %} {% block content %}
+<!--Select Links End-->
+<section class="pricing-table">
+    <div id="smartwizard">
+        <ul class="step-links">
+            <li>
+                <a href="#step-2"><span><small>1</small><i class="far fa-check"></i></span>Payment
                         Checkout</a
                     >
                 </li>
@@ -68,13 +68,13 @@
 
                                         <h5 class="lead">Apply Coupon</h5>
                                         <div id="coupon_amount"></div>
-                                        <label for="id_coupon"></label>
-                                        <input type="text" id="id_coupon" name="coupon"
-                                               class="form-control"
+                                        <label  for="id_coupon"></label>
+                                        <input  type="text" id="id_coupon" name="coupon"
+                                        class="form-control"
                                                style="max-width:50%;height: 40px"/>
 
 
-                                        {% comment %}  <div id="payment-request-button">
+                                      {% comment %}  <div id="payment-request-button">
                                             <!-- A Stripe Element will be inserted here. -->
                                         </div> {% endcomment %}
 
@@ -126,49 +126,47 @@
     {% comment %} <script src="{% static 'stripe_assets/js/stripe_payment_button.js' %}"></script> {% endcomment %}
 
     <script>
-        var typingTimer;
-        var doneTypingInterval = 500;
+var typingTimer;
+var doneTypingInterval = 500;
 
-        $ ("#id_coupon").on ("input" , function () {
-            window.clearTimeout (typingTimer);
-            typingTimer = window.setTimeout (doneTyping , doneTypingInterval);
-        });
-        let signal_price = "{{signal.price}}"
-        let signal_type = "{{ signal.signal_choice }}"
+$("#id_coupon").on("input", function () {
+    window.clearTimeout(typingTimer);
+    typingTimer = window.setTimeout(doneTyping, doneTypingInterval);
+});
+let signal_price = "{{signal.price}}"
+function doneTyping() {
+    let text = document.getElementById("id_coupon");
+    let realtext = text.value;
+    console.log(realtext);
+    console.log(`real text ${realtext}`);
+    let couponurl = "{{coupon_verify_url}}" + realtext;
 
-        function doneTyping () {
-            let text = document.getElementById ("id_coupon");
-            let realtext = text.value;
-            console.log (realtext);
-            console.log (`real text ${realtext}`);
-            let couponurl = "{{coupon_verify_url}}" + realtext + "/" + signal_type;
+    fetch(couponurl)
+        .then(res =>  res.json())
+        .then(data => {
+            let newdata = data;
+            if(newdata){
+                console.log(newdata)
 
-            fetch (couponurl)
-                .then (res => res.json ())
-                .then (data => {
-                    let newdata = data;
-                    if (newdata) {
-                        console.log (newdata)
+               if(data.percent_off){
+                let percentoff = newdata.percent_off;
+                console.log("the percent off",percentoff)
+                let price = signal_price/percentoff;
+                let price_ans = signal_price - price;
+                if(price_ans){
+                    document.getElementById("coupon_amount").innerHTML ="$"+ price_ans ;
+               } else{
+                     document.getElementById("coupon_amount").innerHTML ="Invalid Coupon"
+                }
 
-                        if (data.percent_off) {
-                            let percentoff = newdata.percent_off;
-                            console.log ("the percent off" , percentoff)
-                            let price = signal_price / percentoff;
-                            let price_ans = signal_price - price;
-                            if (price_ans) {
-                                document.getElementById ("coupon_amount").innerHTML = "$" + price_ans;
-                            } else {
-                                document.getElementById ("coupon_amount").innerHTML = "Invalid Coupon"
-                            }
+               }
 
-                        }
+            }
 
-                    }
-
-                })
+        })
 
 
-        }
+}
     </script>
 {% endblock script %}
 
