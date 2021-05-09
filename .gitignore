@@ -5,7 +5,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .env
-
+db
 # C extensions
 *.so
 media_root/video
