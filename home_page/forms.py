@@ -1,7 +1,8 @@
-from .models import Subscribe
-
 from django import forms
+
+from .models import Subscribe
 from .models import Testimonial
+
 
 class SubscribeForm(forms.ModelForm):
     class Meta:
@@ -13,3 +14,4 @@ class TestimonialForm(forms.ModelForm):
     class Meta:
         model = Testimonial
         fields = '__all__'
+

@@ -1,22 +1,24 @@
+from allauth.account.models import EmailAddress
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
-from django.template.loader import get_template
+from django.template.loader import get_template, render_to_string
+from django.utils.html import strip_tags
 from django.views import View
-from django.views.generic import DetailView
 
-from courses.models import RecentCourses, Course
 from academy_forum.models import ForumQuestion
+from courses.models import RecentCourses, Course
+from home_page.mixins import InstructorAndLoginRequiredMixin
+from home_page.models import Subscribe
 from memberships.utils import get_user_membership
 from signal_app.models import UserSignalSubscription, deactivate_signals
-from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm
+from users.forms import ProfileUpdateForm, ContactAdminForm, UserUpdateForm, SendMailForm
 from users.models import Profile, Contact
-from django.contrib.auth.models import User
 
 EMAIL_HOST_USER = settings.EMAIL_HOST_USER_SENDGRID
 
@@ -135,7 +137,6 @@ def public_profile_view(request, username):
         return redirect("memberships:profile")
 
 
-
 class UserProfileUpdate(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
@@ -174,3 +175,42 @@ class UserProfileUpdate(LoginRequiredMixin, View):
         else:
             messages.warning(self.request, f'There was an error please filled the form correctly')
         return redirect('users:profile_edit')
+
+
+# send created mail mail to the user
+def instructor_send_message(message, email_list):
+    html_message = render_to_string('EmailTemplates/instructor_send_message_template.html',
+                                    {'content': message.get('content'), 'title': message.get('title')})
+    plain_message = strip_tags(html_message)
+    send_mail(
+        f"{message.get('title')}",
+        plain_message, EMAIL_HOST_USER, recipient_list=email_list
+        , html_message=html_message, fail_silently=True
+    )
+    return None
+
+
+class InstructorSendMail(InstructorAndLoginRequiredMixin, View):
+
+    def get(self, request):
+        form = SendMailForm()
+        context = {'form': form}
+        return render(self.request, 'DashBoard/instructor/instructor-sendmail.html', context)
+
+    def post(self, request):
+        email_list = EmailAddress.objects.all()
+        print('the post', self.request.POST)
+        form = SendMailForm(request.POST)
+        email_list = []
+        for item in EmailAddress.objects.all():
+            email_list.append(item.email)
+        for item in Subscribe.objects.all():
+            email_list.append(item.email)
+        print('the email list', email_list)
+        list_of_emails = list(dict.fromkeys(email_list))
+        if form.is_valid():
+            print('the form content', form.cleaned_data)
+            message = form.cleaned_data
+            instructor_send_message(message, list_of_emails)
+            messages.success(request, 'Successfully sent message')
+        return redirect('users:send_mail')

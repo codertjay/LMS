@@ -1,5 +1,6 @@
 from django import forms
 from django.conf import settings
+from pagedown.widgets import PagedownWidget
 from upload_validator import FileTypeValidator
 
 from courses.models import Course
@@ -54,3 +55,8 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['email', 'first_name', 'last_name']
+
+
+class SendMailForm(forms.Form):
+    title = forms.CharField()
+    content = forms.CharField(widget=PagedownWidget())

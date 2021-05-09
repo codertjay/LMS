@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 import vimeo
 from newsapi import NewsApiClient
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -80,7 +79,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
-  
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
@@ -90,7 +88,7 @@ MIDDLEWARE = [
 
     # for django host
     'django_hosts.middleware.HostsResponseMiddleware',
- 
+
 ]
 
 TEMPLATES = [
@@ -235,8 +233,6 @@ handler500 = 'home_page.views.view_500'
 handler403 = 'home_page.views.view_403'
 handler400 = 'home_page.views.view_400'
 
-
-
 # django host
 DEFAULT_HOST = 'www'
 ROOT_HOSTCONF = 'Learning_platform.hosts'
@@ -253,19 +249,15 @@ else:
 CSRF_TRUSTED_ORIGINS = [f"{'.' + DOMAIN_NAME}", f"academy.{DOMAIN_NAME}", f"www.{DOMAIN_NAME}",
                         'academy.assassinfx.com']
 SESSION_COOKIE_DOMAIN = f".{DOMAIN_NAME}"
-
 SESSION_COOKIE_NAME = 'assassinfxsessionid'
-
 CSRF_COOKIE_DOMAIN = '.' + DOMAIN_NAME
 
-# CSRF_USE_SESSIONS = True
-
 VIMEO_AUTHENTICATE = vimeo.VimeoClient(
-    token="4065ff3ed3daf6307a7b09ba9076e841",
-    key="19c6d96a4a45af44348ef9516002f11f93ec0290",
-    secret="brfCb290lRxOGM0fFAHu1NATjxiDsClBHEVd6Sa1l8Sa1Jpm4PEDmCkC+51T5dRkJtXVT6efhDVp894ZMTUqcgQ5XBYtLxHZHPzNl4+LmFuYFkmk8ThPXzkOucAqXlFN"
+    token=config('VIMEO_TOKEN', default=''),
+    key=config('VIMEO_KEY', default=''),
+    secret=config('VIMEO_SECRET', default='')
 )
-newsapi = NewsApiClient(api_key= config('NewApiKey', default=''))
+newsapi = NewsApiClient(api_key=config('NewApiKey', default=''))
 
 CORS_ALLOWED_ORIGINS = (
     'http://www.assassinfx.com:8000',
@@ -273,4 +265,3 @@ CORS_ALLOWED_ORIGINS = (
     'http://assassinfx.com:8000',
     'https://assassinfx.com',
 )
-

@@ -8,6 +8,9 @@ from django.urls import reverse
 class Subscribe(models.Model):
     email = models.EmailField()
 
+    def __str__(self):
+        return self.email
+
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=40)

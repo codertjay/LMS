@@ -1,20 +1,17 @@
+import requests
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.base import View
 
-from blog.models import Post
-from copy_trading.models import CopyTrading
 from courses.models import Course
 from home_page.forms import SubscribeForm, TestimonialForm
 from home_page.mixins import InstructorAndLoginRequiredMixin
 from home_page.models import Testimonial, ComingSoon
 from memberships.models import Membership
-from Learning_platform.settings import newsapi
-import requests
+
 
 def freeMembership():
     free_qs = Membership.objects.filter(membership_type='Free')
@@ -62,7 +59,8 @@ def coming_soon(request):
 class HomePageView(View):
 
     def get(self, *args, **kwargs):
-        news_data = requests.get("https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all&q=forex&page-size=10")
+        news_data = requests.get(
+            "https://content.guardianapis.com/search?api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all&q=forex&page-size=10")
         all_articles = news_data.json().get('response').get('results')
 
         Free_course = Course.objects.filter(allowed_memberships=freeMembership())
@@ -131,5 +129,4 @@ class TestimonialDeleteView(InstructorAndLoginRequiredMixin, DeleteView):
         context = super(TestimonialDeleteView, self).get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
         return context
-
 
