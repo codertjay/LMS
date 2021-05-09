@@ -8,7 +8,7 @@ import string
 
 CouponChoice = (
     ('Signal_Monthly', 'Signal_Monthly'),
-    ('Signal_Quaterly', 'Signal_Quaterly'),
+    ('Signal_Quarterly', 'Signal_Quarterly'),
     ('Signal_Yearly', 'Signal_Yearly'),
     ('Academy', 'Academy'),
 )
@@ -52,7 +52,7 @@ def create_slug(instance, new_slug=None):
         slug = new_slug
     qs = Coupon.objects.filter(slug=slug).order_by('-id')
     if qs.exists():
-        new_slug = f'{slug, qs.first().id}'
+        new_slug = f'{slug}-{qs.first().id}'
         return create_slug(instance, new_slug=new_slug)
     return slug
 
