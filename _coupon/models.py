@@ -68,7 +68,7 @@ def pre_save_coupon_receiver(sender, instance, *args, **kwargs):
                 duration='once',
                 id=stripe_slug
             )
-            instance.name = stripe_coupon.id
+            instance.coupon_name = stripe_coupon.id
             print('this is the instance coupon ', instance.coupon_name)
         instance.save()
 

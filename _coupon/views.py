@@ -10,7 +10,8 @@ from django.template.defaultfilters import slugify
 from home_page.mixins import InstructorAndLoginRequiredMixin
 from django.http import JsonResponse
 
-class CouponView(InstructorAndLoginRequiredMixin,View):
+
+class CouponView(InstructorAndLoginRequiredMixin, View):
 
     def get(self, request):
         coupon = Coupon.objects.all()
@@ -49,15 +50,25 @@ def coupon_create_view(request):
     return redirect('coupon:coupon')
 
 
-
-def validate_coupon(request,coupon=None):
+def validate_coupon(request, coupon=None, coupon_type=None):
     response = stripe.Coupon.retrieve(coupon)
     print('the response', response.percent_off)
+    print('the coupon type', coupon_type)
     percent_off = response.percent_off
-    try:
-        data = {
-            'percent_off': percent_off
-        }
-    except:
-        data= "error"
-    return JsonResponse(data)
+    coupon_qs = Coupon.objects.filter(slug=coupon)
+    if coupon_qs:
+        coupon = coupon_qs.first()
+        print('other', coupon.coupon_type)
+        if coupon.coupon_type == coupon_type:
+            try:
+                data = {
+                    'percent_off': percent_off
+                }
+            except:
+                data = "error"
+            return JsonResponse(data)
+        else:
+            data = {
+                'percent_off': 0
+            }
+            return JsonResponse(data)

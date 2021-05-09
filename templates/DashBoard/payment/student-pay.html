@@ -3,74 +3,121 @@
 
 
 {% block title %}
-Upgrade membership
+    Upgrade membership
 {% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}">
+    <link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}">
 
 {% endblock %}
 
 
 {% block content %}
 
-<div class="container-fluid page__container p-0">
-    <div class="row m-0">
-        <div class="col-lg container-fluid page__container">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{% url 'users:profile_edit' %}">Edit Account</a></li>
-            </ol>
+    <div class="container-fluid page__container p-0">
+        <div class="row m-0">
+            <div class="col-lg container-fluid page__container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="{% url 'users:profile_edit' %}">Edit Account</a></li>
+                </ol>
 
 
-
-    
-    <div class="col-12 mt-5 pt-5">
-        <p class="text-capitalize">Selected membership: {{ selected_membership }}</p>
-        <p>Price: <strong> ${{ selected_membership.price }}/month</strong></p>
+                <div class="col-12 mt-5 pt-5">
+                    <p class="text-capitalize">Selected membership: {{ selected_membership }}</p>
+                    <p>Price: <strong> ${{ selected_membership.price }}/month</strong></p>
 
 
-        <div id="collapseStripe" class="wrapper">
-            <script src="https://js.stripe.com/v3/"></script>
-            <form action="." method="post" id="payment-form" class="form_class">
-                {% csrf_token %}
-                <div class="form-row">
-                    <label for="card-element">
-                        Credit or debit card
-                    </label>
-                    <div id="card-element">
-                        <!-- A Stripe Element will be inserted here. -->
+                    <div id="collapseStripe" class="wrapper">
+                        <script src="https://js.stripe.com/v3/"></script>
+                        <form action="." method="post" id="payment-form" class="form_class">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <label for="card-element">
+                                    Credit or debit card
+                                </label>
+                                <div id="card-element">
+                                    <!-- A Stripe Element will be inserted here. -->
+                                </div>
+
+                                <!-- Used to display form errors. -->
+                                <div id="card-errors" role="alert"></div>
+                            </div>
+
+                            <label for="id_coupon">Apply Coupon</label>
+                            <div id="coupon_amount"></div>
+                            <input type="text" id="id_coupon" name="coupon" class="form-control mb-4"
+                                   style="max-width:50%">
+
+                            <button id="submit-button">Make Payment</button>
+                        </form>
                     </div>
 
-                    <!-- Used to display form errors. -->
-                    <div id="card-errors" role="alert"></div>
                 </div>
-                <label for="id_coupon">Apply Coupon</label>
-                <input type="text" id="id_coupon" name="coupon" class="form-control mb-4" style="max-width:50%">
 
-                <button  id="submit-button">Make Payment</button>
-            </form>
+            </div>
+
+            {# beginning the page nav#} {% include 'DashBoard/payment/membership-page-nav.html' %} {# end of page nav #}
+
         </div>
 
     </div>
-
-   </div> 
-   
-{# beginning the page nav#} {% include 'DashBoard/payment/membership-page-nav.html' %} {# end of page nav #}
-
- </div> 
-
-</div>
 
 {% endblock %}
 
 
 
 {% block script %}
-<!-- script for the stripe form -->
-<script>
-    var stripe = Stripe('{{ stripe_public_key }}');
-</script>
-<script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
+    <!-- script for the stripe form -->
+    <script>
+        var stripe = Stripe ('{{ stripe_public_key }}');
+    </script>
+    <script src="{% static 'stripe_assets/js/checkout.js' %}"></script>
+
+    <script>
+        var typingTimer;
+        var doneTypingInterval = 500;
+
+        $ ("#id_coupon").on ("input" , function () {
+            window.clearTimeout (typingTimer);
+            typingTimer = window.setTimeout (doneTyping , doneTypingInterval);
+        });
+        let selected_membership_price = "{{selected_membership.price }}"
+        let coupon_type = "Academy"
+
+        function doneTyping () {
+            let text = document.getElementById ("id_coupon");
+            let realtext = text.value;
+            console.log (realtext);
+            console.log (`real text ${realtext}`);
+            let couponurl = "{{coupon_verify_url}}" + realtext + "/" + coupon_type;
+
+            fetch (couponurl)
+                .then (res => res.json ())
+                .then (data => {
+                    let newdata = data;
+                    if (newdata) {
+                        console.log (newdata)
+
+                        if (data.percent_off) {
+                            let percentoff = newdata.percent_off;
+                            console.log ("the percent off" , percentoff)
+                            let price = selected_membership_price / percentoff;
+                            let price_ans = selected_membership_price - price;
+                            if (price_ans) {
+                                document.getElementById ("coupon_amount").innerHTML = "$" + price_ans;
+                            } else {
+                                document.getElementById ("coupon_amount").innerHTML = "Invalid Coupon"
+                            }
+
+                        }
+
+                    }
+
+                })
+
+
+        }
+    </script>
 {% endblock %}
 
