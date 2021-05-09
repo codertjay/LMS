@@ -59,4 +59,4 @@ class UserUpdateForm(forms.ModelForm):
 
 class SendMailForm(forms.Form):
     title = forms.CharField()
-    content = forms.CharField(widget=PagedownWidget())
+    content = forms.CharField(widget=forms.Textarea)
