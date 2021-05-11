@@ -102,7 +102,7 @@
                         if (data.percent_off) {
                             let percentoff = newdata.percent_off;
                             console.log ("the percent off" , percentoff)
-                            let price = selected_membership_price / percentoff;
+                            let price = selected_membership_price * percentoff / 100;
                             let price_ans = selected_membership_price - price;
                             if (price_ans) {
                                 document.getElementById ("coupon_amount").innerHTML = "$" + price_ans;
