@@ -156,7 +156,7 @@
                             let price = signal_price *  percentoff/100;
                             let price_ans = signal_price - price;
                             if (price_ans) {
-                                document.getElementById ("_i").innerHTML = "$" + price_ans;
+                                document.getElementById ("_i").innerText = `${price_ans} $`;
                             } else {
                                 document.getElementById ("coupon_amount").innerHTML = "Invalid Coupon"
                             }
