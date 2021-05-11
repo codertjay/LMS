@@ -93,10 +93,11 @@ checking for expired signals
             if signal.active:
                 if signal.expiring_date < datetime.now():
                     print('checking ')
+                    signal_expired_message(signal)
                     signal.stripe_subscription_id = ''
                     signal.active = False
                     signal.save()
-                    signal_expired_message(signal)
+
     except Exception as a:
         print(f"""
 ======================================
