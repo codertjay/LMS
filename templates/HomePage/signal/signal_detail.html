@@ -1,12 +1,12 @@
 {% extends 'HomePage/home_base.html' %} {% load static %} {% block title %} signal {% endblock %} {% block style %}
 
-<link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}" /> {% endblock %} {% block content %}
-<!--Select Links End-->
-<section class="pricing-table">
-    <div id="smartwizard">
-        <ul class="step-links">
-            <li>
-                <a href="#step-2"><span><small>1</small><i class="far fa-check"></i></span>Payment
+    <link rel="stylesheet" href="{% static 'stripe_assets/css/checkout.css' %}"/> {% endblock %} {% block content %}
+    <!--Select Links End-->
+    <section class="pricing-table">
+        <div id="smartwizard">
+            <ul class="step-links">
+                <li>
+                    <a href="#step-2"><span><small>1</small><i class="far fa-check"></i></span>Payment
                         Checkout</a
                     >
                 </li>
@@ -155,11 +155,10 @@
                             console.log ("the percent off" , percentoff)
                             let price = signal_price * percentoff / 100;
                             let price_ans = signal_price - price;
-                            let newPrice = document.getElementById("_i");
                             if (price_ans) {
-                               newPrice.innerText = `${price_ans} $`;
+                                document.getElementById ("coupon_amount").innerHTML = "$" + price_ans;
                             } else {
-                                document.getElementById("coupon_amount").innerText = "Invalid Coupon"
+                                document.getElementById ("coupon_amount").innerHTML = "Invalid Coupon"
                             }
 
                         }
@@ -176,6 +175,7 @@
 {% comment %}
  stripe apple pay button
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    
+
     <script src="{% static 'stripe_assets/js/apple_pay.js' %}"></script>
 {% endcomment %}
+
