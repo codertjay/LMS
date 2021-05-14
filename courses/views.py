@@ -54,7 +54,7 @@ class CourseCreateView(InstructorAndLoginRequiredMixin, View):
 
         elif not form.is_valid():
             messages.error(self.request, 'invalid form data')
-        return redirect('blog_create')
+        return redirect('courses:create_course')
 
 
 @login_required
