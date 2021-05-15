@@ -57,8 +57,6 @@ def academy_subscribe_view(request):
     return redirect(host_reverse('course_list', host='academy'))
 
 
-
-
 class StudentCourseTypeView(LoginRequiredMixin, ListView):
     model = Course
     template_name = 'StudentDashboard/student_course/student-courses-course-type.html'
@@ -106,9 +104,9 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
         course_type = self.kwargs['course_type']
         course_membership = Membership.objects.get_membership(course_type)
         user_membership = UserMembership.objects.get_user_memberships(user=self.request.user)
-        if user_membership:
+        if user_membership or self.request.user.is_superuser:
             print('the user membership ', user_membership)
-            if course_membership in user_membership.memberships.all():
+            if course_membership in user_membership.memberships.all() or self.request.user.is_superuser:
                 return super(StudentCourseTypeView, self).get(*args, **kwargs)
         if course_membership:
             messages.info(self.request,
@@ -130,7 +128,7 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         user_membership_type = user_membership.memberships.all()
         course_allowed_mem_types = course.allowed_memberships.all()
         for item in course_allowed_mem_types:
-            if item in user_membership_type:
+            if item in user_membership_type or self.request.user.is_superuser:
                 context['lesson'] = lesson
         print('the user membership type', user_membership_type)
         print('the user course_allowed_mem_type', course_allowed_mem_types)
@@ -145,7 +143,7 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         context = self.get_context_data(object=self.object)
         if course_allowed_memberships:
             for item in course_allowed_memberships:
-                if item in user_membership_type:
+                if item in user_membership_type or request.user.is_superuser:
                     return self.render_to_response(context)
                 elif item not in user_membership_type:
                     messages.info(self.request,
@@ -165,7 +163,7 @@ class LessonDetailView(LoginRequiredMixin, View):
         user_membership_type = user_membership.memberships.all()
         course_allowed_mem_types = course.allowed_memberships.all()
         for item in course_allowed_mem_types:
-            if item in user_membership_type:
+            if item in user_membership_type or request.user.is_superuser:
                 context = {'lesson': lesson, 'course': course, }
                 return render(request, 'StudentDashboard/student_course/student-course-detail.html', context)
         messages.info(self.request,
