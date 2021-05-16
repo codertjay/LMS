@@ -112,6 +112,7 @@ def payment_view(request):
                         ],
                         coupon=coupon_type.slug,
                     )
+                    messages.info(request, 'Successfully applied coupon')
             else:
                 subscription = stripe.Subscription.create(
                     customer=user_membership.stripe_customer_id,
@@ -120,9 +121,12 @@ def payment_view(request):
                     ]
                 )
 
-            print('this is the subscription_id ', subscription.id)
             if subscription.status == 'active':
-                print('passed here 2')
+                response = stripe.Subscription.modify(
+                    subscription.id,
+                    cancel_at_period_end=True
+                )
+                print(response)
                 return redirect(reverse('memberships:update_transactions',
                                         kwargs={
                                             'subscription_id': subscription.id

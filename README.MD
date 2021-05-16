@@ -16,7 +16,7 @@ pip install virtualenv
 virtualenv env
 
 # if you are using windows
-env\Scripts\activate.bat
+env\Scripts\activate.bat                                                                                              
 # else
 source env/bin/activate
 
