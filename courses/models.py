@@ -171,11 +171,12 @@ class Lesson(models.Model):
             # duration = video_clip_duration(self.videoURL)
             duration_response = VIMEO_AUTHENTICATE.get(self.video_uri)
             if duration_response:
-                duration = duration_response.json().get('duration')
+                _duration = duration_response.json().get('duration')
+            duration = convert(_duration)
         except:
             duration = 0
         print('the duration of the video ', duration)
-        return convert(duration)
+        return duration
 
     def get_absolute_url(self):
         return host_reverse('lesson_detail', args=(self.course.slug, self.slug,), host='academy')

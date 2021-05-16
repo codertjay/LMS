@@ -34,7 +34,6 @@
             {% endif %}
 
 
-
         </div>
     </div>
 {% endblock %} {% block content %}
@@ -80,10 +79,11 @@
                         <span><img src="{{ course.imageURL }}" class="mb-1" style="width:34px;"
                                    alt="logo"></span> {% for item in course.allowed_memberships.all %}
                                 <span class="course__title">{{ item.slug }}</span> {% endfor %}
-                                {% for item in course.allowed_memberships.all %} {% if item in user_membership %}
-                                    <span class="course__subtitle">{{ course.title }}</span>
-                                {% elif item not in user_membership %}
-                                    <span class="material-icons">lock</span> {% endif %} {% endfor %}
+                                {% for item in course.allowed_memberships.all %}
+                                    {% if item in user_membership or request.user.is_superuser %}
+                                        <span class="course__subtitle">{{ course.title }}</span>
+                                    {% elif item not in user_membership %}
+                                        <span class="material-icons">lock</span> {% endif %} {% endfor %}
                             </a>
                         </div>
                         <div class="p-3">
