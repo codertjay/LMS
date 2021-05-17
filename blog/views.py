@@ -19,7 +19,7 @@ import requests
 
 
 def news_blog_list(request):
-    news_data = requests.get("https://content.guardianapis.com/search?show-tags=bitcoin%20forex&page-size=100&api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all")
+    news_data = requests.get("https://content.guardianapis.com/search?show-tags=bitcoin%dogecoin%moving average%us dollar%gbp%eur%japanese yen%indexes%indicies%nas100%nasdaq%ftse%uk100%20forex&page-size=100&api-key=1141cdb8-ecdc-4200-a597-bf4de0034a0a&show-fields=all")
     data = news_data.json().get('response').get('results')
     articles = Post.objects.published()
     context = {
