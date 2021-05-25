@@ -1,194 +1,170 @@
-{% extends 'DashBoard/dashboard_base.html' %} {% load hosts %} {% block styles %} {% endblock %}
-{% block title %} {% endblock %} {% block content %}
+{% extends 'DashBoard/dashboard_base.html' %} {% load hosts %} {% block styles %} {% endblock %} {% block title %} {% endblock %} {% block content %}
 
 
-    <div class="container-fluid page__container p-0">
-        <div class="row m-0">
-            <div class="col-lg container-fluid page__container">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-                    <li class="breadcrumb-item active"><a href="{% url 'users:profile_edit' %}">Edit Account</a></li>
-                </ol>
+<div class="container-fluid page__container p-0">
+    <div class="row m-0">
+        <div class="col-lg container-fluid page__container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+                <li class="breadcrumb-item active"><a href="{% url 'users:profile_edit' %}">Edit Account</a></li>
+            </ol>
 
-                <h1 class="h2">Upgrade Academy</h1>
+            <h1 class="h2">Upgrade Academy</h1>
 
 
-                <div class="row card-group-row mb-40pt">
+            <div class="row card-group-row mb-40pt">
 
-                    {% if Beginner_membership %}
-                        <div class="col-lg-5 col-sm-5 card-group-row__col">
+                {% if Beginner_membership %}
+                <div class="col-lg-5 col-sm-5 card-group-row__col">
 
-                            <div class="card card-group-row__card text-center o-hidden card--raised navbar-shadow"
-                                 style="border-radius: 5px;">
+                    <div class="card card-group-row__card text-center o-hidden card--raised navbar-shadow" style="border-radius: 5px;">
 
-                                <div class="card-body d-flex flex-column">
-                                    <div class="flex-grow-1 mb-16pt">
+                        <div class="card-body d-flex flex-column">
+                            <div class="flex-grow-1 mb-16pt">
                                 <span class="w-64 h-64 icon-holder   d-inline-flex mb-16pt">
                                                         <i class="fa fa-person-sign">{{ Beginner_membership.membership_type }}</i>
                                                     </span>
-                                        <p class="text-black-70">Access to
-                                            over {{ Beginner_membership.course_set.count }} high
-                                            quality courses. For individuals.
-                                        </p>
-                                    </div>
-                                    <p class="d-flex justify-content-center align-items-center m-0">
-                                        <span class="h4 m-0 font-weight-normal">&dollar;</span>
-                                        <span class="h1 m-0 font-weight-normal">{{ Beginner_membership.price }}</span>
-                                        <span class="h4 m-0 font-weight-normal">/ month</span>
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    {% if Beginner_membership.membership_type != 'Free' %}
+                                <p class="text-black-70">Access to over {{ Beginner_membership.course_set.count }} high quality courses. For individuals.
+                                </p>
+                            </div>
+                            <p class="d-flex justify-content-center align-items-center m-0">
+                                <span class="h4 m-0 font-weight-normal">&dollar;</span>
+                                <span class="h1 m-0 font-weight-normal">{{ Beginner_membership.price }}</span>
+                                <span class="h4 m-0 font-weight-normal"></span>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            {% if Beginner_membership.membership_type != 'Free' %}
 
-                                        <form method="post" action="{% url 'memberships:membership_select' %}">
-                                            {% csrf_token %} {% if Beginner_membership not in current_memberships %}
-                                            <button type="submit" class="btn btn-success">Get started
+                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                {% csrf_token %} {% if Beginner_membership not in current_memberships %}
+                                <button type="submit" class="btn btn-success">Get started
                                             </button> {% endif %}
-                                            <input type="hidden" name="membership_type"
-                                                   value="{{ Beginner_membership.membership_type }}">
-                                        </form>
-                                    {% endif %} {% if Beginner_membership in current_memberships %}
-                                    <a href="{% url 'memberships:profile' %}"
-                                       class="btn btn-outline-secondary text-dark">
+                                <input type="hidden" name="membership_type" value="{{ Beginner_membership.membership_type }}">
+                            </form>
+                            {% endif %} {% if Beginner_membership in current_memberships %}
+                            <a href="{% url 'memberships:profile' %}" class="btn btn-outline-secondary text-dark">
                                         Current plan</a> {% endif %}
 
-                                </div>
-                            </div>
                         </div>
-                    {% endif %}
-                    {% if Intermediate_membership %}
-                        <div class="col-lg-5 col-sm-5 card-group-row__col">
+                    </div>
+                </div>
+                {% endif %} {% if Intermediate_membership %}
+                <div class="col-lg-5 col-sm-5 card-group-row__col">
 
-                            <div class="card card-group-row__card text-center o-hidden card--raised navbar-shadow"
-                                 style="border-radius: 5px;">
+                    <div class="card card-group-row__card text-center o-hidden card--raised navbar-shadow" style="border-radius: 5px;">
 
-                                <div class="card-body d-flex flex-column">
-                                    <div class="flex-grow-1 mb-16pt">
+                        <div class="card-body d-flex flex-column">
+                            <div class="flex-grow-1 mb-16pt">
                                 <span class="w-64 h-64 icon-holder   d-inline-flex mb-16pt">
                                                         <i class="fa fa-person-sign">{{ Intermediate_membership.membership_type }}</i>
                                                     </span>
-                                        <p class="text-black-70">Access to
-                                            over {{ Intermediate_membership.course_set.count }} high
-                                            quality courses. For individuals.
-                                        </p>
-                                    </div>
-                                    <p class="d-flex justify-content-center align-items-center m-0">
-                                        <span class="h4 m-0 font-weight-normal">&dollar;</span>
-                                        <span class="h1 m-0 font-weight-normal">{{ Intermediate_membership.price }}</span>
-                                        <span class="h4 m-0 font-weight-normal">/ month</span>
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    {% if Intermediate_membership.membership_type != 'Free' %}
+                                <p class="text-black-70">Access to over {{ Intermediate_membership.course_set.count }} high quality courses. For individuals.
+                                </p>
+                            </div>
+                            <p class="d-flex justify-content-center align-items-center m-0">
+                                <span class="h4 m-0 font-weight-normal">&dollar;</span>
+                                <span class="h1 m-0 font-weight-normal">{{ Intermediate_membership.price }}</span>
+                                <span class="h4 m-0 font-weight-normal"></span>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            {% if Intermediate_membership.membership_type != 'Free' %}
 
-                                        <form method="post" action="{% url 'memberships:membership_select' %}">
-                                            {% csrf_token %} {% if Intermediate_membership not in current_memberships %}
-                                            <button type="submit" class="btn btn-success">Get started
+                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                {% csrf_token %} {% if Intermediate_membership not in current_memberships %}
+                                <button type="submit" class="btn btn-success">Get started
                                             </button> {% endif %}
-                                            <input type="hidden" name="membership_type"
-                                                   value="{{ Intermediate_membership.membership_type }}">
-                                        </form>
-                                    {% endif %} {% if Intermediate_membership in current_memberships %}
-                                    <a href="{% url 'memberships:profile' %}"
-                                       class="btn btn-outline-secondary text-dark">
+                                <input type="hidden" name="membership_type" value="{{ Intermediate_membership.membership_type }}">
+                            </form>
+                            {% endif %} {% if Intermediate_membership in current_memberships %}
+                            <a href="{% url 'memberships:profile' %}" class="btn btn-outline-secondary text-dark">
                                         Current plan</a> {% endif %}
 
-                                </div>
-                            </div>
                         </div>
-                    {% endif %}
-                    {% if Advanced_membership %}
-                        <div class="col-lg-5 col-sm-5 card-group-row__col">
+                    </div>
+                </div>
+                {% endif %} {% if Advanced_membership %}
+                <div class="col-lg-5 col-sm-5 card-group-row__col">
 
-                            <div class="card card-group-row__card text-center o-hidden card--raised navbar-shadow"
-                                 style="border-radius: 5px;">
+                    <div class="card card-group-row__card text-center o-hidden card--raised navbar-shadow" style="border-radius: 5px;">
 
-                                <div class="card-body d-flex flex-column">
-                                    <div class="flex-grow-1 mb-16pt">
+                        <div class="card-body d-flex flex-column">
+                            <div class="flex-grow-1 mb-16pt">
                                 <span class="w-64 h-64 icon-holder   d-inline-flex mb-16pt">
                                                         <i class="fa fa-person-sign">{{ Advanced_membership.membership_type }}</i>
                                                     </span>
-                                        <p class="text-black-70">Access to
-                                            over {{ Advanced_membership.course_set.count }} high
-                                            quality courses. For individuals.
-                                        </p>
-                                    </div>
-                                    <p class="d-flex justify-content-center align-items-center m-0">
-                                        <span class="h4 m-0 font-weight-normal">&dollar;</span>
-                                        <span class="h1 m-0 font-weight-normal">{{ Advanced_membership.price }}</span>
-                                        <span class="h4 m-0 font-weight-normal">/ month</span>
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    {% if Advanced_membership.membership_type != 'Free' %}
+                                <p class="text-black-70">Access to over {{ Advanced_membership.course_set.count }} high quality courses. For individuals.
+                                </p>
+                            </div>
+                            <p class="d-flex justify-content-center align-items-center m-0">
+                                <span class="h4 m-0 font-weight-normal">&dollar;</span>
+                                <span class="h1 m-0 font-weight-normal">{{ Advanced_membership.price }}</span>
+                                <span class="h4 m-0 font-weight-normal"></span>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            {% if Advanced_membership.membership_type != 'Free' %}
 
-                                        <form method="post" action="{% url 'memberships:membership_select' %}">
-                                            {% csrf_token %} {% if Advanced_membership not in current_memberships %}
-                                            <button type="submit" class="btn btn-success">Get started
+                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                {% csrf_token %} {% if Advanced_membership not in current_memberships %}
+                                <button type="submit" class="btn btn-success">Get started
                                             </button> {% endif %}
-                                            <input type="hidden" name="membership_type"
-                                                   value="{{ Advanced_membership.membership_type }}">
-                                        </form>
-                                    {% endif %} {% if Advanced_membership in current_memberships %}
-                                    <a href="{% url 'memberships:profile' %}"
-                                       class="btn btn-outline-secondary text-dark">
+                                <input type="hidden" name="membership_type" value="{{ Advanced_membership.membership_type }}">
+                            </form>
+                            {% endif %} {% if Advanced_membership in current_memberships %}
+                            <a href="{% url 'memberships:profile' %}" class="btn btn-outline-secondary text-dark">
                                         Current plan</a> {% endif %}
 
-                                </div>
-                            </div>
                         </div>
-                    {% endif %}
-                    {% if Ninja_membership %}
-                        <div class="col-lg-5 col-sm-5 card-group-row__col">
+                    </div>
+                </div>
+                {% endif %} {% if Ninja_membership %}
+                <div class="col-lg-5 col-sm-5 card-group-row__col">
 
-                            <div class="card card-group-row__card text-center o-hidden card--raised navbar-shadow"
-                                 style="border-radius: 5px;">
+                    <div class="card card-group-row__card text-center o-hidden card--raised navbar-shadow" style="border-radius: 5px;">
 
-                                <div class="card-body d-flex flex-column">
-                                    <div class="flex-grow-1 mb-16pt">
+                        <div class="card-body d-flex flex-column">
+                            <div class="flex-grow-1 mb-16pt">
                                 <span class="w-64 h-64 icon-holder   d-inline-flex mb-16pt">
                                                         <i class="fa fa-person-sign">{{ Ninja_membership.membership_type }}</i>
                                                     </span>
-                                        <p class="text-black-70">Access to over {{ Ninja_membership.course_set.count }}
-                                            high
-                                            quality courses. For individuals.
-                                        </p>
-                                    </div>
-                                    <p class="d-flex justify-content-center align-items-center m-0">
-                                        <span class="h4 m-0 font-weight-normal">&dollar;</span>
-                                        <span class="h1 m-0 font-weight-normal">{{ Ninja_membership.price }}</span>
-                                        <span class="h4 m-0 font-weight-normal">/ month</span>
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    {% if Ninja_membership.membership_type != 'Free' %}
+                                <p class="text-black-70">Access to over {{ Ninja_membership.course_set.count }} high quality courses. For individuals.
+                                </p>
+                            </div>
+                            <p class="d-flex justify-content-center align-items-center m-0">
+                                <span class="h4 m-0 font-weight-normal">&dollar;</span>
+                                <span class="h1 m-0 font-weight-normal">{{ Ninja_membership.price }}</span>
+                                <span class="h4 m-0 font-weight-normal"></span>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            {% if Ninja_membership.membership_type != 'Free' %}
 
-                                        <form method="post" action="{% url 'memberships:membership_select' %}">
-                                            {% csrf_token %} {% if Ninja_membership not in current_memberships %}
-                                            <button type="submit" class="btn btn-success">Get started
+                            <form method="post" action="{% url 'memberships:membership_select' %}">
+                                {% csrf_token %} {% if Ninja_membership not in current_memberships %}
+                                <button type="submit" class="btn btn-success">Get started
                                             </button> {% endif %}
-                                            <input type="hidden" name="membership_type"
-                                                   value="{{ Ninja_membership.membership_type }}">
-                                        </form>
-                                    {% endif %} {% if Ninja_membership in current_memberships %}
-                                    <a href="{% url 'memberships:profile' %}"
-                                       class="btn btn-outline-secondary text-dark">
+                                <input type="hidden" name="membership_type" value="{{ Ninja_membership.membership_type }}">
+                            </form>
+                            {% endif %} {% if Ninja_membership in current_memberships %}
+                            <a href="{% url 'memberships:profile' %}" class="btn btn-outline-secondary text-dark">
                                         Current plan</a> {% endif %}
 
-                                </div>
-                            </div>
                         </div>
-                    {% endif %}
-
-
+                    </div>
                 </div>
+                {% endif %}
+
+
             </div>
-
-
-            {% include 'DashBoard/payment/membership-page-nav.html' %}
-
-
         </div>
+
+
+        {% include 'DashBoard/payment/membership-page-nav.html' %}
+
+
     </div>
+</div>
 
 {% endblock %} {% block script %} {% endblock %}
