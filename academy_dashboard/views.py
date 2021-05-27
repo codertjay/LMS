@@ -73,10 +73,9 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
         course_language = self.request.GET.get('course_language', None)
         check_user = user_membership.memberships.filter(slug=course_type)
 
-        if not check_user:
+        if not check_user and not self.request.user.is_superuser:
             messages.info(self.request, 'You dont have access to view this course')
         if course_type:
-            print('checking here', course_type)
             object_list = course.filter(allowed_memberships__slug=course_type)
             if query:
                 object_list = course.filter(
@@ -85,10 +84,7 @@ class StudentCourseTypeView(LoginRequiredMixin, ListView):
                     Q(description__icontains=query)
                 ).distinct()
         if course_language:
-            print('this is the course language', course_language)
             object_list = course.filter(course_language=course_language)
-        else:
-            messages.info(self.request, 'This url does not exist  ')
         return object_list
 
     def get_context_data(self, **kwargs):

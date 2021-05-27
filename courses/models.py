@@ -107,7 +107,7 @@ def create_slug(instance, new_slug=None):
         slug = new_slug
     qs = Course.objects.filter(slug=slug).order_by('-id')
     if qs.exists():
-        new_slug = f'{slug, qs.first().id}'
+        new_slug = f'{slug}{qs.first().id}'
         return create_slug(instance, new_slug=new_slug)
     return slug
 
@@ -168,7 +168,6 @@ class Lesson(models.Model):
         global duration
         try:
             # Todo: change this to url when you try to push the project
-            # duration = video_clip_duration(self.videoURL)
             duration_response = VIMEO_AUTHENTICATE.get(self.video_uri)
             if duration_response:
                 _duration = duration_response.json().get('duration')
@@ -188,7 +187,7 @@ def create_lesson_slug(instance, new_slug=None):
         slug = new_slug
     qs = Lesson.objects.filter(slug=slug).order_by('-id')
     if qs.exists():
-        new_slug = f'{slug, qs.first().id}'
+        new_slug = f'{slug}{qs.first().id}'
         return create_slug(instance, new_slug=new_slug)
     return slug
 
